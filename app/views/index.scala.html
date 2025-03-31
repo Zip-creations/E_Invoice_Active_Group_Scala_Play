@@ -1,0 +1,43 @@
+@(implicit request: RequestHeader)
+@main("E Rechnung erstellen", "main.css"){
+    <div id="invoiceContainer">
+      <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoice">
+        @helper.CSRF.formField
+        <div id="group_INVOICE" class="inputContainer"> <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
+          <div>
+            <label for="InvoiceNumber">Invoice Number:</label>
+            <input type="text" name="InvoiceNumber">
+            <div class="tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Eindeutige Kennung der Rechnung</span>
+            </div>
+          </div>
+          <div>
+            <label for="InvoiceIssueDate">Invoice Issue Date:</label>
+            <input type="date" name="InvoiceIssueDate">
+            <div class="tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Das Datum, an dem die Rechnung ausgestellt wurde</span>
+            </div>
+          </div>
+          <div>
+            <label for="InvoiceTypeCode">Invoice Type Code:</label>
+            <input type="text" name="InvoiceTypeCode">
+            <div class="tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Mögliche Codes: <br>326 (Partial invoice) <br> 380 (Commercial invoice) <br> 384 (Corrected invoice) <br> 389 (Self-billed invoice) <br> 381 (Credit note) <br> 875 (Partial construction invoice) <br> 876 (Partial final construction invoice) <br> 877 (Final construction invoice)</span>
+            </div>
+          </div>
+          <div>
+            <label for="InvoiceCurrencyCode">Invoice Currency Code:</label>
+            <input type="text" name="InvoiceCurrencyCode">
+            <div class="tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.</span>
+            </div>
+          </div>
+        </div>
+        <input type="submit" name="submitInvoice">
+      </form>
+    </div>
+}
