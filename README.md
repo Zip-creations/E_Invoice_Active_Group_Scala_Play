@@ -4,6 +4,6 @@ Benutzung des E-Rechung Tools:
 
 `sbt run`
 
-im Hauptverzeichnis ausführen
+im Hauptverzeichnis ausführen,
 
-Tool ist unter `localhost:9000` ansprechbar
+Tool ist dann unter `localhost:9000` ansprechbar

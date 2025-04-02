@@ -33,28 +33,28 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val inputInvoiceIssueDate = formData.flatMap(_.get("InvoiceIssueDate").flatMap(_.headOption)).getOrElse("")
     
     val xmlData =
-      <CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
-        <ExchangedDocumentContext>
+      <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+        <rsm:ExchangedDocumentContext>
           <ram:BusinessProcessSpecifiedDocumentContextParameter>
             <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
           </ram:BusinessProcessSpecifiedDocumentContextParameter>
           <ram:GuidelineSpecifiedDocumentContextParameter>
             <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
-        </ExchangedDocumentContext>
-        <ExchangedDocument>
+        </rsm:ExchangedDocumentContext>
+        <rsm:ExchangedDocument>
           <ram:ID>{inputInvoiceNumber}</ram:ID>
           <ram:TypeCode>{inputInvoiceTypeCode}</ram:TypeCode>
           <ram:IssueDateTime>
             <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>
           </ram:IssueDateTime>
-        </ExchangedDocument>
-      </CrossIndustryInvoice>
+        </rsm:ExchangedDocument>
+      </rsm:CrossIndustryInvoice>
 
     scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
     val file = new File("./output/outputPrintWriter.xml")
     val writer = new PrintWriter(file)
-    writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ++ xmlData.toString() ++ "\n")
+    writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
     Ok(views.html.index(request))
   }

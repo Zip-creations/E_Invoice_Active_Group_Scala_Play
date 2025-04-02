@@ -8,7 +8,7 @@
 body{
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
     background-color: rgb(50, 50, 50);
     font-size: max(1vw, 18px);
     overflow-x: hidden;
@@ -23,7 +23,7 @@ body>h1{
 
 #invoiceContainer {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 2;
 }
 
 #invoice {
@@ -37,6 +37,22 @@ body>h1{
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 1vw;
+    padding: 7px;
+    border-top: black solid 3px;
+    border-right: black solid 3px;
+    border-left: black solid 3px;
+}
+
+.inputContainer:first-of-type {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.inputContainer:last-of-type {
+    border-bottom: black solid 3px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .inputContainer>div {
