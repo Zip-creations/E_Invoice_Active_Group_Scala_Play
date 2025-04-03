@@ -9,10 +9,10 @@
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID></ram:ID>
-          <ram:TypeCode></ram:TypeCode>
+          <ram:ID>oiuztre</ram:ID>
+          <ram:TypeCode>123</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102"></udt:DateTimeString>
+            <udt:DateTimeString format="102">2025-04-10</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
       </rsm:CrossIndustryInvoice>

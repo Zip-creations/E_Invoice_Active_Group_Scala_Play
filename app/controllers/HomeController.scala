@@ -28,10 +28,60 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def generateEInvoice() = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
-    val inputInvoiceNumber = formData.flatMap(_.get("InvoiceNumber").flatMap(_.headOption)).getOrElse("")
-    val inputInvoiceTypeCode = formData.flatMap(_.get("InvoiceTypeCode").flatMap(_.headOption)).getOrElse("")
-    val inputInvoiceIssueDate = formData.flatMap(_.get("InvoiceIssueDate").flatMap(_.headOption)).getOrElse("")
-    
+    def connectInput = (InputIdentifier: String) =>
+      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
+
+    // group_INVOICE
+    val inputInvoiceNumber = connectInput("InvoiceNumber")
+    val inputInvoiceIssueDate = connectInput("InvoiceIssueDate")
+    val inputInvoiceTypeCode = connectInput("InvoiceTypeCode")
+    val inputInvoiceCurrencyCode = connectInput("InvoiceCurrencyCode")
+    val inputBuyerReference = connectInput("BuyerReference")
+    // group_PROCESS-CONTROL
+    val inputBusinessProcessType = connectInput("BusinessProcessType")
+    val inputSpecificationIdentifier = connectInput("SpecificationIdentifier")
+    // group_SELLER
+    val inputSellerName = connectInput("SellerName")
+    val inputSellerElectronicAddress = connectInput("SellerElectronicAddress")
+    // group_SELLER-POSTAL-ADDRESS
+    val inputSellerCity = connectInput("SellerCity")
+    val inputSellerPostCode = connectInput("SellerPostCode")
+    val inputSellerCountryCode = connectInput("SellerCountryCode")
+    // group_SELLER-CONTACT
+    val inputSellerContactPoint = connectInput("SellerContactPoint")
+    val inputSellerContactTelephoneNumber = connectInput("SellerContactTelephoneNumber")
+    val inputSellerContactEmailAddress = connectInput("SellerContactEmailAddress")
+    // group_BUYER
+    val inputBuyerName = connectInput("BuyerName")
+    val inputBuyerElectronicAddress = connectInput("BuyerElectronicAddress")
+    // group_BUYER-POSTAL-ADDRESS
+    val inputBuyerCity = connectInput("BuyerCity")
+    val inputBuyerPostCode = connectInput("BuyerPostCode")
+    val inputBuyerCountryCode = connectInput("BuyerCountryCode")
+    // group_PAYMENT-INSTRUCTIONS
+    val inputPaymentMeansTypeCode = connectInput("PaymentMeansTypeCode")
+    // group_DOCUMENT-TOTALS
+    val inputSumOfInvoiceLineNetAmount = connectInput("SumOfInvoiceLineNetAmount")
+    val inputInvoiceTotalAmountWithoutVAT = connectInput("InvoiceTotalAmountWithoutVAT")
+    val inputInvoiceTotalAmountWithVAT = connectInput("InvoiceTotalAmountWithVAT")
+    val inputAmountDueForPayment = connectInput("AmountDueForPayment")
+    // group_VAT-BREAKDOWN
+    val inputVATCategoryTaxableAmount = connectInput("VATCategoryTaxableAmount")
+    val inputVATCategoryTaxAmount = connectInput("VATCategoryTaxAmount")
+    val inputVATCategoryCode = connectInput("VATCategoryCode")
+    val inputVATCategoryRate = connectInput("VATCategoryRate")
+    // group_INVOICE-LINE
+    val inputInvoiceLineIdentifier = connectInput("InvoiceLineIdentifier")
+    val inputInvoicedQuantity = connectInput("InvoicedQuantity")
+    val inputInvoicedQuantityUnitOfMeasureCode = connectInput("InvoicedQuantityUnitOfMeasureCode")
+    val inputInvoiceLineNetAmount = connectInput("InvoiceLineNetAmount")
+    // group_PRICE-DETAILS
+    val inputItemNetPrice = connectInput("ItemNetPrice")
+    // group_LINE-VAT-INFORMATION
+    val inputInvoicedItemVATCategoryCode = connectInput("InvoicedItemVATCategoryCode")
+    // group_ITEM-INFORMATION
+    val inputItemName = connectInput("ItemName")
+
     val xmlData =
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
