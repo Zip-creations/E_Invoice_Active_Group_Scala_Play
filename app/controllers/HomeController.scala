@@ -42,6 +42,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val inputSpecificationIdentifier = connectInput("SpecificationIdentifier")
     // group_SELLER
     val inputSellerName = connectInput("SellerName")
+    val inputSellerIdentifier = connectInput("SellerIdentifier")
     val inputSellerElectronicAddress = connectInput("SellerElectronicAddress")
     // group_SELLER-POSTAL-ADDRESS
     val inputSellerCity = connectInput("SellerCity")
@@ -103,12 +104,11 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity>{inputInvoicedQuantity}</ram:BilledQuantity>  // unitCode is missing
+          <ram:BilledQuantity unitCode={inputInvoicedQuantityUnitOfMeasureCode}>{inputInvoicedQuantity}</ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
-          // <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>{inputInvoicedQuantityUnitOfMeasureCode}</ram:CategoryCode>
+            <ram:CategoryCode>{inputInvoicedItemVATCategoryCode}</ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
             <ram:LineTotalAmount>{inputInvoiceLineNetAmount}</ram:LineTotalAmount>
@@ -130,7 +130,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           <ram:ID>{inputInvoiceNumber}</ram:ID>
           <ram:TypeCode>{inputInvoiceTypeCode}</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>  // Check format
+            <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
@@ -138,6 +138,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>{inputBuyerReference}</ram:BuyerReference>
             <ram:SellerTradeParty>
+              <ram:GlobalID schemeID="0088">{inputSellerIdentifier}</ram:GlobalID>
               <ram:Name>{inputSellerName}</ram:Name>
               <ram:DefinedTradeContact>
                 <ram:PersonName>{inputSellerContactPoint}</ram:PersonName>
@@ -169,7 +170,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
               </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
+          <ram:ApplicableHeaderTradeDelivery>
+          </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
+            <ram:InvoiceCurrencyCode>{inputInvoiceCurrencyCode}</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:TypeCode>{inputPaymentMeansTypeCode}</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
