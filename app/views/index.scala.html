@@ -3,7 +3,10 @@
     <div id="invoiceContainer">
       <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoice">
         @helper.CSRF.formField
-        <div id="group_INVOICE" class="inputContainer"> <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
+        <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div id="group_INVOICE" class="inputContainer">
           <div>
             <label for="InvoiceNumber">Invoice Number:</label>
             <input type="text" name="InvoiceNumber" required>
@@ -45,6 +48,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PROCESS-CONTROL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_PROCESS-CONTROL" class="inputContainer">
           <div>
             <label for="BusinessProcessType">Business Process Type:</label>
@@ -64,6 +68,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_SELLER" class="inputContainer">
           <div>
             <label for="SellerName">Seller Name:</label>
@@ -84,6 +89,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_SELLER-POSTAL-ADDRESS" class="inputContainer">
           <div>
             <label for="SellerCity">Seller City:</label>
@@ -110,6 +116,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_SELLER-CONTACT" class="inputContainer">
           <div>
             <label for="SellerContactPoint">Seller Contact Point:</label>
@@ -137,6 +144,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_BUYER" class="inputContainer">
           <div>
             <label for="BuyerName">Buyer Name:</label>
@@ -155,6 +163,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_BUYER-POSTAL-ADDRESS" class="inputContainer">
           <div>
             <label for="BuyerCity">Buyer City:</label>
@@ -181,6 +190,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-INSTRUCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_PAYMENT-INSTRUCTIONS" class="inputContainer">
           <div>
             <label for="PaymentMeansTypeCode">Payment Means Type Code:</label>
@@ -192,6 +202,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DOCUMENT-TOTALS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_DOCUMENT-TOTALS" class="inputContainer">
           <div>
             <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
@@ -226,6 +237,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_VAT-BREAKDOWN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_VAT-BREAKDOWN" class="inputContainer">
           <div>
             <label for="VATCategoryTaxableAmount">VAT Category Taxable Amount:</label>
@@ -261,6 +273,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE-LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_INVOICE-LINE" class="inputContainer">
           <div>
             <label for="InvoiceLineIdentifier">Invoice Line Identifier:</label>
@@ -296,6 +309,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_PRICE-DETAILS" class="inputContainer">
           <div>
             <label for="ItemNetPrice">Item Net Price:</label>
@@ -306,6 +320,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_LINE-VAT-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_LINE-VAT-INFORMATION" class="inputContainer">
           <div>
             <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
@@ -316,6 +331,7 @@
             </div>
           </div>
         </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_ITEM-INFORMATION" class="inputContainer">
           <div>
             <label for="ItemName">Item Name:</label>

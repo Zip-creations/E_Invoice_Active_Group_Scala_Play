@@ -9,10 +9,35 @@
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID>oiuztre</ram:ID>
-          <ram:TypeCode>123</ram:TypeCode>
+          <ram:ID>qwertz</ram:ID>
+          <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">2025-04-10</udt:DateTimeString>
+            <udt:DateTimeString format="102"></udt:DateTimeString>  // Check format
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
+        <rsm:SupplyChainTradeTransaction>
+        // This part need to be replicated for every Rechnungsposition:
+          <ram:IncludedSupplyChainTradeLineItem>
+            <ram:AssociatedDocumentLineDocument>
+              <ram:LineID></ram:LineID>
+            </ram:AssociatedDocumentLineDocument>
+            <ram:SpecifiedTradeProduct>
+              <ram:Name></ram:Name>
+            </ram:SpecifiedTradeProduct>
+            <ram:SpecifiedLineTradeAgreement>
+              <ram:NetPriceProductTradePrice>
+                <ram:ChargeAmount></ram:ChargeAmount>
+              </ram:NetPriceProductTradePrice>
+            </ram:SpecifiedLineTradeAgreement>
+            <ram:SpecifiedLineTradeDelivery>
+              <ram:BilledQuantity></ram:BilledQuantity>  // unitCode is missing
+            </ram:SpecifiedLineTradeDelivery>
+            <ram:SpecifiedLineTradeSettlement>
+            </ram:SpecifiedLineTradeSettlement>
+          </ram:IncludedSupplyChainTradeLineItem>
+        // END of Rechungsposition
+        </rsm:SupplyChainTradeTransaction>
+        <ram:AssociatedDocumentLineDocument>
+        <ram:LineID></ram:LineID>
+      </ram:AssociatedDocumentLineDocument>
       </rsm:CrossIndustryInvoice>

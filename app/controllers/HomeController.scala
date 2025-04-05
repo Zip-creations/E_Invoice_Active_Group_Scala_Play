@@ -29,7 +29,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   def generateEInvoice() = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
     def connectInput = (InputIdentifier: String) =>
-      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
+      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("An Error Occured")
 
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
@@ -82,6 +82,26 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // group_ITEM-INFORMATION
     val inputItemName = connectInput("ItemName")
 
+    val xmlDataInvoicePosition = 
+      <ram:IncludedSupplyChainTradeLineItem>
+        <ram:AssociatedDocumentLineDocument>
+          <ram:LineID>{inputInvoiceLineIdentifier}</ram:LineID>
+        </ram:AssociatedDocumentLineDocument>
+        <ram:SpecifiedTradeProduct>
+          <ram:Name>{inputItemName}</ram:Name>
+        </ram:SpecifiedTradeProduct>
+        <ram:SpecifiedLineTradeAgreement>
+          <ram:NetPriceProductTradePrice>
+            <ram:ChargeAmount>{inputItemNetPrice}</ram:ChargeAmount>
+          </ram:NetPriceProductTradePrice>
+        </ram:SpecifiedLineTradeAgreement>
+        <ram:SpecifiedLineTradeDelivery>
+          <ram:BilledQuantity>{inputInvoicedQuantity}</ram:BilledQuantity>  // unitCode is missing
+        </ram:SpecifiedLineTradeDelivery>
+        <ram:SpecifiedLineTradeSettlement>
+        </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+
     val xmlData =
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
@@ -96,9 +116,14 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           <ram:ID>{inputInvoiceNumber}</ram:ID>
           <ram:TypeCode>{inputInvoiceTypeCode}</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>
+            <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>  // Check format
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
+        <rsm:SupplyChainTradeTransaction>
+        // This part need to be replicated for every Rechnungsposition:
+          {xmlDataInvoicePosition}
+        // END of Rechungsposition
+        </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
     scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
