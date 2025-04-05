@@ -29,7 +29,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   def generateEInvoice() = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
     def connectInput = (InputIdentifier: String) =>
-      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("An Error Occured")
+      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
 
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
@@ -82,6 +82,13 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // group_ITEM-INFORMATION
     val inputItemName = connectInput("ItemName")
 
+
+    val xmlDataPositionTax =
+      <ram:ApplicableTradeTax>
+        <ram:CategoryCode>{inputVATCategoryCode}</ram:CategoryCode>
+        <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+
     val xmlDataInvoicePosition = 
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
@@ -99,6 +106,13 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           <ram:BilledQuantity>{inputInvoicedQuantity}</ram:BilledQuantity>  // unitCode is missing
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
+          <ram:ApplicableTradeTax>
+          // <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:CategoryCode>{inputInvoicedQuantityUnitOfMeasureCode}</ram:CategoryCode>
+          </ram:ApplicableTradeTax>
+          <ram:SpecifiedTradeSettlementLineMonetarySummation>
+            <ram:LineTotalAmount>{inputInvoiceLineNetAmount}</ram:LineTotalAmount>
+          </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
 
@@ -120,9 +134,53 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
-        // This part need to be replicated for every Rechnungsposition:
-          {xmlDataInvoicePosition}
-        // END of Rechungsposition
+          {xmlDataInvoicePosition}  // This part need to be repeated for every Invoice Position
+          <ram:ApplicableHeaderTradeAgreement>
+            <ram:BuyerReference>{inputBuyerReference}</ram:BuyerReference>
+            <ram:SellerTradeParty>
+              <ram:Name>{inputSellerName}</ram:Name>
+              <ram:DefinedTradeContact>
+                <ram:PersonName>{inputSellerContactPoint}</ram:PersonName>
+                <ram:TelephoneUniversalCommunication>
+                  <ram:CompleteNumber>{inputSellerContactTelephoneNumber}</ram:CompleteNumber>
+                </ram:TelephoneUniversalCommunication>
+                <ram:EmailURIUniversalCommunication>
+                  <ram:URIID>{inputSellerContactEmailAddress}</ram:URIID>
+                </ram:EmailURIUniversalCommunication>
+              </ram:DefinedTradeContact>
+              <ram:PostalTradeAddress>
+                <ram:PostcodeCode>{inputSellerPostCode}</ram:PostcodeCode>
+                <ram:CityName>{inputSellerCity}</ram:CityName>
+                <ram:CountryID>{inputSellerCountryCode}</ram:CountryID>
+              </ram:PostalTradeAddress>
+              <ram:URIUniversalCommunication>
+                <ram:URIID schemeID="EM">{inputSellerElectronicAddress}</ram:URIID>
+              </ram:URIUniversalCommunication>
+            </ram:SellerTradeParty>
+            <ram:BuyerTradeParty>
+              <ram:Name>{inputBuyerName}</ram:Name>
+              <ram:PostalTradeAddress>
+                <ram:PostcodeCode>{inputBuyerPostCode}</ram:PostcodeCode>
+                <ram:CityName>{inputBuyerCity}</ram:CityName>
+                <ram:CountryID>{inputBuyerCountryCode}</ram:CountryID>
+              </ram:PostalTradeAddress>
+              <ram:URIUniversalCommunication>
+                <ram:URIID schemeID="EM">{inputBuyerElectronicAddress}</ram:URIID>
+              </ram:URIUniversalCommunication>
+            </ram:BuyerTradeParty>
+          </ram:ApplicableHeaderTradeAgreement>
+          <ram:ApplicableHeaderTradeSettlement>
+            <ram:SpecifiedTradeSettlementPaymentMeans>
+              <ram:TypeCode>{inputPaymentMeansTypeCode}</ram:TypeCode>
+            </ram:SpecifiedTradeSettlementPaymentMeans>
+            {xmlDataPositionTax}
+            <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+              <ram:LineTotalAmount>{inputSumOfInvoiceLineNetAmount}</ram:LineTotalAmount>
+              <ram:TaxBasisTotalAmount>{inputInvoiceTotalAmountWithoutVAT}</ram:TaxBasisTotalAmount>
+              <ram:GrandTotalAmount>{inputInvoiceTotalAmountWithVAT}</ram:GrandTotalAmount>
+              <ram:DuePayableAmount>{inputAmountDueForPayment}</ram:DuePayableAmount>
+            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+          </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
