@@ -33,7 +33,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
-    val inputInvoiceIssueDate = connectInput("InvoiceIssueDate")
+    val inputInvoiceIssueDateTemp = connectInput("InvoiceIssueDate")
+    val inputInvoiceIssueDate = inputInvoiceIssueDateTemp.replace("-", "")
     val inputInvoiceTypeCode = connectInput("InvoiceTypeCode")
     val inputInvoiceCurrencyCode = connectInput("InvoiceCurrencyCode")
     val inputBuyerReference = connectInput("BuyerReference")
@@ -71,6 +72,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val inputVATCategoryTaxAmount = connectInput("VATCategoryTaxAmount")
     val inputVATCategoryCode = connectInput("VATCategoryCode")
     val inputVATCategoryRate = connectInput("VATCategoryRate")
+    val inputVATExemptionReasonText = connectInput("VATExemptionReasonText")
     // group_INVOICE-LINE
     val inputInvoiceLineIdentifier = connectInput("InvoiceLineIdentifier")
     val inputInvoicedQuantity = connectInput("InvoicedQuantity")
@@ -84,13 +86,17 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val inputItemName = connectInput("ItemName")
 
 
-    val xmlDataPositionTax =
+    val xmlDataPositionTax =  // This part need to be repeated for every Invoice Position. Check how to find out Typecode
       <ram:ApplicableTradeTax>
+        <ram:CalculatedAmount>{inputVATCategoryTaxAmount}</ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:ExemptionReason>{inputVATExemptionReasonText}</ram:ExemptionReason>
+        <ram:BasisAmount>{inputVATCategoryTaxableAmount}</ram:BasisAmount>
         <ram:CategoryCode>{inputVATCategoryCode}</ram:CategoryCode>
         <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
 
-    val xmlDataInvoicePosition = 
+    val xmlDataInvoicePosition =   // This part need to be repeated for every Invoice Position. Check how to find out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>{inputInvoiceLineIdentifier}</ram:LineID>
@@ -108,6 +114,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
+            <ram:TypeCode>VAT</ram:TypeCode>
             <ram:CategoryCode>{inputInvoicedItemVATCategoryCode}</ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
@@ -120,10 +127,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
           <ram:BusinessProcessSpecifiedDocumentContextParameter>
-            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>  // inputBusinessProcessType / BT-23
           </ram:BusinessProcessSpecifiedDocumentContextParameter>
           <ram:GuidelineSpecifiedDocumentContextParameter>
-            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>  // inputSpecificationIdentifier / BT-24
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
@@ -134,7 +141,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
-          {xmlDataInvoicePosition}  // This part need to be repeated for every Invoice Position
+          {xmlDataInvoicePosition}
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>{inputBuyerReference}</ram:BuyerReference>
             <ram:SellerTradeParty>

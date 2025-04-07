@@ -1,95 +1,97 @@
 <rsm:CrossIndustryInvoice xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100">
         <rsm:ExchangedDocumentContext>
           <ram:BusinessProcessSpecifiedDocumentContextParameter>
-            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>  // inputBusinessProcessType / BT-23
           </ram:BusinessProcessSpecifiedDocumentContextParameter>
           <ram:GuidelineSpecifiedDocumentContextParameter>
-            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>  // inputSpecificationIdentifier / BT-24
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID>0</ram:ID>
-          <ram:TypeCode>1</ram:TypeCode>
+          <ram:ID>s</ram:ID>
+          <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">2025-04-05</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250403</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID></ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
-          <ram:Name>0</ram:Name>
+          <ram:Name></ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
+            <ram:ChargeAmount></ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
+          <ram:BilledQuantity unitCode=""></ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
-            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:CategoryCode></ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
+            <ram:LineTotalAmount></ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem>  // This part need to be repeated for every Invoice Position
+      </ram:IncludedSupplyChainTradeLineItem>
           <ram:ApplicableHeaderTradeAgreement>
-            <ram:BuyerReference>0</ram:BuyerReference>
+            <ram:BuyerReference></ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088">0</ram:GlobalID>
-              <ram:Name>0</ram:Name>
+              <ram:GlobalID schemeID="0088"></ram:GlobalID>
+              <ram:Name></ram:Name>
               <ram:DefinedTradeContact>
-                <ram:PersonName>0</ram:PersonName>
+                <ram:PersonName></ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>0</ram:CompleteNumber>
+                  <ram:CompleteNumber></ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>0</ram:URIID>
+                  <ram:URIID></ram:URIID>
                 </ram:EmailURIUniversalCommunication>
               </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode>0</ram:PostcodeCode>
-                <ram:CityName>0</ram:CityName>
-                <ram:CountryID>DE</ram:CountryID>
+                <ram:PostcodeCode></ram:PostcodeCode>
+                <ram:CityName></ram:CityName>
+                <ram:CountryID></ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0</ram:URIID>
+                <ram:URIID schemeID="EM"></ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-              <ram:Name>0</ram:Name>
+              <ram:Name></ram:Name>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode>0</ram:PostcodeCode>
-                <ram:CityName>0</ram:CityName>
-                <ram:CountryID>DE</ram:CountryID>
+                <ram:PostcodeCode></ram:PostcodeCode>
+                <ram:CityName></ram:CityName>
+                <ram:CountryID></ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0</ram:URIID>
+                <ram:URIID schemeID="EM"></ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode></ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode>0</ram:TypeCode>
+              <ram:TypeCode></ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
             <ram:ApplicableTradeTax>
-        <ram:CategoryCode>S</ram:CategoryCode>
-        <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
+        <ram:CalculatedAmount></ram:CalculatedAmount>
+        <ram:BasisAmount></ram:BasisAmount>
+        <ram:CategoryCode></ram:CategoryCode>
+        <ram:RateApplicablePercent></ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>0</ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
-              <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
-              <ram:DuePayableAmount>0</ram:DuePayableAmount>
+              <ram:LineTotalAmount></ram:LineTotalAmount>
+              <ram:TaxBasisTotalAmount></ram:TaxBasisTotalAmount>
+              <ram:GrandTotalAmount></ram:GrandTotalAmount>
+              <ram:DuePayableAmount></ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
