@@ -6,4 +6,6 @@ Benutzung des E-Rechung Tools:
 
 im Hauptverzeichnis ausführen,
 
-Tool ist dann unter `localhost:9000` ansprechbar
+Tool ist dann unter `localhost:9000` ansprechbar.
+
+Ein Minumum Working Example, welches alle Tests des OpenToolBox-Validators besteht (Warnings werden bislang ignoriert), ist unter [(exampleInvoices/Minimum%20working%20example.xml](exampleInvoices/Minimum%20working%20example.xml) zu finden
