@@ -1,7 +1,7 @@
 @(implicit request: RequestHeader)
 @main("E Rechnung erstellen", "main.css"){
     <div id="invoiceContainer">
-      <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoice">
+      <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoice" target="_blank">
         @helper.CSRF.formField
         <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
 
@@ -9,7 +9,7 @@
         <div id="group_INVOICE" class="inputContainer">
           <div>
             <label for="InvoiceNumber">Invoice Number:</label>
-            <input type="text" name="InvoiceNumber" required>
+            <input type="text" name="InvoiceNumber">
             <div class="tooltip">
               <i class="fa-solid fa-circle-info"></i>
               <span>Eindeutige Kennung der Rechnung</span>

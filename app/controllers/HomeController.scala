@@ -3,6 +3,7 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import scala.sys.process._
 
 import java.io.{File, PrintWriter}
 import scala.xml.XML
@@ -200,6 +201,11 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val writer = new PrintWriter(file)
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
-    Ok(views.html.index(request))
+    // "java \"-Dlog4j2.configurationFile=./Toolbox2/resources/log4j2.xml\" -jar Toolbox/OpenXRechnungToolbox.jar -val -i ./output/outputPrintWriter.xml -o testreport1.html -v 3.0.2".!
+
+    val directory = new File("Toolbox")
+    val command = "cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i ../output/outputPrintWriter.xml -o ../app/views/validation_reports/report1.scala.html -v 3.0.2"
+    Process(command, directory).!
+    Ok(views.html.validation_reports.report1())
   }
 }

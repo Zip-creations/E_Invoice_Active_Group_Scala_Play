@@ -8,10 +8,10 @@
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID>s</ram:ID>
+          <ram:ID>gukgku</ram:ID>
           <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250403</udt:DateTimeString>
+            <udt:DateTimeString format="102"></udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
@@ -32,6 +32,7 @@
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
+            <ram:TypeCode>VAT</ram:TypeCode>
             <ram:CategoryCode></ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
@@ -83,6 +84,8 @@
             </ram:SpecifiedTradeSettlementPaymentMeans>
             <ram:ApplicableTradeTax>
         <ram:CalculatedAmount></ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:ExemptionReason></ram:ExemptionReason>
         <ram:BasisAmount></ram:BasisAmount>
         <ram:CategoryCode></ram:CategoryCode>
         <ram:RateApplicablePercent></ram:RateApplicablePercent>
