@@ -1,12 +1,2 @@
-2025-03-27-14:57:21 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "CrossIndustryInvoice" kann nicht gefunden werden.
-2025-03-27-14:57:21 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-11:53:32 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-11:53:32 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-12:12:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-12:12:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-12:12:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "CrossIndustryInvoice" kann nicht gefunden werden.
-2025-04-02-12:12:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:183) | Kein passendes Schema gefunden.
-2025-04-02-12:12:45 | ERROR | org.oxt.toolbox.helpers.CustomDropTargetAdapter (CustomDropTargetAdapter.java:66) | Kein passendes Schema gefunden.
-2025-04-05-19:06:46 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
 2025-04-05-19:06:46 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
 
