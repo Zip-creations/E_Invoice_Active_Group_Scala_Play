@@ -197,14 +197,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
+    // Paths
     val invoiceName = s"eInvoice_$inputInvoiceNumber"
     val invoicePath = s"./output/$invoiceName.xml"
     val reportPath = s"app/views/validation_reports/${invoiceName}_validation.html"
-    // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
-
+    
     val writer = new PrintWriter(new File(invoicePath))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
+    // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
 
     // Call the .jar from the Toolbox, create and store report as .html
     val directory = new File("Toolbox")
