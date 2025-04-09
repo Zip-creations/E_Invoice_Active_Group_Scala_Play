@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import scala.concurrent.ExecutionContext
 import play.api._
 import play.api.mvc._
 import scala.sys.process._
@@ -13,9 +14,7 @@ import scala.xml.XML
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
-@Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
-
+class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
   /**
    * Create an Action to render an HTML page.
    * The configuration in the `routes` file means that this method
@@ -87,7 +86,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val inputItemName = connectInput("ItemName")
 
 
-    val xmlDataPositionTax =  // This part need to be repeated for every Invoice Position. Check how to find out Typecode
+    val xmlDataPositionTax =  // This part need to be repeated for every Invoice Position. Check how to set out Typecode
       <ram:ApplicableTradeTax>
         <ram:CalculatedAmount>{inputVATCategoryTaxAmount}</ram:CalculatedAmount>
         <ram:TypeCode>VAT</ram:TypeCode>
@@ -97,7 +96,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
         <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
 
-    val xmlDataInvoicePosition =   // This part need to be repeated for every Invoice Position. Check how to find out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    val xmlDataInvoicePosition =   // This part need to be repeated for every Invoice Position. Check how to set out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>{inputInvoiceLineIdentifier}</ram:LineID>
@@ -128,10 +127,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
           <ram:BusinessProcessSpecifiedDocumentContextParameter>
-            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>  // inputBusinessProcessType / BT-23
+            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
           </ram:BusinessProcessSpecifiedDocumentContextParameter>
           <ram:GuidelineSpecifiedDocumentContextParameter>
-            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>  // inputSpecificationIdentifier / BT-24
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
@@ -196,16 +195,18 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
-    scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
-    val file = new File("./output/outputPrintWriter.xml")
+    val documentPath = s"./output/eInvoice_$inputInvoiceNumber.xml"
+    // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
+    val file = new File(documentPath)
     val writer = new PrintWriter(file)
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
     // "java \"-Dlog4j2.configurationFile=./Toolbox2/resources/log4j2.xml\" -jar Toolbox/OpenXRechnungToolbox.jar -val -i ./output/outputPrintWriter.xml -o testreport1.html -v 3.0.2".!
 
     val directory = new File("Toolbox")
-    val command = "cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i ../output/outputPrintWriter.xml -o ../app/views/validation_reports/report1.scala.html -v 3.0.2"
+    val command = s"cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$documentPath -o ../app/views/validation_reports/report1.html -v 3.0.2"
     Process(command, directory).!
-    Ok(views.html.validation_reports.report1())
+    //println("Arbeitsverzeichnis: " + new java.io.File(".").getAbsolutePath)
+    Ok.sendFile(new java.io.File("app/views/validation_reports/report1.html"))
   }
 }

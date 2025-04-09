@@ -25,10 +25,19 @@
           </div>
           <div>
             <label for="InvoiceTypeCode">Invoice Type Code:</label>
-            <input type="text" name="InvoiceTypeCode">
+            <select name="InvoiceTypeCode">
+              <option value="326">326 (Partial invoice)</option>
+              <option value="380">380 (Commercial invoice)</option>
+              <option value="384">384 (Corrected invoice)</option>
+              <option value="381">381 (Credit note)</option>
+              <option value="389">389 (Self-billed invoice)</option>
+              <option value="875">875 (Partial construction invoice)</option>
+              <option value="876">876 (Partial final construction invoice)</option>
+              <option value="3877">877 (Final construction invoice)</option>
+            </select>
             <div class="tooltip">
               <i class="fa-solid fa-circle-info"></i>
-              <span>Mögliche Codes: <br>326 (Partial invoice) <br> 380 (Commercial invoice) <br> 384 (Corrected invoice) <br> 389 (Self-billed invoice) <br> 381 (Credit note) <br> 875 (Partial construction invoice) <br> 876 (Partial final construction invoice) <br> 877 (Final construction invoice)</span>
+              <span>Ein Code, der den Funktionstyp der Rechnung angibt.</span>
             </div>
           </div>
           <div>

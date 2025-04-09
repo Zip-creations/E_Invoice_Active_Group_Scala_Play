@@ -60,7 +60,7 @@ body>h1{
     gap: 5px;
 }
 
-input {
+input, select {
     border-radius: 5px;
     border-width: 3px;
     border-color: rgb(50, 50, 50);
