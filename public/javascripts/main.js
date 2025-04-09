@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var calendars = document.getElementsByName("InvoiceIssueDate");
-    calendars.forEach(function (calendar) {
-        calendar.setAttribute("min", new Date().toISOString().split("T")[0]);
-        calendar.setAttribute("max", new Date().toISOString().split("T")[0]);
+    var invoiceDateInput = document.getElementsByName("InvoiceIssueDate");
+    invoiceDateInput.forEach(function (invoiceDateInput) {
+        invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
     });
 });

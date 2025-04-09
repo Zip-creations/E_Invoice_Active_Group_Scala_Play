@@ -13,7 +13,6 @@ Tool ist dann unter `localhost:9000` ansprechbar.
 Ein Minumum Working Example, welches alle Tests des OpenToolBox-Validators besteht, kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden:
 
 document.querySelector('[name="InvoiceNumber"]').value = "lalatest123";\
-document.querySelector('[name="InvoiceIssueDate"]').value = "2000-01-01";\
 document.querySelector('[name="InvoiceTypeCode"]').value = "380";\
 document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
 document.querySelector('[name="BuyerReference"]').value = "0";\
