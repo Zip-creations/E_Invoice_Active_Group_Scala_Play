@@ -10,7 +10,7 @@ im Hauptverzeichnis ausführen,
 
 Tool ist dann unter `localhost:9000` ansprechbar.
 
-Ein Minumum Working Example, welches alle Tests des OpenToolBox-Validators besteht, kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefüht werden:
+Ein Minumum Working Example, welches alle Tests des OpenToolBox-Validators besteht, kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden:
 
 document.querySelector('[name="InvoiceNumber"]').value = "lalatest123";\
 document.querySelector('[name="InvoiceIssueDate"]').value = "2000-01-01";\
@@ -49,4 +49,4 @@ document.querySelector('[name="InvoicedQuantityUnitOfMeasureCode"]').value = "H8
 document.querySelector('[name="InvoiceLineNetAmount"]').value = "0";\
 document.querySelector('[name="ItemNetPrice"]').value = "0";\
 document.querySelector('[name="InvoicedItemVATCategoryCode"]').value = "O";\
-document.querySelector('[name="ItemName"]').value = "0";\
+document.querySelector('[name="ItemName"]').value = "0";
