@@ -31,6 +31,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
 
+    // Connect all Inputs from the html form
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
     val inputInvoiceIssueDateTemp = connectInput("InvoiceIssueDate")
@@ -85,8 +86,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // group_ITEM-INFORMATION
     val inputItemName = connectInput("ItemName")
 
-
-    val xmlDataPositionTax =  // This part need to be repeated for every Invoice Position. Check how to set out Typecode
+    // This part need to be repeated for every Invoice Position. Check how to set out Typecode
+    val xmlDataPositionTax =  
       <ram:ApplicableTradeTax>
         <ram:CalculatedAmount>{inputVATCategoryTaxAmount}</ram:CalculatedAmount>
         <ram:TypeCode>VAT</ram:TypeCode>
@@ -96,7 +97,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
 
-    val xmlDataInvoicePosition =   // This part need to be repeated for every Invoice Position. Check how to set out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    // This part need to be repeated for every Invoice Position. Check how to set out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    val xmlDataInvoicePosition =   
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>{inputInvoiceLineIdentifier}</ram:LineID>
@@ -195,18 +197,19 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
-    val documentPath = s"./output/eInvoice_$inputInvoiceNumber.xml"
+    val invoiceName = s"eInvoice_$inputInvoiceNumber"
+    val invoicePath = s"./output/$invoiceName.xml"
+    val reportPath = s"app/views/validation_reports/${invoiceName}_validation.html"
     // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
-    val file = new File(documentPath)
-    val writer = new PrintWriter(file)
+
+    val writer = new PrintWriter(new File(invoicePath))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
-    // "java \"-Dlog4j2.configurationFile=./Toolbox2/resources/log4j2.xml\" -jar Toolbox/OpenXRechnungToolbox.jar -val -i ./output/outputPrintWriter.xml -o testreport1.html -v 3.0.2".!
 
+    // Call the .jar from the Toolbox, create and store report as .html
     val directory = new File("Toolbox")
-    val command = s"cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$documentPath -o ../app/views/validation_reports/report1.html -v 3.0.2"
+    val command = s"cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePath -o ../$reportPath -v 3.0.2"
     Process(command, directory).!
-    //println("Arbeitsverzeichnis: " + new java.io.File(".").getAbsolutePath)
-    Ok.sendFile(new java.io.File("app/views/validation_reports/report1.html"))
+    Ok.sendFile(new java.io.File(reportPath))
   }
 }
