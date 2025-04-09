@@ -24,21 +24,18 @@ body{
     justify-content: space-between;
     gap: 1vw;
     padding: 7px;
-    border-top: black solid 3px;
-    border-right: black solid 3px;
-    border-left: black solid 3px;
+    margin-top: 20px;
+    border: black solid 3px;
+    border-radius: 5px;
+    background-color: rgb(110, 110, 110);
 }
 
 .inputContainer:first-of-type {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    margin-top: 0px;
 }
 
 .inputContainer:last-of-type {
-    border-bottom: black solid 3px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .inputContainer>div{
@@ -46,19 +43,9 @@ body{
     gap: 5px;
 }
 
-.outerInputContainer {
-    border-bottom: black solid 3px;
-    margin-bottom: -3px;
-    z-index: 0;
-}
-
 .innerInputContainer {
-    border-top: 0px;
-    border-top: rgb(100, 100, 100) solid 3px;
-    border-right: black solid 3px;
-    border-left: black solid 3px;    
-    margin-left: 10px;
-    margin-right: 10px;
+    border-top: rgb(85, 85, 85) solid 3px;
+    margin-top: -3px;
 }
 
 input, select {
