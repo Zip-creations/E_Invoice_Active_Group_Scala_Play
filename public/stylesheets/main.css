@@ -19,12 +19,9 @@ body{
 }
 
 .inputContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1vw;
     padding: 7px;
     margin-top: 20px;
+    
     border: black solid 3px;
     border-radius: 5px;
     background-color: rgb(110, 110, 110);
@@ -38,20 +35,33 @@ body{
     margin-bottom: 20px;
 }
 
-.inputContainer>div{
+.inputContainer>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border-bottom: rgb(85, 85, 85) solid 3px;
+}
+
+.inputContainer>div:last-child {
+    border-bottom: 0px;
+}
+
+.inputContainer>div>div{
     display: flex;
     gap: 5px;
+    padding: 3px;
 }
 
-.innerInputContainer {
-    border-top: rgb(85, 85, 85) solid 3px;
-    margin-top: -3px;
-}
-
-input, select {
+input, select, button {
     border-radius: 5px;
     border-width: 3px;
     border-color: rgb(50, 50, 50);
+}
+
+select>option:first-child {
+    display: none;
 }
 
 input:focus {

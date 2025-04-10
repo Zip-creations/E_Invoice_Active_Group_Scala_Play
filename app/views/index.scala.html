@@ -6,369 +6,315 @@
         <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_INVOICE" class="inputContainer">
-          <div>
-            <label for="InvoiceNumber">Invoice Number:</label>
-            <input type="text" name="InvoiceNumber">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Eindeutige Kennung der Rechnung</span>
+        <div class="inputContainer">
+          <div id="group_INVOICE">
+            <div>
+              <label for="InvoiceNumber">Invoice Number:</label>
+              <input type="text" name="InvoiceNumber">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eindeutige Kennung der Rechnung</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoiceIssueDate">Invoice Issue Date:</label>
+              <input type="date" name="InvoiceIssueDate" readonly>
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Das Datum, an dem die Rechnung ausgestellt wurde</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoiceTypeCode">Invoice Type Code:</label>
+              <select name="InvoiceTypeCode">
+                <option disabled selected> -- select a code -- </option>
+                <option value="326">326 (Partial invoice)</option>
+                <option value="380">380 (Commercial invoice)</option>
+                <option value="381">381 (Credit note)</option>
+                <option value="384">384 (Corrected invoice)</option>
+                <option value="389">389 (Self-billed invoice)</option>
+                <option value="875">875 (Partial construction invoice)</option>
+                <option value="876">876 (Partial final construction invoice)</option>
+                <option value="3877">877 (Final construction invoice)</option>
+              </select>
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code, der den Funktionstyp der Rechnung angibt.</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoiceCurrencyCode">Invoice Currency Code:</label>
+              <input type="text" name="InvoiceCurrencyCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerReference">Buyer Reference:</label>
+              <input type="text" name="BuyerReference">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.</span>
+              </div>
             </div>
           </div>
-          <div>
-            <label for="InvoiceIssueDate">Invoice Issue Date:</label>
-            <input type="date" name="InvoiceIssueDate" readonly>
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Das Datum, an dem die Rechnung ausgestellt wurde</span>
-            </div>
-          </div>
-          <div>
-            <label for="InvoiceTypeCode">Invoice Type Code:</label>
-            <select name="InvoiceTypeCode">
-              <option disabled selected> -- select a code -- </option>
-              <option value="326">326 (Partial invoice)</option>
-              <option value="380">380 (Commercial invoice)</option>
-              <option value="381">381 (Credit note)</option>
-              <option value="384">384 (Corrected invoice)</option>
-              <option value="389">389 (Self-billed invoice)</option>
-              <option value="875">875 (Partial construction invoice)</option>
-              <option value="876">876 (Partial final construction invoice)</option>
-              <option value="3877">877 (Final construction invoice)</option>
-            </select>
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Ein Code, der den Funktionstyp der Rechnung angibt.</span>
-            </div>
-          </div>
-          <div>
-            <label for="InvoiceCurrencyCode">Invoice Currency Code:</label>
-            <input type="text" name="InvoiceCurrencyCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.</span>
-            </div>
-          </div>
-          <div>
-            <label for="BuyerReference">Buyer Reference:</label>
-            <input type="text" name="BuyerReference">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.</span>
-            </div>
-          </div>
-        </div>
+        </div>  
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PROCESS-CONTROL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_PROCESS-CONTROL" class="inputContainer">
-          <div>
-            <label for="BusinessProcessType">Business Process Type:</label>
-            <input type="text" name="BusinessProcessType">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Identifiziert den Kontext des Geschäftsprozesses, in dem die Transaktion erfolgt.</span>
+        <div class="inputContainer">
+          <div id="group_PROCESS-CONTROL">
+            <div>
+              <label for="BusinessProcessType">Business Process Type:</label>
+              <input type="text" name="BusinessProcessType">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Identifiziert den Kontext des Geschäftsprozesses, in dem die Transaktion erfolgt.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="SpecificationIdentifier">Specification Identifier:</label>
-            <input type="text" name="SpecificationIdentifier">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Eine Kennung der Spezifikation, die das gesamte Regelwerk zum semantischen Inhalt, zu den Kardinalitäten und
-                den Geschäftsregeln enthält, dem die in der Rechnung enthaltenen Daten entsprechen.</span>
+            <div>
+              <label for="SpecificationIdentifier">Specification Identifier:</label>
+              <input type="text" name="SpecificationIdentifier">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine Kennung der Spezifikation, die das gesamte Regelwerk zum semantischen Inhalt, zu den Kardinalitäten und
+                  den Geschäftsregeln enthält, dem die in der Rechnung enthaltenen Daten entsprechen.</span>
+              </div>
             </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_SELLER" class="inputContainer outerInputContainer">
-          <div>
-            <label for="SellerName">Seller Name:</label>
-            <input type="text" name="SellerName">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
-                pflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).</span>
+        <div class="inputContainer">
+          <div id="group_SELLER">
+            <div>
+              <label for="SellerName">Seller Name:</label>
+              <input type="text" name="SellerName">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
+                  pflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).</span>
+              </div>
+            </div>
+            <div>
+              <label for="SellerIdentifier">Seller Identifier:</label>
+              <input type="text" name="SellerIdentifier">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
+                  pflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).</span>
+              </div>
+            </div>
+            <div>
+              <label for="SellerElectronicAddress">Seller Electronic Address:</label>
+              <input type="text" name="SellerElectronicAddress">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung
+                  gesendet werden kann.</span>
+              </div>
             </div>
           </div>
-          <div>
-            <label for="SellerIdentifier">Seller Identifier:</label>
-            <input type="text" name="SellerIdentifier">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
-                pflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).</span>
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <div id="group_SELLER-POSTAL-ADDRESS">
+            <div>
+              <label for="SellerCity">Seller City:</label>
+              <input type="text" name="SellerCity">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.</span>
+              </div>
+            </div>
+            <div>
+              <label for="SellerPostCode">Seller Post Code:</label>
+              <input type="text" name="SellerPostCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Postleitzahl.</span>
+              </div>
+            </div>
+            <div>
+              <label for="SellerCountryCode">Seller Country Code:</label>
+              <input type="text" name="SellerCountryCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code, mit dem das Land bezeichnet wird.</span>
+              </div>
             </div>
           </div>
-          <div>
-            <label for="SellerElectronicAddress">Seller Electronic Address:</label>
-            <input type="text" name="SellerElectronicAddress">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung
-                gesendet werden kann.</span>
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <div id="group_SELLER-CONTACT">
+            <div>
+              <label for="SellerContactPoint">Seller Contact Point:</label>
+              <input type="text" name="SellerContactPoint">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeich-
+                  nung).</span>
+              </div>
             </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_SELLER-POSTAL-ADDRESS" class="inputContainer innerInputContainer">
-          <div>
-            <label for="SellerCity">Seller City:</label>
-            <input type="text" name="SellerCity">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.</span>
+            <div>
+              <label for="SellerContactTelephoneNumber">Seller Contact Telephone Number:</label>
+              <input type="text" name="SellerContactTelephoneNumber">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Telefonnummer des Ansprechpartners oder der Kontaktstelle.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="SellerPostCode">Seller Post Code:</label>
-            <input type="text" name="SellerPostCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Postleitzahl.</span>
-            </div>
-          </div>
-          <div>
-            <label for="SellerCountryCode">Seller Country Code:</label>
-            <input type="text" name="SellerCountryCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Ein Code, mit dem das Land bezeichnet wird.</span>
-            </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_SELLER-CONTACT" class="inputContainer innerInputContainer">
-          <div>
-            <label for="SellerContactPoint">Seller Contact Point:</label>
-            <input type="text" name="SellerContactPoint">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeich-
-                nung).</span>
-            </div>
-          </div>
-          <div>
-            <label for="SellerContactTelephoneNumber">Seller Contact Telephone Number:</label>
-            <input type="text" name="SellerContactTelephoneNumber">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Telefonnummer des Ansprechpartners oder der Kontaktstelle.</span>
-            </div>
-          </div>
-          <div>
-            <label for="SellerContactEmailAddress">Seller Contact Email Address:</label>
-            <input type="text" name="SellerContactEmailAddress">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.</span>
+            <div>
+              <label for="SellerContactEmailAddress">Seller Contact Email Address:</label>
+              <input type="text" name="SellerContactEmailAddress">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.</span>
+              </div>
             </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_BUYER" class="inputContainer outerInputContainer">
-          <div>
-            <label for="BuyerName">Buyer Name:</label>
-            <input type="text" name="BuyerName">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der vollständige Name des Erwerbers.</span>
+        <div class="inputContainer">
+          <div id="group_BUYER">
+            <div>
+              <label for="BuyerName">Buyer Name:</label>
+              <input type="text" name="BuyerName">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der vollständige Name des Erwerbers.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerElectronicAddress">Buyer Electronic Address:</label>
+              <input type="text" name="BuyerElectronicAddress">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.</span>
+              </div>
             </div>
           </div>
-          <div>
-            <label for="BuyerElectronicAddress">Buyer Electronic Address:</label>
-            <input type="text" name="BuyerElectronicAddress">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.</span>
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <div id="group_BUYER-POSTAL-ADDRESS">
+            <div>
+              <label for="BuyerCity">Buyer City:</label>
+              <input type="text" name="BuyerCity">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.</span>
+              </div>
             </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_BUYER-POSTAL-ADDRESS" class="inputContainer innerInputContainer">
-          <div>
-            <label for="BuyerCity">Buyer City:</label>
-            <input type="text" name="BuyerCity">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.</span>
+            <div>
+              <label for="BuyerPostCode">Buyer Post Code:</label>
+              <input type="text" name="BuyerPostCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Postleitzahl.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="BuyerPostCode">Buyer Post Code:</label>
-            <input type="text" name="BuyerPostCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Postleitzahl.</span>
-            </div>
-          </div>
-          <div>
-            <label for="BuyerCountryCode">Buyer Country Code:</label>
-            <input type="text" name="BuyerCountryCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Ein Code, mit dem das Land bezeichnet wird.</span>
+            <div>
+              <label for="BuyerCountryCode">Buyer Country Code:</label>
+              <input type="text" name="BuyerCountryCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code, mit dem das Land bezeichnet wird.</span>
+              </div>
             </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-INSTRUCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_PAYMENT-INSTRUCTIONS" class="inputContainer">
-          <div>
-            <label for="PaymentMeansTypeCode">Payment Means Type Code:</label>
-            <input type="text" name="PaymentMeansTypeCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461
-                verwiesen.</span>
+        <div class="inputContainer">
+          <div id="group_PAYMENT-INSTRUCTIONS">
+            <div>
+              <label for="PaymentMeansTypeCode">Payment Means Type Code:</label>
+              <input type="text" name="PaymentMeansTypeCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461
+                  verwiesen.</span>
+              </div>
             </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DOCUMENT-TOTALS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_DOCUMENT-TOTALS" class="inputContainer">
-          <div>
-            <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
-            <input type="text" name="SumOfInvoiceLineNetAmount">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Summe aller "Invoice line net amount" der Rechnung.</span>
+        <div class="inputContainer">
+          <div id="group_DOCUMENT-TOTALS">
+            <div>
+              <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
+              <input type="text" name="SumOfInvoiceLineNetAmount">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Summe aller "Invoice line net amount" der Rechnung.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="InvoiceTotalAmountWithoutVAT">Invoice Total Amount Without VAT:</label>
-            <input type="text" name="InvoiceTotalAmountWithoutVAT">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der Gesamtbetrag der Rechnung ohne Umsatzsteuer.</span>
+            <div>
+              <label for="InvoiceTotalAmountWithoutVAT">Invoice Total Amount Without VAT:</label>
+              <input type="text" name="InvoiceTotalAmountWithoutVAT">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Gesamtbetrag der Rechnung ohne Umsatzsteuer.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="InvoiceTotalAmountWithVAT">Invoice Total Amount With VAT:</label>
-            <input type="text" name="InvoiceTotalAmountWithVAT">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der Gesamtbetrag der Rechnung mit Umsatzsteuer.</span>
+            <div>
+              <label for="InvoiceTotalAmountWithVAT">Invoice Total Amount With VAT:</label>
+              <input type="text" name="InvoiceTotalAmountWithVAT">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Gesamtbetrag der Rechnung mit Umsatzsteuer.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="AmountDueForPayment">Amount Due For Payment:</label>
-            <input type="text" name="AmountDueForPayment">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der ausstehende Betrag, der zu zahlen ist.</span>
+            <div>
+              <label for="AmountDueForPayment">Amount Due For Payment:</label>
+              <input type="text" name="AmountDueForPayment">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der ausstehende Betrag, der zu zahlen ist.</span>
+              </div>
             </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_VAT-BREAKDOWN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_VAT-BREAKDOWN" class="inputContainer">
-          <div>
-            <label for="VATCategoryTaxableAmount">VAT Category Taxable Amount:</label>
-            <input type="text" name="VATCategoryTaxableAmount">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Summe aller zu versteuernden Beträge, für die ein bestimmter Code der Umsatzsteuerkategorie und ein
-                bestimmter Umsatzsteuersatz gelten.</span>
+        <div class="inputContainer">
+          <div id="group_VAT-BREAKDOWN">
+            <div>
+              <label for="VATCategoryTaxableAmount">VAT Category Taxable Amount:</label>
+              <input type="text" name="VATCategoryTaxableAmount">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Summe aller zu versteuernden Beträge, für die ein bestimmter Code der Umsatzsteuerkategorie und ein
+                  bestimmter Umsatzsteuersatz gelten.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="VATCategoryTaxAmount">VAT Category Tax Amount:</label>
-            <input type="text" name="VATCategoryTaxAmount">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der für die betreffende Umsatzsteuerkategorie zu entrichtende Gesamtbetrag.</span>
+            <div>
+              <label for="VATCategoryTaxAmount">VAT Category Tax Amount:</label>
+              <input type="text" name="VATCategoryTaxAmount">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der für die betreffende Umsatzsteuerkategorie zu entrichtende Gesamtbetrag.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="VATCategoryCode">VAT Category Code:</label>
-            <input type="text" name="VATCategoryCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
+            <div>
+              <label for="VATCategoryCode">VAT Category Code:</label>
+              <input type="text" name="VATCategoryCode">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="VATCategoryRate">VAT Category Rate:</label>
-            <input type="text" name="VATCategoryRate">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
+            <div>
+              <label for="VATCategoryRate">VAT Category Rate:</label>
+              <input type="text" name="VATCategoryRate">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <label for="VATExemptionReasonText">VAT Exemption Reason Text:</label>
-            <input type="text" name="VATExemptionReasonText">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.</span>
-            </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE-LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_INVOICE-LINE" class="inputContainer outerInputContainer">
-          <div>
-            <label for="InvoiceLineIdentifier">Invoice Line Identifier:</label>
-            <input type="text" name="InvoiceLineIdentifier">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Eindeutige Bezeichnung für die betreffende Rechnungsposition.</span>
-            </div>
-          </div>
-          <div>
-            <label for="InvoicedQuantity">Invoiced Quantity:</label>
-            <input type="text" name="InvoicedQuantity">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die Menge zu dem in der betreffenden Zeile in Rechnung gestellten Einzelposten (Waren oder Dienstleistungen).</span>
-            </div>
-          </div>
-          <div>
-            <label for="InvoicedQuantityUnitOfMeasureCode">Invoiced Quantity Unit Of Measure Code:</label>
-            <input type="text" name="InvoicedQuantityUnitOfMeasureCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Die für die "Invoiced Quantity" geltende Maßeinheit.</span>
-            </div>
-          </div>
-          <div>
-            <label for="InvoiceLineNetAmount">Invoice Line Net Amount:</label>
-            <input type="text" name="InvoiceLineNetAmount">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für
-                die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
+            <div>
+              <label for="VATExemptionReasonText">VAT Exemption Reason Text:</label>
+              <input type="text" name="VATExemptionReasonText">
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.</span>
+              </div>
             </div>
           </div>
         </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_PRICE-DETAILS" class="inputContainer innerInputContainer">
-          <div>
-            <label for="ItemNetPrice">Item Net Price:</label>
-            <input type="text" name="ItemNetPrice">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
-            </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_LINE-VAT-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_LINE-VAT-INFORMATION" class="inputContainer innerInputContainer">
-          <div>
-            <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
-            <input type="text" name="InvoicedItemVATCategoryCode">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
-            </div>
-          </div>
-        </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div id="group_ITEM-INFORMATION" class="inputContainer innerInputContainer">
-          <div>
-            <label for="ItemName">Item Name:</label>
-            <input type="text" name="ItemName">
-            <div class="tooltip">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Ein Name des Postens.</span>
-            </div>
-          </div>
-        </div>
+        <button>Position hinzufügen</button>
         <input type="submit" name="submitInvoice">
       </form>
     </div>

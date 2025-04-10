@@ -86,7 +86,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // group_ITEM-INFORMATION
     val inputItemName = connectInput("ItemName")
 
-    // This part need to be repeated for every Invoice Position. Check how to set out Typecode
+    // This part need to be repeated for every Invoice Position. Check how to set Typecode
     val xmlDataPositionTax =  
       <ram:ApplicableTradeTax>
         <ram:CalculatedAmount>{inputVATCategoryTaxAmount}</ram:CalculatedAmount>
@@ -97,7 +97,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
 
-    // This part need to be repeated for every Invoice Position. Check how to set out <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    // This part need to be repeated for every Invoice Position. Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
     val xmlDataInvoicePosition =   
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
