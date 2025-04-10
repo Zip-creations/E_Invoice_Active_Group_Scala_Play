@@ -1,8 +1,9 @@
+@(positionID: String)
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE-LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <div class="inputContainer">
     <div id="group_INVOICE-LINE">
         <div>
-            <label for="InvoiceLineIdentifier">Invoice Line Identifier:</label>
+            <label for="InvoiceLineIdentifier">Invoice Line Identifier: @positionID</label>
             <input type="text" name="InvoiceLineIdentifier">
             <div class="tooltip">
             <i class="fa-solid fa-circle-info"></i>

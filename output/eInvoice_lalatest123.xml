@@ -12,32 +12,32 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250409</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250410</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID></ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
-          <ram:Name>0</ram:Name>
+          <ram:Name></ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
+            <ram:ChargeAmount></ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
+          <ram:BilledQuantity unitCode=""></ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
+            <ram:CategoryCode></ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
+            <ram:LineTotalAmount></ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>

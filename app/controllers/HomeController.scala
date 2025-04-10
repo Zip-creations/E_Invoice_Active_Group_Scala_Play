@@ -26,7 +26,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.index(request))
   }
 
-  def generateEInvoice() = Action { implicit request: Request[AnyContent] =>
+  def addPosition(positionID: String) = Action { implicit request =>
+    Ok(views.html.invoiceLine(positionID))
+  }
+
+  def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
