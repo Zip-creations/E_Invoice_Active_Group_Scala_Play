@@ -16,3 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(err => console.error("Fehler beim Laden der Position:", err));
     });
 });
+
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("removePositionButton")) {
+      const container = event.target.closest(".inputContainer");
+        container.remove();
+    }
+});

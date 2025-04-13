@@ -12,7 +12,7 @@
           <ram:ID></ram:ID>
           <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250410</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250413</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>

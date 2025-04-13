@@ -107,7 +107,7 @@ input[type=submit], button[type=button]{
     border-radius: 10px;
 }
 
-#buttonContainer {
+.buttonContainer {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
@@ -117,4 +117,8 @@ input[type=submit], button[type=button]{
 
 #addPositionButton {
     margin-top: 5px;
+}
+
+.removePositionButton {
+    margin-top: -15px;
 }
