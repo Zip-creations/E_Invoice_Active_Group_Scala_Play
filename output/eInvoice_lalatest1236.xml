@@ -9,8 +9,8 @@
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID></ram:ID>
-          <ram:TypeCode>326</ram:TypeCode>
+          <ram:ID>lalatest1236</ram:ID>
+          <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
             <udt:DateTimeString format="102">20250414</udt:DateTimeString>
           </ram:IssueDateTime>
@@ -18,84 +18,84 @@
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID></ram:LineID>
+          <ram:LineID>0</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
-          <ram:Name></ram:Name>
+          <ram:Name>0</ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount></ram:ChargeAmount>
+            <ram:ChargeAmount>0</ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode=""></ram:BilledQuantity>
+          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode></ram:CategoryCode>
+            <ram:CategoryCode>O</ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount></ram:LineTotalAmount>
+            <ram:LineTotalAmount>0</ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
           <ram:ApplicableHeaderTradeAgreement>
-            <ram:BuyerReference></ram:BuyerReference>
+            <ram:BuyerReference>0</ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088"></ram:GlobalID>
-              <ram:Name></ram:Name>
+              <ram:GlobalID schemeID="0088">0</ram:GlobalID>
+              <ram:Name>0</ram:Name>
               <ram:DefinedTradeContact>
-                <ram:PersonName></ram:PersonName>
+                <ram:PersonName>0</ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber></ram:CompleteNumber>
+                  <ram:CompleteNumber>000</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                  <ram:URIID></ram:URIID>
+                  <ram:URIID>0.0@0.0</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
               </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode></ram:PostcodeCode>
-                <ram:CityName></ram:CityName>
-                <ram:CountryID></ram:CountryID>
+                <ram:PostcodeCode>0</ram:PostcodeCode>
+                <ram:CityName>0</ram:CityName>
+                <ram:CountryID>DE</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM"></ram:URIID>
+                <ram:URIID schemeID="EM">0</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-              <ram:Name></ram:Name>
+              <ram:Name>0</ram:Name>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode></ram:PostcodeCode>
-                <ram:CityName></ram:CityName>
-                <ram:CountryID></ram:CountryID>
+                <ram:PostcodeCode>0</ram:PostcodeCode>
+                <ram:CityName>0</ram:CityName>
+                <ram:CountryID>DE</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM"></ram:URIID>
+                <ram:URIID schemeID="EM">0</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode></ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode></ram:TypeCode>
+              <ram:TypeCode>ZZZ</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
             <ram:ApplicableTradeTax>
-        <ram:CalculatedAmount></ram:CalculatedAmount>
+        <ram:CalculatedAmount>0</ram:CalculatedAmount>
         <ram:TypeCode>VAT</ram:TypeCode>
-        <ram:ExemptionReason></ram:ExemptionReason>
-        <ram:BasisAmount></ram:BasisAmount>
-        <ram:CategoryCode></ram:CategoryCode>
-        <ram:RateApplicablePercent></ram:RateApplicablePercent>
+        <ram:ExemptionReason>0</ram:ExemptionReason>
+        <ram:BasisAmount>0</ram:BasisAmount>
+        <ram:CategoryCode>O</ram:CategoryCode>
+        <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount></ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount></ram:TaxBasisTotalAmount>
-              <ram:GrandTotalAmount></ram:GrandTotalAmount>
-              <ram:DuePayableAmount></ram:DuePayableAmount>
+              <ram:LineTotalAmount>0</ram:LineTotalAmount>
+              <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
+              <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
+              <ram:DuePayableAmount>0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>

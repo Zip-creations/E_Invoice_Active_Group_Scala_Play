@@ -201,10 +201,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 
+
     // Paths
-    val invoiceName = s"eInvoice_$inputInvoiceNumber"
-    val invoicePath = s"./output/$invoiceName.xml"
-    val reportPath = s"app/views/validation_reports/${invoiceName}_validation.html"
+    val invoiceName = new File(s"eInvoice_$inputInvoiceNumber").getPath 
+    val invoicePath = new File(s"./output/$invoiceName.xml").getPath
+    val reportPath = new File(s"app/views/validation_reports/${invoiceName}_validation.html").getPath
     
     val writer = new PrintWriter(new File(invoicePath))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
@@ -213,7 +214,16 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     // Call the .jar from the Toolbox, create and store report as .html
     val directory = new File("Toolbox")
-    val command = s"cmd/ /c java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePath -o ../$reportPath -v 3.0.2"
+    val command = Seq(
+      "java",
+      "-Dlog4j2.configurationFile=./resources/log4j2.xml",
+      "-jar", "OpenXRechnungToolbox.jar",
+      "-val",
+      "-i", s".$invoicePath",
+      "-o", s"../$reportPath",
+      "-v", "3.0.2"
+    )
+    val result = command.!
     Process(command, directory).!
     Ok.sendFile(new java.io.File(reportPath))
   }

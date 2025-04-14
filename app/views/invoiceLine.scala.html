@@ -7,7 +7,7 @@
     <div id="group_INVOICE-LINE">
         <div>
             <label for="InvoiceLineIdentifier">Invoice Line Identifier: @positionID</label>
-            <input type="text" name="InvoiceLineIdentifier">
+            <input type="text" name="InvoiceLineIdentifier">  <!-- name='@("InvoiceLineIdentifier" + positionID)' -->
             <div class="tooltip">
             <i class="fa-solid fa-circle-info"></i>
             <span>Eindeutige Bezeichnung für die betreffende Rechnungsposition.</span>
