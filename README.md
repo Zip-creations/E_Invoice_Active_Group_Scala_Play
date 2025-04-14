@@ -10,6 +10,11 @@ im Hauptverzeichnis ausführen,
 
 Tool ist dann unter `localhost:9000` ansprechbar.
 
+Die E-Rechnung im XML-Format sowie der dazugehörige Validierungs-report im HTML werden mit der "InvoiceNumber" (also der ID der Rechung) im Namen abgespeichert.
+Speicherort:
+XML (Rechnung): output/eInvoice_"InvoiceNumber".xml
+HTML (Report): app/views/validation_reports/eInvoice_"InvoiceNumber"_validation.html
+
 Ein Minumum Working Example, welches alle Tests des OpenToolBox-Validators besteht, kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden:
 
 document.querySelector('[name="InvoiceNumber"]').value = "lalatest123";\

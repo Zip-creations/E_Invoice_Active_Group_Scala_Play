@@ -3,17 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     invoiceDateInput.forEach(function (invoiceDateInput) {
         invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
     });
-
     let positionID = 0
+    positionID = CreatePosition(positionID)
+
     document.getElementById("addPositionButton").addEventListener("click", function () {
-        fetch(`/invoiceLine?positionID=${positionID.toString()}`)
-            .then(response => response.text())
-            .then(html => {
-                const targetDiv = document.getElementById("positionContainer");
-                targetDiv.insertAdjacentHTML("beforeend", html);
-                positionID ++;
-            })
-        .catch(err => console.error("Fehler beim Laden der Position:", err));
+        positionID = CreatePosition(positionID)
     });
 });
 
@@ -23,3 +17,15 @@ document.addEventListener("click", function (event) {
         container.remove();
     }
 });
+
+function CreatePosition(positionID) {
+    fetch(`/invoiceLine?positionID=${positionID.toString()}`)
+        .then(response => response.text())
+        .then(html => {
+            const targetDiv = document.getElementById("positionContainer");
+            targetDiv.insertAdjacentHTML("beforeend", html);
+        })
+    .catch(err => console.error("Fehler beim Laden der Position:", err));
+    positionID++
+    return positionID
+}
