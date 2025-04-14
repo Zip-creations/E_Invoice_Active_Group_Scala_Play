@@ -214,15 +214,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     // Call the .jar from the Toolbox, create and store report as .html
     val directory = new File("Toolbox")
-    val command = Seq(
-      "java",
-      "-Dlog4j2.configurationFile=./resources/log4j2.xml",
-      "-jar", "OpenXRechnungToolbox.jar",
-      "-val",
-      "-i", s".$invoicePath",
-      "-o", s"../$reportPath",
-      "-v", "3.0.2"
-    )
+    
+    val command = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePath -o ../$reportPath -v 3.0.2"
     val result = command.!
     Process(command, directory).!
     Ok.sendFile(new java.io.File(reportPath))
