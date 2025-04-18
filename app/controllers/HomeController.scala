@@ -10,19 +10,9 @@ import java.io.{File, PrintWriter}
 import scala.xml.XML
 
 
-/**
- * This controller creates an `Action` to handle HTTP requests to the
- * application's home page.
- */
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
-  /**
-   * Create an Action to render an HTML page.
-   * The configuration in the `routes` file means that this method
-   * will be called when the application receives a `GET` request with
-   * a path of `/`.
-   */
+
   def index() = Action { implicit request: Request[AnyContent] =>
-    // val inputInvoiceNumber = dom.document.getElementById("InvoiceNumber").asInstanceOf[html.Input]
     Ok(views.html.index(request))
   }
 
@@ -34,6 +24,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val formData = request.body.asFormUrlEncoded
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
+
+
+
 
     // Connect all Inputs from the html form
     // group_INVOICE
@@ -213,19 +206,24 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     writer.close()
     // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
 
-    // Location of the execution
+    // Location of execution
     val directory = new File("Toolbox")
-
-    // Call the .jar from the Toolbox, create report and store it as .html
-    val createReport = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePathXML -o ../$reportPath -v 3.0.2"
-    val executeCreateReport = createReport.!
-    Process(createReport, directory).!
 
     // Call the .jar from the Toolbox, create .pdf from the .xml
     val createPDF = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -viz -i .$invoicePathXML -o ../$invoicePathPDF -p"
     val executeCreatePDF = createPDF.!
     Process(createPDF, directory).!
 
+    // Call the .jar from the Toolbox, create report and store it as .html
+    val createReport = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePathXML -o ../$reportPath -v 3.0.2"
+    val executeCreateReport = createReport.!
+    Process(createReport, directory).!
+
+    val allPositionIDs: Seq[String] = request.body.asFormUrlEncoded
+      .flatMap(_.get("positionIDcontainer"))
+      .getOrElse(Seq.empty)
+    println("Values:" + allPositionIDs)
+    // Open the .html report
     Ok.sendFile(new java.io.File(reportPath))
   }
 }

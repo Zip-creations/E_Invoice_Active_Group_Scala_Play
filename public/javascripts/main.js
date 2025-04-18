@@ -18,6 +18,13 @@ document.addEventListener("click", function (event) {
     }
 });
 
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("removePositionButton")) {
+      const container = event.target.closest(".inputContainer");
+        container.remove();
+    }
+});
+
 function CreatePosition(positionID) {
     fetch(`/invoiceLine?positionID=${positionID.toString()}`)
         .then(response => response.text())
@@ -25,7 +32,7 @@ function CreatePosition(positionID) {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
         })
-    .catch(err => console.error("Fehler beim Laden der Position:", err));
+    .catch(error => console.error("Fehler beim Laden der Position:", error));
     positionID++
     return positionID
 }

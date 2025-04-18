@@ -1,7 +1,7 @@
 body{
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: 1fr auto 1fr;
     background-color: rgb(50, 50, 50);
     font-size: max(1vw, 18px);
     overflow-x: hidden;
