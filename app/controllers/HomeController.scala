@@ -25,8 +25,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
 
-
-
+    val allPositionIDs: Seq[String] = request.body.asFormUrlEncoded
+      .flatMap(_.get("positionIDcontainer"))
+      .getOrElse(Seq.empty)
+    println("Values:" + allPositionIDs)
 
     // Connect all Inputs from the html form
     // group_INVOICE
@@ -83,45 +85,48 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // group_ITEM-INFORMATION
     val inputItemName = connectInput("ItemName")
 
-    // This part need to be repeated for every Invoice Position. Check how to set Typecode
-    val xmlDataPositionTax =  
-      <ram:ApplicableTradeTax>
-        <ram:CalculatedAmount>{inputVATCategoryTaxAmount}</ram:CalculatedAmount>
-        <ram:TypeCode>VAT</ram:TypeCode>
-        <ram:ExemptionReason>{inputVATExemptionReasonText}</ram:ExemptionReason>
-        <ram:BasisAmount>{inputVATCategoryTaxableAmount}</ram:BasisAmount>
-        <ram:CategoryCode>{inputVATCategoryCode}</ram:CategoryCode>
-        <ram:RateApplicablePercent>{inputVATCategoryRate}</ram:RateApplicablePercent>
-      </ram:ApplicableTradeTax>
-
-    // This part need to be repeated for every Invoice Position. Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
-    val xmlDataInvoicePosition =   
+    // Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    def CreateXMLDataInvoicePostion(i: String) = {
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>{inputInvoiceLineIdentifier}</ram:LineID>
+          <ram:LineID>{connectInput("InvoiceLineIdentifier" ++ i)}</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
-          <ram:Name>{inputItemName}</ram:Name>
+          <ram:Name>{connectInput("ItemName" ++ i)}</ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>{inputItemNetPrice}</ram:ChargeAmount>
+            <ram:ChargeAmount>{connectInput("ItemNetPrice" ++ i)}</ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode={inputInvoicedQuantityUnitOfMeasureCode}>{inputInvoicedQuantity}</ram:BilledQuantity>
+          <ram:BilledQuantity unitCode={connectInput("InvoicedQuantityUnitOfMeasureCode" ++ i)}>{connectInput("InvoicedQuantity" ++ i)}</ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>{inputInvoicedItemVATCategoryCode}</ram:CategoryCode>
+            <ram:CategoryCode>{connectInput("InvoicedItemVATCategoryCode" ++ i)}</ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>{inputInvoiceLineNetAmount}</ram:LineTotalAmount>
+            <ram:LineTotalAmount>{connectInput("InvoiceLineNetAmount" ++ i)}</ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
+    }
 
+    // This part need to be repeated for every Invoice Position. Check how to set Typecode
+    def CreateXMLDataPositionTax(i: String) = { 
+      <ram:ApplicableTradeTax>
+        <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
+        <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
+        <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
+        <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+    }
+
+    // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
     val xmlData =
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
@@ -140,7 +145,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
-          {xmlDataInvoicePosition}
+          {for (i <- allPositionIDs)
+            yield CreateXMLDataInvoicePostion(i)}
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>{inputBuyerReference}</ram:BuyerReference>
             <ram:SellerTradeParty>
@@ -183,7 +189,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             <ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:TypeCode>{inputPaymentMeansTypeCode}</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
-            {xmlDataPositionTax}
+              {for (i <- List(""))
+                yield CreateXMLDataPositionTax(i)}
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
               <ram:LineTotalAmount>{inputSumOfInvoiceLineNetAmount}</ram:LineTotalAmount>
               <ram:TaxBasisTotalAmount>{inputInvoiceTotalAmountWithoutVAT}</ram:TaxBasisTotalAmount>
@@ -219,10 +226,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val executeCreateReport = createReport.!
     Process(createReport, directory).!
 
-    val allPositionIDs: Seq[String] = request.body.asFormUrlEncoded
-      .flatMap(_.get("positionIDcontainer"))
-      .getOrElse(Seq.empty)
-    println("Values:" + allPositionIDs)
     // Open the .html report
     Ok.sendFile(new java.io.File(reportPath))
   }

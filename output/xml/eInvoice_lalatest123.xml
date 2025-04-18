@@ -18,26 +18,50 @@
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID></ram:LineID>
+          <ram:LineID>0</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
-          <ram:Name></ram:Name>
+          <ram:Name>0</ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount></ram:ChargeAmount>
+            <ram:ChargeAmount>0</ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
         </ram:SpecifiedLineTradeAgreement>
         <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode=""></ram:BilledQuantity>
+          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode></ram:CategoryCode>
+            <ram:CategoryCode>O</ram:CategoryCode>
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount></ram:LineTotalAmount>
+            <ram:LineTotalAmount>0</ram:LineTotalAmount>
+          </ram:SpecifiedTradeSettlementLineMonetarySummation>
+        </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
+        <ram:AssociatedDocumentLineDocument>
+          <ram:LineID>test2Pos</ram:LineID>
+        </ram:AssociatedDocumentLineDocument>
+        <ram:SpecifiedTradeProduct>
+          <ram:Name>0</ram:Name>
+        </ram:SpecifiedTradeProduct>
+        <ram:SpecifiedLineTradeAgreement>
+          <ram:NetPriceProductTradePrice>
+            <ram:ChargeAmount>0</ram:ChargeAmount>
+          </ram:NetPriceProductTradePrice>
+        </ram:SpecifiedLineTradeAgreement>
+        <ram:SpecifiedLineTradeDelivery>
+          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
+        </ram:SpecifiedLineTradeDelivery>
+        <ram:SpecifiedLineTradeSettlement>
+          <ram:ApplicableTradeTax>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:CategoryCode>O</ram:CategoryCode>
+          </ram:ApplicableTradeTax>
+          <ram:SpecifiedTradeSettlementLineMonetarySummation>
+            <ram:LineTotalAmount>0</ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
@@ -83,7 +107,7 @@
             <ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:TypeCode>ZZZ</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
-            <ram:ApplicableTradeTax>
+              <ram:ApplicableTradeTax>
         <ram:CalculatedAmount>0</ram:CalculatedAmount>
         <ram:TypeCode>VAT</ram:TypeCode>
         <ram:ExemptionReason>0</ram:ExemptionReason>
