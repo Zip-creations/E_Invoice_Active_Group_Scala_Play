@@ -48,10 +48,10 @@ document.querySelector('[name="VATCategoryTaxAmount"]').value = "0";\
 document.querySelector('[name="VATCategoryCode"]').value = "O";\
 document.querySelector('[name="VATCategoryRate"]').value = "0";\
 document.querySelector('[name="VATExemptionReasonText"]').value = "0";\
-document.querySelector('[name="InvoiceLineIdentifier0"]').value = "0";\
-document.querySelector('[name="InvoicedQuantity0"]').value = "0";\
-document.querySelector('[name="InvoicedQuantityUnitOfMeasureCode0"]').value = "H87";\
-document.querySelector('[name="InvoiceLineNetAmount0"]').value = "0";\
-document.querySelector('[name="ItemNetPrice0"]').value = "0";\
-document.querySelector('[name="InvoicedItemVATCategoryCode0"]').value = "O";\
-document.querySelector('[name="ItemName0"]').value = "0";
+document.querySelector('[name="InvoiceLineIdentifier1"]').value = "0";\
+document.querySelector('[name="InvoicedQuantity1"]').value = "0";\
+document.querySelector('[name="InvoicedQuantityUnitOfMeasureCode1"]').value = "H87";\
+document.querySelector('[name="InvoiceLineNetAmount1"]').value = "0";\
+document.querySelector('[name="ItemNetPrice1"]').value = "0";\
+document.querySelector('[name="InvoicedItemVATCategoryCode1"]').value = "O";\
+document.querySelector('[name="ItemName1"]').value = "0";

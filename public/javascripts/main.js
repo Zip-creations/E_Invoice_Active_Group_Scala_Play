@@ -3,13 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     invoiceDateInput.forEach(function (invoiceDateInput) {
         invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
     });
-    let positionID = 0
+    let positionID = 1
     positionID = CreatePosition(positionID)
 
     document.getElementById("addPositionButton").addEventListener("click", function () {
         positionID = CreatePosition(positionID)
     });
-    
+
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("removePositionButton")) {
           const container = event.target.closest(".inputContainer");

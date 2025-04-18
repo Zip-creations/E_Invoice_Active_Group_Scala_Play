@@ -4,10 +4,11 @@
     <input type="hidden" name="positionIDcontainer" value=@positionID></input>
     <div class="buttonContainer">
         <button type="button" class="removePositionButton">Position entfernen</button>
+        <p>Position Nr. @positionID</p>
     </div>
     <div id="group_INVOICE-LINE">
         <div>
-            <label for="InvoiceLineIdentifier">Invoice Line Identifier: @positionID</label>
+            <label for="InvoiceLineIdentifier">Invoice Line Identifier:</label>
             <input type="text" name='@("InvoiceLineIdentifier" + positionID)' required> <!-- BT-126 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
