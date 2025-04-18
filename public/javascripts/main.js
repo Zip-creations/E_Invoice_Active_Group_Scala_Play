@@ -18,13 +18,6 @@ document.addEventListener("click", function (event) {
     }
 });
 
-document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("removePositionButton")) {
-      const container = event.target.closest(".inputContainer");
-        container.remove();
-    }
-});
-
 function CreatePosition(positionID) {
     fetch(`/invoiceLine?positionID=${positionID.toString()}`)
         .then(response => response.text())

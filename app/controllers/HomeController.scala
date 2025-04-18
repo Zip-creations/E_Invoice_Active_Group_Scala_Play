@@ -191,6 +191,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val invoicePathPDF = new File(s"./output/pdf/$invoiceName.pdf").getPath
     val reportPath = new File(s"app/views/validation_reports/${invoiceName}_validation.html").getPath
     
+    // Store invoice as .xml
     val writer = new PrintWriter(new File(invoicePathXML))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
@@ -199,7 +200,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // Location of execution
     val directory = new File("Toolbox")
 
-    // Call the .jar from the Toolbox, create .pdf from the .xml
+    // Call the .jar from the Toolbox, create .pdf from the .xml and store the .pdf
     val createPDF = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -viz -i .$invoicePathXML -o ../$invoicePathPDF -p"
     val executeCreatePDF = createPDF.!
     Process(createPDF, directory).!
