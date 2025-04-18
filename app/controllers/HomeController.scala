@@ -204,20 +204,28 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     // Paths
     val invoiceName = new File(s"eInvoice_$inputInvoiceNumber").getPath 
-    val invoicePath = new File(s"./output/$invoiceName.xml").getPath
+    val invoicePathXML = new File(s"./output/xml/$invoiceName.xml").getPath
+    val invoicePathPDF = new File(s"./output/pdf/$invoiceName.pdf").getPath
     val reportPath = new File(s"app/views/validation_reports/${invoiceName}_validation.html").getPath
     
-    val writer = new PrintWriter(new File(invoicePath))
+    val writer = new PrintWriter(new File(invoicePathXML))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
     // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
 
-    // Call the .jar from the Toolbox, create and store report as .html
+    // Location of the execution
     val directory = new File("Toolbox")
-    
-    val command = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePath -o ../$reportPath -v 3.0.2"
-    val result = command.!
-    Process(command, directory).!
+
+    // Call the .jar from the Toolbox, create report and store it as .html
+    val createReport = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -val -i .$invoicePathXML -o ../$reportPath -v 3.0.2"
+    val executeCreateReport = createReport.!
+    Process(createReport, directory).!
+
+    // Call the .jar from the Toolbox, create .pdf from the .xml
+    val createPDF = s"java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -viz -i .$invoicePathXML -o ../$invoicePathPDF -p"
+    val executeCreatePDF = createPDF.!
+    Process(createPDF, directory).!
+
     Ok.sendFile(new java.io.File(reportPath))
   }
 }
