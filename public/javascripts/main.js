@@ -9,14 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("addPositionButton").addEventListener("click", function () {
         positionID = CreatePosition(positionID)
     });
+    
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("removePositionButton")) {
+          const container = event.target.closest(".inputContainer");
+            container.remove();
+        }
+    });
 });
 
-document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("removePositionButton")) {
-      const container = event.target.closest(".inputContainer");
-        container.remove();
-    }
-});
 
 function CreatePosition(positionID) {
     fetch(`/invoiceLine?positionID=${positionID.toString()}`)

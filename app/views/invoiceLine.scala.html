@@ -8,35 +8,34 @@
     <div id="group_INVOICE-LINE">
         <div>
             <label for="InvoiceLineIdentifier">Invoice Line Identifier: @positionID</label>
-            <input type="text" name='@("InvoiceLineIdentifier" + positionID)'> <!-- BT-126 -->
+            <input type="text" name='@("InvoiceLineIdentifier" + positionID)' required> <!-- BT-126 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Eindeutige Bezeichnung für die betreffende Rechnungsposition.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eindeutige Bezeichnung für die betreffende Rechnungsposition.</span>
             </div>
         </div>
         <div>
             <label for="InvoicedQuantity">Invoiced Quantity:</label>
-            <input type="text" name='@("InvoicedQuantity" + positionID)'> <!-- BT-129 -->
+            <input type="text" name='@("InvoicedQuantity" + positionID)' required> <!-- BT-129 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Die Menge zu dem in der betreffenden Zeile in Rechnung gestellten Einzelposten (Waren oder Dienstleistungen).</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Menge zu dem in der betreffenden Zeile in Rechnung gestellten Einzelposten (Waren oder Dienstleistungen).</span>
             </div>
         </div>
         <div>
             <label for="InvoicedQuantityUnitOfMeasureCode">Invoiced Quantity Unit Of Measure Code:</label>
-            <input type="text" name='@("InvoicedQuantityUnitOfMeasureCode" + positionID)'> <!-- BT-130 -->
+            <input type="text" name='@("InvoicedQuantityUnitOfMeasureCode" + positionID)' required> <!-- BT-130 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Die für die "Invoiced Quantity" geltende Maßeinheit.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die für die "Invoiced Quantity" geltende Maßeinheit.</span>
             </div>
         </div>
         <div>
             <label for="InvoiceLineNetAmount">Invoice Line Net Amount:</label>
-            <input type="text" name='@("InvoiceLineNetAmount" + positionID)'> <!-- BT-131 -->
+            <input type="text" name='@("InvoiceLineNetAmount" + positionID)' required> <!-- BT-131 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für
-                die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
             </div>
         </div>
     </div>
@@ -44,10 +43,10 @@
     <div id="group_PRICE-DETAILS">
         <div>
             <label for="ItemNetPrice">Item Net Price:</label>
-            <input type="text" name='@("ItemNetPrice" + positionID)'> <!-- BT-146 -->
+            <input type="text" name='@("ItemNetPrice" + positionID)' required> <!-- BT-146 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
             </div>
         </div>
     </div>
@@ -55,10 +54,10 @@
     <div id="group_LINE-VAT-INFORMATION">
         <div>
             <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
-            <input type="text" name='@("InvoicedItemVATCategoryCode" + positionID)'> <!-- BT-151 -->
+            <input type="text" name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
             </div>
         </div>
     </div>
@@ -66,10 +65,10 @@
     <div id="group_ITEM-INFORMATION">
         <div>
             <label for="ItemName">Item Name:</label>
-            <input type="text" name='@("ItemName" + positionID)'> <!-- BT-153 -->
+            <input type="text" name='@("ItemName" + positionID)' required> <!-- BT-153 -->
             <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Ein Name des Postens.</span>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Name des Postens.</span>
             </div>
         </div>
     </div>
