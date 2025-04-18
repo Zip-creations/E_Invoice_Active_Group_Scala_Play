@@ -5,12 +5,12 @@
         @helper.CSRF.formField
         <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
 
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_INVOICE">
             <div>
               <label for="InvoiceNumber">Invoice Number:</label>
-              <input type="text" name="InvoiceNumber">
+              <input type="text" name="InvoiceNumber"> <!-- BT-1 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Eindeutige Kennung der Rechnung</span>
@@ -18,7 +18,7 @@
             </div>
             <div>
               <label for="InvoiceIssueDate">Invoice Issue Date:</label>
-              <input type="date" name="InvoiceIssueDate" readonly>
+              <input type="date" name="InvoiceIssueDate" readonly> <!-- BT-2 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Das Datum, an dem die Rechnung ausgestellt wurde</span>
@@ -26,7 +26,7 @@
             </div>
             <div>
               <label for="InvoiceTypeCode">Invoice Type Code:</label>
-              <select name="InvoiceTypeCode" required>
+              <select name="InvoiceTypeCode" required> <!-- BT-3 -->
                 <option disabled selected value=""> -- select a code -- </option>
                 <option value="326">326 (Partial invoice)</option>
                 <option value="380">380 (Commercial invoice)</option>
@@ -44,7 +44,7 @@
             </div>
             <div>
               <label for="InvoiceCurrencyCode">Invoice Currency Code:</label>
-              <input type="text" name="InvoiceCurrencyCode">
+              <input type="text" name="InvoiceCurrencyCode"> <!-- BT-5 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.</span>
@@ -52,7 +52,7 @@
             </div>
             <div>
               <label for="BuyerReference">Buyer Reference:</label>
-              <input type="text" name="BuyerReference">
+              <input type="text" name="BuyerReference"> <!-- BT-10 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.</span>
@@ -60,12 +60,12 @@
             </div>
           </div>
         </div>  
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PROCESS-CONTROL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PROCESS-CONTROL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_PROCESS-CONTROL">
             <div>
               <label for="BusinessProcessType">Business Process Type:</label>
-              <input type="text" name="BusinessProcessType">
+              <input type="text" name="BusinessProcessType"> <!-- BT-23 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Identifiziert den Kontext des Geschäftsprozesses, in dem die Transaktion erfolgt.</span>
@@ -73,7 +73,7 @@
             </div>
             <div>
               <label for="SpecificationIdentifier">Specification Identifier:</label>
-              <input type="text" name="SpecificationIdentifier">
+              <input type="text" name="SpecificationIdentifier"> <!-- BT-24 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Eine Kennung der Spezifikation, die das gesamte Regelwerk zum semantischen Inhalt, zu den Kardinalitäten und
@@ -82,12 +82,12 @@
             </div>
           </div>
         </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_SELLER">
             <div>
               <label for="SellerName">Seller Name:</label>
-              <input type="text" name="SellerName">
+              <input type="text" name="SellerName"> <!-- BT-27 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
@@ -96,7 +96,7 @@
             </div>
             <div>
               <label for="SellerIdentifier">Seller Identifier:</label>
-              <input type="text" name="SellerIdentifier">
+              <input type="text" name="SellerIdentifier"> <!-- BT-29 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuer-
@@ -105,7 +105,7 @@
             </div>
             <div>
               <label for="SellerElectronicAddress">Seller Electronic Address:</label>
-              <input type="text" name="SellerElectronicAddress">
+              <input type="text" name="SellerElectronicAddress"> <!-- BT-34 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung
@@ -113,11 +113,11 @@
               </div>
             </div>
           </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <div id="group_SELLER-POSTAL-ADDRESS">
             <div>
               <label for="SellerCity">Seller City:</label>
-              <input type="text" name="SellerCity">
+              <input type="text" name="SellerCity"> <!-- BT-37 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.</span>
@@ -125,7 +125,7 @@
             </div>
             <div>
               <label for="SellerPostCode">Seller Post Code:</label>
-              <input type="text" name="SellerPostCode">
+              <input type="text" name="SellerPostCode"> <!-- BT-38 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Postleitzahl.</span>
@@ -133,18 +133,18 @@
             </div>
             <div>
               <label for="SellerCountryCode">Seller Country Code:</label>
-              <input type="text" name="SellerCountryCode">
+              <input type="text" name="SellerCountryCode"> <!-- BT-40 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein Code, mit dem das Land bezeichnet wird.</span>
               </div>
             </div>
           </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <div id="group_SELLER-CONTACT">
             <div>
               <label for="SellerContactPoint">Seller Contact Point:</label>
-              <input type="text" name="SellerContactPoint">
+              <input type="text" name="SellerContactPoint"> <!-- BT-41 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeich-
@@ -153,7 +153,7 @@
             </div>
             <div>
               <label for="SellerContactTelephoneNumber">Seller Contact Telephone Number:</label>
-              <input type="text" name="SellerContactTelephoneNumber">
+              <input type="text" name="SellerContactTelephoneNumber"> <!-- BT-42 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Telefonnummer des Ansprechpartners oder der Kontaktstelle.</span>
@@ -161,7 +161,7 @@
             </div>
             <div>
               <label for="SellerContactEmailAddress">Seller Contact Email Address:</label>
-              <input type="text" name="SellerContactEmailAddress">
+              <input type="text" name="SellerContactEmailAddress"> <!-- BT-43 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.</span>
@@ -169,12 +169,12 @@
             </div>
           </div>
         </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_BUYER">
             <div>
               <label for="BuyerName">Buyer Name:</label>
-              <input type="text" name="BuyerName">
+              <input type="text" name="BuyerName"> <!-- BT-44 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der vollständige Name des Erwerbers.</span>
@@ -182,18 +182,18 @@
             </div>
             <div>
               <label for="BuyerElectronicAddress">Buyer Electronic Address:</label>
-              <input type="text" name="BuyerElectronicAddress">
+              <input type="text" name="BuyerElectronicAddress"> <!-- BT-49 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.</span>
               </div>
             </div>
           </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <div id="group_BUYER-POSTAL-ADDRESS">
             <div>
               <label for="BuyerCity">Buyer City:</label>
-              <input type="text" name="BuyerCity">
+              <input type="text" name="BuyerCity"> <!-- BT-52 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.</span>
@@ -201,7 +201,7 @@
             </div>
             <div>
               <label for="BuyerPostCode">Buyer Post Code:</label>
-              <input type="text" name="BuyerPostCode">
+              <input type="text" name="BuyerPostCode"> <!-- BT-53 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Postleitzahl.</span>
@@ -209,7 +209,7 @@
             </div>
             <div>
               <label for="BuyerCountryCode">Buyer Country Code:</label>
-              <input type="text" name="BuyerCountryCode">
+              <input type="text" name="BuyerCountryCode"> <!-- BT-55 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein Code, mit dem das Land bezeichnet wird.</span>
@@ -217,12 +217,12 @@
             </div>
           </div>
         </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-INSTRUCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-INSTRUCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_PAYMENT-INSTRUCTIONS">
             <div>
               <label for="PaymentMeansTypeCode">Payment Means Type Code:</label>
-              <input type="text" name="PaymentMeansTypeCode">
+              <input type="text" name="PaymentMeansTypeCode"> <!-- BT-81 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461
@@ -234,12 +234,12 @@
         <div id="positionContainer">
         </div>
         <button type="button" id="addPositionButton">Position hinzufügen</button>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DOCUMENT-TOTALS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DOCUMENT-TOTALS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_DOCUMENT-TOTALS">
             <div>
               <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
-              <input type="text" name="SumOfInvoiceLineNetAmount">
+              <input type="text" name="SumOfInvoiceLineNetAmount"> <!-- BT-106 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Summe aller "Invoice line net amount" der Rechnung.</span>
@@ -247,7 +247,7 @@
             </div>
             <div>
               <label for="InvoiceTotalAmountWithoutVAT">Invoice Total Amount Without VAT:</label>
-              <input type="text" name="InvoiceTotalAmountWithoutVAT">
+              <input type="text" name="InvoiceTotalAmountWithoutVAT"> <!-- BT-109 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnung ohne Umsatzsteuer.</span>
@@ -255,7 +255,7 @@
             </div>
             <div>
               <label for="InvoiceTotalAmountWithVAT">Invoice Total Amount With VAT:</label>
-              <input type="text" name="InvoiceTotalAmountWithVAT">
+              <input type="text" name="InvoiceTotalAmountWithVAT"> <!-- BT-112 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnung mit Umsatzsteuer.</span>
@@ -263,7 +263,7 @@
             </div>
             <div>
               <label for="AmountDueForPayment">Amount Due For Payment:</label>
-              <input type="text" name="AmountDueForPayment">
+              <input type="text" name="AmountDueForPayment"> <!-- BT-115 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der ausstehende Betrag, der zu zahlen ist.</span>
@@ -271,12 +271,12 @@
             </div>
           </div>
         </div>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_VAT-BREAKDOWN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_VAT-BREAKDOWN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_VAT-BREAKDOWN">
             <div>
               <label for="VATCategoryTaxableAmount">VAT Category Taxable Amount:</label>
-              <input type="text" name="VATCategoryTaxableAmount">
+              <input type="text" name="VATCategoryTaxableAmount"> <!-- BT-116 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Summe aller zu versteuernden Beträge, für die ein bestimmter Code der Umsatzsteuerkategorie und ein
@@ -285,7 +285,7 @@
             </div>
             <div>
               <label for="VATCategoryTaxAmount">VAT Category Tax Amount:</label>
-              <input type="text" name="VATCategoryTaxAmount">
+              <input type="text" name="VATCategoryTaxAmount"> <!-- BT-117 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der für die betreffende Umsatzsteuerkategorie zu entrichtende Gesamtbetrag.</span>
@@ -293,7 +293,7 @@
             </div>
             <div>
               <label for="VATCategoryCode">VAT Category Code:</label>
-              <input type="text" name="VATCategoryCode">
+              <input type="text" name="VATCategoryCode"> <!-- BT-118 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
@@ -301,7 +301,7 @@
             </div>
             <div>
               <label for="VATCategoryRate">VAT Category Rate:</label>
-              <input type="text" name="VATCategoryRate">
+              <input type="text" name="VATCategoryRate"> <!-- BT-119 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
@@ -309,7 +309,7 @@
             </div>
             <div>
               <label for="VATExemptionReasonText">VAT Exemption Reason Text:</label>
-              <input type="text" name="VATExemptionReasonText">
+              <input type="text" name="VATExemptionReasonText"> <!-- BT-120 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.</span>

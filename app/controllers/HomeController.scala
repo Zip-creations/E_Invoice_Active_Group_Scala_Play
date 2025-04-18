@@ -22,19 +22,18 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
+    val allPositionIDs: Seq[String] = formData
+      .flatMap(_.get("positionIDcontainer"))
+      .getOrElse(Seq.empty)
+    
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
 
-    val allPositionIDs: Seq[String] = request.body.asFormUrlEncoded
-      .flatMap(_.get("positionIDcontainer"))
-      .getOrElse(Seq.empty)
-    println("Values:" + allPositionIDs)
-
-    // Connect all Inputs from the html form
+    // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
+    // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
-    val inputInvoiceIssueDateTemp = connectInput("InvoiceIssueDate")
-    val inputInvoiceIssueDate = inputInvoiceIssueDateTemp.replace("-", "")
+    val inputInvoiceIssueDate = connectInput("InvoiceIssueDate").replace("-", "")
     val inputInvoiceTypeCode = connectInput("InvoiceTypeCode")
     val inputInvoiceCurrencyCode = connectInput("InvoiceCurrencyCode")
     val inputBuyerReference = connectInput("BuyerReference")
@@ -67,25 +66,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputInvoiceTotalAmountWithoutVAT = connectInput("InvoiceTotalAmountWithoutVAT")
     val inputInvoiceTotalAmountWithVAT = connectInput("InvoiceTotalAmountWithVAT")
     val inputAmountDueForPayment = connectInput("AmountDueForPayment")
-    // group_VAT-BREAKDOWN
-    val inputVATCategoryTaxableAmount = connectInput("VATCategoryTaxableAmount")
-    val inputVATCategoryTaxAmount = connectInput("VATCategoryTaxAmount")
-    val inputVATCategoryCode = connectInput("VATCategoryCode")
-    val inputVATCategoryRate = connectInput("VATCategoryRate")
-    val inputVATExemptionReasonText = connectInput("VATExemptionReasonText")
-    // group_INVOICE-LINE
-    val inputInvoiceLineIdentifier = connectInput("InvoiceLineIdentifier")
-    val inputInvoicedQuantity = connectInput("InvoicedQuantity")
-    val inputInvoicedQuantityUnitOfMeasureCode = connectInput("InvoicedQuantityUnitOfMeasureCode")
-    val inputInvoiceLineNetAmount = connectInput("InvoiceLineNetAmount")
-    // group_PRICE-DETAILS
-    val inputItemNetPrice = connectInput("ItemNetPrice")
-    // group_LINE-VAT-INFORMATION
-    val inputInvoicedItemVATCategoryCode = connectInput("InvoicedItemVATCategoryCode")
-    // group_ITEM-INFORMATION
-    val inputItemName = connectInput("ItemName")
 
     // Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
+    // Gets repeated for every invoice position
     def CreateXMLDataInvoicePostion(i: String) = {
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
@@ -114,7 +97,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       </ram:IncludedSupplyChainTradeLineItem>
     }
 
-    // This part need to be repeated for every Invoice Position. Check how to set Typecode
+    // This part need to be repeated for every VAT category code
     def CreateXMLDataPositionTax(i: String) = { 
       <ram:ApplicableTradeTax>
         <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
