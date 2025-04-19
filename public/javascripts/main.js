@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             input.data = values
             // Set awesomplete properties
             new Awesomplete(input, {
-              minChars: 0,
+              minChars: 1,
               maxItems: 20,
               autoFirst: true,
               tabSelect: true,
@@ -38,13 +38,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const { selectionStart, selectionEnd, value } = input;
             // Create the input the user wants to type in. Slicing is necessary to test in-between inserts,
             // and in case several letters are marked at once with the cursor
-            const proposed = value.slice(0, selectionStart) + e.data + value.slice(selectionEnd);
+            const proposed = value.slice(0, selectionStart) + e.data.toUpperCase() + value.slice(selectionEnd);
             const matches = input.data.some(entry => entry.startsWith(proposed));
             // e.data is null if DELETE or BACKSPACE are pressed
             // (which must be allowed, but only from the end of the text to prevent false inputs)
             // BACKSPACE is non-functional due to this restriction
             if (!matches && !(e.data === null && selectionEnd === value.length)) {
                 e.preventDefault();
+            }
+            // replace the userinput with the uppercase letter. Use data-* in html if some codes allow 
+            // lowercase letters, to create two groups that can be handled individually
+            else {
+                e.preventDefault();
+                input.value = proposed
+                const event = new Event("input", { bubbles: true });
+                input.dispatchEvent(event);
             }
         });
     });
