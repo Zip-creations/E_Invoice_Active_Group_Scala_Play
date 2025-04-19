@@ -61,7 +61,7 @@
                 <ram:CountryID>DE</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0</ram:URIID>
+                <ram:URIID schemeID="EM">0@0</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>

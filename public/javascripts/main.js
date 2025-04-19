@@ -96,8 +96,17 @@ async function ConnectData(filename) {
     return values
 }
 
+/**
+ * Some values can be hardcoded, to reduce the workload for the user and prevent errors.
+ * A short explanation is provided as comment for each value.
+ */
 function SetHardCodedInputs() {
-    // See documentation for BT-24
+    // See documentation for BT-24. This value is independant from user input and only needs to change
+    // if this tool complies to another Standart than CIUS XRechnung in the future
    var SpecificationIdentifier = document.getElementsByName("SpecificationIdentifier")[0]
    SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
 }
+
+window.onbeforeunload = function(){
+    return "";
+};

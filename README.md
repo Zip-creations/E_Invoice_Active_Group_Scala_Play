@@ -25,7 +25,7 @@ document.querySelector('[name="BuyerReference"]').value = "0";\
 document.querySelector('[name="BusinessProcessType"]').value = "0";\
 document.querySelector('[name="SellerName"]').value = "0";\
 document.querySelector('[name="SellerIdentifier"]').value = "0";\
-document.querySelector('[name="SellerElectronicAddress"]').value = "0";\
+document.querySelector('[name="SellerElectronicAddress"]').value = "0@0";\
 document.querySelector('[name="SellerCity"]').value = "0";\
 document.querySelector('[name="SellerPostCode"]').value = "0";\
 document.querySelector('[name="SellerCountryCode"]').value = "DE";\
