@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    SetHardCodedInputs()
 });
 
 
@@ -93,4 +94,10 @@ async function ConnectData(filename) {
             values = matches.map(match => match[1]);
         })
     return values
+}
+
+function SetHardCodedInputs() {
+    // See documentation for BT-24
+   var SpecificationIdentifier = document.getElementsByName("SpecificationIdentifier")[0]
+   SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
 }

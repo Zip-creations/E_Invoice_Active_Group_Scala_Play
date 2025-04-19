@@ -79,7 +79,7 @@
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>AMD</ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:TypeCode>ZZZ</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>

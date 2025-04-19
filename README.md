@@ -23,7 +23,6 @@ document.querySelector('[name="InvoiceTypeCode"]').value = "380";\
 document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
 document.querySelector('[name="BuyerReference"]').value = "0";\
 document.querySelector('[name="BusinessProcessType"]').value = "0";\
-document.querySelector('[name="SpecificationIdentifier"]').value = "0";\
 document.querySelector('[name="SellerName"]').value = "0";\
 document.querySelector('[name="SellerIdentifier"]').value = "0";\
 document.querySelector('[name="SellerElectronicAddress"]').value = "0";\
