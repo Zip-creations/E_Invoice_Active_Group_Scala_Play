@@ -138,7 +138,7 @@
             <dt>Referenz:</dt>
             <dd>/C:/Users/ruben/Nicht%20syncronisiert/Code/E_Invoice_Active_Group_Scala_Play/Toolbox/../output/xml/eInvoice_lalatest123.xml</dd>
             <dt>Zeitpunkt der Prüfung:</dt>
-            <dd>19.4.2025 22:41:18</dd>
+            <dd>20.4.2025 14:03:59</dd>
             <dt>Erkannter Dokumenttyp:</dt>
             <dd>EN16931 XRechnung (CII)</dd>
          </dl>
@@ -148,12 +148,70 @@
             <dt>Erkannte Rechnungsnummer:</dt>
             <dd>lalatest123</dd>
             <dt>Erkanntes Rechnungsdatum:</dt>
-            <dd>20250419</dd>
+            <dd>20250420</dd>
          </dl>
       </div>
-      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält weder Fehler noch Warnungen. Es ist konform zu den formalen
-         Vorgaben.</p>
-      <p class="important">Bewertung: Es wird empfohlen das Dokument anzunehmen und weiter zu verarbeiten.</p>
+      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält 1 Fehler / 0 Warnungen. Es ist <b>nicht konform</b> zu den formalen Vorgaben.</p>
+      <p>Übersicht der Validierungsergebnisse:</p>
+      <table class="tbl-errors">
+         <thead>
+            <tr>
+               <th>Prüfschritt</th>
+               <th>Fehler</th>
+               <th>Warnungen</th>
+               <th>Informationen</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>XML Schema for UN/CEFACT XML (SCRDM - CII uncoupled) (val-xsd)</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td>Schematron rules for EN16931 (CII) (val-sch.1)</td>
+               <td style="width: 30mm;">1</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td>Schematron rules for CIUS XRechnung (CII) (val-sch.2)</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td> (val-xml)</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Validierungsergebnisse im Detail:</p>
+      <table class="tbl-errors">
+         <thead>
+            <tr>
+               <th style="width: 30mm;">Pos</th>
+               <th style="width: 25mm;">Code</th>
+               <th style="width: 25mm;">Adj. Grad</th>
+               <th>Text</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.1</td>
+               <td rowspan="2">BR-CL-04</td>
+               <td rowspan="2">error</td>
+               <td>[BR-CL-04]-Invoice currency code MUST be coded using ISO code list 4217 alpha-3</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeSettlement[1]/ram:InvoiceCurrencyCode[1]</td>
+            </tr>
+         </tbody>
+      </table>
+      <p class="important error">Bewertung: Es wird empfohlen das Dokument zurückzuweisen.</p>
       <p class="important">Inhalt des Rechnungsdokuments:</p>
       <table class="document">
          <tr class="row" id="0001">
@@ -247,7 +305,7 @@
          <tr class="row" id="0011">
             <td class="pos">0011</td>
             <td class="element level4" title="DateTimeString">
-               <div class="val">20250419</div>
+               <div class="val">20250420</div>
                <div class="attribute" title="format">102</div>
             </td>
          </tr>
@@ -638,7 +696,7 @@
          <tr class="row" id="0056">
             <td class="pos">0056</td>
             <td class="element level4" title="InvoiceCurrencyCode">
-               <div class="val">EUR</div>
+               <div class="val">E</div>
             </td>
          </tr>
          <tr class="row" id="0057">

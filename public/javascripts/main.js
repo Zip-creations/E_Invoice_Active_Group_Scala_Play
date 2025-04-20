@@ -22,13 +22,18 @@ document.addEventListener("DOMContentLoaded", function () {
             // Set the data the completionchecker uses
             input.data = values
             // Set awesomplete properties
-            new Awesomplete(input, {
-              minChars: 1,
-              maxItems: 20,
+            const autocompleteElement = new Awesomplete(input, {
+              minChars: 0,
+              maxItems: Infinity,
               autoFirst: true,
               tabSelect: true,
               list: values,
               filter: Awesomplete.FILTER_STARTSWITH,
+            });
+            // Allows the autocomplete-list to appear when the user clicks into the input field,
+            // even if no input has been given yet
+            input.addEventListener("focus", function () {
+                autocompleteElement.evaluate();
             });
         })
     });
@@ -107,6 +112,6 @@ function SetHardCodedInputs() {
    SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
 }
 
-window.onbeforeunload = function(){
-    return "";
-};
+// window.onbeforeunload = function(){
+//     return "";
+// };

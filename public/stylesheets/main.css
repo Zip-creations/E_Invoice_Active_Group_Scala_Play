@@ -122,3 +122,9 @@ input[type=submit], button[type=button]{
 .removePositionButton {
     margin-top: -15px;
 }
+
+
+.awesomplete > ul {
+    max-height: 75vh;
+    overflow-y: auto;
+}
