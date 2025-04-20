@@ -79,7 +79,7 @@
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>E</ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:TypeCode>ZZZ</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
