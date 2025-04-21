@@ -33,7 +33,7 @@ document.querySelector('[name="SellerContactPoint"]').value = "0";\
 document.querySelector('[name="SellerContactTelephoneNumber"]').value = "000";\
 document.querySelector('[name="SellerContactEmailAddress"]').value = "0.0@0.0";\
 document.querySelector('[name="BuyerName"]').value = "0";\
-document.querySelector('[name="BuyerElectronicAddress"]').value = "0";\
+document.querySelector('[name="BuyerElectronicAddress"]').value = "0@0";\
 document.querySelector('[name="BuyerCity"]').value = "0";\
 document.querySelector('[name="BuyerPostCode"]').value = "0";\
 document.querySelector('[name="BuyerCountryCode"]').value = "DE";\

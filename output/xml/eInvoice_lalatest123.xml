@@ -12,7 +12,7 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250420</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250421</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
@@ -72,7 +72,7 @@
                 <ram:CountryID>DE</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0</ram:URIID>
+                <ram:URIID schemeID="EM">0@0</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
@@ -92,7 +92,7 @@
         <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>0</ram:LineTotalAmount>
+              <ram:LineTotalAmount>.6</ram:LineTotalAmount>
               <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
               <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
               <ram:DuePayableAmount>0</ram:DuePayableAmount>

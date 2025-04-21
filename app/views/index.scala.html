@@ -182,7 +182,7 @@
             </div>
             <div>
               <label for="BuyerElectronicAddress">Buyer Electronic Address:</label>
-              <input type="text" name="BuyerElectronicAddress" required> <!-- BT-49 -->
+              <input type="email" name="BuyerElectronicAddress" required> <!-- BT-49 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.</span>
@@ -209,7 +209,7 @@
             </div>
             <div>
               <label for="BuyerCountryCode">Buyer Country Code:</label>
-              <input type="text" name="BuyerCountryCode" required> <!-- BT-55 -->
+              <input type="text" name="BuyerCountryCode" class="awesomplete completionchecker" data-file="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd" required> <!-- BT-55 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein Code, mit dem das Land bezeichnet wird.</span>
@@ -222,7 +222,7 @@
           <div id="group_PAYMENT-INSTRUCTIONS">
             <div>
               <label for="PaymentMeansTypeCode">Payment Means Type Code:</label>
-              <input type="text" name="PaymentMeansTypeCode" required> <!-- BT-81 -->
+              <input type="text" name="PaymentMeansTypeCode" class="awesomplete completionchecker" data-file="UNECE_PaymentMeansCode_D16A.xsd" required> <!-- BT-81 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461
@@ -239,7 +239,7 @@
           <div id="group_DOCUMENT-TOTALS">
             <div>
               <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
-              <input type="text" name="SumOfInvoiceLineNetAmount" required> <!-- BT-106 -->
+              <input type="text" class="numberInput" name="SumOfInvoiceLineNetAmount" required> <!-- BT-106 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Summe aller "Invoice line net amount" der Rechnung.</span>

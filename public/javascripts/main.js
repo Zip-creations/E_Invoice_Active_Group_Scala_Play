@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll("input.completionchecker").forEach(input => {
         input.addEventListener("beforeinput", (e) => {
-            const { selectionStart, selectionEnd, value } = input;
+            const {selectionStart, selectionEnd, value} = input;
             // Create the input the user wants to type in. Slicing is necessary to test in-between inserts,
             // and in case several letters are marked at once with the cursor
             const proposed = value.slice(0, selectionStart) + e.data.toUpperCase() + value.slice(selectionEnd);
@@ -61,6 +61,40 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    // TODO: prevent . at end of number (Replace with .0 ?)
+    // TODO: prevent numbers with > 2 numbers after the .
+    document.querySelectorAll("input.numberInput").forEach(input => {
+        input.addEventListener("beforeinput", (e) => {
+            // Prevent error message, don't change any behavior
+            if (e.data === null) {return}
+            // Similar to document.querySelectorAll("input.completionchecker")
+            const {selectionStart, selectionEnd, value} = input;
+            const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
+            var flag = false
+            var index = 0
+            for (const literal of proposed) {
+                // A maximum of one . is allowed
+                if (literal === ".") {
+                    // . is not allowed at the beginning of the number
+                    if (flag || index === 0) { 
+                        e.preventDefault(); 
+                        return 
+                    }
+                    else {flag = true}
+                }
+                else if (isNaN(literal) && literal != ".") {
+                    e.preventDefault();
+                    return
+                }
+                index++
+            }
+            e.preventDefault();
+            input.value = proposed
+            const event = new Event("input", { bubbles: true });
+            input.dispatchEvent(event);
+        })
+    })
     SetHardCodedInputs()
 });
 
