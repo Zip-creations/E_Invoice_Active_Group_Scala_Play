@@ -84,7 +84,6 @@ function LoadRestrictions() {
         ConnectData(input.dataset.file).then(values => {
             // Set the data the completionchecker uses
             input.data = values
-            console.log(values)
             // Set awesomplete properties
             const autocompleteElement = new Awesomplete(input, {
                 minChars: 0,

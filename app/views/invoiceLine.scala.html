@@ -33,7 +33,7 @@
         </div>
         <div>
             <label for="InvoiceLineNetAmount">Invoice Line Net Amount:</label>
-            <input type="text" name='@("InvoiceLineNetAmount" + positionID)' required> <!-- BT-131 -->
+            <input type="text" name='@("InvoiceLineNetAmount" + positionID)' class="numberInput" required> <!-- BT-131 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
@@ -44,7 +44,7 @@
     <div id="group_PRICE-DETAILS">
         <div>
             <label for="ItemNetPrice">Item Net Price:</label>
-            <input type="text" name='@("ItemNetPrice" + positionID)' required> <!-- BT-146 -->
+            <input type="text" name='@("ItemNetPrice" + positionID)' class="numberInput" required> <!-- BT-146 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
@@ -55,7 +55,18 @@
     <div id="group_LINE-VAT-INFORMATION">
         <div>
             <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
-            <input type="text" name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
+            <select name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
+                <option disabled selected value=""> -- select a code -- </option>
+                <option value="S">S (Standard rate)</option>
+                <option value="Z">Z (Zero rated goods)</option>
+                <option value="E">E (Exempt from tax)</option>
+                <option value="AE">AE (VAT Reverse Charge)</option>
+                <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
+                <option value="G">G (Free export item, tax not charged)</option>
+                <option value="O">O (Services outside scope of tax)</option>
+                <option value="L">L (Canary Islands general indirect tax)</option>
+                <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
+              </select> <!-- BT-151 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
