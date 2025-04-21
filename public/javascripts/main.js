@@ -6,29 +6,93 @@ document.addEventListener("DOMContentLoaded", function () {
     let positionID = 1
     positionID = CreatePosition(positionID)
 
+    // Add Position
     document.getElementById("addPositionButton").addEventListener("click", function () {
         positionID = CreatePosition(positionID)
     });
 
+    // Remove Position
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("removePositionButton")) {
           const container = event.target.closest(".inputContainer");
             container.remove();
         }
     });
+    SetHardCodedInputs()
+});
 
+
+/**
+ *Fetches invoiceLine.scala.html, tranfers the current PostionID, attaches the created inputContainer
+ * (which contains one invoice position) and increments the positionID
+ * @param {*} positionID consistent, increasing ID for invoice Positions
+ * @returns 
+ */
+async function CreatePosition(positionID) {
+    await fetch(`/invoiceLine?positionID=${positionID.toString()}`)
+        .then(response => response.text())
+        .then(html => {
+            const targetDiv = document.getElementById("positionContainer");
+            targetDiv.insertAdjacentHTML("beforeend", html);
+        })
+    LoadRestrictions()
+    positionID++
+    return positionID
+}
+
+
+/**
+ *  Reads values from a .xsd file and returns them as Array. Assumes the format: <xsd:enumeration value="foo"/>
+ *  @param {*} positionID filename for .xsd
+ */
+// Needs to be async because values is set in the fetch .then part
+async function ConnectData(filename) {
+    var values = []
+    // Will be translated to public/codelists/filename
+    filepath = "assets/codelists/" + filename
+    await fetch(filepath)
+        .then(response => response.text())
+        .then(xsdtext => {
+            const matches = Array.from(xsdtext.matchAll(/<xsd:enumeration value="(.*?)"/g));
+            values = matches.map(match => match[1]);
+        })
+    return values
+}
+
+/**
+ * Some values can be hardcoded, to reduce the workload for the user and prevent errors.
+ * A short explanation is provided as comment for each value.
+ */
+function SetHardCodedInputs() {
+    // See documentation for BT-24. This value is independant from user input and only needs to change
+    // if this tool complies to another Standart than CIUS XRechnung in the future
+   var SpecificationIdentifier = document.getElementsByName("SpecificationIdentifier")[0]
+   SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
+}
+
+// window.onbeforeunload = function(){
+//     return "";
+// };
+
+
+/**
+ * Sets all Listeners and Codelists. Must be called at least once after the document loaded, and each time a new 
+ * input is connected to the document!
+ */
+function LoadRestrictions() {
     document.querySelectorAll("input.awesomplete").forEach(input => {
         ConnectData(input.dataset.file).then(values => {
             // Set the data the completionchecker uses
             input.data = values
+            console.log(values)
             // Set awesomplete properties
             const autocompleteElement = new Awesomplete(input, {
-              minChars: 0,
-              maxItems: Infinity,
-              autoFirst: true,
-              tabSelect: true,
-              list: values,
-              filter: Awesomplete.FILTER_STARTSWITH,
+                minChars: 0,
+                maxItems: Infinity,
+                autoFirst: true,
+                tabSelect: true,
+                list: values,
+                filter: Awesomplete.FILTER_STARTSWITH,
             });
             // Allows the autocomplete-list to appear when the user clicks into the input field,
             // even if no input has been given yet
@@ -95,57 +159,4 @@ document.addEventListener("DOMContentLoaded", function () {
             input.dispatchEvent(event);
         })
     })
-    SetHardCodedInputs()
-});
-
-
-/**
- *Fetches invoiceLine.scala.html, tranfers the current PostionID, attaches the created inputContainer
- * (which contains one invoice position) and increments the positionID
- * @param {*} positionID consistent, increasing ID for invoice Positions
- * @returns 
- */
-function CreatePosition(positionID) {
-    fetch(`/invoiceLine?positionID=${positionID.toString()}`)
-        .then(response => response.text())
-        .then(html => {
-            const targetDiv = document.getElementById("positionContainer");
-            targetDiv.insertAdjacentHTML("beforeend", html);
-        })
-    positionID++
-    return positionID
 }
-
-
-/**
- *  Reads values from a .xsd file and returns them as Array. Assumes the format: <xsd:enumeration value="foo"/>
- *  @param {*} positionID filename for .xsd
- */
-// Needs to be async because values is set in the fetch .then part
-async function ConnectData(filename) {
-    var values = []
-    // Will be translated to public/codelists/filename
-    filepath = "assets/codelists/" + filename
-    await fetch(filepath)
-        .then(response => response.text())
-        .then(xsdtext => {
-            const matches = Array.from(xsdtext.matchAll(/<xsd:enumeration value="(.*?)"/g));
-            values = matches.map(match => match[1]);
-        })
-    return values
-}
-
-/**
- * Some values can be hardcoded, to reduce the workload for the user and prevent errors.
- * A short explanation is provided as comment for each value.
- */
-function SetHardCodedInputs() {
-    // See documentation for BT-24. This value is independant from user input and only needs to change
-    // if this tool complies to another Standart than CIUS XRechnung in the future
-   var SpecificationIdentifier = document.getElementsByName("SpecificationIdentifier")[0]
-   SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
-}
-
-// window.onbeforeunload = function(){
-//     return "";
-// };

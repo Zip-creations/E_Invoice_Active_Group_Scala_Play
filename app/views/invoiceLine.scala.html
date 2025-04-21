@@ -25,7 +25,7 @@
         </div>
         <div>
             <label for="InvoicedQuantityUnitOfMeasureCode">Invoiced Quantity Unit Of Measure Code:</label>
-            <input type="text" name='@("InvoicedQuantityUnitOfMeasureCode" + positionID)' required> <!-- BT-130 -->
+            <input type="text" name='@("InvoicedQuantityUnitOfMeasureCode" + positionID)' class="awesomplete completionchecker" data-file="InvoicedQuantityUnitOfMeasureCodes.xsd" required> <!-- BT-130 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die für die "Invoiced Quantity" geltende Maßeinheit.</span>
