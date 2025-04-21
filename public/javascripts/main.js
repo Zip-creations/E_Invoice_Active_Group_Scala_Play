@@ -127,35 +127,74 @@ function LoadRestrictions() {
 
     // TODO: prevent . at end of number (Replace with .0 ?)
     // TODO: prevent numbers with > 2 numbers after the .
-    document.querySelectorAll("input.numberInput").forEach(input => {
+    AddQuantityRestriction(document.querySelectorAll("input.datatypeQuantity"))
+    AddAmountRestriction(document.querySelectorAll("input.datatypeAmount"))
+}
+
+function AddAmountRestriction(inputList) {
+    inputList.forEach(input => {
         input.addEventListener("beforeinput", (e) => {
-            // Prevent error message, don't change any behavior
-            if (e.data === null) {return}
-            // Similar to document.querySelectorAll("input.completionchecker")
-            const {selectionStart, selectionEnd, value} = input;
-            const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
-            var flag = false
-            var index = 0
-            for (const literal of proposed) {
-                // A maximum of one . is allowed
-                if (literal === ".") {
-                    // . is not allowed at the beginning of the number
-                    if (flag || index === 0) { 
-                        e.preventDefault(); 
-                        return 
-                    }
-                    else {flag = true}
-                }
-                else if (isNaN(literal) && literal != ".") {
-                    e.preventDefault();
-                    return
-                }
-                index++
+            const proposed = GetProposedNumber(input, e)
+            CheckIfValidNumber(input, e)
+            if (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2) {
+                e.preventDefault();
             }
-            e.preventDefault();
-            input.value = proposed
-            const event = new Event("input", { bubbles: true });
-            input.dispatchEvent(event);
+            else {
+                SendProposedInput(input, e, proposed)
+            }
         })
     })
+}
+
+function AddQuantityRestriction(inputList) {
+    inputList.forEach(input => {
+        input.addEventListener("beforeinput", (e) => {
+            const proposed = GetProposedNumber(input, e)
+            if (!CheckIfValidNumber(input, e)) {
+                e.preventDefault()
+            }
+            else {
+                SendProposedInput(input, e, proposed)
+            }
+        })
+    })
+}
+
+function GetProposedNumber(input, e) {
+    const {selectionStart, selectionEnd, value} = input;
+    const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
+    return proposed
+}
+
+function SendProposedInput(input, e, proposed) {
+    e.preventDefault();
+    input.value = proposed
+    const event = new Event("input", { bubbles: true });
+    input.dispatchEvent(event);
+}
+
+function CheckIfValidNumber(input, e) {
+    // Prevent error message, don't change any behavior
+    if (e.data === null) {return}
+    // Similar to document.querySelectorAll("input.completionchecker")
+    const proposed = GetProposedNumber(input, e)
+    var flag = false
+    var index = 0
+    for (const literal of proposed) {
+        // A maximum of one . is allowed
+        if (literal === ".") {
+            // . is not allowed at the beginning of the number
+            if (flag || index === 0) { 
+                e.preventDefault(); 
+                return false
+            }
+            else {flag = true}
+        }
+        else if (isNaN(literal) && literal != ".") {
+            e.preventDefault();
+            return false
+        }
+        index++
+    }
+    return true
 }

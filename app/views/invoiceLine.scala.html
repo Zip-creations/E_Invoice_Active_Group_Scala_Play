@@ -17,7 +17,7 @@
         </div>
         <div>
             <label for="InvoicedQuantity">Invoiced Quantity:</label>
-            <input type="text" name='@("InvoicedQuantity" + positionID)' required> <!-- BT-129 -->
+            <input type="text" name='@("InvoicedQuantity" + positionID)' class="datatypeQuantity" required> <!-- BT-129 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Die Menge zu dem in der betreffenden Zeile in Rechnung gestellten Einzelposten (Waren oder Dienstleistungen).</span>
@@ -33,7 +33,7 @@
         </div>
         <div>
             <label for="InvoiceLineNetAmount">Invoice Line Net Amount:</label>
-            <input type="text" name='@("InvoiceLineNetAmount" + positionID)' class="numberInput" required> <!-- BT-131 -->
+            <input type="text" name='@("InvoiceLineNetAmount" + positionID)' class="datatypeAmount" required> <!-- BT-131 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
@@ -44,7 +44,7 @@
     <div id="group_PRICE-DETAILS">
         <div>
             <label for="ItemNetPrice">Item Net Price:</label>
-            <input type="text" name='@("ItemNetPrice" + positionID)' class="numberInput" required> <!-- BT-146 -->
+            <input type="text" name='@("ItemNetPrice" + positionID)' class="datatypeQuantity" required> <!-- BT-146 -->
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
