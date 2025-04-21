@@ -92,7 +92,7 @@
         <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
       </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>.6</ram:LineTotalAmount>
+              <ram:LineTotalAmount>0</ram:LineTotalAmount>
               <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
               <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
               <ram:DuePayableAmount>0</ram:DuePayableAmount>

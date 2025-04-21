@@ -239,7 +239,7 @@
           <div id="group_DOCUMENT-TOTALS">
             <div>
               <label for="SumOfInvoiceLineNetAmount">Sum Of Invoice Line Net Amount:</label>
-              <input type="text" class="numberInput" name="SumOfInvoiceLineNetAmount" required> <!-- BT-106 -->
+              <input type="text" name="SumOfInvoiceLineNetAmount" class="numberInput" required> <!-- BT-106 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Summe aller "Invoice line net amount" der Rechnung.</span>
@@ -247,7 +247,7 @@
             </div>
             <div>
               <label for="InvoiceTotalAmountWithoutVAT">Invoice Total Amount Without VAT:</label>
-              <input type="text" name="InvoiceTotalAmountWithoutVAT" required> <!-- BT-109 -->
+              <input type="text" name="InvoiceTotalAmountWithoutVAT" class="numberInput" required> <!-- BT-109 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnung ohne Umsatzsteuer.</span>
@@ -255,7 +255,7 @@
             </div>
             <div>
               <label for="InvoiceTotalAmountWithVAT">Invoice Total Amount With VAT:</label>
-              <input type="text" name="InvoiceTotalAmountWithVAT" required> <!-- BT-112 -->
+              <input type="text" name="InvoiceTotalAmountWithVAT" class="numberInput" required> <!-- BT-112 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Gesamtbetrag der Rechnung mit Umsatzsteuer.</span>
@@ -263,7 +263,7 @@
             </div>
             <div>
               <label for="AmountDueForPayment">Amount Due For Payment:</label>
-              <input type="text" name="AmountDueForPayment" required> <!-- BT-115 -->
+              <input type="text" name="AmountDueForPayment" class="numberInput" required> <!-- BT-115 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der ausstehende Betrag, der zu zahlen ist.</span>
@@ -276,7 +276,7 @@
           <div id="group_VAT-BREAKDOWN">
             <div>
               <label for="VATCategoryTaxableAmount">VAT Category Taxable Amount:</label>
-              <input type="text" name="VATCategoryTaxableAmount" required> <!-- BT-116 -->
+              <input type="text" name="VATCategoryTaxableAmount" class="numberInput" required> <!-- BT-116 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Summe aller zu versteuernden Beträge, für die ein bestimmter Code der Umsatzsteuerkategorie und ein
@@ -285,7 +285,7 @@
             </div>
             <div>
               <label for="VATCategoryTaxAmount">VAT Category Tax Amount:</label>
-              <input type="text" name="VATCategoryTaxAmount" required> <!-- BT-117 -->
+              <input type="text" name="VATCategoryTaxAmount" class="numberInput" required> <!-- BT-117 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der für die betreffende Umsatzsteuerkategorie zu entrichtende Gesamtbetrag.</span>
@@ -293,7 +293,18 @@
             </div>
             <div>
               <label for="VATCategoryCode">VAT Category Code:</label>
-              <input type="text" name="VATCategoryCode" required> <!-- BT-118 -->
+              <select name="VATCategoryCode" required> <!-- BT-118 -->
+                <option disabled selected value=""> -- select a code -- </option>
+                <option value="S">S (Standard rate)</option>
+                <option value="Z">Z (Zero rated goods)</option>
+                <option value="E">E (Exempt from tax)</option>
+                <option value="AE">AE (VAT Reverse Charge)</option>
+                <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
+                <option value="G">G (Free export item, tax not charged)</option>
+                <option value="O">O (Services outside scope of tax)</option>
+                <option value="L">L (Canary Islands general indirect tax)</option>
+                <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
+              </select>
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
@@ -301,7 +312,7 @@
             </div>
             <div>
               <label for="VATCategoryRate">VAT Category Rate:</label>
-              <input type="text" name="VATCategoryRate" required> <!-- BT-119 -->
+              <input type="text" name="VATCategoryRate" class="numberInput" required> <!-- BT-119 -->
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Codierte Bezeichnung einer Umsatzsteuerkategorie.</span>
