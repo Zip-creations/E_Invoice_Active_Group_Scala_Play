@@ -74,13 +74,31 @@ function SetHardCodedInputs() {
 //     return "";
 // };
 
-
 /**
  * Sets all Listeners and Codelists. Must be called at least once after the document loaded, and each time a new 
  * input is connected to the document!
  */
 function LoadRestrictions() {
-    document.querySelectorAll("input.awesomplete").forEach(input => {
+    AddAwesompleteRestriction(document.querySelectorAll("input.awesomplete"))
+    AddQuantityRestriction(document.querySelectorAll("input.datatypeQuantity"))
+    AddAmountRestriction(document.querySelectorAll("input.datatypeAmount"))
+}
+
+function GetProposedNumber(input, e) {
+    const {selectionStart, selectionEnd, value} = input;
+    const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
+    return proposed
+}
+
+function SendProposedInput(input, e, proposed) {
+    e.preventDefault();
+    input.value = proposed
+    const event = new Event("input", { bubbles: true });
+    input.dispatchEvent(event);
+}
+
+function AddAwesompleteRestriction(inputList) {
+    inputList.forEach(input => {
         ConnectData(input.dataset.file).then(values => {
             // Set the data the completionchecker uses
             input.data = values
@@ -99,9 +117,6 @@ function LoadRestrictions() {
                 autocompleteElement.evaluate();
             });
         })
-    });
-
-    document.querySelectorAll("input.completionchecker").forEach(input => {
         input.addEventListener("beforeinput", (e) => {
             const {selectionStart, selectionEnd, value} = input;
             // Create the input the user wants to type in. Slicing is necessary to test in-between inserts,
@@ -117,26 +132,17 @@ function LoadRestrictions() {
             // replace the userinput with the uppercase letter. Use data-* in html if some codes allow 
             // lowercase letters, to create two groups that can be handled individually
             else {
-                e.preventDefault();
-                input.value = proposed
-                const event = new Event("input", { bubbles: true });
-                input.dispatchEvent(event);
+                SendProposedInput(input, e, proposed)
             }
         });
-    });
-
-    // TODO: prevent . at end of number (Replace with .0 ?)
-    // TODO: prevent numbers with > 2 numbers after the .
-    AddQuantityRestriction(document.querySelectorAll("input.datatypeQuantity"))
-    AddAmountRestriction(document.querySelectorAll("input.datatypeAmount"))
+    })  
 }
 
 function AddAmountRestriction(inputList) {
     inputList.forEach(input => {
         input.addEventListener("beforeinput", (e) => {
             const proposed = GetProposedNumber(input, e)
-            CheckIfValidNumber(input, e)
-            if (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2) {
+            if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
                 e.preventDefault();
             }
             else {
@@ -160,19 +166,7 @@ function AddQuantityRestriction(inputList) {
     })
 }
 
-function GetProposedNumber(input, e) {
-    const {selectionStart, selectionEnd, value} = input;
-    const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
-    return proposed
-}
-
-function SendProposedInput(input, e, proposed) {
-    e.preventDefault();
-    input.value = proposed
-    const event = new Event("input", { bubbles: true });
-    input.dispatchEvent(event);
-}
-
+// TODO: prevent . at end of number (Replace with .0 ?)
 function CheckIfValidNumber(input, e) {
     // Prevent error message, don't change any behavior
     if (e.data === null) {return}
