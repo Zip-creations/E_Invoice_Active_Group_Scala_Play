@@ -79,9 +79,20 @@ function SetHardCodedInputs() {
  * input is connected to the document!
  */
 function LoadRestrictions() {
-    AddAwesompleteRestriction(document.querySelectorAll("input.awesomplete"))
-    AddQuantityRestriction(document.querySelectorAll("input.datatypeQuantity"))
-    AddAmountRestriction(document.querySelectorAll("input.datatypeAmount"))
+    var allInputs = document.querySelectorAll("input")
+    allInputs.forEach(input => {
+        switch(input.className) {
+            case "awesomplete":
+                AddAwesompleteRestriction(input);
+                break;
+            case "datatypeAmount":
+                AddAmountRestriction(input);
+                break;
+            case "datatypeQuantity":
+                AddQuantityRestriction(input);
+                break;
+        }
+    })
 }
 
 function GetProposedNumber(input, e) {
@@ -97,72 +108,72 @@ function SendProposedInput(input, e, proposed) {
     input.dispatchEvent(event);
 }
 
-function AddAwesompleteRestriction(inputList) {
-    inputList.forEach(input => {
-        ConnectData(input.dataset.file).then(values => {
-            // Set the data the completionchecker uses
-            input.data = values
-            // Set awesomplete properties
-            const autocompleteElement = new Awesomplete(input, {
-                minChars: 0,
-                maxItems: Infinity,
-                autoFirst: true,
-                tabSelect: true,
-                list: values,
-                filter: Awesomplete.FILTER_STARTSWITH,
-            });
-            // Allows the autocomplete-list to appear when the user clicks into the input field,
-            // even if no input has been given yet
-            input.addEventListener("focus", function () {
-                autocompleteElement.evaluate();
-            });
-        })
-        input.addEventListener("beforeinput", (e) => {
-            const {selectionStart, selectionEnd, value} = input;
-            // Create the input the user wants to type in. Slicing is necessary to test in-between inserts,
-            // and in case several letters are marked at once with the cursor
-            const proposed = value.slice(0, selectionStart) + e.data.toUpperCase() + value.slice(selectionEnd);
-            const matches = input.data.some(entry => entry.startsWith(proposed));
-            // e.data is null if DELETE or BACKSPACE are pressed
-            // (which must be allowed, but only from the end of the text to prevent false inputs)
-            // BACKSPACE is non-functional due to this restriction
-            if (!matches && !(e.data === null && selectionEnd === value.length)) {
-                e.preventDefault();
-            }
-            // replace the userinput with the uppercase letter. Use data-* in html if some codes allow 
-            // lowercase letters, to create two groups that can be handled individually
-            else {
-                SendProposedInput(input, e, proposed)
-            }
+function AddAwesompleteRestriction(input) {
+    ConnectData(input.dataset.file).then(values => {
+        // Set the data the completionchecker uses
+        input.data = values
+        // Set awesomplete properties
+        const autocompleteElement = new Awesomplete(input, {
+            minChars: 0,
+            maxItems: Infinity,
+            autoFirst: true,
+            tabSelect: true,
+            list: values,
+            filter: Awesomplete.FILTER_STARTSWITH,
         });
-    })  
+        // Allows the autocomplete-list to appear when the user clicks into the input field,
+        // even if no input has been given yet
+        input.addEventListener("focus", function () {
+            autocompleteElement.evaluate();
+        });
+    })
+    input.addEventListener("beforeinput", (e) => {
+        const {selectionStart, selectionEnd, value} = input;
+        // e.data is null if DELETE or BACKSPACE are pressed
+        // (which must be allowed, but only from the end of the text to prevent false inputs)
+        // BACKSPACE is non-functional due to this restriction
+        if (e.data === null && selectionEnd != value.length) {
+            e.preventDefault()
+            return
+        } else if (e.data === null) {
+            return
+        }
+        // Create the input the user wants to type in and Replace the userinput with the uppercase letter.
+        // Slicing is necessary to test in-between inserts, and in case several letters are marked at once with the cursor.
+        const proposed = value.slice(0, selectionStart) + e.data.toUpperCase() + value.slice(selectionEnd);
+        const matches = input.data.some(entry => entry.startsWith(proposed));
+        if (!matches) {
+            e.preventDefault();
+        }
+        else {
+            SendProposedInput(input, e, proposed)
+        }
+    });
 }
 
-function AddAmountRestriction(inputList) {
-    inputList.forEach(input => {
-        input.addEventListener("beforeinput", (e) => {
-            const proposed = GetProposedNumber(input, e)
-            if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
-                e.preventDefault();
-            }
-            else {
-                SendProposedInput(input, e, proposed)
-            }
-        })
+function AddAmountRestriction(input) {
+    input.addEventListener("beforeinput", (e) => {
+        if (e.data === null) {return}
+        const proposed = GetProposedNumber(input, e)
+        if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
+            e.preventDefault();
+        }
+        else {
+            SendProposedInput(input, e, proposed)
+        }
     })
 }
 
-function AddQuantityRestriction(inputList) {
-    inputList.forEach(input => {
-        input.addEventListener("beforeinput", (e) => {
-            const proposed = GetProposedNumber(input, e)
-            if (!CheckIfValidNumber(input, e)) {
-                e.preventDefault()
-            }
-            else {
-                SendProposedInput(input, e, proposed)
-            }
-        })
+function AddQuantityRestriction(input) {
+    input.addEventListener("beforeinput", (e) => {
+        if (e.data === null) {return}
+        const proposed = GetProposedNumber(input, e)
+        if (!CheckIfValidNumber(input, e)) {
+            e.preventDefault()
+        }
+        else {
+            SendProposedInput(input, e, proposed)
+        }
     })
 }
 

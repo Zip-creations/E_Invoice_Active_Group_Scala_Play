@@ -195,7 +195,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val writer = new PrintWriter(new File(invoicePathXML))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
     writer.close()
-    // scala.xml.XML.save("./output/outputScalaXMl.xml", xmlData)
 
     // Location of execution
     val directory = new File("Toolbox")
