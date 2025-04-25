@@ -1,14 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
     var invoiceDateInput = document.getElementsByName("InvoiceIssueDate");
+    // Set InvoiceIssueDate to "today"
     invoiceDateInput.forEach(function (invoiceDateInput) {
         invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
     });
-    let positionID = 1
-    positionID = CreatePosition(positionID)
+    var positionID = 1
+    CreatePosition(positionID).then( a =>
+        positionID = a
+    )
 
     // Add Position
     document.getElementById("addPositionButton").addEventListener("click", function () {
-        positionID = CreatePosition(positionID)
+        CreatePosition(positionID).then(a=> {
+            positionID = a
+        })
     });
 
     // Remove Position
@@ -178,6 +183,19 @@ function AddQuantityRestriction(input) {
     })
 }
 
+function AddPercentageRestriction(input) {
+    input.addEventListener("beforeinput", (e) => {
+        if (e.data === null) {return}
+        const proposed = GetProposedNumber(input, e)
+        if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
+            e.preventDefault();
+        }
+        else {
+            SendProposedInput(input, e, proposed)
+        }
+    })
+}
+
 // TODO: prevent . at end of number (Replace with .0 ?)
 function CheckIfValidNumber(input, e) {
     // Prevent error message, don't change any behavior
@@ -191,13 +209,11 @@ function CheckIfValidNumber(input, e) {
         if (literal === ".") {
             // . is not allowed at the beginning of the number
             if (flag || index === 0) { 
-                e.preventDefault(); 
                 return false
             }
             else {flag = true}
         }
         else if (isNaN(literal) && literal != ".") {
-            e.preventDefault();
             return false
         }
         index++
