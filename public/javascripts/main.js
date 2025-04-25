@@ -78,6 +78,7 @@ function SetHardCodedInputs() {
  * Sets all Listeners and Codelists. Must be called at least once after the document loaded, and each time a new 
  * input is connected to the document!
  */
+// .awesomeplete, .dataTypeAmount and .datatypeQuantity must be used mutually exclusive!
 function LoadRestrictions() {
     var allInputs = document.querySelectorAll("input")
     allInputs.forEach(input => {
