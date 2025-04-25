@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
  * @param {*} positionID consistent, increasing ID for invoice Positions
  * @returns 
  */
-async function CreatePosition(positionID) {
-    await fetch(`/invoiceLine?positionID=${positionID.toString()}`)
+function CreatePosition(positionID) {
+    fetch(`/invoiceLine?positionID=${positionID.toString()}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
