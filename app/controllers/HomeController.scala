@@ -110,6 +110,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     }
 
     // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
+    // TODO: inputSellerIdentifier: Find out how to set schemeID
     val xmlData =
       <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
         <rsm:ExchangedDocumentContext>
