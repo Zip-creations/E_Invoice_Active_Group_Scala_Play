@@ -97,6 +97,9 @@ function LoadRestrictions() {
             case "datatypeQuantity":
                 AddQuantityRestriction(input);
                 break;
+            case "datatypePercentage":
+                AddPercentageRestriction(input);
+                break;
         }
     })
 }
@@ -161,7 +164,8 @@ function AddAmountRestriction(input) {
     input.addEventListener("beforeinput", (e) => {
         if (e.data === null) {return}
         const proposed = GetProposedNumber(input, e)
-        if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
+        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
+        if (!CheckIfValidNumber(input, e) || (hasDot && rightOfDot.length > 2)) {
             e.preventDefault();
         }
         else {
@@ -185,14 +189,35 @@ function AddQuantityRestriction(input) {
 
 function AddPercentageRestriction(input) {
     input.addEventListener("beforeinput", (e) => {
+        // // Valid range for a percenatage: 100.00 to 0
+        // // A Valid Percentage must be: A valid number & has a max of two digits after the dot & has no more than 3 digits left of the dot &
+        // // if there are 3 digits left of the dot, it must be 100
         if (e.data === null) {return}
-        const proposed = GetProposedNumber(input, e)
-        if (!CheckIfValidNumber(input, e) || (proposed.includes(".") && proposed.slice(proposed.indexOf(".")+1, proposed.length).length > 2)) {
+        var proposed = GetProposedNumber(input, e)
+        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
+        var flag = false
+        var index = 0
+        for (const literal of proposed) {
+            // A maximum of one . is allowed
+            if (literal === ".") {
+                // . is not allowed at the beginning of the number
+                if (flag || index === 0) { 
+                    e.preventDefault();
+                    return
+                }
+                else {flag = true}
+            }
+            else if (isNaN(literal) || (parseInt(proposed) > 100)) {
+                e.preventDefault();
+                return
+            }
+            index++
+        }
+        if (rightOfDot.length > 2) {
             e.preventDefault();
+            return
         }
-        else {
-            SendProposedInput(input, e, proposed)
-        }
+        SendProposedInput(input, e, proposed)
     })
 }
 
@@ -200,7 +225,6 @@ function AddPercentageRestriction(input) {
 function CheckIfValidNumber(input, e) {
     // Prevent error message, don't change any behavior
     if (e.data === null) {return}
-    // Similar to document.querySelectorAll("input.completionchecker")
     const proposed = GetProposedNumber(input, e)
     var flag = false
     var index = 0
@@ -213,10 +237,24 @@ function CheckIfValidNumber(input, e) {
             }
             else {flag = true}
         }
-        else if (isNaN(literal) && literal != ".") {
+        else if (isNaN(literal)) {
             return false
         }
         index++
     }
     return true
+}
+
+function DeconstruktNumber(num){
+    var hasDot = num.includes(".")
+    var leftOfDot
+    var rightOfDot
+    if (hasDot) {
+        leftOfDot = num.slice(0, num.indexOf("."))
+        rightOfDot = num.slice(num.indexOf(".")+1, num.length)
+    } else {
+        leftOfDot = ""
+        rightOfDot = ""
+    }
+    return [hasDot, leftOfDot, rightOfDot]
 }
