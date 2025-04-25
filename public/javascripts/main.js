@@ -83,7 +83,7 @@ function SetHardCodedInputs() {
  * Sets all Listeners and Codelists. Must be called at least once after the document loaded, and each time a new 
  * input is connected to the document!
  */
-// .awesomeplete, .dataTypeAmount and .datatypeQuantity must be used mutually exclusive!
+// .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!
 function LoadRestrictions() {
     var allInputs = document.querySelectorAll("input")
     allInputs.forEach(input => {
@@ -106,8 +106,21 @@ function LoadRestrictions() {
 
 function GetProposedNumber(input, e) {
     const {selectionStart, selectionEnd, value} = input;
-    const proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
-    return proposed
+    // BACKSPACE on one digit
+    if (e.inputType === "deleteContentBackward" && (selectionStart === selectionEnd)) {
+        return value.slice(0, selectionStart -1) + value.slice(selectionEnd)
+    }
+    // DELETE on one digit
+    else if (e.inputType === "deleteContentForward" && (selectionStart === selectionEnd)) {
+        return value.slice(0, selectionStart) + value.slice(selectionStart +1, value.length)
+    }
+    // delete selection (crtl + x, DELETE or BACKSPACE on selection)
+    else if (e.data === null) {
+        return value.slice(0, selectionStart) + value.slice(selectionEnd, value.length)
+    }
+    else {
+        return proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
+    }
 }
 
 function SendProposedInput(input, e, proposed) {
@@ -162,13 +175,12 @@ function AddAwesompleteRestriction(input) {
 
 function AddAmountRestriction(input) {
     input.addEventListener("beforeinput", (e) => {
-        if (e.data === null) {return}
         const proposed = GetProposedNumber(input, e)
         var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
-        if (!CheckIfValidNumber(input, e) || (hasDot && rightOfDot.length > 2)) {
+        // A valid Amount must be a number and can only have a max of 2 digits at the right of the dot
+        if (isNaN(proposed) || (hasDot && rightOfDot.length > 2)) {
             e.preventDefault();
-        }
-        else {
+        }else {
             SendProposedInput(input, e, proposed)
         }
     })
@@ -176,9 +188,8 @@ function AddAmountRestriction(input) {
 
 function AddQuantityRestriction(input) {
     input.addEventListener("beforeinput", (e) => {
-        if (e.data === null) {return}
         const proposed = GetProposedNumber(input, e)
-        if (!CheckIfValidNumber(input, e)) {
+        if (isNaN(proposed)) {
             e.preventDefault()
         }
         else {
@@ -192,57 +203,18 @@ function AddPercentageRestriction(input) {
         // // Valid range for a percenatage: 100.00 to 0
         // // A Valid Percentage must be: A valid number & has a max of two digits after the dot & has no more than 3 digits left of the dot &
         // // if there are 3 digits left of the dot, it must be 100
-        if (e.data === null) {return}
         var proposed = GetProposedNumber(input, e)
         var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
-        var flag = false
-        var index = 0
-        for (const literal of proposed) {
-            // A maximum of one . is allowed
-            if (literal === ".") {
-                // . is not allowed at the beginning of the number
-                if (flag || index === 0) { 
-                    e.preventDefault();
-                    return
-                }
-                else {flag = true}
-            }
-            else if (isNaN(literal) || (parseInt(proposed) > 100)) {
-                e.preventDefault();
-                return
-            }
-            index++
-        }
-        if (rightOfDot.length > 2) {
+        if (isNaN(proposed) || rightOfDot.length > 2) {
             e.preventDefault();
             return
+        } else if (parseInt(proposed) > 100){
+            e.preventDefault();
+            return
+        } else {
+            SendProposedInput(input, e, proposed)
         }
-        SendProposedInput(input, e, proposed)
     })
-}
-
-// TODO: prevent . at end of number (Replace with .0 ?)
-function CheckIfValidNumber(input, e) {
-    // Prevent error message, don't change any behavior
-    if (e.data === null) {return}
-    const proposed = GetProposedNumber(input, e)
-    var flag = false
-    var index = 0
-    for (const literal of proposed) {
-        // A maximum of one . is allowed
-        if (literal === ".") {
-            // . is not allowed at the beginning of the number
-            if (flag || index === 0) { 
-                return false
-            }
-            else {flag = true}
-        }
-        else if (isNaN(literal)) {
-            return false
-        }
-        index++
-    }
-    return true
 }
 
 function DeconstruktNumber(num){
