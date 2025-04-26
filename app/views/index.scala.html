@@ -1,10 +1,10 @@
 @(implicit request: RequestHeader)
 @main("E Rechnung erstellen", "main.css"){
+<!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation. -->
+<!-- The content of the description in the <span> fields has been taken from the documentation of X-Rechnung. -->
     <div id="invoiceContainer">
       <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoice" target="_blank">
         @helper.CSRF.formField
-        <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation-->
-
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_INVOICE">
@@ -56,6 +56,123 @@
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.</span>
+              </div>
+            </div>
+            <div>
+              <label for="VATAccountingCurrencyCode">VAT Accounting Currency Code:</label>
+              <input type="text" name="VATAccountingCurrencyCode"> <!-- BT-6 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die für die Umsatzsteuer-Abrechnungs- und -Meldezwecke verwendete Währung, die im Land des Verkäufers gültig ist oder verlangt wird.</span>
+              </div>
+            </div>
+            <div>
+              <label for="ValueAddedTaxPointDate">Value Added Tax Point Date:</label>
+              <input type="date" name="ValueAddedTaxPointDate"> <!-- BT-7 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Das Datum, zu dem die Umsatzsteuer für den Verkäufer und für den Erwerber abrechnungsrelevant wird.</span>
+              </div>
+            </div>
+            <div>
+              <label for="ValueAddedTaxPointDateCode">Value Added Tax Point Date Code:</label>
+              <select name="ValueAddedTaxPointDateCode" > <!-- BT-8 -->
+                <option disabled selected value=""> -- select a code -- </option>
+                <option value="3">3 (Invoice document issue date time)</option>
+                <option value="35">35 (Delivery date/time, actual)</option>
+                <option value="432">432 (Paid to date)</option>
+              </select>
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code für den Zeitpunkt, an dem die Umsatzsteuer für den Erwerber und den Verkäufer in der Buchführung nachzuweisen ist.</span>
+              </div>
+            </div>
+            <div>
+              <label for="PaymentDueDate">Payment Due Date:</label>
+              <input type="date" name="PaymentDueDate"> <!-- BT-9 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Das Fälligkeitsdatum des Rechnungsbetrages.</span>
+              </div>
+            </div>
+            <div>
+              <label for="ProjectReference">Project Reference:</label>
+              <input type="text" name="ProjectReference"> <!-- BT-11 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Kennung eines Projektes, auf das sich die Rechnung bezieht.</span>
+              </div>
+            </div>
+            <div>
+              <label for="ContractReference">Contract Reference:</label>
+              <input type="text" name="ContractReference"> <!-- BT-12 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine eindeutige Bezeichnung des Vertrages (z. B. Vertragsnummer).</span>
+              </div>
+            </div>
+            <div>
+              <label for="PurchaseOrderReference">Purchase Order Reference:</label>
+              <input type="text" name="PurchaseOrderReference"> <!-- BT-13 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine vom Erwerber ausgegebene Kennung für eine referenzierte Bestellung.</span>
+              </div>
+            </div>
+            <div>
+              <label for="SalesOrderReference">Sales Order Reference:</label>
+              <input type="text" name="SalesOrderReference"> <!-- BT-14 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine vom Verkäufer ausgegebene Kennung für einen referenzierten Auftrag.</span>
+              </div>
+            </div>
+            <div>
+              <label for="ReceivingAdviceReference">Receiving Advice Reference:</label>
+              <input type="text" name="ReceivingAdviceReference"> <!-- BT-15 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine Kennung für eine referenzierte Empfangsbestätigung.</span>
+              </div>
+            </div>
+            <div>
+              <label for="DespatchAdviceReference">Despatch Advice Reference:</label>
+              <input type="text" name="DespatchAdviceReference"> <!-- BT-16 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine Kennung für eine referenzierte Versandanzeige.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TenderOrLotReference">Tender Or Lot Reference:</label>
+              <input type="text" name="TenderOrLotReference"> <!-- BT-17 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Kennung der Ausschreibung oder des Loses auf die/das sich die Rechnung bezieht.</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoicedObjectIdentifier">Invoiced Object Identifier:</label>
+              <input type="text" name="InvoicedObjectIdentifier"> <!-- BT-18 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine vom Verkäufer angegebene Kennung für ein Objekt, auf das sich die Rechnung bezieht.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerAccountingReference">Buyer Accounting Reference:</label>
+              <input type="text" name="BuyerAccountingReference"> <!-- BT-19 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Textwert, der angibt, an welcher Stelle die betreffenden Daten in den Finanzkonten des Erwerbers zu buchen sind.</span>
+              </div>
+            </div>
+            <div>
+              <label for="PaymentTerms">Payment Terms:</label>
+              <input type="text" name="PaymentTerms"> <!-- BT-20 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine Textbeschreibung der Zahlungsbedingungen, die für den fälligen Zahlungsbetrag gelten.</span>
               </div>
             </div>
           </div>

@@ -49,7 +49,7 @@ body{
 .inputContainer>div>div{
     display: flex;
     gap: 5px;
-    padding: 3px;
+    padding: 5px;
 }
 
 input, select, button {
