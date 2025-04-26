@@ -128,3 +128,11 @@ input[type=submit], button[type=button]{
     max-height: 75vh;
     overflow-y: auto;
 }
+
+:required {
+    background-color: yellow;
+}
+
+input:not([type=submit]):read-only {
+    border-color: red;
+}
