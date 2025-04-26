@@ -125,28 +125,29 @@ function SendProposedInput(input, e, proposed) {
 function AddNumericRestriction(input){
     input.addEventListener("beforeinput", (e) => {
         const proposed = GetProposedNumber(input, e)
+        if (isNaN(proposed)) {
+            e.preventDefault()
+            return
+        }
         var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
         switch (input.className) {
             case "datatypeAmount":
                 // A valid Amount must be a number and can only have a max of 2 digits at the right of the dot
-                if (isNaN(proposed) || (hasDot && rightOfDot.length > 2)) {
+                if (hasDot && rightOfDot.length > 2) {
                     e.preventDefault();
                 } else {
                     SendProposedInput(input, e, proposed)
                 }
                 break;
             case "datatypeQuantity":
-                if (isNaN(proposed)) {
-                    e.preventDefault()
-                } else {
-                    SendProposedInput(input, e, proposed)
-                }
+                // Any valid number is accepted
+                SendProposedInput(input, e, proposed)
                 break;
             case "datatypePercentage":
                 // // Valid range for a percenatage: 100.00 to 0
                 // // A Valid Percentage must be: A valid number & has a max of two digits after the dot & has no more than 3 digits left of the dot &
                 // // if there are 3 digits left of the dot, it must be 100
-                if (isNaN(proposed) || rightOfDot.length > 2) {
+                if (hasDot && rightOfDot.length > 2) {
                     e.preventDefault();
                     return
                 } else if (parseInt(proposed) > 100){
