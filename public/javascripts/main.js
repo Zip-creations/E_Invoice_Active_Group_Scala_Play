@@ -90,7 +90,6 @@ function LoadRestrictions() {
     allInputs.forEach(input => {
         if (numericClasses.includes(input.className)) {
             AddNumericRestriction(input)
-            console.log("set")
         } else if (input.className === "awesomplete")
             AddAwesompleteRestriction(input);
     })
@@ -125,7 +124,7 @@ function SendProposedInput(input, e, proposed) {
 function AddNumericRestriction(input){
     input.addEventListener("beforeinput", (e) => {
         const proposed = GetProposedNumber(input, e)
-        if (isNaN(proposed)) {
+        if (isNaN(proposed) || proposed.charAt(0) === ".") {
             e.preventDefault()
             return
         }
@@ -157,6 +156,19 @@ function AddNumericRestriction(input){
                     SendProposedInput(input, e, proposed)
                 }
                 break;
+        }
+    })
+    // This Listener assumes that the current input is valid according to the "beforeinput"-Listener
+    input.addEventListener("focusout", (e) => {
+        const proposed = e.target.value
+        if (proposed.charAt(proposed.length -1) === ".") {
+            SendProposedInput(e.target, e, proposed + "0")
+            return
+        }
+        switch (e.target.className) {
+            case "datatypeAmount":
+            case "datatypeQuantity":
+            case "datatypePercentage":
         }
     })
 }
@@ -201,6 +213,15 @@ function AddAwesompleteRestriction(input) {
             SendProposedInput(input, e, proposed)
         }
     });
+    input.addEventListener("focusout", (e) => {
+        const proposed = e.target.value
+        const input = e.target
+        const matches = input.data.includes(proposed)
+        if (!matches) {
+            SendProposedInput(input, e, "")
+        }
+        // else: Input is valid, do nothing
+    })
 }
 
 function DeconstruktNumber(num){

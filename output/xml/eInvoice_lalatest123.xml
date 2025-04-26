@@ -12,7 +12,7 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250423</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250426</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
@@ -93,9 +93,9 @@
       </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
               <ram:LineTotalAmount>0</ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
+              <ram:TaxBasisTotalAmount>.0</ram:TaxBasisTotalAmount>
               <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
-              <ram:DuePayableAmount>0</ram:DuePayableAmount>
+              <ram:DuePayableAmount>0.</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
