@@ -163,12 +163,6 @@ function AddNumericRestriction(input){
         const proposed = e.target.value
         if (proposed.charAt(proposed.length -1) === ".") {
             SendProposedInput(e.target, e, proposed + "0")
-            return
-        }
-        switch (e.target.className) {
-            case "datatypeAmount":
-            case "datatypeQuantity":
-            case "datatypePercentage":
         }
     })
 }
@@ -178,7 +172,7 @@ function AddAwesompleteRestriction(input) {
         // Set the data the completionchecker uses
         input.data = values
         // Set awesomplete properties
-        const autocompleteElement = new Awesomplete(input, {
+        input.awesomplete = new Awesomplete(input, {
             minChars: 0,
             maxItems: Infinity,
             autoFirst: true,
@@ -189,9 +183,19 @@ function AddAwesompleteRestriction(input) {
         // Allows the autocomplete-list to appear when the user clicks into the input field,
         // even if no input has been given yet
         input.addEventListener("focus", function () {
-            autocompleteElement.evaluate();
+            input.awesomplete.evaluate();
         });
+
+        input.addEventListener("focusout", (e) => {
+            const proposed = e.target.value
+            if (!input.data.includes(proposed)) {
+                SendProposedInput(input, e, "")
+            }
+            input.awesomplete.close()
+            // else: Input is valid, do nothing
+        })
     })
+
     input.addEventListener("beforeinput", (e) => {
         const {selectionStart, selectionEnd, value} = input;
         // e.data is null if DELETE or BACKSPACE are pressed
@@ -213,15 +217,6 @@ function AddAwesompleteRestriction(input) {
             SendProposedInput(input, e, proposed)
         }
     });
-    input.addEventListener("focusout", (e) => {
-        const proposed = e.target.value
-        const input = e.target
-        const matches = input.data.includes(proposed)
-        if (!matches) {
-            SendProposedInput(input, e, "")
-        }
-        // else: Input is valid, do nothing
-    })
 }
 
 function DeconstruktNumber(num){
