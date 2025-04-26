@@ -85,22 +85,14 @@ function SetHardCodedInputs() {
  */
 // .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!
 function LoadRestrictions() {
+    const numericClasses = ["datatypeAmount", "datatypeQuantity", "datatypePercentage"]
     var allInputs = document.querySelectorAll("input")
     allInputs.forEach(input => {
-        switch(input.className) {
-            case "awesomplete":
-                AddAwesompleteRestriction(input);
-                break;
-            case "datatypeAmount":
-                AddAmountRestriction(input);
-                break;
-            case "datatypeQuantity":
-                AddQuantityRestriction(input);
-                break;
-            case "datatypePercentage":
-                AddPercentageRestriction(input);
-                break;
-        }
+        if (numericClasses.includes(input.className)) {
+            AddNumericRestriction(input)
+            console.log("set")
+        } else if (input.className === "awesomplete")
+            AddAwesompleteRestriction(input);
     })
 }
 
@@ -128,6 +120,44 @@ function SendProposedInput(input, e, proposed) {
     input.value = proposed
     const event = new Event("input", { bubbles: true });
     input.dispatchEvent(event);
+}
+
+function AddNumericRestriction(input){
+    input.addEventListener("beforeinput", (e) => {
+        const proposed = GetProposedNumber(input, e)
+        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
+        switch (input.className) {
+            case "datatypeAmount":
+                // A valid Amount must be a number and can only have a max of 2 digits at the right of the dot
+                if (isNaN(proposed) || (hasDot && rightOfDot.length > 2)) {
+                    e.preventDefault();
+                } else {
+                    SendProposedInput(input, e, proposed)
+                }
+                break;
+            case "datatypeQuantity":
+                if (isNaN(proposed)) {
+                    e.preventDefault()
+                } else {
+                    SendProposedInput(input, e, proposed)
+                }
+                break;
+            case "datatypePercentage":
+                // // Valid range for a percenatage: 100.00 to 0
+                // // A Valid Percentage must be: A valid number & has a max of two digits after the dot & has no more than 3 digits left of the dot &
+                // // if there are 3 digits left of the dot, it must be 100
+                if (isNaN(proposed) || rightOfDot.length > 2) {
+                    e.preventDefault();
+                    return
+                } else if (parseInt(proposed) > 100){
+                    e.preventDefault();
+                    return
+                } else {
+                    SendProposedInput(input, e, proposed)
+                }
+                break;
+        }
+    })
 }
 
 function AddAwesompleteRestriction(input) {
@@ -166,55 +196,10 @@ function AddAwesompleteRestriction(input) {
         const matches = input.data.some(entry => entry.startsWith(proposed));
         if (!matches) {
             e.preventDefault();
-        }
-        else {
-            SendProposedInput(input, e, proposed)
-        }
-    });
-}
-
-function AddAmountRestriction(input) {
-    input.addEventListener("beforeinput", (e) => {
-        const proposed = GetProposedNumber(input, e)
-        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
-        // A valid Amount must be a number and can only have a max of 2 digits at the right of the dot
-        if (isNaN(proposed) || (hasDot && rightOfDot.length > 2)) {
-            e.preventDefault();
-        }else {
-            SendProposedInput(input, e, proposed)
-        }
-    })
-}
-
-function AddQuantityRestriction(input) {
-    input.addEventListener("beforeinput", (e) => {
-        const proposed = GetProposedNumber(input, e)
-        if (isNaN(proposed)) {
-            e.preventDefault()
-        }
-        else {
-            SendProposedInput(input, e, proposed)
-        }
-    })
-}
-
-function AddPercentageRestriction(input) {
-    input.addEventListener("beforeinput", (e) => {
-        // // Valid range for a percenatage: 100.00 to 0
-        // // A Valid Percentage must be: A valid number & has a max of two digits after the dot & has no more than 3 digits left of the dot &
-        // // if there are 3 digits left of the dot, it must be 100
-        var proposed = GetProposedNumber(input, e)
-        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
-        if (isNaN(proposed) || rightOfDot.length > 2) {
-            e.preventDefault();
-            return
-        } else if (parseInt(proposed) > 100){
-            e.preventDefault();
-            return
         } else {
             SendProposedInput(input, e, proposed)
         }
-    })
+    });
 }
 
 function DeconstruktNumber(num){
