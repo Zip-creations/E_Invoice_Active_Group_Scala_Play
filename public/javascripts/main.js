@@ -99,31 +99,36 @@ function GetProposedNumber(input, e) {
     const {selectionStart, selectionEnd, value} = input;
     // BACKSPACE on one digit
     if (e.inputType === "deleteContentBackward" && (selectionStart === selectionEnd)) {
-        return value.slice(0, selectionStart -1) + value.slice(selectionEnd)
+        return [value.slice(0, Math.max(0, selectionStart -1)) + value.slice(selectionEnd), Math.max(0, selectionStart-1), Math.max(0, selectionEnd-1)]
     }
     // DELETE on one digit
     else if (e.inputType === "deleteContentForward" && (selectionStart === selectionEnd)) {
-        return value.slice(0, selectionStart) + value.slice(selectionStart +1, value.length)
+        return [value.slice(0, selectionStart) + value.slice(selectionStart +1, value.length), selectionStart, selectionEnd]
     }
     // delete selection (crtl + x, DELETE or BACKSPACE on selection)
     else if (e.data === null) {
-        return value.slice(0, selectionStart) + value.slice(selectionEnd, value.length)
+        return [value.slice(0, selectionStart) + value.slice(selectionEnd, value.length), selectionStart, selectionStart]
     }
     else {
-        return proposed = value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd);
+        var inputLen = e.data.length
+        return [value.slice(0, selectionStart) + e.data.replace(",", ".") + value.slice(selectionEnd), selectionStart+inputLen, selectionEnd+inputLen]
     }
 }
 
-function SendProposedInput(input, e, proposed) {
+function SendProposedInput(input, e, proposed, selectionStart, selectionEnd) {
     e.preventDefault();
     input.value = proposed
+    input.setSelectionRange(selectionStart, selectionEnd)
     const event = new Event("input", { bubbles: true });
-    input.dispatchEvent(event);
+    input.dispatchEvent(event)
 }
 
 function AddNumericRestriction(input){
     input.addEventListener("beforeinput", (e) => {
-        const proposed = GetProposedNumber(input, e)
+        const temp = GetProposedNumber(input, e)
+        const proposed = temp[0]
+        const mouseStart = temp[1]
+        const mouseEnd = temp[2]
         if (isNaN(proposed) || proposed.charAt(0) === ".") {
             e.preventDefault()
             return
@@ -135,12 +140,12 @@ function AddNumericRestriction(input){
                 if (hasDot && rightOfDot.length > 2) {
                     e.preventDefault();
                 } else {
-                    SendProposedInput(input, e, proposed)
+                    SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 }
                 break;
             case "datatypeQuantity":
                 // Any valid number is accepted
-                SendProposedInput(input, e, proposed)
+                SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 break;
             case "datatypePercentage":
                 // // Valid range for a percenatage: 100.00 to 0
@@ -153,7 +158,7 @@ function AddNumericRestriction(input){
                     e.preventDefault();
                     return
                 } else {
-                    SendProposedInput(input, e, proposed)
+                    SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 }
                 break;
         }
@@ -214,7 +219,8 @@ function AddAwesompleteRestriction(input) {
         if (!matches) {
             e.preventDefault();
         } else {
-            SendProposedInput(input, e, proposed)
+            var inputLen = e.data.length
+            SendProposedInput(input, e, proposed, selectionStart+inputLen, selectionEnd+inputLen)
         }
     });
 }
