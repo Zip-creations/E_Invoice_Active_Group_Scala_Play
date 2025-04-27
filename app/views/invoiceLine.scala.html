@@ -39,6 +39,38 @@
                 <span>Der Gesamtbetrag der Rechnungsposition. Dies ist der Betrag ohne Umsatzsteuer, aber einschließlich aller für die Rechnungsposition geltenden Nachlässe und Abgaben sowie sonstiger anfallender Steuern.</span>
             </div>
         </div>
+        <div>
+            <label for="InvoiceLineNote">Invoice Line Note:</label>
+            <input type="text" name='@("InvoiceLineNote" + positionID)'> <!-- BT-127 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Textvermerk, der unstrukturierte Informationen enthält, die für die Rechnungsposition maßgeblich sind.</span>
+            </div>
+        </div>
+        <div>
+            <label for="InvoiceLineObjectIdentifier">Invoice Line Object Identifier:</label>
+            <input type="text" name='@("InvoiceLineObjectIdentifier" + positionID)'> <!-- BT-128 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine vom Verkäufer angegebene Kennung für ein Objekt, auf das sich die Rechnungsposition bezieht.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ReferencedPurchaseOrderLineReference">Referenced Purchase Order Line Reference:</label>
+            <input type="text" name='@("ReferencedPurchaseOrderLineReference" + positionID)'> <!-- BT-132 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine vom Erwerber ausgegebene Kennung für eine referenzierte Position einer Bestellung/eines Auftrags.</span>
+            </div>
+        </div>
+        <div>
+            <label for="InvoiceLineBuyerAccountingReference">Invoice Line Buyer Accounting Reference:</label>
+            <input type="text" name='@("InvoiceLineBuyerAccountingReference" + positionID)'> <!-- BT-133 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Textwert, der angibt, an welcher Stelle die betreffenden Daten in den Finanzkonten des Erwerbers zu buchen sind.</span>
+            </div>
+        </div>
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div id="group_PRICE-DETAILS">
@@ -48,6 +80,38 @@
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemPriceDiscount">Item Price Discount:</label>
+            <input type="text" name='@("ItemPriceDiscount" + positionID)' class="datatypeQuantity"> <!-- BT-147 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der gesamte zur Berechnung des Netto-Postenpreises vom Brutto-Postenpreis subtrahierte Rabatt.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemGrossPrice">Item Gross Price:</label>
+            <input type="text" name='@("ItemGrossPrice" + positionID)' class="datatypeQuantity"> <!-- BT-148 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Postenpreis ohne Umsatzsteuer vor Abzug des Postenpreisrabatts.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemPriceBaseQuantity">Item Price Base Quantity:</label>
+            <input type="text" name='@("ItemPriceBaseQuantity" + positionID)' class="datatypeQuantity"> <!-- BT-149 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Anzahl von Einheiten, für die der Postenpreis gilt.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemPriceBaseQuantityUnitOfMeasureCode">Item Price Base Quantity Unit Of Measure Code:</label>
+            <input type="text" name='@("ItemPriceBaseQuantityUnitOfMeasureCode" + positionID)' class="awesomplete" data-file="InvoicedQuantityUnitOfMeasureCodes.xsd"> <!-- BT-150 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Code der zu Grunde gelegten Maßeinheit.</span>
             </div>
         </div>
     </div>
@@ -72,6 +136,14 @@
                 <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
             </div>
         </div>
+        <div>
+            <label for="InvoicedItemVATRate">Invoiced Item VAT Rate:</label>
+            <input type="text" name='@("InvoicedItemVATRate" + positionID)' class="datatypePercentage"> <!-- BT-152 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.</span>
+            </div>
+        </div>
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div id="group_ITEM-INFORMATION">
@@ -81,6 +153,54 @@
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein Name des Postens.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemDescription">Item Description:</label>
+            <input type="text" name='@("ItemDescription" + positionID)'> <!-- BT-154 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine Beschreibung des Postens.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemSellersIdentifier">Item Sellers Identifier:</label>
+            <input type="text" name='@("ItemSellersIdentifier" + positionID)'> <!-- BT-155 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine dem Posten vom Verkäufer zugewiesene Kennung.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemBuyersIdentifier">Item Buyers Identifier:</label>
+            <input type="text" name='@("ItemBuyersIdentifier" + positionID)'> <!-- BT-156 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine dem Posten vom Erwerber zugewiesene Kennung.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemStandardIdentifier">Item Standard Identifier:</label>
+            <input type="text" name='@("ItemStandardIdentifier" + positionID)'> <!-- BT-157 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine auf einem registrierten Schema basierende Postenkennung.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemClassificationIdentifier">Item Classification Identifier:</label>
+            <input type="text" name='@("ItemClassificationIdentifier" + positionID)'> <!-- BT-158 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code für die Klassifizierung des Postens nach Typ bzw. Art oder Wesen bzw. Beschaffenheit.</span>
+            </div>
+        </div>
+        <div>
+            <label for="ItemCountryOfOrigin">Item Country Of Origin:</label>
+            <input type="text" name='@("ItemCountryOfOrigin" + positionID)' class="awesomplete" data-file="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd"> <!-- BT-153 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Ländercode, der das Land angibt, aus dem die Ware stammt oder in dem die Dienstleistung erbracht wird.</span>
             </div>
         </div>
     </div>

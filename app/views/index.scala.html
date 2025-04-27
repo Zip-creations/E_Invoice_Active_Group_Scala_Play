@@ -544,6 +544,54 @@
                 <span>Der ausstehende Betrag, der zu zahlen ist.</span>
               </div>
             </div>
+            <div>
+              <label for="SumOfAllowancesOnDocumentLevel">Sum Of Allowances On Document Level:</label>
+              <input type="text" name="SumOfAllowancesOnDocumentLevel" class="datatypeAmount"> <!-- BT-107 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Summe aller in der Rechnung enthaltenen "Document level allowance amount".</span>
+              </div>
+            </div>
+            <div>
+              <label for="SumOfChargesOnDocumentLevel">Sum Of Charges On Document Level:</label>
+              <input type="text" name="SumOfChargesOnDocumentLevel" class="datatypeAmount"> <!-- BT-108 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Summe aller in der Rechnung enthaltenen "Document level charge amount".</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoiceTotalVATAmount">Invoice Total VAT Amount:</label>
+              <input type="text" name="InvoiceTotalVATAmount" class="datatypeAmount"> <!-- BT-110 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Gesamtbetrag der Umsatzsteuer für die Rechnung.</span>
+              </div>
+            </div>
+            <div>
+              <label for="InvoiceTotalVATAmountInAccountingCurrency">Invoice Total VAT Amount In Accounting Currency:</label>
+              <input type="text" name="InvoiceTotalVATAmountInAccountingCurrency" class="datatypeAmount"> <!-- BT-111 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Umsatzsteuergesamtbetrag, angegeben in der Abrechnungswährung, die im Land des Verkäufers gültig ist oder verlangt wird.</span>
+              </div>
+            </div>
+            <div>
+              <label for="PaidAmount">Paid Amount:</label>
+              <input type="text" name="PaidAmount" class="datatypeAmount"> <!-- BT-113 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Summe bereits gezahlter Beträge.</span>
+              </div>
+            </div>
+            <div>
+              <label for="RoundingAmount">Rounding Amount:</label>
+              <input type="text" name="RoundingAmount" class="datatypeAmount"> <!-- BT-114 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Betrag, um den der Rechnungsbetrag gerundet wurde.</span>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_VAT-BREAKDOWN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -574,11 +622,11 @@
                 <option value="Z">Z (Zero rated goods)</option>
                 <option value="E">E (Exempt from tax)</option>
                 <option value="AE">AE (VAT Reverse Charge)</option>
-                <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
+                <option value="K">K (VAT exempt for EEA intra-community supply of goods and services)</option>
                 <option value="G">G (Free export item, tax not charged)</option>
                 <option value="O">O (Services outside scope of tax)</option>
                 <option value="L">L (Canary Islands general indirect tax)</option>
-                <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
+                <option value="M">M (Tax for production, services and importation in Ceuta and Melilla)</option>
               </select>
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
@@ -599,6 +647,14 @@
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.</span>
+              </div>
+            </div>
+            <div>
+              <label for="VATExemptionReasonCode">VAT Exemption Reason Code:</label>
+              <input type="text" name="VATExemptionReasonCode"> <!-- BT-121 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code für den Grund für die Ausnahme des Betrages von der Umsatzsteuerpflich.</span>
               </div>
             </div>
           </div>
