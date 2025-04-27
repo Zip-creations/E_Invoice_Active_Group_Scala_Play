@@ -382,6 +382,39 @@
                 <span>Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.</span>
               </div>
             </div>
+            <div>
+              <label for="BuyerTradingName">Buyer Trading Name:</label>
+              <input type="email" name="BuyerTradingName"> <!-- BT-45 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Name, unter dem der Erwerber bekannt ist, sofern abweichend vom Namen des Erwerbers.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerIdentifier">Buyer Identifier:</label>
+              <input type="email" name="BuyerIdentifier"> <!-- BT-46 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine (i.d.R. vom Verkäufer vergebene) Kennung des Erwerbers.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerLegalRegistrationIdentifier">Buyer Legal Registration Identifier:</label>
+              <input type="email" name="BuyerLegalRegistrationIdentifier"> <!-- BT-47 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein von einer offiziellen Registrierstelle ausgegebener Bezeichner, der den Erwerber als Rechtsträger oder juristi-
+                  sche Person identifiziert.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerVATIdentifier">Buyer VAT Identifier:</label>
+              <input type="email" name="BuyerVATIdentifier"> <!-- BT-48 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Umsatzsteuer-Identifikationsnummer des Erwerbers.</span>
+              </div>
+            </div>
           </div>
           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <div id="group_BUYER-POSTAL-ADDRESS">
@@ -409,6 +442,38 @@
                 <span>Ein Code, mit dem das Land bezeichnet wird.</span>
               </div>
             </div>
+            <div>
+              <label for="BuyerAddressLine1">Buyer Address Line 1:</label>
+              <input type="text" name="BuyerAddressLine1"> <!-- BT-50 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Hauptzeile einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerAddressLine2">Buyer Address Line 2:</label>
+              <input type="text" name="BuyerAddressLine2"> <!-- BT-51 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerAddressLine3">Buyer Address Line 3:</label>
+              <input type="text" name="BuyerAddressLine3"> <!-- BT-163 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.</span>
+              </div>
+            </div>
+            <div>
+              <label for="BuyerCountrySubdivision">Buyer Country Subdivision:</label>
+              <input type="text" name="BuyerCountrySubdivision"> <!-- BT-54 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).</span>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-INSTRUCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -421,6 +486,22 @@
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461
                   verwiesen.</span>
+              </div>
+            </div>
+            <div>
+              <label for="PaymentMeansText">Payment Means Text:</label>
+              <input type="text" name="PaymentMeansText"> <!-- BT-82 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Das in Textform ausgedrückte erwartete oder genutzte Zahlungsmittel.</span>
+              </div>
+            </div>
+            <div>
+              <label for="RemittanceInformation">Remittance Information:</label>
+              <input type="text" name="RemittanceInformation"> <!-- BT-83 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Textwert, der zur Verknüpfung der Zahlung mit der vom Verkäufer ausgestellten Rechnung verwendet wird.</span>
               </div>
             </div>
           </div>
