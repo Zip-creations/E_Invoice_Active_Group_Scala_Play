@@ -16,7 +16,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.index(request))
   }
 
-  def addPosition(positionID: String) = Action { implicit request =>
+  def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
     Ok(views.html.invoiceLine(positionID))
   }
 
