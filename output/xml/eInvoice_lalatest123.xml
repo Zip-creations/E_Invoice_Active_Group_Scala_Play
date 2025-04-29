@@ -12,61 +12,16 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250426</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250429</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>0</ram:LineID>
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          <ram:Name>0</ram:Name>
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          <ram:Name>0</ram:Name>
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:IncludedNote>
+              <ram:Content>A</ram:Content>
+            </ram:IncludedNote>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>0</ram:Name>
@@ -132,13 +87,13 @@
               <ram:TypeCode>ZZZ</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:ApplicableTradeTax>
-        <ram:CalculatedAmount>0</ram:CalculatedAmount>
-        <ram:TypeCode>VAT</ram:TypeCode>
-        <ram:ExemptionReason>0</ram:ExemptionReason>
-        <ram:BasisAmount>0</ram:BasisAmount>
-        <ram:CategoryCode>O</ram:CategoryCode>
-        <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
-      </ram:ApplicableTradeTax>
+          <ram:CalculatedAmount>0</ram:CalculatedAmount>
+          <ram:TypeCode>VAT</ram:TypeCode>
+          <ram:ExemptionReason>0</ram:ExemptionReason>
+          <ram:BasisAmount>0</ram:BasisAmount>
+          <ram:CategoryCode>O</ram:CategoryCode>
+          <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
+        </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
               <ram:LineTotalAmount>0</ram:LineTotalAmount>
               <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>

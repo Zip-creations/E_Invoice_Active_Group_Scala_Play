@@ -112,6 +112,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>{connectInput("InvoiceLineIdentifier" ++ i)}</ram:LineID>
+          {val value = connectInput("InvoiceLineNote"++i)
+            if (value != "") {
+            <ram:IncludedNote>
+              <ram:Content>{value}</ram:Content>
+            </ram:IncludedNote>
+          } else {
+            scala.xml.NodeSeq.Empty
+          }
+        }
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>{connectInput("ItemName" ++ i)}</ram:Name>
@@ -137,15 +146,17 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     }
 
     // This part need to be repeated for every VAT category code
-    def CreateXMLDataPositionTax(i: String) = { 
-      <ram:ApplicableTradeTax>
-        <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
-        <ram:TypeCode>VAT</ram:TypeCode>
-        <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
-        <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
-        <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
-        <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
-      </ram:ApplicableTradeTax>
+    def CreateXMLDataPositionTax(i: String): scala.xml.Elem = { 
+      val xmlData = 
+        <ram:ApplicableTradeTax>
+          <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
+          <ram:TypeCode>VAT</ram:TypeCode>
+          <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
+          <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
+          <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
+          <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
+        </ram:ApplicableTradeTax>
+      return xmlData
     }
 
     // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
