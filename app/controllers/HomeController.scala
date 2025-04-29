@@ -16,7 +16,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.index(request))
   }
 
-  def addPosition(positionID: String) = Action { implicit request =>
+  def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
     Ok(views.html.invoiceLine(positionID))
   }
 
@@ -37,17 +37,40 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputInvoiceTypeCode = connectInput("InvoiceTypeCode")
     val inputInvoiceCurrencyCode = connectInput("InvoiceCurrencyCode")
     val inputBuyerReference = connectInput("BuyerReference")
+    val inputVATAccountingCurrencyCode = connectInput("VATAccountingCurrencyCode")
+    val inputValueAddedTaxPointDate = connectInput("ValueAddedTaxPointDate")
+    val inputValueAddedTaxPointDateCode = connectInput("ValueAddedTaxPointDateCode")
+    val inputPaymentDueDate = connectInput("PaymentDueDate")
+    val inputProjectReference = connectInput("ProjectReference")
+    val inputContractReference = connectInput("ContractReference")
+    val inputPurchaseOrderReference = connectInput("PurchaseOrderReference")
+    val inputSalesOrderReference = connectInput("SalesOrderReference")
+    val inputReceivingAdviceReference = connectInput("ReceivingAdviceReference")
+    val inputDespatchAdviceReference = connectInput("DespatchAdviceReference")
+    val inputTenderOrLotReference = connectInput("TenderOrLotReference")
+    val inputInvoicedObjectIdentifier = connectInput("InvoicedObjectIdentifier")
+    val inputBuyerAccountingReference = connectInput("BuyerAccountingReference")
+    val inputPaymentTerms = connectInput("PaymentTerms")
     // group_PROCESS-CONTROL
     val inputBusinessProcessType = connectInput("BusinessProcessType")
     val inputSpecificationIdentifier = connectInput("SpecificationIdentifier")
     // group_SELLER
     val inputSellerName = connectInput("SellerName")
-    val inputSellerIdentifier = connectInput("SellerIdentifier")
     val inputSellerElectronicAddress = connectInput("SellerElectronicAddress")
+    val inputSellerTradingName = connectInput("SellerTradingName")
+    val inputSellerIdentifier = connectInput("SellerIdentifier")
+    val inputSellerLegalRegistrationIdentifier = connectInput("SellerLegalRegistrationIdentifier")
+    val inputSellerVATIdentifier = connectInput("SellerVATIdentifier")
+    val inputSellerTaxRegistrationIdentifier = connectInput("SellerTaxRegistrationIdentifier")
+    val inputSellerAdditionalLegalInformation = connectInput("SellerAdditionalLegalInformation")
     // group_SELLER-POSTAL-ADDRESS
     val inputSellerCity = connectInput("SellerCity")
     val inputSellerPostCode = connectInput("SellerPostCode")
     val inputSellerCountryCode = connectInput("SellerCountryCode")
+    val inputSellerAddressLine1 = connectInput("SellerAddressLine1")
+    val inputSellerAddressLine2 = connectInput("SellerAddressLine2")
+    val inputSellerAddressLine3 = connectInput("SellerAddressLine3")
+    val inputSellerCountrySubdivision = connectInput("SellerCountrySubdivision")
     // group_SELLER-CONTACT
     val inputSellerContactPoint = connectInput("SellerContactPoint")
     val inputSellerContactTelephoneNumber = connectInput("SellerContactTelephoneNumber")
@@ -55,17 +78,33 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // group_BUYER
     val inputBuyerName = connectInput("BuyerName")
     val inputBuyerElectronicAddress = connectInput("BuyerElectronicAddress")
+    val inputBuyerTradingName = connectInput("BuyerTradingName")
+    val inputBuyerIdentifier = connectInput("BuyerIdentifier")
+    val inputBuyerLegalRegistrationIdentifier = connectInput("BuyerLegalRegistrationIdentifier")
+    val inputBuyerVATIdentifier = connectInput("BuyerVATIdentifier")
     // group_BUYER-POSTAL-ADDRESS
     val inputBuyerCity = connectInput("BuyerCity")
     val inputBuyerPostCode = connectInput("BuyerPostCode")
     val inputBuyerCountryCode = connectInput("BuyerCountryCode")
+    val inputBuyerAddressLine1 = connectInput("BuyerAddressLine1")
+    val inputBuyerAddressLine2 = connectInput("BuyerAddressLine2")
+    val inputBuyerAddressLine3 = connectInput("BuyerAddressLine3")
+    val inputBuyerCountrySubdivision = connectInput("BuyerCountrySubdivision")
     // group_PAYMENT-INSTRUCTIONS
     val inputPaymentMeansTypeCode = connectInput("PaymentMeansTypeCode")
+    val inputPaymentMeansText = connectInput("PaymentMeansText")
+    val inputRemittanceInformation = connectInput("RemittanceInformation")
     // group_DOCUMENT-TOTALS
     val inputSumOfInvoiceLineNetAmount = connectInput("SumOfInvoiceLineNetAmount")
     val inputInvoiceTotalAmountWithoutVAT = connectInput("InvoiceTotalAmountWithoutVAT")
     val inputInvoiceTotalAmountWithVAT = connectInput("InvoiceTotalAmountWithVAT")
     val inputAmountDueForPayment = connectInput("AmountDueForPayment")
+    val inputSumOfAllowancesOnDocumentLevel = connectInput("SumOfAllowancesOnDocumentLevel")
+    val inputSumOfChargesOnDocumentLevel = connectInput("SumOfChargesOnDocumentLevel")
+    val inputInvoiceTotalVATAmount = connectInput("InvoiceTotalVATAmount")
+    val inputInvoiceTotalVATAmountInAccountingCurrency = connectInput("InvoiceTotalVATAmountInAccountingCurrency")
+    val inputPaidAmount = connectInput("PaidAmount")
+    val inputRoundingAmount = connectInput("RoundingAmount")
 
     // Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
     // Gets repeated for every invoice position
@@ -73,6 +112,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>{connectInput("InvoiceLineIdentifier" ++ i)}</ram:LineID>
+          {val value = connectInput("InvoiceLineNote"++i)
+            if (value != "") {
+            <ram:IncludedNote>
+              <ram:Content>{value}</ram:Content>
+            </ram:IncludedNote>
+          } else {
+            scala.xml.NodeSeq.Empty
+          }
+        }
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>{connectInput("ItemName" ++ i)}</ram:Name>
@@ -98,15 +146,17 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     }
 
     // This part need to be repeated for every VAT category code
-    def CreateXMLDataPositionTax(i: String) = { 
-      <ram:ApplicableTradeTax>
-        <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
-        <ram:TypeCode>VAT</ram:TypeCode>
-        <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
-        <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
-        <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
-        <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
-      </ram:ApplicableTradeTax>
+    def CreateXMLDataPositionTax(i: String): scala.xml.Elem = { 
+      val xmlData = 
+        <ram:ApplicableTradeTax>
+          <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
+          <ram:TypeCode>VAT</ram:TypeCode>
+          <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
+          <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
+          <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
+          <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
+        </ram:ApplicableTradeTax>
+      return xmlData
     }
 
     // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
