@@ -12,13 +12,13 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250426</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250428</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID>1</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>0</ram:Name>
@@ -42,7 +42,7 @@
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID>2</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>0</ram:Name>
@@ -66,7 +66,7 @@
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID>3</ram:LineID>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>0</ram:Name>
