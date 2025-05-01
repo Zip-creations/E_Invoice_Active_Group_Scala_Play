@@ -12,7 +12,7 @@
           <ram:ID>lalatest123</ram:ID>
           <ram:TypeCode>380</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">20250429</udt:DateTimeString>
+            <udt:DateTimeString format="102">20250501</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
@@ -20,13 +20,24 @@
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>0</ram:LineID>
           <ram:IncludedNote>
-              <ram:Content>A</ram:Content>
-            </ram:IncludedNote>
+                <ram:Content>0</ram:Content>
+              </ram:IncludedNote>
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
           <ram:Name>0</ram:Name>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
+          
+          <ram:GrossPriceProductTradePrice>
+                  <ram:ChargeAmount>0</ram:ChargeAmount>
+                  <ram:BasisQuantity unitCode="H87">0</ram:BasisQuantity>
+                  <ram:AppliedTradeAllowanceCharge>
+                      <ram:ChargeIndicator>
+                        <udt:Indicator>false</udt:Indicator>
+                      </ram:ChargeIndicator>
+                      <ram:ActualAmount>0</ram:ActualAmount>
+                    </ram:AppliedTradeAllowanceCharge>
+                </ram:GrossPriceProductTradePrice>
           <ram:NetPriceProductTradePrice>
             <ram:ChargeAmount>0</ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
@@ -42,6 +53,7 @@
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
             <ram:LineTotalAmount>0</ram:LineTotalAmount>
           </ram:SpecifiedTradeSettlementLineMonetarySummation>
+          
         </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
           <ram:ApplicableHeaderTradeAgreement>
