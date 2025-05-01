@@ -19,25 +19,21 @@
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
           <ram:LineID>0</ram:LineID>
-          <ram:IncludedNote>
-                <ram:Content>0</ram:Content>
-              </ram:IncludedNote>
+          
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
+          <ram:GlobalID schemeID="0088">0</ram:GlobalID>
+          <ram:SellerAssignedID>1234</ram:SellerAssignedID>
+          <ram:BuyerAssignedID>4321</ram:BuyerAssignedID>
           <ram:Name>0</ram:Name>
+          <ram:Description>desc</ram:Description>
+          <ram:DesignatedProductClassification>
+                <ram:ClassCode listID="AA">0</ram:ClassCode>
+              </ram:DesignatedProductClassification>
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           
-          <ram:GrossPriceProductTradePrice>
-                  <ram:ChargeAmount>0</ram:ChargeAmount>
-                  <ram:BasisQuantity unitCode="H87">0</ram:BasisQuantity>
-                  <ram:AppliedTradeAllowanceCharge>
-                      <ram:ChargeIndicator>
-                        <udt:Indicator>false</udt:Indicator>
-                      </ram:ChargeIndicator>
-                      <ram:ActualAmount>0</ram:ActualAmount>
-                    </ram:AppliedTradeAllowanceCharge>
-                </ram:GrossPriceProductTradePrice>
+          
           <ram:NetPriceProductTradePrice>
             <ram:ChargeAmount>0</ram:ChargeAmount>
           </ram:NetPriceProductTradePrice>
@@ -49,6 +45,7 @@
           <ram:ApplicableTradeTax>
             <ram:TypeCode>VAT</ram:TypeCode>
             <ram:CategoryCode>O</ram:CategoryCode>
+            
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
             <ram:LineTotalAmount>0</ram:LineTotalAmount>

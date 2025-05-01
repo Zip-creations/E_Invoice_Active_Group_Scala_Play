@@ -114,7 +114,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputPaidAmount = connectInput("PaidAmount")
     val inputRoundingAmount = connectInput("RoundingAmount")
 
-    // Check how to set <ram:SpecifiedLineTradeSettlement> <ram:ApplicableTradeTax> Typecode
     // Gets repeated for every invoice position
     def CreateXMLDataInvoicePostion(i: String) = {
       <ram:IncludedSupplyChainTradeLineItem>
@@ -128,7 +127,39 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             connectOptionalInput(value, xml)}
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
+          {
+            val value = connectInput("ItemStandardIdentifier"++i)
+            val xml =
+              <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
+            connectOptionalInput(value, xml)
+          }
+          {
+            val value = connectInput("ItemSellersIdentifier"++i)
+            val xml =
+              <ram:SellerAssignedID>{value}</ram:SellerAssignedID>
+            connectOptionalInput(value, xml)
+          }
+          {
+            val value = connectInput("ItemBuyersIdentifier"++i)
+            val xml =
+              <ram:BuyerAssignedID>{value}</ram:BuyerAssignedID>
+            connectOptionalInput(value, xml)
+          }
           <ram:Name>{connectInput("ItemName" ++ i)}</ram:Name>
+          {
+            val value = connectInput("ItemDescription"++i)
+            val xml =
+              <ram:Description>{value}</ram:Description>
+            connectOptionalInput(value, xml)
+          }
+          {
+            val value = connectInput("ItemClassificationIdentifier"++i)
+            val xml =
+              <ram:DesignatedProductClassification>
+                <ram:ClassCode listID={connectInput("itemClassificationIdentifierScheme"++i)}>{value}</ram:ClassCode>
+              </ram:DesignatedProductClassification>
+            connectOptionalInput(value, xml)
+          }
         </ram:SpecifiedTradeProduct>
         <ram:SpecifiedLineTradeAgreement>
           {
@@ -184,8 +215,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
-            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:TypeCode>VAT</ram:TypeCode>{// TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
+              }
             <ram:CategoryCode>{connectInput("InvoicedItemVATCategoryCode" ++ i)}</ram:CategoryCode>
+            {
+              val value = connectInput("InvoicedItemVATRate"++i)
+              val xml = 
+                <ram:RateApplicablePercent>{value}</ram:RateApplicablePercent>
+              connectOptionalInput(value, xml)
+            }
           </ram:ApplicableTradeTax>
           <ram:SpecifiedTradeSettlementLineMonetarySummation>
             <ram:LineTotalAmount>{connectInput("InvoiceLineNetAmount" ++ i)}</ram:LineTotalAmount>

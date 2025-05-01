@@ -130,7 +130,7 @@
                 <option value="O">O (Services outside scope of tax)</option>
                 <option value="L">L (Canary Islands general indirect tax)</option>
                 <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
-              </select> <!-- BT-151 -->
+              </select>
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
@@ -193,6 +193,14 @@
             <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ein Code für die Klassifizierung des Postens nach Typ bzw. Art oder Wesen bzw. Beschaffenheit.</span>
+            </div>
+        </div>
+        <div>
+            <label for="itemClassificationIdentifierScheme">Item Classification Identifier Scheme:</label>
+            <input type="text" name='@("itemClassificationIdentifierScheme" + positionID)' class="awesomplete" data-file="UNTDID_7143_ItemTypeIdentificationCode.xsd"> <!-- BT-158 -->
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Schema für Item Classification Identifier.</span>
             </div>
         </div>
         <div>
