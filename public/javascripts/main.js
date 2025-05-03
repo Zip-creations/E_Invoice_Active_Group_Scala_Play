@@ -26,14 +26,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     function ToggleOptionalGroup(button) {
+        // parent is a <div> class="inputContainer" </div> 
         var parent = button.parentNode
         var allSiblings = Array.from(parent.childNodes)
+
+        // yields all divs with groups as id (e.g. <div> id="group_PAYMENT-INSTRUCTIONS" </div>) within the same inputContainer as the button
         var siblings = allSiblings.filter(element => element.tagName === "DIV")
         siblings.forEach(elem => {
+            var allNiblings = Array.from(elem.childNodes).filter(element => element.tagName === "DIV")
+            var allNiblingInputs = [1]
+            allNiblings.forEach(nibling => allNiblingInputs.push(Array.from(nibling.childNodes).filter(nib => nib.tagName === "INPUT")[0]))
+            console.log(allNiblings)
+            console.log(allNiblingInputs)
             if (elem.style.display === "none") {
                 elem.style.display = "flex";
+                button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
+                allNiblingInputs.forEach(nib => {
+                    nib.disabled = false
+                })
             } else {
                 elem.style.display = "none";
+                button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
+                allNiblingInputs.forEach(nib => {
+                    nib.disabled = true
+                })
             }
         })
     }

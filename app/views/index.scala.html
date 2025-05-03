@@ -1,4 +1,5 @@
 @(implicit request: RequestHeader)
+@import utility.FormInputHelper._
 @main("E Rechnung erstellen", "main.css"){
 <!-- group_NAME corresponds to the groups named in the documentation of X-Rechnung. Each input field is named like their equivalent in the Documentation. -->
 <!-- The content of the description in the <span> fields has been taken from the documentation of X-Rechnung. -->
@@ -8,14 +9,7 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div class="inputContainer">
           <div id="group_INVOICE">
-            <div>
-              <label for="InvoiceNumber">Invoice Number:</label>
-              <input type="text" name="InvoiceNumber" required> <!-- BT-1 -->
-              <div class="tooltip">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Eindeutige Kennung der Rechnung</span>
-              </div>
-            </div>
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", req=true) <!-- BT-1 -->
             <div>
               <label for="InvoiceIssueDate">Invoice Issue Date:</label>
               <input type="date" name="InvoiceIssueDate" readonly required> <!-- BT-2 -->
@@ -502,6 +496,87 @@
               <div class="tooltip">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Eine von einer offiziellen Registrierstelle ausgegebene Kennung, die den Zahlungsempfänger als einen Rechtsträger oder eine juristische Person identifiziert.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-TAX-REPRESENTATIVE-PARTY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div class="inputContainer">
+          <button type="button" class="buttonForOptionalGroups">SELLER TAX REPRESENTATIVE PARTY einblenden</button>
+          <div id="group_SELLER-TAX-REPRESENTATIVE-PARTY">
+            <div>
+              <label for="SellerTaxRepresentativeName">Seller Tax Representative Name:</label>
+              <input type="text" name="SellerTaxRepresentativeName" required> <!-- BT-62 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der vollständige Name des Steuervertreters des Verkäufers.</span>
+              </div>
+            </div>
+            <div>
+              <label for="SellerTaxRepresentativeVATIdentifier">Seller Tax Representative VAT Identifier:</label>
+              <input type="text" name="SellerTaxRepresentativeVATIdentifier" required> <!-- BT-63 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Umsatzsteuer-Identifikationsnummer des Steuervertreters des Verkäufers.</span>
+              </div>
+            </div>
+          </div>
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-TAX-REPRESENTATIVE-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <div id="group_SELLER-TAX-REPRESENTATIVE-POSTAL-ADDRESS">
+            <div>
+              <label for="TaxRepresentativeAddressLine1">Tax Representative Address Line 1:</label>
+              <input type="text" name="TaxRepresentativeAddressLine1"> <!-- BT-64 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativeAddressLine2">Tax Representative Address Line 2:</label>
+              <input type="text" name="TaxRepresentativeAddressLine2"> <!-- BT-65 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativeAddressLine3">Tax Representative Address Line 3:</label>
+              <input type="text" name="TaxRepresentativeAddressLine3"> <!-- BT-164 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativeCity">Tax Representative City:</label>
+              <input type="text" name="TaxRepresentativeCity"> <!-- BT-66 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Bezeichnung der Stadt oder Gemeinde, in der sich die Anschrift des Steuervertreters befindet.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativePostCode">Tax Representative Post Code:</label>
+              <input type="text" name="TaxRepresentativePostCode"> <!-- BT-67 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Postleitzahl.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativeCountrySubdivision">Tax Representative Country Subdivision:</label>
+              <input type="text" name="TaxRepresentativeCountrySubdivision"> <!-- BT-68 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Die Unterteilung eines Landes.</span>
+              </div>
+            </div>
+            <div>
+              <label for="TaxRepresentativeCountryCode">Tax Representative Country Code:</label>
+              <input type="text" name="TaxRepresentativeCountryCode" class="awesomplete" data-file="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd" required> <!-- BT-69 -->
+              <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ein Code, mit dem das Land bezeichnet wird.</span>
               </div>
             </div>
           </div>
