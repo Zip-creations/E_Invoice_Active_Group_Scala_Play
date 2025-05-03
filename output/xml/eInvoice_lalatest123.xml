@@ -56,7 +56,7 @@
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>0</ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088">0</ram:GlobalID>
+              <ram:GlobalID schemeID="0088">123</ram:GlobalID>
               <ram:Name>0</ram:Name>
               <ram:DefinedTradeContact>
                 <ram:PersonName>0</ram:PersonName>

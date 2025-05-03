@@ -34,10 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var siblings = allSiblings.filter(element => element.tagName === "DIV")
         siblings.forEach(elem => {
             var allNiblings = Array.from(elem.childNodes).filter(element => element.tagName === "DIV")
-            var allNiblingInputs = [1]
+            var allNiblingInputs = []
+            // Get every input field from all siblings
             allNiblings.forEach(nibling => allNiblingInputs.push(Array.from(nibling.childNodes).filter(nib => nib.tagName === "INPUT")[0]))
-            console.log(allNiblings)
-            console.log(allNiblingInputs)
             if (elem.style.display === "none") {
                 elem.style.display = "flex";
                 button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
