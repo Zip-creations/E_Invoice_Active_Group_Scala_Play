@@ -19,7 +19,77 @@
         <rsm:SupplyChainTradeTransaction>
           <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>0</ram:LineID>
+          <ram:LineID>1</ram:LineID>
+          
+        </ram:AssociatedDocumentLineDocument>
+        <ram:SpecifiedTradeProduct>
+          
+          
+          
+          <ram:Name>0</ram:Name>
+          
+          
+        </ram:SpecifiedTradeProduct>
+        <ram:SpecifiedLineTradeAgreement>
+          
+          
+          <ram:NetPriceProductTradePrice>
+            <ram:ChargeAmount>0</ram:ChargeAmount>
+          </ram:NetPriceProductTradePrice>
+        </ram:SpecifiedLineTradeAgreement>
+        <ram:SpecifiedLineTradeDelivery>
+          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
+        </ram:SpecifiedLineTradeDelivery>
+        <ram:SpecifiedLineTradeSettlement>
+          <ram:ApplicableTradeTax>
+            
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:CategoryCode>O</ram:CategoryCode>
+            
+          </ram:ApplicableTradeTax>
+          <ram:SpecifiedTradeSettlementLineMonetarySummation>
+            <ram:LineTotalAmount>0</ram:LineTotalAmount>
+          </ram:SpecifiedTradeSettlementLineMonetarySummation>
+          
+        </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
+        <ram:AssociatedDocumentLineDocument>
+          <ram:LineID>2</ram:LineID>
+          
+        </ram:AssociatedDocumentLineDocument>
+        <ram:SpecifiedTradeProduct>
+          
+          
+          
+          <ram:Name>0</ram:Name>
+          
+          
+        </ram:SpecifiedTradeProduct>
+        <ram:SpecifiedLineTradeAgreement>
+          
+          
+          <ram:NetPriceProductTradePrice>
+            <ram:ChargeAmount>0</ram:ChargeAmount>
+          </ram:NetPriceProductTradePrice>
+        </ram:SpecifiedLineTradeAgreement>
+        <ram:SpecifiedLineTradeDelivery>
+          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
+        </ram:SpecifiedLineTradeDelivery>
+        <ram:SpecifiedLineTradeSettlement>
+          <ram:ApplicableTradeTax>
+            
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:CategoryCode>O</ram:CategoryCode>
+            
+          </ram:ApplicableTradeTax>
+          <ram:SpecifiedTradeSettlementLineMonetarySummation>
+            <ram:LineTotalAmount>0</ram:LineTotalAmount>
+          </ram:SpecifiedTradeSettlementLineMonetarySummation>
+          
+        </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
+        <ram:AssociatedDocumentLineDocument>
+          <ram:LineID>3</ram:LineID>
           
         </ram:AssociatedDocumentLineDocument>
         <ram:SpecifiedTradeProduct>
@@ -56,7 +126,7 @@
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>0</ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088">123</ram:GlobalID>
+              <ram:GlobalID schemeID="0088">0</ram:GlobalID>
               <ram:Name>0</ram:Name>
               <ram:DefinedTradeContact>
                 <ram:PersonName>0</ram:PersonName>
