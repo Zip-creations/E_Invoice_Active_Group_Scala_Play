@@ -25,7 +25,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val allPositionIDs: Seq[String] = formData
       .flatMap(_.get("positionIDcontainer"))
       .getOrElse(Seq.empty)
-    
+
     def connectInput = (InputIdentifier: String) =>
       formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
 
@@ -41,10 +41,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
     // group_INVOICE
     val inputInvoiceNumber = connectInput("InvoiceNumber")
-    val inputInvoiceIssueDate = connectInput("InvoiceIssueDate").replace("-", "") // format="102" is determined in the EN 16931 - CII Mapping scheme
-    val inputInvoiceTypeCode = connectInput("InvoiceTypeCode")
-    val inputInvoiceCurrencyCode = connectInput("InvoiceCurrencyCode")
-    val inputBuyerReference = connectInput("BuyerReference")
     val inputVATAccountingCurrencyCode = connectInput("VATAccountingCurrencyCode")
     val inputValueAddedTaxPointDate = connectInput("ValueAddedTaxPointDate")
     val inputValueAddedTaxPointDateCode = connectInput("ValueAddedTaxPointDateCode")
@@ -61,10 +57,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputPaymentTerms = connectInput("PaymentTerms")
     // group_PROCESS-CONTROL
     val inputBusinessProcessType = connectInput("BusinessProcessType")
-    val inputSpecificationIdentifier = connectInput("SpecificationIdentifier")
     // group_SELLER
-    val inputSellerName = connectInput("SellerName")
-    val inputSellerElectronicAddress = connectInput("SellerElectronicAddress")
     val inputSellerTradingName = connectInput("SellerTradingName")
     val inputSellerIdentifier = connectInput("SellerIdentifier")
     val inputSellerLegalRegistrationIdentifier = connectInput("SellerLegalRegistrationIdentifier")
@@ -72,41 +65,24 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputSellerTaxRegistrationIdentifier = connectInput("SellerTaxRegistrationIdentifier")
     val inputSellerAdditionalLegalInformation = connectInput("SellerAdditionalLegalInformation")
     // group_SELLER-POSTAL-ADDRESS
-    val inputSellerCity = connectInput("SellerCity")
-    val inputSellerPostCode = connectInput("SellerPostCode")
-    val inputSellerCountryCode = connectInput("SellerCountryCode")
     val inputSellerAddressLine1 = connectInput("SellerAddressLine1")
     val inputSellerAddressLine2 = connectInput("SellerAddressLine2")
     val inputSellerAddressLine3 = connectInput("SellerAddressLine3")
     val inputSellerCountrySubdivision = connectInput("SellerCountrySubdivision")
-    // group_SELLER-CONTACT
-    val inputSellerContactPoint = connectInput("SellerContactPoint")
-    val inputSellerContactTelephoneNumber = connectInput("SellerContactTelephoneNumber")
-    val inputSellerContactEmailAddress = connectInput("SellerContactEmailAddress")
     // group_BUYER
-    val inputBuyerName = connectInput("BuyerName")
-    val inputBuyerElectronicAddress = connectInput("BuyerElectronicAddress")
     val inputBuyerTradingName = connectInput("BuyerTradingName")
     val inputBuyerIdentifier = connectInput("BuyerIdentifier")
     val inputBuyerLegalRegistrationIdentifier = connectInput("BuyerLegalRegistrationIdentifier")
     val inputBuyerVATIdentifier = connectInput("BuyerVATIdentifier")
     // group_BUYER-POSTAL-ADDRESS
-    val inputBuyerCity = connectInput("BuyerCity")
-    val inputBuyerPostCode = connectInput("BuyerPostCode")
-    val inputBuyerCountryCode = connectInput("BuyerCountryCode")
     val inputBuyerAddressLine1 = connectInput("BuyerAddressLine1")
     val inputBuyerAddressLine2 = connectInput("BuyerAddressLine2")
     val inputBuyerAddressLine3 = connectInput("BuyerAddressLine3")
     val inputBuyerCountrySubdivision = connectInput("BuyerCountrySubdivision")
     // group_PAYMENT-INSTRUCTIONS
-    val inputPaymentMeansTypeCode = connectInput("PaymentMeansTypeCode")
     val inputPaymentMeansText = connectInput("PaymentMeansText")
     val inputRemittanceInformation = connectInput("RemittanceInformation")
     // group_DOCUMENT-TOTALS
-    val inputSumOfInvoiceLineNetAmount = connectInput("SumOfInvoiceLineNetAmount")
-    val inputInvoiceTotalAmountWithoutVAT = connectInput("InvoiceTotalAmountWithoutVAT")
-    val inputInvoiceTotalAmountWithVAT = connectInput("InvoiceTotalAmountWithVAT")
-    val inputAmountDueForPayment = connectInput("AmountDueForPayment")
     val inputSumOfAllowancesOnDocumentLevel = connectInput("SumOfAllowancesOnDocumentLevel")
     val inputSumOfChargesOnDocumentLevel = connectInput("SumOfChargesOnDocumentLevel")
     val inputInvoiceTotalVATAmount = connectInput("InvoiceTotalVATAmount")
@@ -118,7 +94,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def CreateXMLDataInvoicePostion(i: String) = {
       <ram:IncludedSupplyChainTradeLineItem>
         <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>{connectInput("InvoiceLineIdentifier" ++ i)}</ram:LineID>
+          <ram:LineID>{connectInput("InvoiceLineIdentifier"++i)}</ram:LineID>
           {val value = connectInput("InvoiceLineNote"++i)
             val xml = 
               <ram:IncludedNote>
@@ -215,8 +191,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </ram:SpecifiedLineTradeDelivery>
         <ram:SpecifiedLineTradeSettlement>
           <ram:ApplicableTradeTax>
-            <ram:TypeCode>VAT</ram:TypeCode>{// TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
-              }
+            {
+              // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
+            }
+            <ram:TypeCode>VAT</ram:TypeCode>
             <ram:CategoryCode>{connectInput("InvoicedItemVATCategoryCode" ++ i)}</ram:CategoryCode>
             {
               val value = connectInput("InvoicedItemVATRate"++i)
@@ -265,68 +243,75 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
           </ram:BusinessProcessSpecifiedDocumentContextParameter>
           <ram:GuidelineSpecifiedDocumentContextParameter>
-            <ram:ID>{inputSpecificationIdentifier}</ram:ID>
+            <ram:ID>{connectInput("SpecificationIdentifier")}</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
           <ram:ID>{inputInvoiceNumber}</ram:ID>
-          <ram:TypeCode>{inputInvoiceTypeCode}</ram:TypeCode>
+          <ram:TypeCode>{connectInput("InvoiceTypeCode")}</ram:TypeCode>
           <ram:IssueDateTime>
-            <udt:DateTimeString format="102">{inputInvoiceIssueDate}</udt:DateTimeString>
+            {
+              // format="102" is determined in the EN 16931 - CII Mapping scheme
+            }
+            <udt:DateTimeString format="102">{connectInput("InvoiceIssueDate").replace("-", "")}</udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           {for (i <- allPositionIDs)
             yield CreateXMLDataInvoicePostion(i)}
           <ram:ApplicableHeaderTradeAgreement>
-            <ram:BuyerReference>{inputBuyerReference}</ram:BuyerReference>
+            <ram:BuyerReference>{connectInput("BuyerReference")}</ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088">{inputSellerIdentifier}</ram:GlobalID>
-              <ram:Name>{inputSellerName}</ram:Name>
+              {
+                val value = connectInput("SellerIdentifier")
+                val xml = <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
+                connectOptionalInput(value, xml)
+              }
+              <ram:Name>{connectInput("SellerName")}</ram:Name>
               <ram:DefinedTradeContact>
-                <ram:PersonName>{inputSellerContactPoint}</ram:PersonName>
+                <ram:PersonName>{connectInput("SellerContactPoint")}</ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>{inputSellerContactTelephoneNumber}</ram:CompleteNumber>
+                  <ram:CompleteNumber>{connectInput("SellerContactTelephoneNumber")}</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>{inputSellerContactEmailAddress}</ram:URIID>
+                  <ram:URIID>{connectInput("SellerContactEmailAddress")}</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
               </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{inputSellerPostCode}</ram:PostcodeCode>
-                <ram:CityName>{inputSellerCity}</ram:CityName>
-                <ram:CountryID>{inputSellerCountryCode}</ram:CountryID>
+                <ram:PostcodeCode>{connectInput("SellerPostCode")}</ram:PostcodeCode>
+                <ram:CityName>{connectInput("SellerCity")}</ram:CityName>
+                <ram:CountryID>{connectInput("SellerCountryCode")}</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{inputSellerElectronicAddress}</ram:URIID>
+                <ram:URIID schemeID="EM">{connectInput("SellerElectronicAddress")}</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-              <ram:Name>{inputBuyerName}</ram:Name>
+              <ram:Name>{connectInput("BuyerName")}</ram:Name>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{inputBuyerPostCode}</ram:PostcodeCode>
-                <ram:CityName>{inputBuyerCity}</ram:CityName>
-                <ram:CountryID>{inputBuyerCountryCode}</ram:CountryID>
+                <ram:PostcodeCode>{connectInput("BuyerPostCode")}</ram:PostcodeCode>
+                <ram:CityName>{connectInput("BuyerCity")}</ram:CityName>
+                <ram:CountryID>{connectInput("BuyerCountryCode")}</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{inputBuyerElectronicAddress}</ram:URIID>
+                <ram:URIID schemeID="EM">{connectInput("BuyerElectronicAddress")}</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>{inputInvoiceCurrencyCode}</ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode>{connectInput("InvoiceCurrencyCode")}</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode>{inputPaymentMeansTypeCode}</ram:TypeCode>
+              <ram:TypeCode>{connectInput("PaymentMeansTypeCode")}</ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
               {for (i <- List(""))
                 yield CreateXMLDataPositionTax(i)}
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>{inputSumOfInvoiceLineNetAmount}</ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount>{inputInvoiceTotalAmountWithoutVAT}</ram:TaxBasisTotalAmount>
-              <ram:GrandTotalAmount>{inputInvoiceTotalAmountWithVAT}</ram:GrandTotalAmount>
-              <ram:DuePayableAmount>{inputAmountDueForPayment}</ram:DuePayableAmount>
+              <ram:LineTotalAmount>{connectInput("SumOfInvoiceLineNetAmount")}</ram:LineTotalAmount>
+              <ram:TaxBasisTotalAmount>{connectInput("InvoiceTotalAmountWithoutVAT")}</ram:TaxBasisTotalAmount>
+              <ram:GrandTotalAmount>{connectInput("InvoiceTotalAmountWithVAT")}</ram:GrandTotalAmount>
+              <ram:DuePayableAmount>{connectInput("AmountDueForPayment")}</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>

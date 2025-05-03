@@ -124,6 +124,9 @@ input[type=submit], button[type=button]{
     margin-top: -15px;
 }
 
+.buttonForOptionalGroups {
+    flex-grow: inherit;
+}
 
 .awesomplete > ul {
     max-height: 75vh;

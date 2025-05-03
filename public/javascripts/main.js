@@ -23,6 +23,26 @@ document.addEventListener("DOMContentLoaded", function () {
             container.remove();
         }
     });
+
+    
+    function ToggleOptionalGroup(button) {
+        var parent = button.parentNode
+        var allSiblings = Array.from(parent.childNodes)
+        var siblings = allSiblings.filter(element => element.tagName === "DIV")
+        siblings.forEach(elem => {
+            if (elem.style.display === "none") {
+                elem.style.display = "flex";
+            } else {
+                elem.style.display = "none";
+            }
+        })
+    }
+    var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
+    allOptButtons.forEach(button => {
+        button.addEventListener("click", function(){ToggleOptionalGroup(button)})
+        // Collapse all optional groups when the document is initially loaded
+        ToggleOptionalGroup(button)
+    });
     SetHardCodedInputs()
 });
 
