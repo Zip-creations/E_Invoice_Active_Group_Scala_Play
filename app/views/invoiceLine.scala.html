@@ -23,6 +23,13 @@
         @GenerateInputField("Referenced Purchase Order Line Reference", "Eine vom Erwerber ausgegebene Kennung für eine referenzierte Position einer Bestellung/eines Auftrags.", index=positionID) <!-- BT-132 -->
 
         @GenerateInputField("Invoice Line Buyer Accounting Reference", "Ein Textwert, der angibt, an welcher Stelle die betreffenden Daten in den Finanzkonten des Erwerbers zu buchen sind.", index=positionID) <!-- BT-133 -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_INVOICE-LINE-PERIOD ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <button type="button" class="buttonForOptionalGroups">INVOICE LINE PERIOD einblenden</button>
+        <div id="group_INVOICE-LINE-PERIOD" class="groupContainer">
+            @GenerateInputField("Invoice Line Period Start Date", "Das Datum, an dem der Abrechnungszeitraum der betreffenden Rechnungsposition beginnt.", inputType="date", index=positionID) <!-- BT-134 -->
+            
+            @GenerateInputField("Invoice Line Period End Date", "Das Datum, an dem der Abrechnungszeitraum der betreffenden Rechnungsposition endet.", inputType="date", index=positionID) <!-- BT-135 -->
+        </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div id="group_PRICE-DETAILS" class="groupContainer">
             @GenerateInputField("Item Net Price", "Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.", true, classes="datatypeQuantity", index=positionID) <!-- BT-146 -->

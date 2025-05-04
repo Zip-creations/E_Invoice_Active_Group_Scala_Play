@@ -160,6 +160,15 @@
               
               @GenerateInputField("Buyer Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-54 -->
             </div>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <button type="button" class="buttonForOptionalGroups">BUYER CONTACT einblenden</button>
+            <div id="group_BUYER-CONTACT" class="groupContainer">
+              @GenerateInputField("Buyer Contact Point", "Ansprechpartner oder Kontaktstelle beim Erwerber (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).") <!-- BT-56 -->
+
+              @GenerateInputField("Buyer Contact Telephone Number", "Eine Telefonnummer der Kontaktstelle.") <!-- BT-57 -->
+
+              @GenerateInputField("Buyer Contact Email Address", "Eine E-Mail-Adresse der Kontaktstelle.") <!-- BT-58 -->
+            </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYEE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -242,6 +251,22 @@
             @GenerateInputField("Payment Means Text", "Das in Textform ausgedrückte erwartete oder genutzte Zahlungsmittel.") <!-- BT-82 -->
 
             @GenerateInputField("Remittance Information", "Ein Textwert, der zur Verknüpfung der Zahlung mit der vom Verkäufer ausgestellten Rechnung verwendet wird.") <!-- BT-83 -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYMENT-CARD-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <button type="button" class="buttonForOptionalGroups">PAYMENT CARD INFORMATION einblenden</button>
+            <div id="group_PAYMENT-CARD-INFORMATION" class="groupContainer">
+              @GenerateInputField("Payment Card Primary Account Number", "Die Nummer der Kreditkarte, die für die Zahlung genutzt wurde.", true) <!-- BT-87 -->
+
+              @GenerateInputField("Payment Card Holder Name", "Name des Karteninhabers.") <!-- BT-88 -->
+            </div>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DIRECT-DEBIT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <button type="button" class="buttonForOptionalGroups">DIRECT DEBIT einblenden</button>
+            <div id="group_DIRECT-DEBIT" class="groupContainer">
+              @GenerateInputField("Mandate Reference Identifier", "Eindeutige Kennung, die vom Zahlungsempfänger zur Referenzierung der Einzugsermächtigung zugewiesen wird (Mandatsreferenznummer).", true) <!-- BT-89 -->
+
+              @GenerateInputField("Bank Assigned Creditor Identifier", "Die eindeutige Kennung des Verkäufers (Seller) oder des Zahlungsempfängers (Payee), um am SEPA-Lastschriftverfahren teilnehmen zu können (Gläubiger-ID).", true) <!-- BT-90 -->
+
+              @GenerateInputField("Debited Account Identifier", "Die Kennung des Kontos, von dem die Lastschrift erfolgen soll: IBAN für Zahlungen im SEPA-Raum, Kontonummer oder IBAN im Falle von Auslandszahlungen.", true) <!-- BT-91 -->
+            </div>
           </div>
         </div>
         <div id="positionContainer">
@@ -259,7 +284,7 @@
             @GenerateInputField("Amount Due For Payment", "Der ausstehende Betrag, der zu zahlen ist.", true, classes="datatypeAmount") <!-- BT-115 -->
 
             @GenerateInputField("Sum Of Allowances On Document Level", "Summe aller in der Rechnung enthaltenen \"Document level allowance amount\".", classes="datatypeAmount") <!-- BT-107 -->
-            
+
             @GenerateInputField("Sum Of Charges On Document Level", "Summe aller in der Rechnung enthaltenen \"Document level charge amount\".", classes="datatypeAmount") <!-- BT-108 -->
 
             @GenerateInputField("Invoice Total VAT Amount", "Der Gesamtbetrag der Umsatzsteuer für die Rechnung.", classes="datatypeAmount") <!-- BT-110 -->

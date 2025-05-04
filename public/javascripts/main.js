@@ -23,52 +23,55 @@ document.addEventListener("DOMContentLoaded", function () {
             container.remove();
         }
     });
+    SetHardCodedInputs()
+});
 
-    function GetAllDescendants(node){
-        var allDescendants = []
-        Array.from(node.childNodes).forEach(child => {
-            allDescendants.push(child)
-            allDescendants = allDescendants.concat(GetAllDescendants(child))
-        });
-        return allDescendants
+function GetAllDescendants(node){
+    var allDescendants = []
+    Array.from(node.childNodes).forEach(child => {
+        allDescendants.push(child)
+        allDescendants = allDescendants.concat(GetAllDescendants(child))
+    });
+    return allDescendants
+}
+
+function ToggleOptionalGroup(button) {
+    // get the div the button is supposed to control
+    var adjacentDiv = button.nextSibling
+    while (adjacentDiv.className != "groupContainer") {
+        adjacentDiv = adjacentDiv.nextSibling
     }
-
-    function ToggleOptionalGroup(button) {
-        // get the div the button is supposed to control
-        var adjacentDiv = button.nextSibling
-        while (adjacentDiv.className != "groupContainer") {
-            adjacentDiv = adjacentDiv.nextSibling
-        }
-        // Toggle visibility and (de)activate the inputs (so they can be ignored by the form element accordingly)
-        var allRelevantChilds = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
-        var allInputs = []
-        allRelevantChilds.forEach(elem => {
-            allInputs = allInputs.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
-        })
-        allInputs.forEach(elem => {
-            if (adjacentDiv.style.display === "none") {
-                elem.disabled = false
-            } else {
-                elem.disabled = true
-            }
-        })
+    // Toggle visibility and (de)activate the inputs (so they can be ignored by the form element accordingly)
+    var allRelevantChilds = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
+    var allInputs = []
+    allRelevantChilds.forEach(elem => {
+        allInputs = allInputs.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
+    })
+    allInputs.forEach(elem => {
         if (adjacentDiv.style.display === "none") {
-            adjacentDiv.style.display = "flex";
-            button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
+            elem.disabled = false
         } else {
-            adjacentDiv.style.display = "none";
-            button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
+            elem.disabled = true
         }
+    })
+    if (adjacentDiv.style.display === "none") {
+        adjacentDiv.style.display = "flex";
+        button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
+    } else {
+        adjacentDiv.style.display = "none";
+        button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
     }
-    
+    console.log("here")
+}
+
+function ConnectAllOptionalButtons() {
     var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
     allOptButtons.forEach(button => {
         button.addEventListener("click", function(){ToggleOptionalGroup(button)})
         // Collapse all optional groups when the document is initially loaded
         ToggleOptionalGroup(button)
     });
-    SetHardCodedInputs()
-});
+}
 
 
 /**
@@ -85,6 +88,7 @@ async function CreatePosition(positionID) {
             targetDiv.insertAdjacentHTML("beforeend", html);
         })
     LoadRestrictions()
+    ConnectAllOptionalButtons()
     positionID++
     return positionID
 }
