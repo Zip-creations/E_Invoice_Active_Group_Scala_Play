@@ -7,7 +7,7 @@
         <button type="button" class="removePositionButton">Position entfernen</button>
         <p>Position Nr. @positionID</p>
     </div>
-    <div id="group_INVOICE-LINE">
+    <div id="group_INVOICE-LINE" class="groupContainer">
         @GenerateInputField("Invoice Line Identifier", "Eindeutige Bezeichnung für die betreffende Rechnungsposition.", true, index=positionID) <!-- BT-126 -->
 
         @GenerateInputField("Invoiced Quantity", "Die Menge zu dem in der betreffenden Zeile in Rechnung gestellten Einzelposten (Waren oder Dienstleistungen).", true, classes="datatypeQuantity", index=positionID) <!-- BT-129 -->
@@ -25,7 +25,7 @@
         @GenerateInputField("Invoice Line Buyer Accounting Reference", "Ein Textwert, der angibt, an welcher Stelle die betreffenden Daten in den Finanzkonten des Erwerbers zu buchen sind.", index=positionID) <!-- BT-133 -->
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_PRICE-DETAILS">
+    <div id="group_PRICE-DETAILS" class="groupContainer">
         @GenerateInputField("Item Net Price", "Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.", true, classes="datatypeQuantity", index=positionID) <!-- BT-146 -->
 
         @GenerateInputField("Item Price Discount", "Der gesamte zur Berechnung des Netto-Postenpreises vom Brutto-Postenpreis subtrahierte Rabatt.", classes="datatypeQuantity", index=positionID) <!-- BT-147 -->
@@ -37,7 +37,7 @@
         @GenerateInputField("Item Price Base Quantity Unit Of Measure Code", "Der Code der zu Grunde gelegten Maßeinheit.", classes="awesomplete", data="InvoicedQuantityUnitOfMeasureCodes.xsd", index=positionID) <!-- BT-150 -->
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_LINE-VAT-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_LINE-VAT-INFORMATION">
+    <div id="group_LINE-VAT-INFORMATION" class="groupContainer">
         <div>
             <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
             <select name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
@@ -61,7 +61,7 @@
         @GenerateInputField("Invoiced Item VAT Rate", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", classes="datatypePercentage", index=positionID) <!-- BT-152 -->
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_ITEM-INFORMATION">
+    <div id="group_ITEM-INFORMATION" class="groupContainer">
         @GenerateInputField("Item Name", "Ein Name des Postens.", true, index=positionID) <!-- BT-153 -->
 
         @GenerateInputField("Item Description", "Eine Beschreibung des Postens.", index=positionID) <!-- BT-154 -->

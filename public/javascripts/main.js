@@ -24,33 +24,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    
     function ToggleOptionalGroup(button) {
-        // parent is a <div> class="inputContainer" </div> 
+        // parent is <div> class="inputContainer" </div> 
         var parent = button.parentNode
-        var allSiblings = Array.from(parent.childNodes)
-
-        // yields all divs with groups as id (e.g. <div> id="group_PAYMENT-INSTRUCTIONS" </div>) within the same inputContainer as the button
-        var siblings = allSiblings.filter(element => element.tagName === "DIV")
-        siblings.forEach(elem => {
-            var allNiblings = Array.from(elem.childNodes).filter(element => element.tagName === "DIV")
-            var allNiblingInputs = []
-            // Get every input field from all siblings
-            allNiblings.forEach(nibling => allNiblingInputs.push(Array.from(nibling.childNodes).filter(nib => nib.tagName === "INPUT")[0]))
-            if (elem.style.display === "none") {
-                elem.style.display = "flex";
-                button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
-                allNiblingInputs.forEach(nib => {
-                    nib.disabled = false
-                })
-            } else {
-                elem.style.display = "none";
-                button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
-                allNiblingInputs.forEach(nib => {
-                    nib.disabled = true
-                })
-            }
-        })
+        // get the div the button is supposed to control (his sibling)
+        var adjacentDiv = Array.from(parent.childNodes).filter(elem => elem.className === "groupContainer")[0]
+        if (adjacentDiv.style.display === "none") {
+            adjacentDiv.style.display = "flex";
+            button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
+            adjacentDiv.disabled = false
+        } else {
+            adjacentDiv.style.display = "none";
+            button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
+            adjacentDiv.disabled = true
+        }
     }
     var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
     allOptButtons.forEach(button => {

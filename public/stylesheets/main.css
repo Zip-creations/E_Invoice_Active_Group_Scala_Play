@@ -33,7 +33,7 @@ body{
     margin-top: 0px;
 }
 
-.inputContainer>div {
+.groupContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -42,14 +42,17 @@ body{
     border-bottom: rgb(85, 85, 85) solid 3px;
 }
 
-.inputContainer>div:last-child {
-    border-bottom: 0px;
+.groupContainer>div {
+    display: flex;
+    padding: 4px;
 }
 
-.inputContainer>div>div{
-    display: flex;
-    gap: 5px;
-    padding: 5px;
+.groupContainer>div>* {
+    margin-right: 4px;
+}
+
+.groupContainer:last-child {
+    border-bottom: 0px;
 }
 
 input, select, button {
@@ -70,7 +73,6 @@ input:focus {
 input[type=submit], button[type=button]{
     justify-self: right;
     align-self: flex-end;
-    width: max-content;
     font-size: 16px;
 }
 
