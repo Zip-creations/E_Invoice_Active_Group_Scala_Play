@@ -23,59 +23,59 @@
         @GenerateInputField("Referenced Purchase Order Line Reference", "Eine vom Erwerber ausgegebene Kennung für eine referenzierte Position einer Bestellung/eines Auftrags.", index=positionID) <!-- BT-132 -->
 
         @GenerateInputField("Invoice Line Buyer Accounting Reference", "Ein Textwert, der angibt, an welcher Stelle die betreffenden Daten in den Finanzkonten des Erwerbers zu buchen sind.", index=positionID) <!-- BT-133 -->
-    </div>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_PRICE-DETAILS" class="groupContainer">
-        @GenerateInputField("Item Net Price", "Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.", true, classes="datatypeQuantity", index=positionID) <!-- BT-146 -->
-
-        @GenerateInputField("Item Price Discount", "Der gesamte zur Berechnung des Netto-Postenpreises vom Brutto-Postenpreis subtrahierte Rabatt.", classes="datatypeQuantity", index=positionID) <!-- BT-147 -->
-
-        @GenerateInputField("Item Gross Price", "Der Postenpreis ohne Umsatzsteuer vor Abzug des Postenpreisrabatts.", classes="datatypeQuantity", index=positionID) <!-- BT-148 -->
-
-        @GenerateInputField("Item Price Base Quantity", "Die Anzahl von Einheiten, für die der Postenpreis gilt.", classes="datatypeQuantity", index=positionID) <!-- BT-149 -->
-
-        @GenerateInputField("Item Price Base Quantity Unit Of Measure Code", "Der Code der zu Grunde gelegten Maßeinheit.", classes="awesomplete", data="InvoicedQuantityUnitOfMeasureCodes.xsd", index=positionID) <!-- BT-150 -->
-    </div>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_LINE-VAT-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_LINE-VAT-INFORMATION" class="groupContainer">
-        <div>
-            <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
-            <select name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
-                <option disabled selected value=""> -- select a code -- </option>
-                <option value="S">S (Standard rate)</option>
-                <option value="Z">Z (Zero rated goods)</option>
-                <option value="E">E (Exempt from tax)</option>
-                <option value="AE">AE (VAT Reverse Charge)</option>
-                <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
-                <option value="G">G (Free export item, tax not charged)</option>
-                <option value="O">O (Services outside scope of tax)</option>
-                <option value="L">L (Canary Islands general indirect tax)</option>
-                <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
-              </select>
-            <div class="tooltip">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
-            </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PRICE-DETAILS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div id="group_PRICE-DETAILS" class="groupContainer">
+            @GenerateInputField("Item Net Price", "Der Preis eines Postens, ohne Umsatzsteuer, nach Abzug des für diese Rechnungsposition geltenden Rabatts.", true, classes="datatypeQuantity", index=positionID) <!-- BT-146 -->
+            
+            @GenerateInputField("Item Price Discount", "Der gesamte zur Berechnung des Netto-Postenpreises vom Brutto-Postenpreis subtrahierte Rabatt.", classes="datatypeQuantity", index=positionID) <!-- BT-147 -->
+            
+            @GenerateInputField("Item Gross Price", "Der Postenpreis ohne Umsatzsteuer vor Abzug des Postenpreisrabatts.", classes="datatypeQuantity", index=positionID) <!-- BT-148 -->
+            
+            @GenerateInputField("Item Price Base Quantity", "Die Anzahl von Einheiten, für die der Postenpreis gilt.", classes="datatypeQuantity", index=positionID) <!-- BT-149 -->
+            
+            @GenerateInputField("Item Price Base Quantity Unit Of Measure Code", "Der Code der zu Grunde gelegten Maßeinheit.", classes="awesomplete", data="InvoicedQuantityUnitOfMeasureCodes.xsd", index=positionID) <!-- BT-150 -->
         </div>
-
-        @GenerateInputField("Invoiced Item VAT Rate", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", classes="datatypePercentage", index=positionID) <!-- BT-152 -->
-    </div>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div id="group_ITEM-INFORMATION" class="groupContainer">
-        @GenerateInputField("Item Name", "Ein Name des Postens.", true, index=positionID) <!-- BT-153 -->
-
-        @GenerateInputField("Item Description", "Eine Beschreibung des Postens.", index=positionID) <!-- BT-154 -->
-
-        @GenerateInputField("Item Sellers Identifier", "Eine dem Posten vom Verkäufer zugewiesene Kennung.", index=positionID) <!-- BT-155 -->
-
-        @GenerateInputField("Item Buyers Identifier", "Eine dem Posten vom Erwerber zugewiesene Kennung.", index=positionID) <!-- BT-156 -->
-
-        @GenerateInputField("Item Standard Identifier", "Eine auf einem registrierten Schema basierende Postenkennung.", index=positionID) <!-- BT-157 -->
-
-        @GenerateInputField("Item Classification Identifier", "Ein Code für die Klassifizierung des Postens nach Typ bzw. Art oder Wesen bzw. Beschaffenheit.", index=positionID) <!-- BT-158 -->
-
-        @GenerateInputField("Item Classification Identifier Scheme", "Schema für \"Item Classification Identifier\".", classes="awesomplete", data="UNTDID_7143_ItemTypeIdentificationCode.xsd", index=positionID) <!-- Zusatz zu BT-158 -->
-        
-        @GenerateInputField("Item Country Of Origin", "Der Ländercode, der das Land angibt, aus dem die Ware stammt oder in dem die Dienstleistung erbracht wird.", classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd", index=positionID) <!-- BT-153 -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_LINE-VAT-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div id="group_LINE-VAT-INFORMATION" class="groupContainer">
+            <div>
+                <label for="InvoicedItemVATCategoryCode">Invoiced Item VAT Category Code:</label>
+                <select name='@("InvoicedItemVATCategoryCode" + positionID)' required> <!-- BT-151 -->
+                    <option disabled selected value=""> -- select a code -- </option>
+                    <option value="S">S (Standard rate)</option>
+                    <option value="Z">Z (Zero rated goods)</option>
+                    <option value="E">E (Exempt from tax)</option>
+                    <option value="AE">AE (VAT Reverse Charge)</option>
+                    <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
+                    <option value="G">G (Free export item, tax not charged)</option>
+                    <option value="O">O (Services outside scope of tax)</option>
+                    <option value="L">L (Canary Islands general indirect tax)</option>
+                    <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
+                </select>
+                <div class="tooltip">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
+                </div>
+            </div>
+            
+            @GenerateInputField("Invoiced Item VAT Rate", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", classes="datatypePercentage", index=positionID) <!-- BT-152 -->
+        </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_ITEM-INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div id="group_ITEM-INFORMATION" class="groupContainer">
+            @GenerateInputField("Item Name", "Ein Name des Postens.", true, index=positionID) <!-- BT-153 -->
+            
+            @GenerateInputField("Item Description", "Eine Beschreibung des Postens.", index=positionID) <!-- BT-154 -->
+            
+            @GenerateInputField("Item Sellers Identifier", "Eine dem Posten vom Verkäufer zugewiesene Kennung.", index=positionID) <!-- BT-155 -->
+            
+            @GenerateInputField("Item Buyers Identifier", "Eine dem Posten vom Erwerber zugewiesene Kennung.", index=positionID) <!-- BT-156 -->
+            
+            @GenerateInputField("Item Standard Identifier", "Eine auf einem registrierten Schema basierende Postenkennung.", index=positionID) <!-- BT-157 -->
+            
+            @GenerateInputField("Item Classification Identifier", "Ein Code für die Klassifizierung des Postens nach Typ bzw. Art oder Wesen bzw. Beschaffenheit.", index=positionID) <!-- BT-158 -->
+            
+            @GenerateInputField("Item Classification Identifier Scheme", "Schema für \"Item Classification Identifier\".", classes="awesomplete", data="UNTDID_7143_ItemTypeIdentificationCode.xsd", index=positionID) <!-- Zusatz zu BT-158 -->
+            
+            @GenerateInputField("Item Country Of Origin", "Der Ländercode, der das Land angibt, aus dem die Ware stammt oder in dem die Dienstleistung erbracht wird.", classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd", index=positionID) <!-- BT-153 -->
+        </div>
     </div>
 </div>

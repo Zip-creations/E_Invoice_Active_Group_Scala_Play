@@ -39,14 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
         while (adjacentDiv.className != "groupContainer") {
             adjacentDiv = adjacentDiv.nextSibling
         }
-        // console.log(adjacentDiv)
         // Toggle visibility and (de)activate the inputs (so they can be ignored by the form element accordingly)
-        var allInputs = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
-        var test = []
-        allInputs.forEach(elem => {
-            test = test.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
+        var allRelevantChilds = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
+        var allInputs = []
+        allRelevantChilds.forEach(elem => {
+            allInputs = allInputs.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
         })
-        test.forEach(elem => {
+        allInputs.forEach(elem => {
             if (adjacentDiv.style.display === "none") {
                 elem.disabled = false
             } else {
@@ -61,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
         }
     }
+    
     var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
     allOptButtons.forEach(button => {
         button.addEventListener("click", function(){ToggleOptionalGroup(button)})
@@ -130,8 +130,8 @@ function SetHardCodedInputs() {
 // .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!
 function LoadRestrictions() {
     const numericClasses = ["datatypeAmount", "datatypeQuantity", "datatypePercentage"]
-    var allInputs = document.querySelectorAll("input")
-    allInputs.forEach(input => {
+    var allRelevantChilds = document.querySelectorAll("input")
+    allRelevantChilds.forEach(input => {
         if (numericClasses.includes(input.className)) {
             AddNumericRestriction(input)
         } else if (input.className === "awesomplete")

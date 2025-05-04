@@ -104,30 +104,30 @@
             @GenerateInputField("Seller Tax Registration Identifier", "Eine örtliche steuerrechtliche Kennung des Verkäufers (bestimmt durch dessen Adresse) oder ein Verweis auf seinen eingetragenen Steuerstatus.") <!-- BT-32 -->
 
             @GenerateInputField("Seller Additional Legal Information", "Weitere rechtliche Informationen, die für den Verkäufer maßgeblich sind (wie z. B. Grundkapital).") <!-- BT-33 -->
-          </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-          <div id="group_SELLER-POSTAL-ADDRESS" class="groupContainer">
-            @GenerateInputField("Seller City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.", true) <!-- BT-37 -->
-
-            @GenerateInputField("Seller Post Code", "Die Postleitzahl.", true) <!-- BT-38 -->
-
-            @GenerateInputField("Seller Country Code", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-40 -->
-
-            @GenerateInputField("Seller Address Line 1", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
-
-            @GenerateInputField("Seller Address Line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-36 -->
-
-            @GenerateInputField("Seller Address Line 3", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-162 -->
-
-            @GenerateInputField("Seller Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-39 -->
-          </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-          <div id="group_SELLER-CONTACT" class="groupContainer">
-            @GenerateInputField("Seller Contact Point", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).", true) <!-- BT-41 -->
-
-            @GenerateInputField("Seller Contact Telephone Number", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-42 -->
-
-            @GenerateInputField("Seller Contact Email Address", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-43 -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="group_SELLER-POSTAL-ADDRESS" class="groupContainer">
+              @GenerateInputField("Seller City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.", true) <!-- BT-37 -->
+              
+              @GenerateInputField("Seller Post Code", "Die Postleitzahl.", true) <!-- BT-38 -->
+              
+              @GenerateInputField("Seller Country Code", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-40 -->
+              
+              @GenerateInputField("Seller Address Line 1", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
+              
+              @GenerateInputField("Seller Address Line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-36 -->
+              
+              @GenerateInputField("Seller Address Line 3", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-162 -->
+              
+              @GenerateInputField("Seller Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-39 -->
+            </div>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_SELLER-CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="group_SELLER-CONTACT" class="groupContainer">
+              @GenerateInputField("Seller Contact Point", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).", true) <!-- BT-41 -->
+              
+              @GenerateInputField("Seller Contact Telephone Number", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-42 -->
+              
+              @GenerateInputField("Seller Contact Email Address", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-43 -->
+            </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -144,22 +144,22 @@
             @GenerateInputField("Buyer Legal Registration Identifier", "Ein von einer offiziellen Registrierstelle ausgegebener Bezeichner, der den Erwerber als Rechtsträger oder juristische Person identifiziert.") <!-- BT-47 -->
 
             @GenerateInputField("Buyer VAT Identifier", "Die Umsatzsteuer-Identifikationsnummer des Erwerbers.") <!-- BT-48 -->
-          </div>
-          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-          <div id="group_BUYER-POSTAL-ADDRESS" class="groupContainer">
-            @GenerateInputField("Buyer City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
-
-            @GenerateInputField("Buyer Post Code", "Die Postleitzahl.", true) <!-- BT-53 -->
-
-            @GenerateInputField("Buyer Country Code", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-55 -->
-
-            @GenerateInputField("Buyer Address Line 1", "Die Hauptzeile einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-50 -->
-
-            @GenerateInputField("Buyer Address Line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-51 -->
-
-            @GenerateInputField("Buyer Address Line 3", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-163 -->
-
-            @GenerateInputField("Buyer Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-54 -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_BUYER-POSTAL-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="group_BUYER-POSTAL-ADDRESS" class="groupContainer">
+              @GenerateInputField("Buyer City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
+              
+              @GenerateInputField("Buyer Post Code", "Die Postleitzahl.", true) <!-- BT-53 -->
+              
+              @GenerateInputField("Buyer Country Code", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-55 -->
+              
+              @GenerateInputField("Buyer Address Line 1", "Die Hauptzeile einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-50 -->
+              
+              @GenerateInputField("Buyer Address Line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-51 -->
+              
+              @GenerateInputField("Buyer Address Line 3", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-163 -->
+              
+              @GenerateInputField("Buyer Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-54 -->
+            </div>
           </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_PAYEE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -211,15 +211,26 @@
             <button type="button" class="buttonForOptionalGroups">INVOICING PERIOD einblenden</button>
             <div id="group_INVOICING-PERIOD" class="groupContainer">
               @GenerateInputField("Invoicing Period Start Date", "Das Datum, an dem der Abrechnungszeitraum beginnt.", inputType="date") <!-- BT-73 -->
-              
+
               @GenerateInputField("Invoicing Period End Date", "Das Datum, an dem der Abrechnungszeitraum endet.", inputType="date") <!-- BT-74 -->
             </div>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ group_DELIVER-TO-ADDRESS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <button type="button" class="buttonForOptionalGroups">DELIVER TO ADDRESS einblenden</button>
             <div id="group_DELIVER-TO-ADDRESS" class="groupContainer">
-              @GenerateInputField("Deliver to address line 1", "Die Hauptzeile einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.", inputType="date") <!-- BT-75 -->
+              @GenerateInputField("Deliver To Address Line 1", "Die Hauptzeile einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.", inputType="date") <!-- BT-75 -->
 
-              @GenerateInputField("Deliver to address line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.", inputType="date") <!-- BT-76 -->
+              @GenerateInputField("Deliver To Address Line 2", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.", inputType="date") <!-- BT-76 -->
+
+              @GenerateInputField("Deliver To Address Line 3", "Eine zusätzliche Adresszeile in einer Anschrift, die verwendet werden kann, um weitere Einzelheiten in Ergänzung zur Hauptzeile anzugeben.") <!-- BT-165 -->
+
+              @GenerateInputField("Deliver To City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-77 -->
+
+              @GenerateInputField("Deliver To Post Code", "Die Postleitzahl.", true) <!-- BT-78 -->
+
+              @GenerateInputField("Deliver To Country Subdivision", "Die Unterteilung eines Landes (wie Region, Bundesland, Provinz etc.).") <!-- BT-79 -->
+
+              @GenerateInputField("Deliver To Country Code", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-80 -->
+
             </div>
           </div>
         </div>

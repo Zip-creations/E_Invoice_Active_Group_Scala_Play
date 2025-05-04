@@ -37,9 +37,11 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-bottom: 4px;
-    padding-top: 4px;
-    border-bottom: rgb(85, 85, 85) solid 3px;
+}
+
+.groupContainer>.groupContainer {
+    margin-top: 4px;
+    border-top: rgb(85, 85, 85) solid 3px;
 }
 
 .groupContainer>div {
@@ -51,9 +53,7 @@ body{
     margin-right: 4px;
 }
 
-.groupContainer:last-child {
-    border-bottom: 0px;
-}
+
 
 input, select, button {
     border-radius: 5px;
