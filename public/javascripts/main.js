@@ -24,19 +24,41 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    function GetAllDescendants(node){
+        var allDescendants = []
+        Array.from(node.childNodes).forEach(child => {
+            allDescendants.push(child)
+            allDescendants = allDescendants.concat(GetAllDescendants(child))
+        });
+        return allDescendants
+    }
+
     function ToggleOptionalGroup(button) {
-        // parent is <div> class="inputContainer" </div> 
-        var parent = button.parentNode
-        // get the div the button is supposed to control (his sibling)
-        var adjacentDiv = Array.from(parent.childNodes).filter(elem => elem.className === "groupContainer")[0]
+        // get the div the button is supposed to control
+        var adjacentDiv = button.nextSibling
+        while (adjacentDiv.className != "groupContainer") {
+            adjacentDiv = adjacentDiv.nextSibling
+        }
+        // console.log(adjacentDiv)
+        // Toggle visibility and (de)activate the inputs (so they can be ignored by the form element accordingly)
+        var allInputs = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
+        var test = []
+        allInputs.forEach(elem => {
+            test = test.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
+        })
+        test.forEach(elem => {
+            if (adjacentDiv.style.display === "none") {
+                elem.disabled = false
+            } else {
+                elem.disabled = true
+            }
+        })
         if (adjacentDiv.style.display === "none") {
             adjacentDiv.style.display = "flex";
             button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
-            adjacentDiv.disabled = false
         } else {
             adjacentDiv.style.display = "none";
             button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
-            adjacentDiv.disabled = true
         }
     }
     var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
