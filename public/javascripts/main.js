@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const container = event.target.closest(".inputContainer");
             container.remove();
         }
-    });
+    }); 
     SetHardCodedInputs()
 });
 
@@ -61,7 +61,6 @@ function ToggleOptionalGroup(button) {
         adjacentDiv.style.display = "none";
         button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
     }
-    console.log("here")
 }
 
 function ConnectAllOptionalButtons() {
