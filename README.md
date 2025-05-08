@@ -1,5 +1,7 @@
 # E_Invoice_Active_Group_Scala_Play
 
+Dieses Projekt entsteht im Rahmen eines Bachelorprojektes in Kooperation mit [Active Group](https://www.active-group.de/)
+
 Dieses Projekt verwendet den Validator den [OpenXRechnungToolbox](https://github.com/jcthiele/OpenXRechnungToolbox) "as is". Lizenz der Toolbox: [GPLv3](Toolbox/license.txt)
 
 Benutzung des E-Rechung Tools:

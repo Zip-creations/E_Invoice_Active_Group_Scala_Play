@@ -26,6 +26,25 @@ document.addEventListener("DOMContentLoaded", function () {
     SetHardCodedInputs()
 });
 
+/**
+ *Fetches invoiceLine.scala.html, tranfers the current PostionID, attaches the created inputContainer
+ * (which contains one invoice position) and increments the positionID
+ * @param {*} positionID consistent, increasing ID for invoice Positions
+ * @returns 
+ */
+ async function CreatePosition(positionID) {
+    await fetch(`/invoiceLine?positionID=${positionID.toString()}`)
+        .then(response => response.text())
+        .then(html => {
+            const targetDiv = document.getElementById("positionContainer");
+            targetDiv.insertAdjacentHTML("beforeend", html);
+        })
+    LoadRestrictions()
+    ConnectAllOptionalButtons()
+    positionID++
+    return positionID
+}
+
 function GetAllDescendants(node){
     var allDescendants = []
     Array.from(node.childNodes).forEach(child => {
@@ -71,27 +90,6 @@ function ConnectAllOptionalButtons() {
         ToggleOptionalGroup(button)
     });
 }
-
-
-/**
- *Fetches invoiceLine.scala.html, tranfers the current PostionID, attaches the created inputContainer
- * (which contains one invoice position) and increments the positionID
- * @param {*} positionID consistent, increasing ID for invoice Positions
- * @returns 
- */
-async function CreatePosition(positionID) {
-    await fetch(`/invoiceLine?positionID=${positionID.toString()}`)
-        .then(response => response.text())
-        .then(html => {
-            const targetDiv = document.getElementById("positionContainer");
-            targetDiv.insertAdjacentHTML("beforeend", html);
-        })
-    LoadRestrictions()
-    ConnectAllOptionalButtons()
-    positionID++
-    return positionID
-}
-
 
 /**
  *  Reads values from a .xsd file and returns them as Array. Assumes the format: <xsd:enumeration value="foo"/>
