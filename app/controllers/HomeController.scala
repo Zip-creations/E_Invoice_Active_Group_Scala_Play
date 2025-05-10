@@ -9,7 +9,7 @@ import scala.sys.process._
 import java.io.{File, PrintWriter}
 import scala.xml.XML
 
-import utility.Invoice
+import utility._
 
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
 
@@ -46,6 +46,14 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         return scala.xml.NodeSeq.Empty
       }
     }
+
+    // var data = Invoice2()
+    // data.SetValue(InvoiceDataType.InvoiceNumber(connectInput("InvoiceNumber")))
+
+    // Type needs to be explictly given, otherwise Play will throw an error
+    val invoicemetadata:InvoiceDataType.InvoiceMetaData  = InvoiceDataType.InvoiceMetaData(connectInput("InvoiceNumber"), connectInput("InvoiceIssueDate").replace("-", ""))
+    var data2 = Invoice3(invoicemetadata)
+    print(data2.invoicemetadata)
 
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
@@ -257,13 +265,19 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID>{inputInvoiceNumber}</ram:ID>
+          <ram:ID>
+          {data2.invoicemetadata match {
+              case InvoiceDataType.InvoiceMetaData(name, _) => name}}
+          </ram:ID>
           <ram:TypeCode>{connectInput("InvoiceTypeCode")}</ram:TypeCode>
           <ram:IssueDateTime>
             {
               // format="102" is determined in the EN 16931 - CII Mapping scheme
             }
-            <udt:DateTimeString format="102">{connectInput("InvoiceIssueDate").replace("-", "")}</udt:DateTimeString>
+            <udt:DateTimeString format="102">          
+            {data2.invoicemetadata match {
+              case InvoiceDataType.InvoiceMetaData(_, date) => date}}
+            </udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>

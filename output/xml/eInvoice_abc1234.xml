@@ -9,12 +9,15 @@
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
-          <ram:ID>2025-05-10
+          <ram:ID>
+          abc1234
           </ram:ID>
           <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
             
-            <udt:DateTimeString format="102">20250510</udt:DateTimeString>
+            <udt:DateTimeString format="102">          
+            20250510
+            </udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>

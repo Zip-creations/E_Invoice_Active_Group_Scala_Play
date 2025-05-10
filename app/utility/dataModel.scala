@@ -1,8 +1,11 @@
 package utility
 
-class Invoice(var invoicenumber: String):
-    val invoiceNumber: InvoiceDataType.InvoiceNumber = InvoiceDataType.InvoiceNumber(invoicenumber)
+class Invoice2():
+    var data: Map[InvoiceDataType, Null] = Map.empty
+    def SetValue(name: InvoiceDataType) = {
+        data = data.updated(name, null)
+    }
 
-
-class invoice2():
-    var data: Map[InvoiceDataType, String] = Map.empty
+case class Invoice3(
+    invoicemetadata: InvoiceDataType.InvoiceMetaData,
+    )
