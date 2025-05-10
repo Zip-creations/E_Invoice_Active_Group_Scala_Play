@@ -14,7 +14,16 @@ import utility.Invoice
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
 
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index(request))
+    //Ok(views.html.index(request))
+    Ok(views.html.index2())
+  }
+
+  def generateInvoiceItem() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.invoice_item())
+  }
+
+  def generateInvoiceTime() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.invoice_time())
   }
 
   def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
