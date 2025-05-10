@@ -1,4 +1,6 @@
+@(implicit request: RequestHeader)
 @import utility.FormInputHelper._
 @invoice_generic("Rechnung Item", "main2.css"){
+    @helper.CSRF.formField
     @GenerateInputField("Item Name", "lorem ipsum", true)
 }

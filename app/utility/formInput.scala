@@ -24,6 +24,6 @@ object FormInputHelper {
         if (data != "") {
             dataStr = "data-file=\"" + data + "\" "
         }
-        Html(s"<div$showStr><label for=$inputID>$name:</label><input type=\"$inputType\" name=$inputID $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div>")
+        Html(s"<div$showStr class=\"inputfield\"><label for=$inputID>$name:</label><input type=\"$inputType\" name=$inputID $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div>")
     }
 }

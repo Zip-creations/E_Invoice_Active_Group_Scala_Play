@@ -1,9 +1,23 @@
 @import utility.FormInputHelper._
 @(title: String, stylesheetlink: String)(content: Html)
 @main(title, stylesheetlink){
-    <div id="invoicecontainer">
-        @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
-        @GenerateInputField("Invoice Issue Date", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
-        @content
-    </div>
+    <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoicecontainer" target="_blank">
+        <div id="setinvoiceinputs">
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Invoice Issue Date", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
+        </div>
+        <div id="variableinvoiceinputs">
+            @content
+        </div>
+        <input type="submit" name="submitInvoice" value="Rechnung generieren & validieren">>
+    </form>
 }

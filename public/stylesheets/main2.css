@@ -1,7 +1,7 @@
 body{
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
-    grid-template-rows: 1fr auto 1fr;
+    grid-template-rows: 1fr auto auto;
     background-color: rgb(60, 60, 60);
     font-size: max(1vw, 18px);
     overflow-x: hidden;
@@ -12,23 +12,40 @@ body{
     grid-row: 2;
     display: flex;
     justify-content: space-between;
+    background-color: wheat;
+    padding: 4px;
 }
 
 #invoicecontainer {
     grid-column: 2;
     grid-row: 3;
-    display: flex;
     border: black solid 5px;
     border-radius: 5px;
     background-color: wheat;
+    padding: 2px;
 }
 
 #invoicecontainer>div {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: rgb(40, 40, 40) solid 4px;
+    border-right: rgb(40, 40, 40) solid 4px;
+    border-left: rgb(40, 40, 40) solid 4px;
     padding: 4px;
 }
 
-#invoicecontainer>div>* {
+#invoicecontainer>div:last-of-type {
+    border-bottom: rgb(40, 40, 40) solid 4px;
+    margin-bottom: 4px;
+}
+
+.inputfield{
+    display: flex;
+    padding: 4px;
+}
+
+.inputfield>* {
     margin-right: 4px;
 }
 
@@ -37,7 +54,7 @@ body{
 }
 
 .tooltip>i {
-    color: rgb(255, 255, 255);
+    color: rgb(40, 40, 40);
     margin-top: 2px;
 }
 
@@ -69,4 +86,8 @@ input, select, button {
     border-width: 3px;
     border-color: rgb(50, 50, 50);
     max-width: 15vw;
+}
+
+:required {
+    background-color: yellow;
 }
