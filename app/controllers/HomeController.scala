@@ -36,8 +36,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       .flatMap(_.get("positionIDcontainer"))
       .getOrElse(Seq.empty)
 
-    def connectInput = (InputIdentifier: String) =>
-      formData.flatMap(_.get(InputIdentifier).flatMap(_.headOption)).getOrElse("")
+    def connectInput = (inputIdentifier: String) =>
+      formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
 
     def connectOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
       if (value != "") {
@@ -51,9 +51,13 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // data.SetValue(InvoiceDataType.InvoiceNumber(connectInput("InvoiceNumber")))
 
     // Type needs to be explictly given, otherwise Play will throw an error
-    val invoicemetadata:InvoiceDataType.InvoiceMetaData  = InvoiceDataType.InvoiceMetaData(connectInput("InvoiceNumber"), connectInput("InvoiceIssueDate").replace("-", ""))
-    var data2 = Invoice3(invoicemetadata)
-    print(data2.invoicemetadata)
+    val invoicemetadata:InvoiceDataType.InvoiceMetaData = InvoiceDataType.InvoiceMetaData(
+      connectInput("InvoiceNumber"), connectInput("InvoiceIssueDate").replace("-", ""))
+    var data3 = Invoice3(invoicemetadata)
+    print(data3.invoicemetadata)
+    print(data3.invoiceIdentifier)
+    var data4 = Invoice4(invoicemetadata)
+    print("\n"+data4.invoiceIdentifier+"\n")
 
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
@@ -266,7 +270,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
           <ram:ID>
-          {data2.invoicemetadata match {
+          {data3.invoicemetadata match {
               case InvoiceDataType.InvoiceMetaData(name, _) => name}}
           </ram:ID>
           <ram:TypeCode>{connectInput("InvoiceTypeCode")}</ram:TypeCode>
@@ -275,7 +279,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
               // format="102" is determined in the EN 16931 - CII Mapping scheme
             }
             <udt:DateTimeString format="102">          
-            {data2.invoicemetadata match {
+            {data3.invoicemetadata match {
               case InvoiceDataType.InvoiceMetaData(_, date) => date}}
             </udt:DateTimeString>
           </ram:IssueDateTime>

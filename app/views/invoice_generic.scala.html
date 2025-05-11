@@ -2,12 +2,34 @@
 @(title: String, stylesheetlink: String)(content: Html)
 @main(title, stylesheetlink){
     <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoicecontainer" target="_blank">
-        <div id="setinvoiceinputs">
-            @GenerateInputField("Invoice Number", "Eindeutige Kennung der Rechnung", true)
-            @GenerateInputField("Invoice Issue Date", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
+        <div>
+            @GenerateInputField("Rechnungsnummer", "Eindeutige Kennung der Rechnung", true)
+            @GenerateInputField("Erstelldatum der Rechung", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
         </div>
-        <div id="variableinvoiceinputs">
+        <div>
+            @GenerateInputField("Seller Name", "Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuerpflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).", true) <!-- BT-27 -->
+            @GenerateInputField("Seller Street", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
+            @GenerateInputField("Seller Post Code", "Die Postleitzahl.") <!-- BT-38 -->
+            @GenerateInputField("Seller City", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.") <!-- BT-37 -->
+            @GenerateInputField("Tel:", "lorem ipsum")
+            @GenerateInputField("Fax:", "lorem ipsum")
+            @GenerateInputField("Website Link", "lorem ipsum")
+            @GenerateInputField("E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", inputType="email") <!-- BT-34 -->
+        </div>
+        <div>
+            @GenerateInputField("Zustandig", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).") <!-- BT-41 -->
+            @GenerateInputField("Telefon", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.") <!-- BT-42 -->
+            @GenerateInputField("E-Mail", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.") <!-- BT-43 -->
+        </div>
+        <div>
+            @GenerateInputField("Pos.", "lorem ipsum")
+            @GenerateInputField("Menge", "lorem ipsum")
+            @GenerateInputField("Einheit", "lorem ipsum")
             @content
+            @GenerateInputField("Gesamtwert", "lorem ipsum")
+        </div>
+        <div>
+            @GenerateInputField("Zahlungsbedingung:", "lorem ipsum")
         </div>
         <input type="submit" name="submitInvoice" value="Rechnung generieren & validieren">
     </form>
