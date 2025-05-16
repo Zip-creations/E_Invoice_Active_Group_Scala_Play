@@ -2,5 +2,6 @@
 @import utility.FormInputHelper._
 @invoice_generic("Rechnung Time", "main2.css"){
     @helper.CSRF.formField
-    @GenerateInputField("Worked Time", "lorem ipsum", true)
+    @GenerateInputField("", "Anz. Stunden", "lorem ipsum", true)
+    @GenerateInputField("", "Stundensatz", "lorem ipsum", true)
 }

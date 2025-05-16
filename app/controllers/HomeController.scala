@@ -15,7 +15,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def index() = Action { implicit request: Request[AnyContent] =>
     //Ok(views.html.index(request))
-    Ok(views.html.index2())
+    Ok(views.html.index())
   }
 
   def generateInvoiceItem() = Action { implicit request: Request[AnyContent] =>
@@ -27,7 +27,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.invoiceLine(positionID))
+    Ok(views.html.index())
   }
 
   def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>

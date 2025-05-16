@@ -2,7 +2,7 @@ package utility
 import play.twirl.api.Html
 
 object FormInputHelper {
-    def GenerateInputField(name: String, description: String, req: Boolean=false, readOnly: Boolean=false, dontShow: Boolean=false, inputType: String="text", classes: String="", data: String="", index: String=""): Html = {
+    def GenerateInputField(name: String, displayname: String, description: String, req: Boolean=false, readOnly: Boolean=false, dontShow: Boolean=false, inputType: String="text", classes: String="", data: String="", index: String=""): Html = {
         val inputID = "\"" + name.replace(" ", "") + s"$index\""
         var reqString = ""
         var readStr = ""
@@ -24,6 +24,6 @@ object FormInputHelper {
         if (data != "") {
             dataStr = "data-file=\"" + data + "\" "
         }
-        Html(s"<div$showStr class=\"inputfield\"><label for=$inputID>$name:</label><input type=\"$inputType\" name=$inputID $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div>")
+        Html(s"<div$showStr class=\"inputfield\"><label for=$inputID>$displayname:</label><input type=\"$inputType\" name=$inputID $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div>")
     }
 }
