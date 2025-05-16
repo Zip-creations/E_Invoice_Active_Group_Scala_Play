@@ -47,18 +47,21 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       }
     }
 
-    // var data = Invoice2()
-    // data.SetValue(InvoiceDataType.InvoiceNumber(connectInput("InvoiceNumber")))
-
-    // Type needs to be explictly given, otherwise Play will throw an error
-    val invoicemetadata:InvoiceDataType.InvoiceMetaData = InvoiceDataType.InvoiceMetaData(
-      connectInput("InvoiceNumber"), connectInput("InvoiceIssueDate").replace("-", ""))
-    var data3 = Invoice3(invoicemetadata)
-    print(data3.invoicemetadata)
-    print(data3.invoiceIdentifier)
-    var data4 = Invoice4(invoicemetadata)
-    print("\n"+data4.invoiceIdentifier+"\n")
-
+    def ProccessBuyerToCII(buyer: Buyer): scala.xml.Elem = {
+      val xml =
+          <ram:BuyerTradeParty>
+              <ram:Name>{buyer.name}</ram:Name>
+              <ram:PostalTradeAddress>
+                  <ram:PostcodeCode>{connectInput("BuyerPostCode")}</ram:PostcodeCode>
+                  <ram:CityName>{connectInput("BuyerCity")}</ram:CityName>
+                  <ram:CountryID>{connectInput("BuyerCountryCode")}</ram:CountryID>
+              </ram:PostalTradeAddress>
+              <ram:URIUniversalCommunication>
+                  <ram:URIID schemeID="EM">{connectInput("BuyerElectronicAddress")}</ram:URIID>
+              </ram:URIUniversalCommunication>
+          </ram:BuyerTradeParty>
+      return xml
+      }
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
     // group_INVOICE
@@ -270,17 +273,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
           <ram:ID>
-          {data3.invoicemetadata match {
-              case InvoiceDataType.InvoiceMetaData(name, _) => name}}
+            {inputInvoiceNumber}
           </ram:ID>
           <ram:TypeCode>{connectInput("InvoiceTypeCode")}</ram:TypeCode>
           <ram:IssueDateTime>
             {
               // format="102" is determined in the EN 16931 - CII Mapping scheme
             }
-            <udt:DateTimeString format="102">          
-            {data3.invoicemetadata match {
-              case InvoiceDataType.InvoiceMetaData(_, date) => date}}
+            <udt:DateTimeString format="102">
+              {connectInput("")}
             </udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
