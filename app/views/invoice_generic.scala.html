@@ -11,9 +11,9 @@
             @GenerateInputField("SellerAddressLine1", "Straße", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
             @GenerateInputField("SellerPostCode", "PLZ", "Die Postleitzahl.") <!-- BT-38 -->
             @GenerateInputField("SellerCity", "Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.") <!-- BT-37 -->
-            @GenerateInputField("", "Tel", "lorem ipsum")
-            @GenerateInputField("", "Fax", "lorem ipsum")
-            @GenerateInputField("", "Website Link", "lorem ipsum")
+            @GenerateInputField("placeholder1", "Tel", "lorem ipsum")
+            @GenerateInputField("placeholder2", "Fax", "lorem ipsum")
+            @GenerateInputField("placeholder3", "Website Link", "lorem ipsum")
             @GenerateInputField("SellerElectronicAddress", "E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", inputType="email") <!-- BT-34 -->
         </div>
         <div>
@@ -21,7 +21,7 @@
             @GenerateInputField("SellerContactTelephoneNumber", "Telefon", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.") <!-- BT-42 -->
             @GenerateInputField("SellerContactEmailAddress", "E-Mail", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.") <!-- BT-43 -->
         </div>
-        <div>
+        <div id="positionContainer">
             @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->
             @GenerateInputField("InvoiceCurrencyCode", "Einheit", "lorem ipsum") <!-- BT-5 -->
             @content

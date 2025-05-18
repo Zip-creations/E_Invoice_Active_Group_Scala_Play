@@ -32,6 +32,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>
     val formData = request.body.asFormUrlEncoded
+    var xmlUtil = XMLUtility(formData)
     val allPositionIDs: Seq[String] = formData
       .flatMap(_.get("positionIDcontainer"))
       .getOrElse(Seq.empty)
@@ -47,25 +48,37 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       }
     }
 
-    def ProccessBuyerToCII(buyer: Buyer): scala.xml.Elem = {
-      val xml =
-          <ram:BuyerTradeParty>
-              <ram:Name>{buyer.name}</ram:Name>
-              <ram:PostalTradeAddress>
-                  <ram:PostcodeCode>{connectInput("BuyerPostCode")}</ram:PostcodeCode>
-                  <ram:CityName>{connectInput("BuyerCity")}</ram:CityName>
-                  <ram:CountryID>{connectInput("BuyerCountryCode")}</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
-                  <ram:URIID schemeID="EM">{connectInput("BuyerElectronicAddress")}</ram:URIID>
-              </ram:URIUniversalCommunication>
-          </ram:BuyerTradeParty>
-      return xml
-      }
+    val meta = InvoiceMetaData(
+      xmlUtil.connectInput("InvoiceNumber"),
+      xmlUtil.connectInput("InvoiceIssueDate").replace("-", ""),
+      "380" // TODO: replace with a value the user can set OR replace with fitting default
+      )
+    val seller = InvoiceSeller(
+      xmlUtil.connectInput("SellerName"),
+      xmlUtil.connectInput("SellerAddressLine1"),
+      xmlUtil.connectInput("SellerPostCode"),
+      xmlUtil.connectInput("SellerCity"),
+      xmlUtil.connectInput("placeholder1"),
+      xmlUtil.connectInput("placeholder2"),
+      xmlUtil.connectInput("placeholder3"),
+      xmlUtil.connectInput("SellerElectronicAddress"),
+      )
+    val sellerContact = InvoiceSellerContact(
+      xmlUtil.connectInput("SellerContactPoint"),
+      xmlUtil.connectInput("SellerContactTelephoneNumber"),
+      xmlUtil.connectInput("SellerContactEmailAddress"),
+      )
+    val buyer = InvoiceBuyer(
+      xmlUtil.connectInput(""),
+      xmlUtil.connectInput(""),
+      xmlUtil.connectInput(""),
+      )
+
+    val invoice = Invoice(meta, seller, sellerContact, buyer, Nil)
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
     // group_INVOICE
-    val inputInvoiceNumber = connectInput("InvoiceNumber")
+    val inputInvoiceNumber = xmlUtil.connectInput("InvoiceNumber")
     val inputVATAccountingCurrencyCode = connectInput("VATAccountingCurrencyCode")
     val inputValueAddedTaxPointDate = connectInput("ValueAddedTaxPointDate")
     val inputValueAddedTaxPointDateCode = connectInput("ValueAddedTaxPointDateCode")
@@ -271,20 +284,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
-        <rsm:ExchangedDocument>
-          <ram:ID>
-            {inputInvoiceNumber}
-          </ram:ID>
-          <ram:TypeCode>{connectInput("InvoiceTypeCode")}</ram:TypeCode>
-          <ram:IssueDateTime>
-            {
-              // format="102" is determined in the EN 16931 - CII Mapping scheme
-            }
-            <udt:DateTimeString format="102">
-              {connectInput("")}
-            </udt:DateTimeString>
-          </ram:IssueDateTime>
-        </rsm:ExchangedDocument>
+          {xmlUtil.CreateMetaDataXML(invoice.metadata)}
         <rsm:SupplyChainTradeTransaction>
           {for (i <- allPositionIDs)
             yield CreateXMLDataInvoicePostion(i)}

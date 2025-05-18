@@ -10,13 +10,13 @@
         </rsm:ExchangedDocumentContext>
         <rsm:ExchangedDocument>
           <ram:ID>
-          abc123
+            abc123
           </ram:ID>
           <ram:TypeCode></ram:TypeCode>
           <ram:IssueDateTime>
             
-            <udt:DateTimeString format="102">          
-            20250511
+            <udt:DateTimeString format="102">
+              
             </udt:DateTimeString>
           </ram:IssueDateTime>
         </rsm:ExchangedDocument>
@@ -26,7 +26,7 @@
             <ram:BuyerReference></ram:BuyerReference>
             <ram:SellerTradeParty>
               
-              <ram:Name></ram:Name>
+              <ram:Name>asdfg</ram:Name>
               <ram:DefinedTradeContact>
                 <ram:PersonName></ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
