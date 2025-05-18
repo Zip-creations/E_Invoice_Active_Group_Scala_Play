@@ -7,7 +7,8 @@ case class Invoice(
     seller: InvoiceSeller,
     sellerContact: InvoiceSellerContact,
     buyer: InvoiceBuyer,
-    positions: List[InvoicePosition]
+    positions: List[InvoicePosition],
+    paymentInformation: InvoicePaymentInformation
     )
 
 case class InvoiceMetaData(
@@ -42,6 +43,11 @@ case class InvoiceBuyer(
     iban: String,
     email: String
     )
+
+case class InvoicePaymentInformation(
+    currencycode: String,
+    paymentMeansCode: String
+)
 
 trait BasePosition {
     def id: String

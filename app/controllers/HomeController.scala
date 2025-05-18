@@ -59,7 +59,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerAddressLine1"),
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
-      connectInput("DE"),
+      "DE",
       connectInput("placeholder1"),
       connectInput("placeholder2"),
       connectInput("placeholder3"),
@@ -73,13 +73,25 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
 
     val buyer = InvoiceBuyer(
-      connectInput(""),
-      connectInput(""),
-      connectInput(""),
-      connectInput(""),
-      connectInput(""),
-      connectInput("")
+      "buyer name",
+      "54321",
+      "buyer city",
+      "DE",
+      "DE12 3456 7890",
+      "ex3@mail.com"
+      // connectInput(""),
+      // connectInput(""),
+      // connectInput(""),
+      // connectInput(""),
+      // connectInput(""),
+      // connectInput("")
       )
+
+    // TODO: replace hardcoded values
+    val paymentInformation = InvoicePaymentInformation(
+      "EUR",
+      "ZZZ"
+    )
 
     // only for testting purposes - postions need to be created dynamically and in an abritrary number later on!
     val testposition = InvoicePosition.Stundenposition(
@@ -89,7 +101,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       42.42
     )
 
-    val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList)
+    val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList, paymentInformation)
 
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
@@ -144,22 +156,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputPaidAmount = connectInput("PaidAmount")
     val inputRoundingAmount = connectInput("RoundingAmount")
 
-    // Gets repeated for every invoice position
-
-    // This part need to be repeated for every VAT category code
-    def CreateXMLDataPositionTax(i: String): scala.xml.Elem = { 
-      val xmlData = 
-        <ram:ApplicableTradeTax>
-          <ram:CalculatedAmount>{connectInput("VATCategoryTaxAmount" ++ i)}</ram:CalculatedAmount>
-          <ram:TypeCode>VAT</ram:TypeCode>
-          <ram:ExemptionReason>{connectInput("VATExemptionReasonText" ++ i)}</ram:ExemptionReason>
-          <ram:BasisAmount>{connectInput("VATCategoryTaxableAmount" ++ i)}</ram:BasisAmount>
-          <ram:CategoryCode>{connectInput("VATCategoryCode" ++ i)}</ram:CategoryCode>
-          <ram:RateApplicablePercent>{connectInput("VATCategoryRate" ++ i)}</ram:RateApplicablePercent>
-        </ram:ApplicableTradeTax>
-      return xmlData
-    }
-
     // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
     // TODO: inputSellerIdentifier: Find out how to set schemeID
     val xmlData =
@@ -181,15 +177,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             {xmlUtil.CreateSellerXML(invoice.seller, invoice.sellerContact)}
             {xmlUtil.CreateBuyerXML(invoice.buyer)}
           </ram:ApplicableHeaderTradeAgreement>
-          <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>{connectInput("InvoiceCurrencyCode")}</ram:InvoiceCurrencyCode>
-            <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode>{connectInput("PaymentMeansTypeCode")}</ram:TypeCode>
-            </ram:SpecifiedTradeSettlementPaymentMeans>
-              {for (i <- List(""))
-                yield CreateXMLDataPositionTax(i)}
-              {xmlUtil.CreateDocumentSummaryXML()}
-          </ram:ApplicableHeaderTradeSettlement>
+          <ram:ApplicableHeaderTradeDelivery>
+          </ram:ApplicableHeaderTradeDelivery>
+          {xmlUtil.CreatePaymentInformationXML(invoice.paymentInformation)}
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
 

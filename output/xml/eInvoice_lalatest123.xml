@@ -60,43 +60,45 @@
               <ram:PostalTradeAddress>
                 <ram:PostcodeCode>11223</ram:PostcodeCode>
                 <ram:CityName>Example city</ram:CityName>
-                <ram:CountryID></ram:CountryID>
+                <ram:CountryID>DE</ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
                 <ram:URIID schemeID="EM">ex@mail.com</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-                <ram:Name></ram:Name>
+                <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
-                    <ram:PostcodeCode></ram:PostcodeCode>
-                    <ram:CityName></ram:CityName>
-                    <ram:CountryID></ram:CountryID>
+                    <ram:PostcodeCode>54321</ram:PostcodeCode>
+                    <ram:CityName>buyer city</ram:CityName>
+                    <ram:CountryID>DE</ram:CountryID>
                 </ram:PostalTradeAddress>
                 <ram:URIUniversalCommunication>
-                    <ram:URIID schemeID="EM"></ram:URIID>
+                    <ram:URIID schemeID="EM">ex3@mail.com</ram:URIID>
                 </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
+          <ram:ApplicableHeaderTradeDelivery>
+          </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode></ram:InvoiceCurrencyCode>
-            <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode></ram:TypeCode>
-            </ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:ApplicableTradeTax>
-          <ram:CalculatedAmount></ram:CalculatedAmount>
-          <ram:TypeCode>VAT</ram:TypeCode>
-          <ram:ExemptionReason></ram:ExemptionReason>
-          <ram:BasisAmount></ram:BasisAmount>
-          <ram:CategoryCode></ram:CategoryCode>
-          <ram:RateApplicablePercent></ram:RateApplicablePercent>
-        </ram:ApplicableTradeTax>
-              <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+                <ram:SpecifiedTradeSettlementPaymentMeans>
+                    <ram:TypeCode>ZZZ</ram:TypeCode>
+                </ram:SpecifiedTradeSettlementPaymentMeans>
+                <ram:ApplicableTradeTax>
+                <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
+                <ram:TypeCode>VAT</ram:TypeCode>
+                <ram:ExemptionReason>no</ram:ExemptionReason>
+                <ram:BasisAmount>0.0</ram:BasisAmount>
+                <ram:CategoryCode>O</ram:CategoryCode>
+                <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+                <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
                 <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
                 <ram:TaxBasisTotalAmount>0.0</ram:TaxBasisTotalAmount>
                 <ram:GrandTotalAmount>0.0</ram:GrandTotalAmount>
                 <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-          </ram:ApplicableHeaderTradeSettlement>
+            </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
