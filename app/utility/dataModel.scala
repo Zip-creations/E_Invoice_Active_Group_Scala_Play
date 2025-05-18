@@ -21,6 +21,7 @@ case class InvoiceSeller(
     street: String,
     postcode: String,
     city: String,
+    country: String,
     telephonenumber: String,
     faxnumber: String,
     websitelink: String,
@@ -44,21 +45,21 @@ case class InvoiceBuyer(
 
 trait BasePosition {
     def id: String
-    def taxpercentage: Float
+    def taxpercentage: Double
 }
 
 enum InvoicePosition extends BasePosition {
     case Stundenposition(
         id: String,
-        taxpercentage: Float,
-        hours: Float,
-        hourlyrate: Float
+        taxpercentage: Double,
+        hours: Double,
+        hourlyrate: Double
     )
     case Leistungsposition(
         id: String, 
-        taxpercentage: Float,
-        amount: Float,
-        quantity: Float
+        taxpercentage: Double,
+        amount: Double,
+        quantity: Double
     )
 }
 

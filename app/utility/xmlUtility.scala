@@ -1,6 +1,9 @@
 package utility
 class XMLUtility(){
 
+    private case class StoredPosition(netAmount: Double, taxpercentage: Double)
+    private var storedPositions: List[StoredPosition] = Nil
+
     def CreateMetaDataXML(meta: InvoiceMetaData): scala.xml.Elem = {
         val xml = 
             <rsm:ExchangedDocument>
@@ -17,6 +20,23 @@ class XMLUtility(){
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
+        return xml
+    }
+
+    def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
+        val xml =
+            <ram:SellerTradeParty>
+              <ram:Name>{seller.name}</ram:Name>
+                {CreateSellerContactXML(sellerContact)}
+              <ram:PostalTradeAddress>
+                <ram:PostcodeCode>{seller.postcode}</ram:PostcodeCode>
+                <ram:CityName>{seller.city}</ram:CityName>
+                <ram:CountryID>{seller.country}</ram:CountryID>
+              </ram:PostalTradeAddress>
+              <ram:URIUniversalCommunication>
+                <ram:URIID schemeID="EM">{seller.email}</ram:URIID>
+              </ram:URIUniversalCommunication>
+            </ram:SellerTradeParty>
         return xml
     }
 
@@ -68,6 +88,7 @@ class XMLUtility(){
                 chargedQuantity = quantity
                 totalAmount = amount * quantity
         }
+        storedPositions :+ StoredPosition(totalAmount, position.taxpercentage)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -95,6 +116,28 @@ class XMLUtility(){
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
+        return xml
+    }
+
+    def CreateDocumentSummaryXML(): scala.xml.Elem = {
+        var totalNetAmount = 0.0
+        var totalAmountWithoutVAT = 0.0
+        var totalAmountWithVAT = 0.0
+        var amountDue = 0.0
+        for (i <- storedPositions) {
+            totalNetAmount += i.netAmount
+            totalAmountWithoutVAT += i.netAmount
+            totalAmountWithVAT += i.netAmount * (1+ i.taxpercentage)
+            totalAmountWithVAT += i.netAmount * (1+ i.taxpercentage)
+        }
+
+        val xml =
+            <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                <ram:LineTotalAmount>{totalNetAmount.toString}</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>{totalAmountWithoutVAT.toString}</ram:TaxBasisTotalAmount>
+                <ram:GrandTotalAmount>{totalAmountWithVAT.toString}</ram:GrandTotalAmount>
+                <ram:DuePayableAmount>{amountDue.toString}</ram:DuePayableAmount>
+            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
         return xml
     }
 }

@@ -59,6 +59,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerAddressLine1"),
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
+      connectInput("DE"),
       connectInput("placeholder1"),
       connectInput("placeholder2"),
       connectInput("placeholder3"),
@@ -177,23 +178,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             yield xmlUtil.CreatePositionXML(i)}
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>{connectInput("BuyerReference")}</ram:BuyerReference>
-            <ram:SellerTradeParty>
-              {
-                val value = connectInput("SellerIdentifier")
-                val xml = <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
-                connectOptionalInput(value, xml)
-              }
-              <ram:Name>{connectInput("SellerName")}</ram:Name>
-                {xmlUtil.CreateSellerContactXML(invoice.sellerContact)}
-              <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{connectInput("SellerPostCode")}</ram:PostcodeCode>
-                <ram:CityName>{connectInput("SellerCity")}</ram:CityName>
-                <ram:CountryID>{connectInput("SellerCountryCode")}</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{connectInput("SellerElectronicAddress")}</ram:URIID>
-              </ram:URIUniversalCommunication>
-            </ram:SellerTradeParty>
+            {xmlUtil.CreateSellerXML(invoice.seller, invoice.sellerContact)}
             {xmlUtil.CreateBuyerXML(invoice.buyer)}
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeSettlement>
@@ -203,12 +188,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             </ram:SpecifiedTradeSettlementPaymentMeans>
               {for (i <- List(""))
                 yield CreateXMLDataPositionTax(i)}
-            <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>{connectInput("SumOfInvoiceLineNetAmount")}</ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount>{connectInput("InvoiceTotalAmountWithoutVAT")}</ram:TaxBasisTotalAmount>
-              <ram:GrandTotalAmount>{connectInput("InvoiceTotalAmountWithVAT")}</ram:GrandTotalAmount>
-              <ram:DuePayableAmount>{connectInput("AmountDueForPayment")}</ram:DuePayableAmount>
-            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+              {xmlUtil.CreateDocumentSummaryXML()}
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
       </rsm:CrossIndustryInvoice>
