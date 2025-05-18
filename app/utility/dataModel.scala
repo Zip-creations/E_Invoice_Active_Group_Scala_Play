@@ -36,6 +36,7 @@ case class InvoiceSellerContact(
     )
 
 case class InvoiceBuyer(
+    reference: String,
     name: String,
     postcode: String,
     city: String,

@@ -73,6 +73,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
 
     val buyer = InvoiceBuyer(
+      "ref 123",
       "buyer name",
       "54321",
       "buyer city",
@@ -103,86 +104,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList, paymentInformation)
 
-    // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
-    // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
-    // group_INVOICE
-
-    val inputVATAccountingCurrencyCode = connectInput("VATAccountingCurrencyCode")
-    val inputValueAddedTaxPointDate = connectInput("ValueAddedTaxPointDate")
-    val inputValueAddedTaxPointDateCode = connectInput("ValueAddedTaxPointDateCode")
-    val inputPaymentDueDate = connectInput("PaymentDueDate")
-    val inputProjectReference = connectInput("ProjectReference")
-    val inputContractReference = connectInput("ContractReference")
-    val inputPurchaseOrderReference = connectInput("PurchaseOrderReference")
-    val inputSalesOrderReference = connectInput("SalesOrderReference")
-    val inputReceivingAdviceReference = connectInput("ReceivingAdviceReference")
-    val inputDespatchAdviceReference = connectInput("DespatchAdviceReference")
-    val inputTenderOrLotReference = connectInput("TenderOrLotReference")
-    val inputInvoicedObjectIdentifier = connectInput("InvoicedObjectIdentifier")
-    val inputBuyerAccountingReference = connectInput("BuyerAccountingReference")
-    val inputPaymentTerms = connectInput("PaymentTerms")
-    // group_PROCESS-CONTROL
-    val inputBusinessProcessType = connectInput("BusinessProcessType")
-    // group_SELLER
-    val inputSellerTradingName = connectInput("SellerTradingName")
-    val inputSellerIdentifier = connectInput("SellerIdentifier")
-    val inputSellerLegalRegistrationIdentifier = connectInput("SellerLegalRegistrationIdentifier")
-    val inputSellerVATIdentifier = connectInput("SellerVATIdentifier")
-    val inputSellerTaxRegistrationIdentifier = connectInput("SellerTaxRegistrationIdentifier")
-    val inputSellerAdditionalLegalInformation = connectInput("SellerAdditionalLegalInformation")
-    // group_SELLER-POSTAL-ADDRESS
-    val inputSellerAddressLine1 = connectInput("SellerAddressLine1")
-    val inputSellerAddressLine2 = connectInput("SellerAddressLine2")
-    val inputSellerAddressLine3 = connectInput("SellerAddressLine3")
-    val inputSellerCountrySubdivision = connectInput("SellerCountrySubdivision")
-    // group_BUYER
-    val inputBuyerTradingName = connectInput("BuyerTradingName")
-    val inputBuyerIdentifier = connectInput("BuyerIdentifier")
-    val inputBuyerLegalRegistrationIdentifier = connectInput("BuyerLegalRegistrationIdentifier")
-    val inputBuyerVATIdentifier = connectInput("BuyerVATIdentifier")
-    // group_BUYER-POSTAL-ADDRESS
-    val inputBuyerAddressLine1 = connectInput("BuyerAddressLine1")
-    val inputBuyerAddressLine2 = connectInput("BuyerAddressLine2")
-    val inputBuyerAddressLine3 = connectInput("BuyerAddressLine3")
-    val inputBuyerCountrySubdivision = connectInput("BuyerCountrySubdivision")
-    // group_PAYMENT-INSTRUCTIONS
-    val inputPaymentMeansText = connectInput("PaymentMeansText")
-    val inputRemittanceInformation = connectInput("RemittanceInformation")
-    // group_DOCUMENT-TOTALS
-    val inputSumOfAllowancesOnDocumentLevel = connectInput("SumOfAllowancesOnDocumentLevel")
-    val inputSumOfChargesOnDocumentLevel = connectInput("SumOfChargesOnDocumentLevel")
-    val inputInvoiceTotalVATAmount = connectInput("InvoiceTotalVATAmount")
-    val inputInvoiceTotalVATAmountInAccountingCurrency = connectInput("InvoiceTotalVATAmountInAccountingCurrency")
-    val inputPaidAmount = connectInput("PaidAmount")
-    val inputRoundingAmount = connectInput("RoundingAmount")
-
-    // {for (i <- List("")) yield CreateXMLDataPositionTax(i)} is a placeholder, until the full set of VAT category codes is supported
-    // TODO: inputSellerIdentifier: Find out how to set schemeID
-    val xmlData =
-      <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
-        <rsm:ExchangedDocumentContext>
-          <ram:BusinessProcessSpecifiedDocumentContextParameter>
-            <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
-          </ram:BusinessProcessSpecifiedDocumentContextParameter>
-          <ram:GuidelineSpecifiedDocumentContextParameter>
-            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
-          </ram:GuidelineSpecifiedDocumentContextParameter>
-        </rsm:ExchangedDocumentContext>
-          {xmlUtil.CreateMetaDataXML(invoice.metadata)}
-        <rsm:SupplyChainTradeTransaction>
-          {for (i <- invoice.positions)
-            yield xmlUtil.CreatePositionXML(i)}
-          <ram:ApplicableHeaderTradeAgreement>
-            <ram:BuyerReference>{connectInput("BuyerReference")}</ram:BuyerReference>
-            {xmlUtil.CreateSellerXML(invoice.seller, invoice.sellerContact)}
-            {xmlUtil.CreateBuyerXML(invoice.buyer)}
-          </ram:ApplicableHeaderTradeAgreement>
-          <ram:ApplicableHeaderTradeDelivery>
-          </ram:ApplicableHeaderTradeDelivery>
-          {xmlUtil.CreatePaymentInformationXML(invoice.paymentInformation)}
-        </rsm:SupplyChainTradeTransaction>
-      </rsm:CrossIndustryInvoice>
-
+    val xmlData = xmlUtil.CreateInvoiceXML(invoice)
 
     // Paths
     val inputInvoiceNumber = connectInput("InvoiceNumber")
