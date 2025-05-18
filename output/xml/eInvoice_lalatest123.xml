@@ -21,7 +21,29 @@
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
-          
+          <ram:IncludedSupplyChainTradeLineItem>
+                <ram:AssociatedDocumentLineDocument>
+                    <ram:LineID>123</ram:LineID>
+                </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedLineTradeAgreement>
+                    <ram:NetPriceProductTradePrice>
+                        <ram:ChargeAmount>42.41999816894531</ram:ChargeAmount>
+                    </ram:NetPriceProductTradePrice>
+                </ram:SpecifiedLineTradeAgreement>
+                <ram:SpecifiedLineTradeDelivery>
+                    <ram:BilledQuantity unitCode="1">1.0</ram:BilledQuantity>
+                </ram:SpecifiedLineTradeDelivery>
+                <ram:SpecifiedLineTradeSettlement>
+                    <ram:ApplicableTradeTax>
+                        
+                        <ram:TypeCode>VAT</ram:TypeCode>
+                        <ram:CategoryCode>19.0</ram:CategoryCode>
+                    </ram:ApplicableTradeTax>
+                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
+                        <ram:LineTotalAmount>509.03997802734375</ram:LineTotalAmount>
+                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
+                </ram:SpecifiedLineTradeSettlement>
+            </ram:IncludedSupplyChainTradeLineItem>
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference></ram:BuyerReference>
             <ram:SellerTradeParty>
@@ -57,8 +79,6 @@
                 </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
-          <ram:ApplicableHeaderTradeDelivery>
-          </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
             <ram:InvoiceCurrencyCode></ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>

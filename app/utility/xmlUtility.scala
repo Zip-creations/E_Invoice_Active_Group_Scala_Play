@@ -49,4 +49,52 @@ class XMLUtility(){
             </ram:BuyerTradeParty>
         return xml
     }
+
+    def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
+        var unitcode = ""
+        var chargedAmount = 0.0
+        var totalAmount = 0.0
+        var chargedQuantity = 0.0
+
+        position match{
+            case InvoicePosition.Stundenposition(id, taxpercentage, hours, hourlyrate) =>
+                unitcode = "1"
+                chargedAmount = hourlyrate
+                chargedQuantity = 1
+                totalAmount = hours * hourlyrate
+            case InvoicePosition.Leistungsposition(id, taxpercentage, amount, quantity) =>
+                unitcode = "2"
+                chargedAmount = amount
+                chargedQuantity = quantity
+                totalAmount = amount * quantity
+        }
+
+        val xml =
+            <ram:IncludedSupplyChainTradeLineItem>
+                <ram:AssociatedDocumentLineDocument>
+                    <ram:LineID>{position.id}</ram:LineID>
+                </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedLineTradeAgreement>
+                    <ram:NetPriceProductTradePrice>
+                        <ram:ChargeAmount>{chargedAmount.toString}</ram:ChargeAmount>
+                    </ram:NetPriceProductTradePrice>
+                </ram:SpecifiedLineTradeAgreement>
+                <ram:SpecifiedLineTradeDelivery>
+                    <ram:BilledQuantity unitCode={unitcode}>{chargedQuantity.toString}</ram:BilledQuantity>
+                </ram:SpecifiedLineTradeDelivery>
+                <ram:SpecifiedLineTradeSettlement>
+                    <ram:ApplicableTradeTax>
+                        {
+                        // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
+                        }
+                        <ram:TypeCode>VAT</ram:TypeCode>
+                        <ram:CategoryCode>{position.taxpercentage}</ram:CategoryCode>
+                    </ram:ApplicableTradeTax>
+                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
+                        <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>
+                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
+                </ram:SpecifiedLineTradeSettlement>
+            </ram:IncludedSupplyChainTradeLineItem>
+        return xml
+    }
 }

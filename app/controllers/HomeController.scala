@@ -80,7 +80,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("")
       )
 
-    val invoice = Invoice(meta, seller, sellerContact, buyer, Nil)
+    // only for testting purposes - postions need to be created dynamically and in an abritrary number later on!
+    val testposition = InvoicePosition.Stundenposition(
+      "123",
+      19,
+      12,
+      42.42
+    )
+
+    val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList)
 
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
@@ -136,134 +144,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val inputRoundingAmount = connectInput("RoundingAmount")
 
     // Gets repeated for every invoice position
-    def CreateXMLDataInvoicePostion(i: String) = {
-      <ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>{connectInput("InvoiceLineIdentifier"++i)}</ram:LineID>
-          {val value = connectInput("InvoiceLineNote"++i)
-            val xml = 
-              <ram:IncludedNote>
-                <ram:Content>{value}</ram:Content>
-              </ram:IncludedNote>
-            connectOptionalInput(value, xml)}
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          {
-            val value = connectInput("ItemStandardIdentifier"++i)
-            val xml =
-              <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
-            connectOptionalInput(value, xml)
-          }
-          {
-            val value = connectInput("ItemSellersIdentifier"++i)
-            val xml =
-              <ram:SellerAssignedID>{value}</ram:SellerAssignedID>
-            connectOptionalInput(value, xml)
-          }
-          {
-            val value = connectInput("ItemBuyersIdentifier"++i)
-            val xml =
-              <ram:BuyerAssignedID>{value}</ram:BuyerAssignedID>
-            connectOptionalInput(value, xml)
-          }
-          <ram:Name>{connectInput("ItemName" ++ i)}</ram:Name>
-          {
-            val value = connectInput("ItemDescription"++i)
-            val xml =
-              <ram:Description>{value}</ram:Description>
-            connectOptionalInput(value, xml)
-          }
-          {
-            val value = connectInput("ItemClassificationIdentifier"++i)
-            val xml =
-              <ram:DesignatedProductClassification>
-                <ram:ClassCode listID={connectInput("itemClassificationIdentifierScheme"++i)}>{value}</ram:ClassCode>
-              </ram:DesignatedProductClassification>
-            connectOptionalInput(value, xml)
-          }
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          {
-            val value = connectInput("ReferencedPurchaseOrderLineReference"++i)
-              val xml= 
-              <ram:BuyerOrderReferenceDocument>
-                <ram:LineID>{value}</ram:LineID>
-              </ram:BuyerOrderReferenceDocument>
-            connectOptionalInput(value, xml)}
-          {
-            val inputItemPriceDiscount = connectInput("ItemPriceDiscount"++i)
-            val inputItemGrossPrice = connectInput("ItemGrossPrice"++i)
-            val inputItemPriceBaseQuantity = connectInput("ItemPriceBaseQuantity"++i)
-            val inputItemPriceBaseQuantityUnitOfMeasureCode = connectInput("ItemPriceBaseQuantityUnitOfMeasureCode"++i)
-            // inputItemPriceBaseQuantityUnitOfMeasureCode is dependant on inputItemPriceBaseQuantity
-            if (inputItemPriceDiscount != "" || inputItemGrossPrice != "" || inputItemPriceBaseQuantity != "") {
-              {
-                val xml =
-                <ram:GrossPriceProductTradePrice>
-                  {
-                    val xmlGrossPrice =
-                      <ram:ChargeAmount>{inputItemGrossPrice}</ram:ChargeAmount>
-                    connectOptionalInput(inputItemGrossPrice, xmlGrossPrice)
-                  }
-                  {
-                    val xmlQuantity =
-                      <ram:BasisQuantity unitCode={inputItemPriceBaseQuantityUnitOfMeasureCode}>{inputItemPriceBaseQuantity}</ram:BasisQuantity>
-                    connectOptionalInput(inputItemPriceBaseQuantity, xmlQuantity)
-                  }
-                  {
-                    val xmlDiscount = 
-                    <ram:AppliedTradeAllowanceCharge>
-                      <ram:ChargeIndicator>
-                        <udt:Indicator>false</udt:Indicator>
-                      </ram:ChargeIndicator>
-                      <ram:ActualAmount>{inputItemPriceDiscount}</ram:ActualAmount>
-                    </ram:AppliedTradeAllowanceCharge>
-                    connectOptionalInput(inputItemPriceDiscount, xmlDiscount)
-                  }
-                </ram:GrossPriceProductTradePrice>
-                xml
-              }
-            } else {
-              scala.xml.NodeSeq.Empty
-            }
-          }
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>{connectInput("ItemNetPrice" ++ i)}</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode={connectInput("InvoicedQuantityUnitOfMeasureCode" ++ i)}>{connectInput("InvoicedQuantity" ++ i)}</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            {
-              // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
-            }
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>{connectInput("InvoicedItemVATCategoryCode" ++ i)}</ram:CategoryCode>
-            {
-              val value = connectInput("InvoicedItemVATRate"++i)
-              val xml = 
-                <ram:RateApplicablePercent>{value}</ram:RateApplicablePercent>
-              connectOptionalInput(value, xml)
-            }
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>{connectInput("InvoiceLineNetAmount" ++ i)}</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-          {
-            val value = connectInput("InvoiceLineObjectIdentifier"++i)
-            // TypeCode=130 is determined in the EN 16931 - CII Mapping scheme
-            val xml = 
-              <ram:AdditionalReferencedDocument>
-                <ram:IssuerAssignedID>{value}</ram:IssuerAssignedID>
-                <ram:TypeCode>130</ram:TypeCode>
-              </ram:AdditionalReferencedDocument>
-            connectOptionalInput(value, xml)
-          }
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem>
-    }
 
     // This part need to be repeated for every VAT category code
     def CreateXMLDataPositionTax(i: String): scala.xml.Elem = { 
@@ -293,8 +173,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         </rsm:ExchangedDocumentContext>
           {xmlUtil.CreateMetaDataXML(invoice.metadata)}
         <rsm:SupplyChainTradeTransaction>
-          {for (i <- allPositionIDs)
-            yield CreateXMLDataInvoicePostion(i)}
+          {for (i <- invoice.positions)
+            yield xmlUtil.CreatePositionXML(i)}
           <ram:ApplicableHeaderTradeAgreement>
             <ram:BuyerReference>{connectInput("BuyerReference")}</ram:BuyerReference>
             <ram:SellerTradeParty>
@@ -316,8 +196,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             </ram:SellerTradeParty>
             {xmlUtil.CreateBuyerXML(invoice.buyer)}
           </ram:ApplicableHeaderTradeAgreement>
-          <ram:ApplicableHeaderTradeDelivery>
-          </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
             <ram:InvoiceCurrencyCode>{connectInput("InvoiceCurrencyCode")}</ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>

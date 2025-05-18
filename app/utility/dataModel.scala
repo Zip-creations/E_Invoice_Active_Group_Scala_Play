@@ -42,9 +42,24 @@ case class InvoiceBuyer(
     email: String
     )
 
-enum InvoicePosition {
-    case Stundenposition(id: String, currencode: String, hours: Float, hourlyrate: Float, taxpercentage: Float)
-    case Leistungsposition(id: String, currencode: String, taxpercentage: Float, amount: Float)
+trait BasePosition {
+    def id: String
+    def taxpercentage: Float
+}
+
+enum InvoicePosition extends BasePosition {
+    case Stundenposition(
+        id: String,
+        taxpercentage: Float,
+        hours: Float,
+        hourlyrate: Float
+    )
+    case Leistungsposition(
+        id: String, 
+        taxpercentage: Float,
+        amount: Float,
+        quantity: Float
+    )
 }
 
 // Other possible ways to create an Invoice-Datamodel:
