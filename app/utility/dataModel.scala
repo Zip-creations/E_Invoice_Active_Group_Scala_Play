@@ -35,8 +35,11 @@ case class InvoiceSellerContact(
 
 case class InvoiceBuyer(
     name: String,
-    address: String,
-    iban: String
+    postcode: String,
+    city: String,
+    country: String,
+    iban: String,
+    email: String
     )
 
 enum InvoicePosition {

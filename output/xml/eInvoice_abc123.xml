@@ -8,18 +8,18 @@
             <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
-        <rsm:ExchangedDocument>
-          <ram:ID>
-            abc123
-          </ram:ID>
-          <ram:TypeCode></ram:TypeCode>
-          <ram:IssueDateTime>
-            
-            <udt:DateTimeString format="102">
-              
-            </udt:DateTimeString>
-          </ram:IssueDateTime>
-        </rsm:ExchangedDocument>
+          <rsm:ExchangedDocument>
+                <ram:ID>
+                abc123
+                </ram:ID>
+                <ram:TypeCode>meta.typ</ram:TypeCode>
+                <ram:IssueDateTime>
+                
+                <udt:DateTimeString format="102">
+                    20250518
+                </udt:DateTimeString>
+                </ram:IssueDateTime>
+            </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
           
           <ram:ApplicableHeaderTradeAgreement>
@@ -27,15 +27,15 @@
             <ram:SellerTradeParty>
               
               <ram:Name>asdfg</ram:Name>
-              <ram:DefinedTradeContact>
+                <ram:DefinedTradeContact>
                 <ram:PersonName></ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber></ram:CompleteNumber>
+                    <ram:CompleteNumber></ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                  <ram:URIID></ram:URIID>
+                    <ram:URIID></ram:URIID>
                 </ram:EmailURIUniversalCommunication>
-              </ram:DefinedTradeContact>
+                </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
                 <ram:PostcodeCode></ram:PostcodeCode>
                 <ram:CityName></ram:CityName>
@@ -46,15 +46,15 @@
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-              <ram:Name></ram:Name>
-              <ram:PostalTradeAddress>
-                <ram:PostcodeCode></ram:PostcodeCode>
-                <ram:CityName></ram:CityName>
-                <ram:CountryID></ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM"></ram:URIID>
-              </ram:URIUniversalCommunication>
+                <ram:Name></ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:PostcodeCode></ram:PostcodeCode>
+                    <ram:CityName></ram:CityName>
+                    <ram:CountryID></ram:CountryID>
+                </ram:PostalTradeAddress>
+                <ram:URIUniversalCommunication>
+                    <ram:URIID schemeID="EM"></ram:URIID>
+                </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>

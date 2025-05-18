@@ -31,8 +31,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>
+    var xmlUtil = XMLUtility()
     val formData = request.body.asFormUrlEncoded
-    var xmlUtil = XMLUtility(formData)
     val allPositionIDs: Seq[String] = formData
       .flatMap(_.get("positionIDcontainer"))
       .getOrElse(Seq.empty)
@@ -49,36 +49,43 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     }
 
     val meta = InvoiceMetaData(
-      xmlUtil.connectInput("InvoiceNumber"),
-      xmlUtil.connectInput("InvoiceIssueDate").replace("-", ""),
+      connectInput("InvoiceNumber"),
+      connectInput("InvoiceIssueDate").replace("-", ""),
       "380" // TODO: replace with a value the user can set OR replace with fitting default
       )
+
     val seller = InvoiceSeller(
-      xmlUtil.connectInput("SellerName"),
-      xmlUtil.connectInput("SellerAddressLine1"),
-      xmlUtil.connectInput("SellerPostCode"),
-      xmlUtil.connectInput("SellerCity"),
-      xmlUtil.connectInput("placeholder1"),
-      xmlUtil.connectInput("placeholder2"),
-      xmlUtil.connectInput("placeholder3"),
-      xmlUtil.connectInput("SellerElectronicAddress"),
+      connectInput("SellerName"),
+      connectInput("SellerAddressLine1"),
+      connectInput("SellerPostCode"),
+      connectInput("SellerCity"),
+      connectInput("placeholder1"),
+      connectInput("placeholder2"),
+      connectInput("placeholder3"),
+      connectInput("SellerElectronicAddress"),
       )
+
     val sellerContact = InvoiceSellerContact(
-      xmlUtil.connectInput("SellerContactPoint"),
-      xmlUtil.connectInput("SellerContactTelephoneNumber"),
-      xmlUtil.connectInput("SellerContactEmailAddress"),
+      connectInput("SellerContactPoint"),
+      connectInput("SellerContactTelephoneNumber"),
+      connectInput("SellerContactEmailAddress"),
       )
+
     val buyer = InvoiceBuyer(
-      xmlUtil.connectInput(""),
-      xmlUtil.connectInput(""),
-      xmlUtil.connectInput(""),
+      connectInput(""),
+      connectInput(""),
+      connectInput(""),
+      connectInput(""),
+      connectInput(""),
+      connectInput("")
       )
 
     val invoice = Invoice(meta, seller, sellerContact, buyer, Nil)
+
     // Connect all Inputs from the html form, except group_INVOICE-LINE, group_PRICE-DETAILS,
     // group_LINE-VAT-INFORMATION and group_ITEM-INFORMATION; those are connected in CreateXMLDataInvoicePostion()
     // group_INVOICE
-    val inputInvoiceNumber = xmlUtil.connectInput("InvoiceNumber")
+
     val inputVATAccountingCurrencyCode = connectInput("VATAccountingCurrencyCode")
     val inputValueAddedTaxPointDate = connectInput("ValueAddedTaxPointDate")
     val inputValueAddedTaxPointDateCode = connectInput("ValueAddedTaxPointDateCode")
@@ -297,15 +304,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
                 connectOptionalInput(value, xml)
               }
               <ram:Name>{connectInput("SellerName")}</ram:Name>
-              <ram:DefinedTradeContact>
-                <ram:PersonName>{connectInput("SellerContactPoint")}</ram:PersonName>
-                <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>{connectInput("SellerContactTelephoneNumber")}</ram:CompleteNumber>
-                </ram:TelephoneUniversalCommunication>
-                <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>{connectInput("SellerContactEmailAddress")}</ram:URIID>
-                </ram:EmailURIUniversalCommunication>
-              </ram:DefinedTradeContact>
+                {xmlUtil.CreateSellerContactXML(invoice.sellerContact)}
               <ram:PostalTradeAddress>
                 <ram:PostcodeCode>{connectInput("SellerPostCode")}</ram:PostcodeCode>
                 <ram:CityName>{connectInput("SellerCity")}</ram:CityName>
@@ -315,17 +314,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
                 <ram:URIID schemeID="EM">{connectInput("SellerElectronicAddress")}</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
-            <ram:BuyerTradeParty>
-              <ram:Name>{connectInput("BuyerName")}</ram:Name>
-              <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{connectInput("BuyerPostCode")}</ram:PostcodeCode>
-                <ram:CityName>{connectInput("BuyerCity")}</ram:CityName>
-                <ram:CountryID>{connectInput("BuyerCountryCode")}</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{connectInput("BuyerElectronicAddress")}</ram:URIID>
-              </ram:URIUniversalCommunication>
-            </ram:BuyerTradeParty>
+            {xmlUtil.CreateBuyerXML(invoice.buyer)}
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
@@ -348,6 +337,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
 
     // Paths
+    val inputInvoiceNumber = connectInput("InvoiceNumber")
     val invoiceName = new File(s"eInvoice_$inputInvoiceNumber").getPath 
     val invoicePathXML = new File(s"./output/xml/$invoiceName.xml").getPath
     val invoicePathPDF = new File(s"./output/pdf/$invoiceName.pdf").getPath

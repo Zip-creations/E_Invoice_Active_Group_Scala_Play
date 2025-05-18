@@ -8,176 +8,75 @@
             <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
           </ram:GuidelineSpecifiedDocumentContextParameter>
         </rsm:ExchangedDocumentContext>
-        <rsm:ExchangedDocument>
-          <ram:ID>lalatest123</ram:ID>
-          <ram:TypeCode>380</ram:TypeCode>
-          <ram:IssueDateTime>
-            
-            <udt:DateTimeString format="102">20250505</udt:DateTimeString>
-          </ram:IssueDateTime>
-        </rsm:ExchangedDocument>
+          <rsm:ExchangedDocument>
+                <ram:ID>
+                lalatest123
+                </ram:ID>
+                <ram:TypeCode>380</ram:TypeCode>
+                <ram:IssueDateTime>
+                
+                <udt:DateTimeString format="102">
+                    20250518
+                </udt:DateTimeString>
+                </ram:IssueDateTime>
+            </rsm:ExchangedDocument>
         <rsm:SupplyChainTradeTransaction>
-          <ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>1</ram:LineID>
           
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          
-          
-          
-          <ram:Name>0</ram:Name>
-          
-          
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          
-          
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
-            
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-          
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>2</ram:LineID>
-          
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          
-          
-          
-          <ram:Name>0</ram:Name>
-          
-          
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          
-          
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
-            
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-          
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-        <ram:AssociatedDocumentLineDocument>
-          <ram:LineID>3</ram:LineID>
-          
-        </ram:AssociatedDocumentLineDocument>
-        <ram:SpecifiedTradeProduct>
-          
-          
-          
-          <ram:Name>0</ram:Name>
-          
-          
-        </ram:SpecifiedTradeProduct>
-        <ram:SpecifiedLineTradeAgreement>
-          
-          
-          <ram:NetPriceProductTradePrice>
-            <ram:ChargeAmount>0</ram:ChargeAmount>
-          </ram:NetPriceProductTradePrice>
-        </ram:SpecifiedLineTradeAgreement>
-        <ram:SpecifiedLineTradeDelivery>
-          <ram:BilledQuantity unitCode="H87">0</ram:BilledQuantity>
-        </ram:SpecifiedLineTradeDelivery>
-        <ram:SpecifiedLineTradeSettlement>
-          <ram:ApplicableTradeTax>
-            
-            <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:CategoryCode>O</ram:CategoryCode>
-            
-          </ram:ApplicableTradeTax>
-          <ram:SpecifiedTradeSettlementLineMonetarySummation>
-            <ram:LineTotalAmount>0</ram:LineTotalAmount>
-          </ram:SpecifiedTradeSettlementLineMonetarySummation>
-          
-        </ram:SpecifiedLineTradeSettlement>
-      </ram:IncludedSupplyChainTradeLineItem>
           <ram:ApplicableHeaderTradeAgreement>
-            <ram:BuyerReference>0</ram:BuyerReference>
+            <ram:BuyerReference></ram:BuyerReference>
             <ram:SellerTradeParty>
-              <ram:GlobalID schemeID="0088">0</ram:GlobalID>
-              <ram:Name>0</ram:Name>
-              <ram:DefinedTradeContact>
-                <ram:PersonName>0</ram:PersonName>
+              
+              <ram:Name>seller name</ram:Name>
+                <ram:DefinedTradeContact>
+                <ram:PersonName>vorname nachname</ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>000</ram:CompleteNumber>
+                    <ram:CompleteNumber>012 345</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>0.0@0.0</ram:URIID>
+                    <ram:URIID>ex2.mail.com</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
-              </ram:DefinedTradeContact>
+                </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
-                <ram:PostcodeCode>0</ram:PostcodeCode>
-                <ram:CityName>0</ram:CityName>
-                <ram:CountryID>DE</ram:CountryID>
+                <ram:PostcodeCode>11223</ram:PostcodeCode>
+                <ram:CityName>Example city</ram:CityName>
+                <ram:CountryID></ram:CountryID>
               </ram:PostalTradeAddress>
               <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0@0</ram:URIID>
+                <ram:URIID schemeID="EM">ex@mail.com</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
             <ram:BuyerTradeParty>
-              <ram:Name>0</ram:Name>
-              <ram:PostalTradeAddress>
-                <ram:PostcodeCode>0</ram:PostcodeCode>
-                <ram:CityName>0</ram:CityName>
-                <ram:CountryID>DE</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">0@0</ram:URIID>
-              </ram:URIUniversalCommunication>
+                <ram:Name></ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:PostcodeCode></ram:PostcodeCode>
+                    <ram:CityName></ram:CityName>
+                    <ram:CountryID></ram:CountryID>
+                </ram:PostalTradeAddress>
+                <ram:URIUniversalCommunication>
+                    <ram:URIID schemeID="EM"></ram:URIID>
+                </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
           </ram:ApplicableHeaderTradeAgreement>
           <ram:ApplicableHeaderTradeDelivery>
           </ram:ApplicableHeaderTradeDelivery>
           <ram:ApplicableHeaderTradeSettlement>
-            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+            <ram:InvoiceCurrencyCode></ram:InvoiceCurrencyCode>
             <ram:SpecifiedTradeSettlementPaymentMeans>
-              <ram:TypeCode>ZZZ</ram:TypeCode>
+              <ram:TypeCode></ram:TypeCode>
             </ram:SpecifiedTradeSettlementPaymentMeans>
               <ram:ApplicableTradeTax>
-          <ram:CalculatedAmount>0</ram:CalculatedAmount>
+          <ram:CalculatedAmount></ram:CalculatedAmount>
           <ram:TypeCode>VAT</ram:TypeCode>
-          <ram:ExemptionReason>0</ram:ExemptionReason>
-          <ram:BasisAmount>0</ram:BasisAmount>
-          <ram:CategoryCode>O</ram:CategoryCode>
-          <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
+          <ram:ExemptionReason></ram:ExemptionReason>
+          <ram:BasisAmount></ram:BasisAmount>
+          <ram:CategoryCode></ram:CategoryCode>
+          <ram:RateApplicablePercent></ram:RateApplicablePercent>
         </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-              <ram:LineTotalAmount>0</ram:LineTotalAmount>
-              <ram:TaxBasisTotalAmount>0</ram:TaxBasisTotalAmount>
-              <ram:GrandTotalAmount>0</ram:GrandTotalAmount>
-              <ram:DuePayableAmount>0</ram:DuePayableAmount>
+              <ram:LineTotalAmount></ram:LineTotalAmount>
+              <ram:TaxBasisTotalAmount></ram:TaxBasisTotalAmount>
+              <ram:GrandTotalAmount></ram:GrandTotalAmount>
+              <ram:DuePayableAmount></ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
           </ram:ApplicableHeaderTradeSettlement>
         </rsm:SupplyChainTradeTransaction>
