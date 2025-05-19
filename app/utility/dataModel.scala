@@ -24,7 +24,6 @@ case class InvoiceSeller(
     city: String,
     country: String,
     telephonenumber: String,
-    faxnumber: String,
     websitelink: String,
     email: String
     )
@@ -50,21 +49,18 @@ case class InvoicePaymentInformation(
     paymentMeansCode: String
 )
 
-trait BasePosition {
-    def id: String
-    def taxpercentage: Double
-}
+case class InvoicePosition(
+    id: String,
+    taxpercentage: Double,
+    data: InvoicePositionData
+)
 
-enum InvoicePosition extends BasePosition {
+enum InvoicePositionData{
     case Stundenposition(
-        id: String,
-        taxpercentage: Double,
         hours: Double,
         hourlyrate: Double
     )
     case Leistungsposition(
-        id: String, 
-        taxpercentage: Double,
         amount: Double,
         quantity: Double
     )

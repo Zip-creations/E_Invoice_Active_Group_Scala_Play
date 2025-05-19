@@ -61,7 +61,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerCity"),
       connectInput("SellerCountryCode"),
       connectInput("TODO1"),
-      connectInput("TODO2"),
       connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),
       )
@@ -89,11 +88,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     )
 
     // only for testting purposes - postions need to be created dynamically and in an abritrary number later on!
-    val testposition = InvoicePosition.Stundenposition(
+    val testposition = InvoicePosition(
       "123",
       19,
-      12,
-      42.42
+      InvoicePositionData.Stundenposition(12, 42)
     )
 
     val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList, paymentInformation)

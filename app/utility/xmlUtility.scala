@@ -104,13 +104,13 @@ class XMLUtility(){
         var totalAmount = 0.0
         var chargedQuantity = 0.0
 
-        position match{
-            case InvoicePosition.Stundenposition(id, taxpercentage, hours, hourlyrate) =>
+        position.data match{
+            case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
                 unitcode = "1"
                 chargedAmount = hourlyrate
                 chargedQuantity = 1
                 totalAmount = hours * hourlyrate
-            case InvoicePosition.Leistungsposition(id, taxpercentage, amount, quantity) =>
+            case InvoicePositionData.Leistungsposition(amount, quantity) =>
                 unitcode = "2"
                 chargedAmount = amount
                 chargedQuantity = quantity

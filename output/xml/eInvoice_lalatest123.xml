@@ -27,7 +27,7 @@
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>42.42</ram:ChargeAmount>
+                        <ram:ChargeAmount>42.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
@@ -40,7 +40,7 @@
                         <ram:CategoryCode>19.0</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>509.04</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>504.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>

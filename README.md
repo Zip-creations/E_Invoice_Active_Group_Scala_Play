@@ -27,7 +27,6 @@ document.querySelector('[name="SellerPostCode"]').value = "11223";\
 document.querySelector('[name="SellerCity"]').value = "Example city";\
 document.querySelector('[name="SellerCountryCode"]').value = "DE";\
 document.querySelector('[name="TODO1"]').value = "plh1";\
-document.querySelector('[name="TODO2"]').value = "plh2";\
 document.querySelector('[name="TODO3"]').value = "plh3";\
 document.querySelector('[name="BuyerReference"]').value = "ref 123";\
 document.querySelector('[name="BuyerName"]').value = "buyer name";\
