@@ -15,19 +15,19 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def index() = Action { implicit request: Request[AnyContent] =>
     //Ok(views.html.index(request))
-    Ok(views.html.index())
-  }
-
-  def generateInvoiceItem() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.invoice_item())
-  }
-
-  def generateInvoiceTime() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.invoice_time())
+    Ok(views.html.index(request))
   }
 
   def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.index())
+    Ok(views.html.index(request))
+  }
+
+  def generateLeistungsabrechnungPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
+    Ok(views.html.invoice_item(positionID))
+  }
+
+  def generateStundenabrechnungPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
+    Ok(views.html.invoice_time(positionID))
   }
 
   def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>

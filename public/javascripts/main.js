@@ -5,13 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
         invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
     });
     var positionID = 1
-    CreatePosition(positionID).then( a =>
-        positionID = a
-    )
 
-    // Add Position
-    document.getElementById("addPositionButton").addEventListener("click", function () {
-        CreatePosition(positionID).then(a=> {
+    // Add LeistungsPosition
+    document.getElementById("addLeistungsabrechnungButton").addEventListener("click", function () {
+        CreateLeistungsabrechnungsPosition(positionID).then(a=> {
+            positionID = a
+        })
+    });
+
+    // Add StundenPosition
+    document.getElementById("addStundenabrechnungButton").addEventListener("click", function () {
+        CreateStundenabrechnungsPosition(positionID).then(a=> {
             positionID = a
         })
     });
@@ -27,20 +31,35 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- *Fetches invoiceLine.scala.html, tranfers the current PostionID, attaches the created inputContainer
- * (which contains one invoice position) and increments the positionID
+ *Fetches invoice_item.scala.html, tranfers the current PostionID, attaches the created content
+ *to the positionContainer div (which contains one invoice position) and increments the positionID
  * @param {*} positionID consistent, increasing ID for invoice Positions
  * @returns 
  */
- async function CreatePosition(positionID) {
-    await fetch(`/invoiceLine?positionID=${positionID.toString()}`)
+async function CreateLeistungsabrechnungsPosition(positionID) {
+    await fetch(`/addLeistungsposition?positionID=${positionID.toString()}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
         })
-    LoadRestrictions()
-    ConnectAllOptionalButtons()
+    positionID++
+    return positionID
+}
+
+/**
+ *Fetches invoice_time.scala.html, tranfers the current PostionID, attaches the created content
+ *to the positionContainer div (which contains one invoice position) and increments the positionID
+ * @param {*} positionID consistent, increasing ID for invoice Positions
+ * @returns 
+ */
+async function CreateStundenabrechnungsPosition(positionID) {
+    await fetch(`/addStundenposition?positionID=${positionID.toString()}`)
+        .then(response => response.text())
+        .then(html => {
+            const targetDiv = document.getElementById("positionContainer");
+            targetDiv.insertAdjacentHTML("beforeend", html);
+        })
     positionID++
     return positionID
 }

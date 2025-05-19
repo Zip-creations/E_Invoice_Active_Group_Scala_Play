@@ -1,7 +1,6 @@
-@(implicit request: RequestHeader)
 @import utility.FormInputHelper._
-@invoice_generic("Rechnung Time", "main2.css"){
-    @helper.CSRF.formField
+@(positionID: String)
+@invoice_generic {
     @GenerateInputField("", "Anz. Stunden", "lorem ipsum")
     @GenerateInputField("", "Stundensatz", "lorem ipsum")
 }

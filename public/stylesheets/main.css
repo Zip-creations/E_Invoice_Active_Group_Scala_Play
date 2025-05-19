@@ -39,11 +39,16 @@ body{
     justify-content: center;
 }
 
-#invoicecontainer>div>div:not(:first-child) {
+#invoicecontainer>div>div:not(:first-child), #positionContainer>div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+ #positionContainer>div {
+    border: 3px solid black;
+    margin-bottom: 20px;
+ }
 
 #invoicecontainer>div:last-of-type {
     border-bottom: rgb(40, 40, 40) solid 4px;

@@ -1,8 +1,6 @@
-@(implicit request: RequestHeader)
 @import utility.FormInputHelper._
-@invoice_generic("Rechnung Item", "main2.css"){
-    @helper.CSRF.formField
-
+@(positionID: String)
+@invoice_generic {
     @GenerateInputField("InvoicedQuantity", "Menge", "lorem ipsum") <!-- BT-129 -->
     @GenerateInputField("ItemName", "Name des Gegenstandes", "lorem ipsum") <!-- BT-153 -->
 }
