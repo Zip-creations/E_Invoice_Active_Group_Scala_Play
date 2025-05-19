@@ -26,13 +26,23 @@ body{
 }
 
 #invoicecontainer>div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: 1fr auto;
     border-top: rgb(40, 40, 40) solid 4px;
     border-right: rgb(40, 40, 40) solid 4px;
     border-left: rgb(40, 40, 40) solid 4px;
     padding: 4px;
+}
+
+#invoicecontainer>div>div:first-child {
+    display: flex;
+    justify-content: center;
+}
+
+#invoicecontainer>div>div:not(:first-child) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #invoicecontainer>div:last-of-type {

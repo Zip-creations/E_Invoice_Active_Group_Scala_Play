@@ -16,7 +16,7 @@
                 <ram:IssueDateTime>
                 
                 <udt:DateTimeString format="102">
-                    20250518
+                    20250519
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -54,7 +54,7 @@
                     <ram:CompleteNumber>012 345</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                    <ram:URIID>ex2.mail.com</ram:URIID>
+                    <ram:URIID>ex2@mail.com</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
                 </ram:DefinedTradeContact>
               <ram:PostalTradeAddress>
