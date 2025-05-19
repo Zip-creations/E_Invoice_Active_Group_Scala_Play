@@ -1,8 +1,11 @@
 @import utility.FormInputHelper._
-@(content: Html)
-<div>
+@(positionID: String)(content: Html)
+<div class="inputContainer">
     @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->
     @GenerateInputField("TODO5", "Einheit", "lorem ipsum") <!-- BT-5 -->
     @content
     @GenerateInputField("InvoiceLineNetAmount", "Gesamtwert", "lorem ipsum") <!-- BT-131 ? -->
+    <div class="buttonContainer">
+        <button type="button" class="removePositionButton">Position entfernen</button>
+    </div>
 </div>
