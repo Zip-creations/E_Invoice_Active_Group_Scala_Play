@@ -7,19 +7,30 @@
             @GenerateInputField("InvoiceIssueDate", "Erstelldatum der Rechung", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
         </div>
         <div>
+            <h2>Angaben zum Verkäufer</h2>
             @GenerateInputField("SellerName", "Name des Verkäufers", "Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuerpflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).", true) <!-- BT-27 -->
             @GenerateInputField("SellerAddressLine1", "Straße", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
             @GenerateInputField("SellerPostCode", "PLZ", "Die Postleitzahl.") <!-- BT-38 -->
             @GenerateInputField("SellerCity", "Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.") <!-- BT-37 -->
-            @GenerateInputField("placeholder1", "Tel", "lorem ipsum")
-            @GenerateInputField("placeholder2", "Fax", "lorem ipsum")
-            @GenerateInputField("placeholder3", "Website Link", "lorem ipsum")
+            @GenerateInputField("SellerCountryCode", "Verkäufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-40 -->
+            @GenerateInputField("TODO1", "Tel", "lorem ipsum")
+            @GenerateInputField("TODO2", "Fax", "lorem ipsum")
+            @GenerateInputField("TODO3", "Website Link", "lorem ipsum")
             @GenerateInputField("SellerElectronicAddress", "E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", inputType="email") <!-- BT-34 -->
         </div>
         <div>
             @GenerateInputField("SellerContactPoint", "Zustandig", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).") <!-- BT-41 -->
             @GenerateInputField("SellerContactTelephoneNumber", "Telefon", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.") <!-- BT-42 -->
             @GenerateInputField("SellerContactEmailAddress", "E-Mail", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.") <!-- BT-43 -->
+        </div>
+        <div>
+            @GenerateInputField("BuyerReference", "Käufer Referenz", "Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.", true) <!-- BT-10 -->
+            @GenerateInputField("BuyerName", "Käufer Name", "Der vollständige Name des Erwerbers.", true) <!-- BT-44 -->
+            @GenerateInputField("BuyerElectronicAddress", "Käufer Email", "Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.", true, inputType="email") <!-- BT-49 -->
+            @GenerateInputField("BuyerCity", "Käufer Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
+            @GenerateInputField("BuyerPostCode", "PLZ", "Die Postleitzahl.", true) <!-- BT-53 -->
+            @GenerateInputField("BuyerCountryCode", "Käufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-55 -->
+            @GenerateInputField("TODO4", "IBAN", "lorem ipsum")
         </div>
         <div id="positionContainer">
             @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->

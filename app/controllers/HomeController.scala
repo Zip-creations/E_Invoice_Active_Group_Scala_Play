@@ -59,10 +59,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerAddressLine1"),
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
-      "DE",
-      connectInput("placeholder1"),
-      connectInput("placeholder2"),
-      connectInput("placeholder3"),
+      connectInput("SellerCountryCode"),
+      connectInput("TODO1"),
+      connectInput("TODO2"),
+      connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),
       )
 
@@ -73,19 +73,13 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
 
     val buyer = InvoiceBuyer(
-      "ref 123",
-      "buyer name",
-      "54321",
-      "buyer city",
-      "DE",
-      "DE12 3456 7890",
-      "ex3@mail.com"
-      // connectInput(""),
-      // connectInput(""),
-      // connectInput(""),
-      // connectInput(""),
-      // connectInput(""),
-      // connectInput("")
+      connectInput("BuyerReference"),
+      connectInput("BuyerName"),
+      connectInput("BuyerPostCode"),
+      connectInput("BuyerCity"),
+      connectInput("BuyerCountryCode"),
+      connectInput("TODO4"),
+      connectInput("BuyerElectronicAddress")
       )
 
     // TODO: replace hardcoded values

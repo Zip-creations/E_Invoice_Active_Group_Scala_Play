@@ -1,77 +1,52 @@
 body{
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
-    grid-template-rows: 1fr auto 1fr;
-    background-color: rgb(50, 50, 50);
+    grid-template-rows: 1fr auto auto;
+    background-color: rgb(60, 60, 60);
     font-size: max(1vw, 18px);
     overflow-x: hidden;
 }
 
-#invoiceContainer {
+#indexbody {
     grid-column: 2;
     grid-row: 2;
-}
-
-#invoice {
     display: flex;
-    flex-direction: column;
-    background-color: gray;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.inputContainer {
-    padding: 7px;
-    margin-top: 20px;
-    
-    border: black solid 3px;
-    border-radius: 5px;
-    background-color: rgb(110, 110, 110);
-}
-
-.inputContainer:first-of-type {
-    margin-top: 0px;
-}
-
-.groupContainer {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    background-color: wheat;
+    padding: 4px;
 }
 
-.groupContainer>.groupContainer {
-    margin-top: 4px;
-    border-top: rgb(85, 85, 85) solid 3px;
+#invoicecontainer {
+    grid-column: 2;
+    grid-row: 3;
+    border: black solid 5px;
+    border-radius: 5px;
+    background-color: wheat;
+    padding: 2px;
 }
 
-.groupContainer>div {
+#invoicecontainer>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: rgb(40, 40, 40) solid 4px;
+    border-right: rgb(40, 40, 40) solid 4px;
+    border-left: rgb(40, 40, 40) solid 4px;
+    padding: 4px;
+}
+
+#invoicecontainer>div:last-of-type {
+    border-bottom: rgb(40, 40, 40) solid 4px;
+    margin-bottom: 4px;
+}
+
+.inputfield{
     display: flex;
     padding: 4px;
 }
 
-.groupContainer>div>* {
+.inputfield>* {
     margin-right: 4px;
-}
-
-input, select, button {
-    border-radius: 5px;
-    border-width: 3px;
-    border-color: rgb(50, 50, 50);
-    max-width: 15vw;
-}
-
-select>option:first-child {
-    display: none;
-}
-
-input:focus {
-    outline: 0;
-}
-
-input[type=submit], button[type=button]{
-    justify-self: right;
-    align-self: flex-end;
-    font-size: 16px;
 }
 
 .tooltip {
@@ -79,7 +54,7 @@ input[type=submit], button[type=button]{
 }
 
 .tooltip>i {
-    color: rgb(255, 255, 255);
+    color: rgb(40, 40, 40);
     margin-top: 2px;
 }
 
@@ -102,41 +77,17 @@ input[type=submit], button[type=button]{
     visibility: visible;
 }
 
-#positionContainer {
-    margin-top: 10px;
-    border: black solid 5px;
-    border-radius: 10px;
+input:focus {
+    outline: 0;
 }
 
-.buttonContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding: 5px;
-    flex-direction: row-reverse;
-}
-
-#addPositionButton {
-    margin-top: 5px;
-}
-
-.removePositionButton {
-    margin-top: -15px;
-}
-
-.buttonForOptionalGroups {
-    flex-grow: inherit;
-}
-
-.awesomplete > ul {
-    max-height: 75vh;
-    overflow-y: auto;
+input, select, button {
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: rgb(50, 50, 50);
+    max-width: 15vw;
 }
 
 :required {
     background-color: yellow;
-}
-
-input:not([type=submit]):read-only {
-    border-color: red;
 }

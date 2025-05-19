@@ -25,9 +25,17 @@ document.querySelector('[name="SellerName"]').value = "seller name";\
 document.querySelector('[name="SellerAddressLine1"]').value = "beispielstraße 1";\
 document.querySelector('[name="SellerPostCode"]').value = "11223";\
 document.querySelector('[name="SellerCity"]').value = "Example city";\
-document.querySelector('[name="placeholder1"]').value = "plh1";\
-document.querySelector('[name="placeholder2"]').value = "plh2";\
-document.querySelector('[name="placeholder3"]').value = "plh3";\
+document.querySelector('[name="SellerCountryCode"]').value = "DE";\
+document.querySelector('[name="TODO1"]').value = "plh1";\
+document.querySelector('[name="TODO2"]').value = "plh2";\
+document.querySelector('[name="TODO3"]').value = "plh3";\
+document.querySelector('[name="BuyerReference"]').value = "ref 123";\
+document.querySelector('[name="BuyerName"]').value = "buyer name";\
+document.querySelector('[name="BuyerPostCode"]').value = "54321";\
+document.querySelector('[name="BuyerCity"]').value = "buyer city";\
+document.querySelector('[name="BuyerCountryCode"]').value = "DE";\
+document.querySelector('[name="BuyerElectronicAddress"]').value = "ex3@mail.com";\
+document.querySelector('[name="TODO4"]').value = "DE12 3456 7890";\
 document.querySelector('[name="SellerElectronicAddress"]').value = "ex@mail.com";\
 document.querySelector('[name="SellerContactPoint"]').value = "vorname nachname";\
 document.querySelector('[name="SellerContactTelephoneNumber"]').value = "012 345";\
