@@ -57,9 +57,18 @@
             </div>
             <div id="positionContainer">
                 @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->
-                @GenerateInputField("InvoiceCurrencyCode", "Einheit", "lorem ipsum") <!-- BT-5 -->
+                @GenerateInputField("TODO5", "Einheit", "lorem ipsum") <!-- BT-5 -->
                 @content
                 @GenerateInputField("InvoiceLineNetAmount", "Gesamtwert", "lorem ipsum") <!-- BT-131 ? -->
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2>Angaben zum Zahlungsweg</h2>
+            </div>
+            <div>
+                @GenerateInputField("InvoiceCurrencyCode", "Währung der Rechnung", "Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.", classes="awesomplete", data="ISO_ISO3AlphaCurrencyCode_2012-08-31.xsd") <!-- BT-5 -->
+                @GenerateInputField("PaymentMeansTypeCode", "Means Type Code", "Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461 verwiesen.", classes="awesomplete", data="UNECE_PaymentMeansCode_D16A.xsd") <!-- BT-81 -->
             </div>
         </div>
         <div>

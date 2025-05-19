@@ -84,8 +84,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     // TODO: replace hardcoded values
     val paymentInformation = InvoicePaymentInformation(
-      "EUR",
-      "ZZZ"
+      connectInput("InvoiceCurrencyCode"),
+      connectInput("PaymentMeansTypeCode")
     )
 
     // only for testting purposes - postions need to be created dynamically and in an abritrary number later on!

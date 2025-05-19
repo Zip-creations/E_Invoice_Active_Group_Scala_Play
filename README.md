@@ -36,6 +36,8 @@ document.querySelector('[name="BuyerCity"]').value = "buyer city";\
 document.querySelector('[name="BuyerCountryCode"]').value = "DE";\
 document.querySelector('[name="BuyerElectronicAddress"]').value = "ex3@mail.com";\
 document.querySelector('[name="TODO4"]').value = "DE12 3456 7890";\
+document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
+document.querySelector('[name="PaymentMeansTypeCode"]').value = "ZZZ";\
 document.querySelector('[name="SellerElectronicAddress"]').value = "ex@mail.com";\
 document.querySelector('[name="SellerContactPoint"]').value = "vorname nachname";\
 document.querySelector('[name="SellerContactTelephoneNumber"]').value = "012 345";\
