@@ -184,7 +184,7 @@ function AddNumericRestriction(input){
         const proposed = temp[0]
         const mouseStart = temp[1]
         const mouseEnd = temp[2]
-        if (isNaN(proposed) || proposed.charAt(0) === ".") {
+        if (isNaN(proposed) || proposed.charAt(0) === "." || proposed.includes(" ")) {
             e.preventDefault()
             return
         }

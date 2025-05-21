@@ -27,11 +27,11 @@
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>3311.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>55566.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="2">3311.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="2">55566.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -40,29 +40,7 @@
                         <ram:CategoryCode>O</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>3311.0</ram:LineTotalAmount>
-                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
-                </ram:SpecifiedLineTradeSettlement>
-            </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-                <ram:AssociatedDocumentLineDocument>
-                    <ram:LineID>2</ram:LineID>
-                </ram:AssociatedDocumentLineDocument>
-                <ram:SpecifiedLineTradeAgreement>
-                    <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>65.0</ram:ChargeAmount>
-                    </ram:NetPriceProductTradePrice>
-                </ram:SpecifiedLineTradeAgreement>
-                <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="1">1.0</ram:BilledQuantity>
-                </ram:SpecifiedLineTradeDelivery>
-                <ram:SpecifiedLineTradeSettlement>
-                    <ram:ApplicableTradeTax>
-                        
-                        <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>O</ram:CategoryCode>
-                    </ram:ApplicableTradeTax>
-                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>3692.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>55566.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
@@ -91,7 +69,7 @@
                     <ram:BuyerTradeParty>
                 <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
-                    <ram:PostcodeCode>5432</ram:PostcodeCode>
+                    <ram:PostcodeCode>54321</ram:PostcodeCode>
                     <ram:CityName>buyer city</ram:CityName>
                     <ram:CountryID>DE</ram:CountryID>
                 </ram:PostalTradeAddress>
@@ -116,9 +94,9 @@
                 <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>7003.0</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>7003.0</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>14006.0</ram:GrandTotalAmount>
+                <ram:LineTotalAmount>55566.0</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>55566.0</ram:TaxBasisTotalAmount>
+                <ram:GrandTotalAmount>111132.0</ram:GrandTotalAmount>
                 <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
