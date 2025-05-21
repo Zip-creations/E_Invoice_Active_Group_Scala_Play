@@ -8,15 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add LeistungsPosition
     document.getElementById("addLeistungsabrechnungButton").addEventListener("click", function () {
-        CreateLeistungsabrechnungsPosition(positionID).then(a=> {
-            positionID = a
+        CreateLeistungsabrechnungsPosition(positionID).then(newPosID=> {
+            positionID = newPosID
+            LoadRestrictions()
         })
     });
 
     // Add StundenPosition
     document.getElementById("addStundenabrechnungButton").addEventListener("click", function () {
-        CreateStundenabrechnungsPosition(positionID).then(a=> {
-            positionID = a
+        CreateStundenabrechnungsPosition(positionID).then(newPosID=> {
+            positionID = newPosID
+            LoadRestrictions()
         })
     });
 
@@ -27,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
             container.remove();
         }
     }); 
-    SetHardCodedInputs()
 });
 
 /**
@@ -128,23 +129,12 @@ async function ConnectData(filename) {
     return values
 }
 
-/**
- * Some values can be hardcoded, to reduce the workload for the user and prevent errors.
- * A short explanation is provided as comment for each value.
- */
-function SetHardCodedInputs() {
-    // See documentation for BT-24. This value is independant from user input and only needs to change
-    // if this tool complies to another Standart than CIUS XRechnung in the future
-   var SpecificationIdentifier = document.getElementsByName("SpecificationIdentifier")[0]
-   SpecificationIdentifier.value = "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
-}
-
 // window.onbeforeunload = function(){
 //     return "";
 // };
 
 /**
- * Sets all Listeners and Codelists. Must be called at least once after the document loaded, and each time a new 
+ * Sets all Listeners and Codelists. Must be called after the document loaded, and each time a new 
  * input is connected to the document!
  */
 // .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!

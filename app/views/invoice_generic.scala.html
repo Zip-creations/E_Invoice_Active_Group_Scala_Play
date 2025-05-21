@@ -1,7 +1,7 @@
 @import utility.FormInputHelper._
 @(positionID: String)(content: Html)
 <div class="inputContainer">
-    @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->
+    @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum", readOnly=true, defaultValue=positionID) <!-- BT-126 -->
     @GenerateInputField("TODO5", "Einheit", "lorem ipsum") <!-- BT-5 -->
     @content
     @GenerateInputField("InvoiceLineNetAmount", "Gesamtwert", "lorem ipsum") <!-- BT-131 ? -->

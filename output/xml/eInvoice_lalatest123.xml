@@ -16,7 +16,7 @@
                 <ram:IssueDateTime>
                 
                 <udt:DateTimeString format="102">
-                    20250519
+                    20250521
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -94,9 +94,9 @@
                 <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>0.0</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>0.0</ram:GrandTotalAmount>
+                <ram:LineTotalAmount>504.0</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>504.0</ram:TaxBasisTotalAmount>
+                <ram:GrandTotalAmount>20160.0</ram:GrandTotalAmount>
                 <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>

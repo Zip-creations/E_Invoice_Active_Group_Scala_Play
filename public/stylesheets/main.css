@@ -106,3 +106,7 @@ input, select, button {
 :required {
     background-color: yellow;
 }
+
+/* input:read-only:not([type=submit]) {
+    border-color: red;
+} */

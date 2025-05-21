@@ -40,14 +40,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def connectInput = (inputIdentifier: String) =>
       formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
 
-    def connectOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
-      if (value != "") {
-        return xml
-      } else {
-        return scala.xml.NodeSeq.Empty
-      }
-    }
-
     val meta = InvoiceMetaData(
       connectInput("InvoiceNumber"),
       connectInput("InvoiceIssueDate").replace("-", ""),

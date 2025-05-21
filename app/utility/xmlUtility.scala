@@ -4,6 +4,14 @@ class XMLUtility(){
     private case class StoredPosition(netAmount: Double, taxpercentage: Double)
     private var storedPositions: List[StoredPosition] = Nil
 
+    def connectOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
+      if (value != "") {
+        return xml
+      } else {
+        return scala.xml.NodeSeq.Empty
+      }
+    }
+
     def CreateInvoiceXML(invoice: Invoice): scala.xml.Elem = {
         val xml =       
             <rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
@@ -32,7 +40,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreateMetaDataXML(meta: InvoiceMetaData): scala.xml.Elem = {
+    private def CreateMetaDataXML(meta: InvoiceMetaData): scala.xml.Elem = {
         val xml = 
             <rsm:ExchangedDocument>
                 <ram:ID>
@@ -51,7 +59,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
+    private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
               <ram:Name>{seller.name}</ram:Name>
@@ -68,7 +76,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreateSellerContactXML(sellerContact: InvoiceSellerContact): scala.xml.Elem = {
+    private def CreateSellerContactXML(sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:DefinedTradeContact>
                 <ram:PersonName>{sellerContact.name}</ram:PersonName>
@@ -82,7 +90,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreateBuyerXML(buyer: InvoiceBuyer): scala.xml.Elem = {
+    private def CreateBuyerXML(buyer: InvoiceBuyer): scala.xml.Elem = {
         val xml =
             <ram:BuyerTradeParty>
                 <ram:Name>{buyer.name}</ram:Name>
@@ -98,7 +106,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
+    private def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
         var unitcode = ""
         var chargedAmount = 0.0
         var totalAmount = 0.0
@@ -116,7 +124,8 @@ class XMLUtility(){
                 chargedQuantity = quantity
                 totalAmount = amount * quantity
         }
-        storedPositions :+ StoredPosition(totalAmount, position.taxpercentage)
+        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.taxpercentage)
+        print(storedPositions)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -147,7 +156,7 @@ class XMLUtility(){
         return xml
     }
 
-    def CreatePaymentInformationXML(paymentInfo: InvoicePaymentInformation): scala.xml.Elem = {
+    private def CreatePaymentInformationXML(paymentInfo: InvoicePaymentInformation): scala.xml.Elem = {
         val xml =
             <ram:ApplicableHeaderTradeSettlement>
                 <ram:InvoiceCurrencyCode>{paymentInfo.currencycode}</ram:InvoiceCurrencyCode>
@@ -155,7 +164,7 @@ class XMLUtility(){
                     <ram:TypeCode>{paymentInfo.paymentMeansCode}</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 {CreateTaxSummaryXML()}
-                {CreateDocumentSummaryXML()}
+                {CreateDocumentSummaryXML(storedPositions)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
     }
@@ -163,7 +172,7 @@ class XMLUtility(){
     // This part need to be repeated for every VAT category code
     // TODO: create a summary for each idivual tax category that is used in at least one invoice position
     // TODO: replace hardcoded values
-    def CreateTaxSummaryXML(): scala.xml.Elem = {
+    private def CreateTaxSummaryXML(): scala.xml.Elem = {
         val xml = 
             <ram:ApplicableTradeTax>
                 <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
@@ -176,7 +185,7 @@ class XMLUtility(){
       return xml
     }
 
-    def CreateDocumentSummaryXML(): scala.xml.Elem = {
+    private def CreateDocumentSummaryXML(allPositions: List[StoredPosition]): scala.xml.Elem = {
         var totalNetAmount = 0.0
         var totalAmountWithoutVAT = 0.0
         var totalAmountWithVAT = 0.0

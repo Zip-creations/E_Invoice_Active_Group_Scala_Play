@@ -1,6 +1,6 @@
 @import utility.FormInputHelper._
 @(positionID: String)
 @invoice_generic(positionID) {
-    @GenerateInputField("InvoicedQuantity", "Menge", "lorem ipsum") <!-- BT-129 -->
+    @GenerateInputField("InvoicedQuantity", "Menge", "lorem ipsum", classes="datatypeQuantity") <!-- BT-129 -->
     @GenerateInputField("ItemName", "Name des Gegenstandes", "lorem ipsum") <!-- BT-153 -->
 }
