@@ -14,7 +14,7 @@ object FormInputHelper {
             reqString = "required "
         }
         if (readOnly) {
-            readStr = "readonly disabled"
+            readStr = "readonly"
         }
         if (dontShow) {
             showStr = " style=\"display: none\""

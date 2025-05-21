@@ -51,7 +51,7 @@ case class InvoicePaymentInformation(
 
 case class InvoicePosition(
     id: String,
-    taxpercentage: Double,
+    VATcategoryCode: String,
     data: InvoicePositionData
 )
 
@@ -61,7 +61,6 @@ enum InvoicePositionData{
         hourlyrate: Double
     )
     case Leistungsposition(
-        amount: Double,
         quantity: Double
     )
 }

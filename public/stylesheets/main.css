@@ -58,11 +58,10 @@ body{
 .inputfield{
     display: flex;
     padding: 4px;
+    gap: 3px;
+    margin-right: 10px;
 }
 
-.inputfield>* {
-    margin-right: 4px;
-}
 
 .tooltip {
     position: relative;
@@ -103,10 +102,15 @@ input, select, button {
     max-width: 15vw;
 }
 
+.buttonContainer {
+    gap: 5px
+}
+
 :required {
     background-color: yellow;
 }
 
-/* input:read-only:not([type=submit]) {
+input:read-only:not([type=submit]) {
     border-color: red;
-} */
+    pointer-events: none;
+}

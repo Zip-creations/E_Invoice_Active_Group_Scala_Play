@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const container = event.target.closest(".inputContainer");
             container.remove();
         }
-    }); 
+    });
+    LoadRestrictions()
 });
 
 /**

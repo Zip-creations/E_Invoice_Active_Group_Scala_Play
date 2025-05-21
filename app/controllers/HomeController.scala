@@ -79,14 +79,29 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("PaymentMeansTypeCode")
     )
 
-    // only for testting purposes - postions need to be created dynamically and in an abritrary number later on!
-    val testposition = InvoicePosition(
-      "123",
-      19,
-      InvoicePositionData.Stundenposition(12, 42)
-    )
+    var allPositions: List[InvoicePosition] = Nil
+    for index <- allPositionIDs do
+      val positionType = connectInput("positionTypecontainer" + index)
+      var innerPosition: InvoicePositionData = null
+      positionType match {
+        case "time" =>
+          innerPosition = InvoicePositionData.Stundenposition(
+            connectInput("placeholder5" + index).toDouble,
+            connectInput("placeholder6" + index).toDouble
+          )
+        case "item" =>
+          innerPosition = InvoicePositionData.Leistungsposition(
+            connectInput("InvoicedQuantity" + index).toDouble
+          )
+      }
+      val position = InvoicePosition(
+        connectInput("InvoiceLineIdentifier" + index),
+        connectInput("InvoicedItemVATCategoryCode" + index),
+        innerPosition
+      )
+      allPositions = allPositions :+ position
 
-    val invoice = Invoice(meta, seller, sellerContact, buyer, Array(testposition).toList, paymentInformation)
+    val invoice = Invoice(meta, seller, sellerContact, buyer, allPositions, paymentInformation)
 
     val xmlData = xmlUtil.CreateInvoiceXML(invoice)
 

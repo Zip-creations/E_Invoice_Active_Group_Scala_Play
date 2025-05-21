@@ -1,10 +1,12 @@
 package utility
 class XMLUtility(){
 
-    private case class StoredPosition(netAmount: Double, taxpercentage: Double)
+    private case class StoredPosition(netAmount: Double, taxCode: String)
     private var storedPositions: List[StoredPosition] = Nil
-
-    def connectOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
+    private val VATCodeToNum: Map[String, Float] = Map(
+        "O" -> 0
+    )
+    def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
       if (value != "") {
         return xml
       } else {
@@ -118,13 +120,13 @@ class XMLUtility(){
                 chargedAmount = hourlyrate
                 chargedQuantity = 1
                 totalAmount = hours * hourlyrate
-            case InvoicePositionData.Leistungsposition(amount, quantity) =>
+            case InvoicePositionData.Leistungsposition(quantity) =>
                 unitcode = "2"
-                chargedAmount = amount
+                chargedAmount = quantity
                 chargedQuantity = quantity
-                totalAmount = amount * quantity
+                totalAmount = quantity
         }
-        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.taxpercentage)
+        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.VATcategoryCode)
         print(storedPositions)
 
         val xml =
@@ -146,7 +148,7 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.taxpercentage}</ram:CategoryCode>
+                        <ram:CategoryCode>{position.VATcategoryCode}</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>
@@ -191,10 +193,11 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
+            val taxpercentage = VATCodeToNum(i.taxCode)
             totalNetAmount += i.netAmount
             totalAmountWithoutVAT += i.netAmount
-            totalAmountWithVAT += i.netAmount * (1+ i.taxpercentage)
-            totalAmountWithVAT += i.netAmount * (1+ i.taxpercentage)
+            totalAmountWithVAT += i.netAmount * (1+ taxpercentage)
+            totalAmountWithVAT += i.netAmount * (1+ taxpercentage)
         }
 
         val xml =

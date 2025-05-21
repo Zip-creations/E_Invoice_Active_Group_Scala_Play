@@ -1,6 +1,6 @@
 @import utility.FormInputHelper._
 @(positionID: String)
-@invoice_generic(positionID) {
-    @GenerateInputField("", "Anz. Stunden", "lorem ipsum")
-    @GenerateInputField("", "Stundensatz", "lorem ipsum")
+@invoice_generic(positionID, "time") {
+    @GenerateInputField("placeholder5" + positionID, "Anz. Stunden", "lorem ipsum")
+    @GenerateInputField("placeholder6" + positionID, "Stundensatz", "lorem ipsum")
 }
