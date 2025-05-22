@@ -5,7 +5,7 @@ class XMLUtility(){
 
     private case class StoredPosition(netAmount: Double, taxCode: String)
     private var storedPositions: List[StoredPosition] = Nil
-    private val VATCodeToNum: Map[String, Double] = Map(
+    private val VATCodeToNum: Map[String, Double] = Map(  // Values are placeholders
         "S" -> 0,
         "Z" -> 0,
         "E" -> 0,
@@ -198,15 +198,19 @@ class XMLUtility(){
     // TODO: replace hardcoded values
     private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition]): scala.xml.Elem = {
         var totalAmount: Double = 0.0
+        var totalAmountWithVAT: Double = 0.0
+        var totalVATAmount: Double = 0.0
         for (pos <- positions) {
             totalAmount = totalAmount + pos.netAmount
+            totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * (1+VATCodeToNum(vatCode))
+            totalVATAmount = totalVATAmount + (pos.netAmount * (1+VATCodeToNum(vatCode)) - pos.netAmount)
         }
         val xml = {
             <ram:ApplicableTradeTax>
-                <ram:CalculatedAmount>{totalAmount}</ram:CalculatedAmount>
+                <ram:CalculatedAmount>{totalVATAmount}</ram:CalculatedAmount>
                 <ram:TypeCode>VAT</ram:TypeCode>
                 <ram:ExemptionReason>no</ram:ExemptionReason>
-                <ram:BasisAmount>0.0</ram:BasisAmount>
+                <ram:BasisAmount>{totalAmount}</ram:BasisAmount>
                 <ram:CategoryCode>{vatCode}</ram:CategoryCode>
                 <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
@@ -216,6 +220,7 @@ class XMLUtility(){
 
     private def CreateDocumentSummaryXML(allPositions: List[StoredPosition]): scala.xml.Elem = {
         var totalNetAmount = 0.0
+        var totalVATAmount = 0.0
         var totalAmountWithoutVAT = 0.0
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
@@ -224,7 +229,6 @@ class XMLUtility(){
             totalNetAmount += i.netAmount
             totalAmountWithoutVAT += i.netAmount
             totalAmountWithVAT += i.netAmount * (1+ taxpercentage)
-            totalAmountWithVAT += i.netAmount * (1+ taxpercentage)
         }
 
         val xml =
@@ -232,7 +236,7 @@ class XMLUtility(){
                 <ram:LineTotalAmount>{totalNetAmount.toString}</ram:LineTotalAmount>
                 <ram:TaxBasisTotalAmount>{totalAmountWithoutVAT.toString}</ram:TaxBasisTotalAmount>
                 <ram:GrandTotalAmount>{totalAmountWithVAT.toString}</ram:GrandTotalAmount>
-                <ram:DuePayableAmount>{amountDue.toString}</ram:DuePayableAmount>
+                <ram:DuePayableAmount>{totalAmountWithVAT.toString}</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
         return xml
     }
