@@ -25,7 +25,8 @@ case class InvoiceSeller(
     country: String,
     telephonenumber: String,
     websitelink: String,
-    email: String
+    email: String,
+    identifier: String = ""
     )
 
 case class InvoiceSellerContact(
@@ -63,6 +64,7 @@ enum InvoicePositionData{
     )
     case Leistungsposition(
         quantity: Double,
+        pricePerPart: Double,
         measurementCode: String
     )
 }

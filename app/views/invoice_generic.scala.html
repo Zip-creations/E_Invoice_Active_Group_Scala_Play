@@ -5,6 +5,7 @@
     <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType></input> <!-- Stores the ID of the postion for easy access on the backend -->
     @GenerateInputField("InvoiceLineIdentifier" + positionID, "Pos.", "Nicht bearbeitbar", readOnly=true, defaultValue=positionID) <!-- BT-126 -->
     @GenerateInputField("ItemName" + positionID, "Bezeichnung", "lorem ipsum", true) <!-- BT-153 -->
+    @content
     <div class="inputfield">
         <label for='@("InvoicedItemVATCategoryCode" + positionID)'>Steuerkategorie:</label>
         <select name='@("InvoicedItemVATCategoryCode" + positionID)' required>
@@ -24,7 +25,6 @@
             <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
         </div>
     </div> <!-- BT-151 -->
-    @content
     @GenerateInputField("InvoiceLineNetAmount" + positionID, "Gesamtwert", "lorem ipsum", classes="datatypeAmount") <!-- BT-131 ? -->
     <div class="buttonContainer">
         <button type="button" class="removePositionButton">Position entfernen</button>

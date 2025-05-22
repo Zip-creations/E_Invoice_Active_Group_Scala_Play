@@ -19,8 +19,6 @@ body{
 #invoicecontainer {
     grid-column: 2;
     grid-row: 3;
-    border: black solid 5px;
-    border-radius: 5px;
     background-color: wheat;
     padding: 2px;
 }
@@ -113,4 +111,9 @@ input, select, button {
 input:read-only:not([type=submit]) {
     border-color: red;
     pointer-events: none;
+}
+
+.awesomplete > ul {
+    max-height: 75vh;
+    overflow-y: auto;
 }

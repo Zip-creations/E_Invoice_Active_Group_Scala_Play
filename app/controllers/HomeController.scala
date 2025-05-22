@@ -55,6 +55,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("TODO1"),
       connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),
+      connectInput("SellerIdentifier")
       )
 
     val sellerContact = InvoiceSellerContact(
@@ -86,12 +87,13 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       positionType match {
         case "time" =>
           innerPosition = InvoicePositionData.Stundenposition(
-            connectInput("placeholder5" + index).toDouble,
-            connectInput("placeholder6" + index).toDouble
+            connectInput("InvoicedQuantity" + index).toDouble,
+            connectInput("ItemNetPrice" + index).toDouble
           )
         case "item" =>
           innerPosition = InvoicePositionData.Leistungsposition(
             connectInput("InvoicedQuantity" + index).toDouble,
+            connectInput("ItemNetPrice" + index).toDouble,
             connectInput("InvoicedQuantityUnitOfMeasureCode" + index)
           )
       }

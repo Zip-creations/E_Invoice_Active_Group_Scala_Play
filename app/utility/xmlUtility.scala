@@ -75,6 +75,11 @@ class XMLUtility(){
     private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
+            {
+                val value = seller.identifier
+                val xml = <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
+                insertOptionalInput(value, xml)
+            }
               <ram:Name>{seller.name}</ram:Name>
                 {CreateSellerContactXML(sellerContact)}
               <ram:PostalTradeAddress>
@@ -127,15 +132,15 @@ class XMLUtility(){
 
         position.data match{
             case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
-                unitcode = "1"
+                unitcode = "HUR"  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
                 chargedAmount = hourlyrate
                 chargedQuantity = 1
                 totalAmount = hours * hourlyrate
-            case InvoicePositionData.Leistungsposition(quantity, measurementCode) =>
+            case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
                 unitcode = measurementCode
-                chargedAmount = quantity
+                chargedAmount = pricePerPart
                 chargedQuantity = quantity
-                totalAmount = quantity
+                totalAmount = quantity * pricePerPart
         }
         storedPositions = storedPositions :+ StoredPosition(totalAmount, position.VATcategoryCode)
 

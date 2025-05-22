@@ -3,4 +3,5 @@
 @invoice_generic(positionID, "item") {
     @GenerateInputField("InvoicedQuantity" + positionID, "Menge", "lorem ipsum", true, classes="datatypeQuantity") <!-- BT-129 -->
     @GenerateInputField("InvoicedQuantityUnitOfMeasureCode", "Code der Maßeinheit", "Die für die \"Invoiced Quantity\" geltende Maßeinheit.", true, classes="awesomplete", data="InvoicedQuantityUnitOfMeasureCodes.xsd", index=positionID) <!-- BT-130 -->
+    @GenerateInputField("ItemNetPrice" + positionID, "Stückpreis", "lorem ipsum", classes="datatypeAmount") <!-- BT-146 -->
 }
