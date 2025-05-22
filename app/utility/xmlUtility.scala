@@ -1,11 +1,22 @@
 package utility
+import scala.collection.mutable
+import scala.xml.NodeSeq
 class XMLUtility(){
 
     private case class StoredPosition(netAmount: Double, taxCode: String)
     private var storedPositions: List[StoredPosition] = Nil
-    private val VATCodeToNum: Map[String, Float] = Map(
-        "O" -> 0
+    private val VATCodeToNum: Map[String, Double] = Map(
+        "S" -> 0,
+        "Z" -> 0,
+        "E" -> 0,
+        "AE" -> 0,
+        "K" -> 0,
+        "G" -> 0,
+        "O" -> 0,
+        "L" -> 0,
+        "M" -> 0
     )
+
     def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
       if (value != "") {
         return xml
@@ -165,7 +176,16 @@ class XMLUtility(){
                 <ram:SpecifiedTradeSettlementPaymentMeans>
                     <ram:TypeCode>{paymentInfo.paymentMeansCode}</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
-                {CreateTaxSummaryXML()}
+                {
+                    // Group all Positions based on their tax code, to create a tax summary for each code easily
+                    var sortedByVATCode: mutable.Map[String, List[StoredPosition]] = mutable.Map.empty
+                    for (pos <- storedPositions) {
+                        val currentPos = sortedByVATCode.getOrElse(pos.taxCode, List.empty)
+                        sortedByVATCode.update(pos.taxCode, currentPos :+ pos)
+                    }
+                    {for (vatCode <- sortedByVATCode.keys)
+                        yield CreateTaxSummaryXML(vatCode, sortedByVATCode(vatCode))}
+                }
                 {CreateDocumentSummaryXML(storedPositions)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
@@ -174,17 +194,22 @@ class XMLUtility(){
     // This part need to be repeated for every VAT category code
     // TODO: create a summary for each idivual tax category that is used in at least one invoice position
     // TODO: replace hardcoded values
-    private def CreateTaxSummaryXML(): scala.xml.Elem = {
-        val xml = 
+    private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition]): scala.xml.Elem = {
+        var totalAmount: Double = 0.0
+        for (pos <- positions) {
+            totalAmount = totalAmount + pos.netAmount
+        }
+        val xml = {
             <ram:ApplicableTradeTax>
-                <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
+                <ram:CalculatedAmount>{totalAmount}</ram:CalculatedAmount>
                 <ram:TypeCode>VAT</ram:TypeCode>
                 <ram:ExemptionReason>no</ram:ExemptionReason>
                 <ram:BasisAmount>0.0</ram:BasisAmount>
-                <ram:CategoryCode>O</ram:CategoryCode>
-                <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
+                <ram:CategoryCode>{vatCode}</ram:CategoryCode>
+                <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
-      return xml
+        }
+        return xml
     }
 
     private def CreateDocumentSummaryXML(allPositions: List[StoredPosition]): scala.xml.Elem = {
