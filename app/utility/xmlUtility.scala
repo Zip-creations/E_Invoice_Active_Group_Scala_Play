@@ -146,7 +146,7 @@ class XMLUtility(){
                     <ram:LineID>{position.id}</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>position.name</ram:Name>
+                    <ram:Name>{position.name}</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
