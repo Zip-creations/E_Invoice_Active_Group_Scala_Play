@@ -131,14 +131,13 @@ class XMLUtility(){
                 chargedAmount = hourlyrate
                 chargedQuantity = 1
                 totalAmount = hours * hourlyrate
-            case InvoicePositionData.Leistungsposition(quantity) =>
-                unitcode = "2"
+            case InvoicePositionData.Leistungsposition(quantity, measurementCode) =>
+                unitcode = measurementCode
                 chargedAmount = quantity
                 chargedQuantity = quantity
                 totalAmount = quantity
         }
         storedPositions = storedPositions :+ StoredPosition(totalAmount, position.VATcategoryCode)
-        print(storedPositions)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -197,9 +196,9 @@ class XMLUtility(){
     // This part need to be repeated for every VAT category code
     // TODO: replace hardcoded values
     private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition]): scala.xml.Elem = {
-        var totalAmount: Double = 0.0
-        var totalAmountWithVAT: Double = 0.0
-        var totalVATAmount: Double = 0.0
+        var totalAmount = 0.0
+        var totalAmountWithVAT = 0.0
+        var totalVATAmount = 0.0
         for (pos <- positions) {
             totalAmount = totalAmount + pos.netAmount
             totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * (1+VATCodeToNum(vatCode))

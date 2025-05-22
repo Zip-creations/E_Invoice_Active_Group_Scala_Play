@@ -91,7 +91,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
           )
         case "item" =>
           innerPosition = InvoicePositionData.Leistungsposition(
-            connectInput("InvoicedQuantity" + index).toDouble
+            connectInput("InvoicedQuantity" + index).toDouble,
+            connectInput("InvoicedQuantityUnitOfMeasureCode" + index)
           )
       }
       val position = InvoicePosition(

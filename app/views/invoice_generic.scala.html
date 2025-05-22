@@ -5,7 +5,6 @@
     <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType></input> <!-- Stores the ID of the postion for easy access on the backend -->
     @GenerateInputField("InvoiceLineIdentifier" + positionID, "Pos.", "Nicht bearbeitbar", readOnly=true, defaultValue=positionID) <!-- BT-126 -->
     @GenerateInputField("ItemName" + positionID, "Bezeichnung", "lorem ipsum", true) <!-- BT-153 -->
-    @GenerateInputField("TODO5" + positionID, "Einheit", "lorem ipsum") <!-- BT-5 -->
     <div class="inputfield">
         <label for='@("InvoicedItemVATCategoryCode" + positionID)'>Steuerkategorie:</label>
         <select name='@("InvoicedItemVATCategoryCode" + positionID)' required>

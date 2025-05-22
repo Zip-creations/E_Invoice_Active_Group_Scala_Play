@@ -62,7 +62,8 @@ enum InvoicePositionData{
         hourlyrate: Double
     )
     case Leistungsposition(
-        quantity: Double
+        quantity: Double,
+        measurementCode: String
     )
 }
 
