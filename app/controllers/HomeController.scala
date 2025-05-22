@@ -77,7 +77,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // TODO: replace hardcoded values
     val paymentInformation = InvoicePaymentInformation(
       connectInput("InvoiceCurrencyCode"),
-      connectInput("PaymentMeansTypeCode")
+      connectInput("PaymentMeansTypeCode"),
+      connectInput("PaymentTerms")
     )
 
     var allPositions: List[InvoicePosition] = Nil

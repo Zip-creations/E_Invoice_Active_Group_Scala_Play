@@ -26,7 +26,7 @@
                     <ram:LineID>1</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>wert</ram:Name>
+                    <ram:Name>121</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
@@ -34,7 +34,7 @@
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="11">0.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="11">11.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -51,11 +51,11 @@
                     <ram:LineID>2</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>trew</ram:Name>
+                    <ram:Name>123</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>0.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>1.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
@@ -68,7 +68,7 @@
                         <ram:CategoryCode>O</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
@@ -118,15 +118,18 @@
                 <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
                 <ram:TypeCode>VAT</ram:TypeCode>
                 <ram:ExemptionReason>no</ram:ExemptionReason>
-                <ram:BasisAmount>0.0</ram:BasisAmount>
+                <ram:BasisAmount>1.0</ram:BasisAmount>
                 <ram:CategoryCode>O</ram:CategoryCode>
                 <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
+                <ram:SpecifiedTradePaymentTerms>
+                            <ram:Description>lala</ram:Description>
+                        </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>0.0</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>0.0</ram:GrandTotalAmount>
-                <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
+                <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>1.0</ram:TaxBasisTotalAmount>
+                <ram:GrandTotalAmount>1.0</ram:GrandTotalAmount>
+                <ram:DuePayableAmount>1.0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

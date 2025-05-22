@@ -193,6 +193,14 @@ class XMLUtility(){
                     {for (vatCode <- sortedByVATCode.keys)
                         yield CreateTaxSummaryXML(vatCode, sortedByVATCode(vatCode))}
                 }
+                {
+                    val value = paymentInfo.paymentTerms
+                    val xml =
+                        <ram:SpecifiedTradePaymentTerms>
+                            <ram:Description>{value}</ram:Description>
+                        </ram:SpecifiedTradePaymentTerms>
+                    insertOptionalInput(value, xml)
+                }
                 {CreateDocumentSummaryXML(storedPositions)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml

@@ -47,7 +47,8 @@ case class InvoiceBuyer(
 
 case class InvoicePaymentInformation(
     currencycode: String,
-    paymentMeansCode: String
+    paymentMeansCode: String,
+    paymentTerms: String = ""
 )
 
 case class InvoicePosition(
