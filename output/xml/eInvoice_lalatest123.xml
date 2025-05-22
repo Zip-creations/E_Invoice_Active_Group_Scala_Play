@@ -65,7 +65,7 @@
                     <ram:ApplicableTradeTax>
                         
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>O</ram:CategoryCode>
+                        <ram:CategoryCode>S</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
@@ -115,22 +115,29 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
-                <ram:TypeCode>VAT</ram:TypeCode>
-                <ram:ExemptionReason>no</ram:ExemptionReason>
-                <ram:BasisAmount>1.0</ram:BasisAmount>
-                <ram:CategoryCode>O</ram:CategoryCode>
-                <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
-            </ram:ApplicableTradeTax>
+                    <ram:CalculatedAmount>0.19</ram:CalculatedAmount>
+                    <ram:TypeCode>VAT</ram:TypeCode>
+                    <ram:ExemptionReason>no</ram:ExemptionReason>
+                    <ram:BasisAmount>1.0</ram:BasisAmount>
+                    <ram:CategoryCode>S</ram:CategoryCode>
+                    <ram:RateApplicablePercent>0.19</ram:RateApplicablePercent>
+                </ram:ApplicableTradeTax><ram:ApplicableTradeTax>
+                    <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
+                    <ram:TypeCode>VAT</ram:TypeCode>
+                    <ram:ExemptionReason>no</ram:ExemptionReason>
+                    <ram:BasisAmount>0.0</ram:BasisAmount>
+                    <ram:CategoryCode>O</ram:CategoryCode>
+                    <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
+                </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>lala</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>1.0</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>1.0</ram:GrandTotalAmount>
-                <ram:DuePayableAmount>1.0</ram:DuePayableAmount>
-            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                    <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>1.0</ram:TaxBasisTotalAmount>
+                    <ram:GrandTotalAmount>1.19</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>1.19</ram:DuePayableAmount>
+                </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>
             </rsm:CrossIndustryInvoice>

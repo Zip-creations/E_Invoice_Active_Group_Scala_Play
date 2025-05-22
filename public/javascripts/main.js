@@ -143,6 +143,10 @@ function LoadRestrictions() {
     const numericClasses = ["datatypeAmount", "datatypeQuantity", "datatypePercentage"]
     var allRelevantChilds = document.querySelectorAll("input")
     allRelevantChilds.forEach(input => {
+        // Prevents that a Listener gets assigned to the same input multiple times
+        if (input.dataset.beforeinputBound) {return}
+        input.dataset.beforeinputBound = "true"
+        
         if (numericClasses.includes(input.className)) {
             AddNumericRestriction(input)
         } else if (input.className === "awesomplete")

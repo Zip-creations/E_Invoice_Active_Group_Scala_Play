@@ -6,7 +6,7 @@ class XMLUtility(){
     private case class StoredPosition(netAmount: Double, taxCode: String)
     private var storedPositions: List[StoredPosition] = Nil
     private val VATCodeToNum: Map[String, Double] = Map(  // Values are placeholders
-        "S" -> 0,
+        "S" -> 0.19,
         "Z" -> 0,
         "E" -> 0,
         "AE" -> 0,
@@ -17,7 +17,12 @@ class XMLUtility(){
         "M" -> 0
     )
 
-    def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
+    // Round to nearest two digits after comma
+    private def roundAmount(num: Double): Double = {
+        return (math.rint(num * 100) / 100)
+    }
+
+    private def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
       if (value != "") {
         return xml
       } else {
@@ -218,14 +223,14 @@ class XMLUtility(){
             totalVATAmount = totalVATAmount + (pos.netAmount * (1+VATCodeToNum(vatCode)) - pos.netAmount)
         }
         val xml = {
-            <ram:ApplicableTradeTax>
-                <ram:CalculatedAmount>{totalVATAmount}</ram:CalculatedAmount>
-                <ram:TypeCode>VAT</ram:TypeCode>
-                <ram:ExemptionReason>no</ram:ExemptionReason>
-                <ram:BasisAmount>{totalAmount}</ram:BasisAmount>
-                <ram:CategoryCode>{vatCode}</ram:CategoryCode>
-                <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
-            </ram:ApplicableTradeTax>
+                <ram:ApplicableTradeTax>
+                    <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
+                    <ram:TypeCode>VAT</ram:TypeCode>
+                    <ram:ExemptionReason>no</ram:ExemptionReason>
+                    <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
+                    <ram:CategoryCode>{vatCode}</ram:CategoryCode>
+                    <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
+                </ram:ApplicableTradeTax>
         }
         return xml
     }
@@ -244,12 +249,12 @@ class XMLUtility(){
         }
 
         val xml =
-            <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>{totalNetAmount.toString}</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>{totalAmountWithoutVAT.toString}</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>{totalAmountWithVAT.toString}</ram:GrandTotalAmount>
-                <ram:DuePayableAmount>{totalAmountWithVAT.toString}</ram:DuePayableAmount>
-            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                    <ram:LineTotalAmount>{roundAmount(totalNetAmount)}</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>{roundAmount(totalAmountWithoutVAT)}</ram:TaxBasisTotalAmount>
+                    <ram:GrandTotalAmount>{roundAmount(totalAmountWithVAT)}</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>{roundAmount(totalAmountWithVAT)}</ram:DuePayableAmount>
+                </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
         return xml
     }
 }

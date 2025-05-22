@@ -138,7 +138,7 @@
             <dt>Referenz:</dt>
             <dd>/E:/Nicht%20syncronisiert/Code/E_Invoice_Active_Group_Scala_Play/Toolbox/../output/xml/eInvoice_lalatest123.xml</dd>
             <dt>Zeitpunkt der Prüfung:</dt>
-            <dd>22.5.2025 18:45:05</dd>
+            <dd>22.5.2025 21:34:26</dd>
             <dt>Erkannter Dokumenttyp:</dt>
             <dd>EN16931 XRechnung (CII)</dd>
          </dl>
@@ -155,9 +155,147 @@
                </dd>
          </dl>
       </div>
-      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält weder Fehler noch Warnungen. Es ist konform zu den formalen
-         Vorgaben.</p>
-      <p class="important">Bewertung: Es wird empfohlen das Dokument anzunehmen und weiter zu verarbeiten.</p>
+      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält 8 Fehler / 0 Warnungen. Es ist <b>nicht konform</b> zu den formalen Vorgaben.</p>
+      <p>Übersicht der Validierungsergebnisse:</p>
+      <table class="tbl-errors">
+         <thead>
+            <tr>
+               <th>Prüfschritt</th>
+               <th>Fehler</th>
+               <th>Warnungen</th>
+               <th>Informationen</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>XML Schema for UN/CEFACT XML (SCRDM - CII uncoupled) (val-xsd)</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td>Schematron rules for EN16931 (CII) (val-sch.1)</td>
+               <td style="width: 30mm;">7</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td>Schematron rules for CIUS XRechnung (CII) (val-sch.2)</td>
+               <td style="width: 30mm;">1</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+            <tr>
+               <td> (val-xml)</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+               <td style="width: 30mm;">0</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Validierungsergebnisse im Detail:</p>
+      <table class="tbl-errors">
+         <thead>
+            <tr>
+               <th style="width: 30mm;">Pos</th>
+               <th style="width: 25mm;">Code</th>
+               <th style="width: 25mm;">Adj. Grad</th>
+               <th>Text</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.1</td>
+               <td rowspan="2">BR-CO-15</td>
+               <td rowspan="2">error</td>
+               <td>[BR-CO-15]-Invoice total amount with VAT (BT-112) = Invoice total amount without VAT
+                  (BT-109) + Invoice total VAT amount (BT-110).</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.2</td>
+               <td rowspan="2">BR-S-02</td>
+               <td rowspan="2">error</td>
+               <td>[BR-S-02]-An Invoice that contains an Invoice line (BG-25) where the Invoiced item
+                  VAT category code (BT-151) is "Standard rated" shall contain the Seller VAT Identifier
+                  (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative
+                  VAT identifier (BT-63).</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:IncludedSupplyChainTradeLineItem[2]/ram:SpecifiedLineTradeSettlement[1]/ram:ApplicableTradeTax[1]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.3</td>
+               <td rowspan="2">BR-S-05</td>
+               <td rowspan="2">error</td>
+               <td>[BR-S-05]-In an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151)
+                  is "Standard rated" the Invoiced item VAT rate (BT-152) shall be greater than zero.</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:IncludedSupplyChainTradeLineItem[2]/ram:SpecifiedLineTradeSettlement[1]/ram:ApplicableTradeTax[1]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.4</td>
+               <td rowspan="2">BR-S-08</td>
+               <td rowspan="2">error</td>
+               <td>[BR-S-08]-For each different value of VAT category rate (BT-119) where the VAT category
+                  code (BT-118) is "Standard rated", the VAT category taxable amount (BT-116) in a VAT
+                  breakdown (BG-23) shall equal the sum of Invoice line net amounts (BT-131) plus the
+                  sum of document level charge amounts (BT-99) minus the sum of document level allowance
+                  amounts (BT-92) where the VAT category code (BT-151, BT-102, BT-95) is "Standard rated"
+                  and the VAT rate (BT-152, BT-103, BT-96) equals the VAT category rate (BT-119).</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeSettlement[1]/ram:ApplicableTradeTax[1]/ram:CategoryCode[1]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.5</td>
+               <td rowspan="2">BR-S-10</td>
+               <td rowspan="2">error</td>
+               <td>[BR-S-10]-A VAT Breakdown (BG-23) with VAT Category code (BT-118) "Standard rate"
+                  shall not have a VAT exemption reason code (BT-121) or VAT exemption reason text (BT-120).</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeSettlement[1]/ram:ApplicableTradeTax[1]/ram:CategoryCode[1]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.6</td>
+               <td rowspan="2">BR-O-11</td>
+               <td rowspan="2">error</td>
+               <td>[BR-O-11]-An Invoice that contains a VAT breakdown group (BG-23) with a VAT category
+                  code (BT-118) "Not subject to VAT" shall not contain other VAT breakdown groups (BG-23).</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeSettlement[1]/ram:ApplicableTradeTax[2]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.1.7</td>
+               <td rowspan="2">BR-O-12</td>
+               <td rowspan="2">error</td>
+               <td>[BR-O-12]-An Invoice that contains a VAT breakdown group (BG-23) with a VAT category
+                  code (BT-118) "Not subject to VAT" shall not contain an Invoice line (BG-25) where
+                  the Invoiced item VAT category code (BT-151) is not "Not subject to VAT".</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeSettlement[1]/ram:ApplicableTradeTax[2]</td>
+            </tr>
+            <tr class="error">
+               <td rowspan="2">val-sch.2.1</td>
+               <td rowspan="2">BR-DE-16</td>
+               <td rowspan="2">error</td>
+               <td>[BR-DE-16] Wenn in einer Rechnung die Steuercodes S, Z, E, AE, K, G, L oder M verwendet
+                  werden, muss mindestens eines der Elemente "Seller VAT identifier" (BT-31), "Seller
+                  tax registration identifier" (BT-32) oder "SELLER TAX REPRESENTATIVE PARTY" (BG-11)
+                  übermittelt werden.</td>
+            </tr>
+            <tr class="error">
+               <td>Pfad: /rsm:CrossIndustryInvoice</td>
+            </tr>
+         </tbody>
+      </table>
+      <p class="important error">Bewertung: Es wird empfohlen das Dokument zurückzuweisen.</p>
       <p class="important">Inhalt des Rechnungsdokuments:</p>
       <table class="document">
          <tr class="row" id="0001">
@@ -531,7 +669,7 @@
          <tr class="row" id="0042">
             <td class="pos">0042</td>
             <td class="element level6" title="CategoryCode">
-               <div class="val">O</div>
+               <div class="val">S</div>
             </td>
          </tr>
          <tr class="row" id="0043">
@@ -827,7 +965,7 @@
          <tr class="row" id="0076">
             <td class="pos">0076</td>
             <td class="element level5" title="CalculatedAmount">
-               <div class="val">0.0</div>
+               <div class="val">0.19</div>
             </td>
          </tr>
          <tr class="row" id="0077">
@@ -851,18 +989,28 @@
          <tr class="row" id="0080">
             <td class="pos">0080</td>
             <td class="element level5" title="CategoryCode">
-               <div class="val">O</div>
+               <div class="val">S</div>
             </td>
          </tr>
          <tr class="row" id="0081">
             <td class="pos">0081</td>
             <td class="element level5" title="RateApplicablePercent">
-               <div class="val">0.0</div>
+               <div class="val">0.19</div>
             </td>
          </tr>
          <tr class="row" id="0082">
             <td class="pos">0082</td>
-            <td class="element level4" title="SpecifiedTradePaymentTerms">
+            <td class="element level4" title="ApplicableTradeTax">
+               <div class="val">
+                  </div>
+               <div class="val">
+                  </div>
+               <div class="val">
+                  </div>
+               <div class="val">
+                  </div>
+               <div class="val">
+                  </div>
                <div class="val">
                   </div>
                <div class="val">
@@ -871,12 +1019,57 @@
          </tr>
          <tr class="row" id="0083">
             <td class="pos">0083</td>
-            <td class="element level5" title="Description">
-               <div class="val">lala</div>
+            <td class="element level5" title="CalculatedAmount">
+               <div class="val">0.0</div>
             </td>
          </tr>
          <tr class="row" id="0084">
             <td class="pos">0084</td>
+            <td class="element level5" title="TypeCode">
+               <div class="val">VAT</div>
+            </td>
+         </tr>
+         <tr class="row" id="0085">
+            <td class="pos">0085</td>
+            <td class="element level5" title="ExemptionReason">
+               <div class="val">no</div>
+            </td>
+         </tr>
+         <tr class="row" id="0086">
+            <td class="pos">0086</td>
+            <td class="element level5" title="BasisAmount">
+               <div class="val">0.0</div>
+            </td>
+         </tr>
+         <tr class="row" id="0087">
+            <td class="pos">0087</td>
+            <td class="element level5" title="CategoryCode">
+               <div class="val">O</div>
+            </td>
+         </tr>
+         <tr class="row" id="0088">
+            <td class="pos">0088</td>
+            <td class="element level5" title="RateApplicablePercent">
+               <div class="val">0.0</div>
+            </td>
+         </tr>
+         <tr class="row" id="0089">
+            <td class="pos">0089</td>
+            <td class="element level4" title="SpecifiedTradePaymentTerms">
+               <div class="val">
+                  </div>
+               <div class="val">
+                  </div>
+            </td>
+         </tr>
+         <tr class="row" id="0090">
+            <td class="pos">0090</td>
+            <td class="element level5" title="Description">
+               <div class="val">lala</div>
+            </td>
+         </tr>
+         <tr class="row" id="0091">
+            <td class="pos">0091</td>
             <td class="element level4" title="SpecifiedTradeSettlementHeaderMonetarySummation">
                <div class="val">
                   </div>
@@ -890,28 +1083,28 @@
                   </div>
             </td>
          </tr>
-         <tr class="row" id="0085">
-            <td class="pos">0085</td>
+         <tr class="row" id="0092">
+            <td class="pos">0092</td>
             <td class="element level5" title="LineTotalAmount">
                <div class="val">1.0</div>
             </td>
          </tr>
-         <tr class="row" id="0086">
-            <td class="pos">0086</td>
+         <tr class="row" id="0093">
+            <td class="pos">0093</td>
             <td class="element level5" title="TaxBasisTotalAmount">
                <div class="val">1.0</div>
             </td>
          </tr>
-         <tr class="row" id="0087">
-            <td class="pos">0087</td>
+         <tr class="row" id="0094">
+            <td class="pos">0094</td>
             <td class="element level5" title="GrandTotalAmount">
-               <div class="val">1.0</div>
+               <div class="val">1.19</div>
             </td>
          </tr>
-         <tr class="row" id="0088">
-            <td class="pos">0088</td>
+         <tr class="row" id="0095">
+            <td class="pos">0095</td>
             <td class="element level5" title="DuePayableAmount">
-               <div class="val">1.0</div>
+               <div class="val">1.19</div>
             </td>
          </tr>
       </table>
