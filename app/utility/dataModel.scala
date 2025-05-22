@@ -51,6 +51,7 @@ case class InvoicePaymentInformation(
 
 case class InvoicePosition(
     id: String,
+    name: String,
     VATcategoryCode: String,
     data: InvoicePositionData
 )

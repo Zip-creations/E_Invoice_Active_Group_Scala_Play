@@ -25,13 +25,16 @@
                 <ram:AssociatedDocumentLineDocument>
                     <ram:LineID>1</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>position.name</ram:Name>
+                </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>1122.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>1133.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="2">1122.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="2">1133.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -40,16 +43,19 @@
                         <ram:CategoryCode>O</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>1122.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>1133.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
                 <ram:AssociatedDocumentLineDocument>
                     <ram:LineID>2</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>position.name</ram:Name>
+                </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>12.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>10.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
@@ -62,7 +68,7 @@
                         <ram:CategoryCode>O</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>144.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>120.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
@@ -108,7 +114,7 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                <ram:CalculatedAmount>1266.0</ram:CalculatedAmount>
+                <ram:CalculatedAmount>1253.0</ram:CalculatedAmount>
                 <ram:TypeCode>VAT</ram:TypeCode>
                 <ram:ExemptionReason>no</ram:ExemptionReason>
                 <ram:BasisAmount>0.0</ram:BasisAmount>
@@ -116,9 +122,9 @@
                 <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                <ram:LineTotalAmount>1266.0</ram:LineTotalAmount>
-                <ram:TaxBasisTotalAmount>1266.0</ram:TaxBasisTotalAmount>
-                <ram:GrandTotalAmount>2532.0</ram:GrandTotalAmount>
+                <ram:LineTotalAmount>1253.0</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>1253.0</ram:TaxBasisTotalAmount>
+                <ram:GrandTotalAmount>2506.0</ram:GrandTotalAmount>
                 <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
             </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>

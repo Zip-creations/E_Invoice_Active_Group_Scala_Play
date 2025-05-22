@@ -96,6 +96,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       }
       val position = InvoicePosition(
         connectInput("InvoiceLineIdentifier" + index),
+        connectInput("ItemName" + index),
         connectInput("InvoicedItemVATCategoryCode" + index),
         innerPosition
       )

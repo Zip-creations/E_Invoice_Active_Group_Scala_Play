@@ -145,6 +145,9 @@ class XMLUtility(){
                 <ram:AssociatedDocumentLineDocument>
                     <ram:LineID>{position.id}</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>position.name</ram:Name>
+                </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
                         <ram:ChargeAmount>{chargedAmount.toString}</ram:ChargeAmount>
@@ -192,7 +195,6 @@ class XMLUtility(){
     }
 
     // This part need to be repeated for every VAT category code
-    // TODO: create a summary for each idivual tax category that is used in at least one invoice position
     // TODO: replace hardcoded values
     private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition]): scala.xml.Elem = {
         var totalAmount: Double = 0.0
