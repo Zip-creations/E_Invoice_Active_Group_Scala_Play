@@ -40,7 +40,7 @@
                     <ram:ApplicableTradeTax>
                         
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>S</ram:CategoryCode>
+                        <ram:CategoryCode>O</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
@@ -90,12 +90,12 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>32.11</ram:CalculatedAmount>
+                    <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
-                    
+                    <ram:ExemptionReason>nö</ram:ExemptionReason>
                     <ram:BasisAmount>169.0</ram:BasisAmount>
-                    <ram:CategoryCode>S</ram:CategoryCode>
-                    <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
+                    <ram:CategoryCode>O</ram:CategoryCode>
+                    <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>ja</ram:Description>
@@ -103,9 +103,9 @@
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
                     <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
                     <ram:TaxBasisTotalAmount>169.0</ram:TaxBasisTotalAmount>
-                    <ram:TaxTotalAmount currencyID="EUR">32.11</ram:TaxTotalAmount>
-                    <ram:GrandTotalAmount>201.11</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>201.11</ram:DuePayableAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">0.0</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>169.0</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>169.0</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

@@ -77,6 +77,45 @@ case class Address (
     countryCode: String
 )
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Prototypes for input validation
+
+val allowedCodes: List[String] = List.apply("A", "B", "C") // or read from the same file frontend is using
+
+enum allowedCodes2 {
+    case A()
+    case B()
+    case C()
+}
+
+case class Example1(value1: Double, value2: String)
+
+object Example1 {
+    def create(value1: Double, value2: String): Option[Example1] = {
+        if (value1 == 0) {
+            None
+        } else if (allowedCodes.contains(value2)) {
+            None
+        } else {
+            Some(Example1(value1, value2))
+        }
+    }
+}
+
+// Example 1 with Exception
+case class Example1_5(value1: Double, value2: String)
+
+object Example1_5 {
+    def create(value1: Double, value2: String): Example1_5 = {
+        if (value1 == 0) {
+            throw new IllegalArgumentException("value1 can not be 0")
+        } else if (allowedCodes.contains(value2)) {
+            throw new IllegalArgumentException("value2 must be from aspecific code list")
+        } else {
+            Example1_5(value1, value2)
+        }
+    }
+}
+
 // Other possible ways to create an Invoice-Datamodel:
 
 // enum Rechnungstyp {
