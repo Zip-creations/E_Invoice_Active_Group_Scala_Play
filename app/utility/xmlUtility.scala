@@ -62,16 +62,6 @@ class XMLUtility(){
         return xml
     }
 
-    private def CreateInvolvedPartiesXML(parties: InvoiceInvolvedParties): scala.xml.Elem = {
-        val xml =
-            <ram:ApplicableHeaderTradeAgreement>
-                <ram:BuyerReference>{parties.buyer.reference}</ram:BuyerReference>
-                {CreateSellerXML(parties.seller, parties.sellerContact)}
-                {CreateBuyerXML(parties.buyer)}
-            </ram:ApplicableHeaderTradeAgreement>
-        return xml
-    }
-
     private def CreateMetaDataXML(meta: InvoiceMetaData): scala.xml.Elem = {
         val xml = 
             <rsm:ExchangedDocument>
@@ -91,6 +81,16 @@ class XMLUtility(){
         return xml
     }
 
+    private def CreateInvolvedPartiesXML(parties: InvoiceInvolvedParties): scala.xml.Elem = {
+        val xml =
+            <ram:ApplicableHeaderTradeAgreement>
+                <ram:BuyerReference>{parties.buyer.reference}</ram:BuyerReference>
+                {CreateSellerXML(parties.seller, parties.sellerContact)}
+                {CreateBuyerXML(parties.buyer)}
+            </ram:ApplicableHeaderTradeAgreement>
+        return xml
+    }
+
     private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
@@ -101,15 +101,21 @@ class XMLUtility(){
             }
               <ram:Name>{seller.name}</ram:Name>
                 {CreateSellerContactXML(sellerContact)}
-              <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{seller.postcode}</ram:PostcodeCode>
-                <ram:CityName>{seller.city}</ram:CityName>
-                <ram:CountryID>{seller.country}</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
+                {CreateAddressXML(seller.address)}
+                <ram:URIUniversalCommunication>
                 <ram:URIID schemeID="EM">{seller.email}</ram:URIID>
-              </ram:URIUniversalCommunication>
+                </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
+        return xml
+    }
+
+    private def CreateAddressXML(address: Address): scala.xml.Elem = {
+        val xml = 
+            <ram:PostalTradeAddress>
+                <ram:PostcodeCode>{address.postCode}</ram:PostcodeCode>
+                <ram:CityName>{address.city}</ram:CityName>
+                <ram:CountryID>{address.countryCode}</ram:CountryID>
+            </ram:PostalTradeAddress>
         return xml
     }
 
@@ -131,11 +137,7 @@ class XMLUtility(){
         val xml =
             <ram:BuyerTradeParty>
                 <ram:Name>{buyer.name}</ram:Name>
-                <ram:PostalTradeAddress>
-                    <ram:PostcodeCode>{buyer.postcode}</ram:PostcodeCode>
-                    <ram:CityName>{buyer.city}</ram:CityName>
-                    <ram:CountryID>{buyer.country}</ram:CountryID>
-                </ram:PostalTradeAddress>
+                {CreateAddressXML(buyer.address)}
                 <ram:URIUniversalCommunication>
                     <ram:URIID schemeID="EM">{buyer.email}</ram:URIID>
                 </ram:URIUniversalCommunication>

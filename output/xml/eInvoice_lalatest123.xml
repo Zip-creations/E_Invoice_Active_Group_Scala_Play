@@ -61,22 +61,22 @@
                     <ram:URIID>ex2@mail.com</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
                 </ram:DefinedTradeContact>
-              <ram:PostalTradeAddress>
+                <ram:PostalTradeAddress>
                 <ram:PostcodeCode>11223</ram:PostcodeCode>
                 <ram:CityName>Example city</ram:CityName>
                 <ram:CountryID>DE</ram:CountryID>
-              </ram:PostalTradeAddress>
-              <ram:URIUniversalCommunication>
+            </ram:PostalTradeAddress>
+                <ram:URIUniversalCommunication>
                 <ram:URIID schemeID="EM">ex@mail.com</ram:URIID>
-              </ram:URIUniversalCommunication>
+                </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
                 <ram:BuyerTradeParty>
                 <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
-                    <ram:PostcodeCode>54321</ram:PostcodeCode>
-                    <ram:CityName>buyer city</ram:CityName>
-                    <ram:CountryID>DE</ram:CountryID>
-                </ram:PostalTradeAddress>
+                <ram:PostcodeCode>54321</ram:PostcodeCode>
+                <ram:CityName>buyer city</ram:CityName>
+                <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
                 <ram:URIUniversalCommunication>
                     <ram:URIID schemeID="EM">ex3@mail.com</ram:URIID>
                 </ram:URIUniversalCommunication>

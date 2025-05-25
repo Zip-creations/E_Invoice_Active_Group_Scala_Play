@@ -24,9 +24,7 @@ case class InvoiceInvolvedParties(
 case class InvoiceSeller(
     name: String,
     street: String,
-    postcode: String,
-    city: String,
-    country: String,
+    address: Address,
     telephonenumber: String,
     websitelink: String,
     email: String,
@@ -42,9 +40,7 @@ case class InvoiceSellerContact(
 case class InvoiceBuyer(
     reference: String,
     name: String,
-    postcode: String,
-    city: String,
-    country: String,
+    address: Address,
     iban: String,
     email: String
     )
@@ -76,8 +72,8 @@ enum InvoicePositionData{
 }
 
 case class Address (
-    city: String,
     postCode: String,
+    city: String,
     countryCode: String
 )
 
