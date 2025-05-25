@@ -236,10 +236,12 @@ class XMLUtility(){
                     <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
-                        val value = vatExemptionReason
+                        print(!"SZLM".contains(vatCode))
+                        var value = vatExemptionReason
+                        if ("SZLM".contains(vatCode)){value = ""} // S / Z / L / M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
-                        if ("SZLM".contains(vatCode)){insertOptionalInput(value, xml)} 
+                        insertOptionalInput(value, xml)
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
                     <ram:CategoryCode>{vatCode}</ram:CategoryCode>
