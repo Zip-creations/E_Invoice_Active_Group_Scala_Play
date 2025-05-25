@@ -6,7 +6,7 @@ class XMLUtility(){
     private case class StoredPosition(netAmount: Double, taxCode: String)
     private var storedPositions: List[StoredPosition] = Nil
     private val VATCodeToNum: Map[String, Double] = Map(  // Values are placeholders
-        "S" -> 0.19,
+        "S" -> 19.0,
         "Z" -> 0,
         "E" -> 0,
         "AE" -> 0,
@@ -16,6 +16,14 @@ class XMLUtility(){
         "L" -> 0,
         "M" -> 0
     )
+
+    // returns the value corresponding to the given VAT code (must be part of the VATCodeToNum Map)
+    // in a way that allows easy computations with the value.
+    // E.g: "S" -> 1.19
+    // "O": -> 1.0
+    private def getVATvalue(code: String): Double = {
+        return (VATCodeToNum(code) / 100) +1
+    }
 
     // Round to nearest two digits after comma
     private def roundAmount(num: Double): Double = {
@@ -196,7 +204,7 @@ class XMLUtility(){
                         sortedByVATCode.update(pos.taxCode, currentPos :+ pos)
                     }
                     {for (vatCode <- sortedByVATCode.keys)
-                        yield CreateTaxSummaryXML(vatCode, sortedByVATCode(vatCode))}
+                        yield CreateTaxSummaryXML(vatCode, sortedByVATCode(vatCode), paymentInfo.vatExemptionReason)}
                 }
                 {
                     val value = paymentInfo.paymentTerms
@@ -206,27 +214,33 @@ class XMLUtility(){
                         </ram:SpecifiedTradePaymentTerms>
                     insertOptionalInput(value, xml)
                 }
-                {CreateDocumentSummaryXML(storedPositions)}
+                {CreateDocumentSummaryXML(storedPositions, paymentInfo.currencycode)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
     }
 
     // This part need to be repeated for every VAT category code
     // TODO: replace hardcoded values
-    private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition]): scala.xml.Elem = {
+    private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition], vatExemptionReason: String): scala.xml.Elem = {
         var totalAmount = 0.0
         var totalAmountWithVAT = 0.0
         var totalVATAmount = 0.0
         for (pos <- positions) {
+            val vatValue = getVATvalue(vatCode)
             totalAmount = totalAmount + pos.netAmount
-            totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * (1+VATCodeToNum(vatCode))
-            totalVATAmount = totalVATAmount + (pos.netAmount * (1+VATCodeToNum(vatCode)) - pos.netAmount)
+            totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * vatValue
+            totalVATAmount = totalVATAmount + (pos.netAmount * vatValue - pos.netAmount)
         }
         val xml = {
                 <ram:ApplicableTradeTax>
                     <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
-                    <ram:ExemptionReason>no</ram:ExemptionReason>
+                    {
+                        val value = vatExemptionReason
+                        val xml= 
+                            <ram:ExemptionReason>{value}</ram:ExemptionReason>
+                        if ("SZLM".contains(vatCode)){insertOptionalInput(value, xml)} 
+                    }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
                     <ram:CategoryCode>{vatCode}</ram:CategoryCode>
                     <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
@@ -235,23 +249,24 @@ class XMLUtility(){
         return xml
     }
 
-    private def CreateDocumentSummaryXML(allPositions: List[StoredPosition]): scala.xml.Elem = {
+    private def CreateDocumentSummaryXML(allPositions: List[StoredPosition], currencycode: String): scala.xml.Elem = {
         var totalNetAmount = 0.0
         var totalVATAmount = 0.0
         var totalAmountWithoutVAT = 0.0
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = VATCodeToNum(i.taxCode)
+            val taxpercentage = getVATvalue(i.taxCode)
             totalNetAmount += i.netAmount
+            totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount
-            totalAmountWithVAT += i.netAmount * (1+ taxpercentage)
+            totalAmountWithVAT += i.netAmount * taxpercentage
         }
-
         val xml =
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
                     <ram:LineTotalAmount>{roundAmount(totalNetAmount)}</ram:LineTotalAmount>
                     <ram:TaxBasisTotalAmount>{roundAmount(totalAmountWithoutVAT)}</ram:TaxBasisTotalAmount>
+                    <ram:TaxTotalAmount currencyID={currencycode}>{roundAmount(totalVATAmount)}</ram:TaxTotalAmount>
                     <ram:GrandTotalAmount>{roundAmount(totalAmountWithVAT)}</ram:GrandTotalAmount>
                     <ram:DuePayableAmount>{roundAmount(totalAmountWithVAT)}</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>

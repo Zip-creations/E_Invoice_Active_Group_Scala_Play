@@ -16,7 +16,7 @@
                 <ram:IssueDateTime>
                 
                 <udt:DateTimeString format="102">
-                    20250522
+                    20250525
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -26,40 +26,15 @@
                     <ram:LineID>1</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>121</ram:Name>
+                    <ram:Name>12</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>0.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>12.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="11">11.0</ram:BilledQuantity>
-                </ram:SpecifiedLineTradeDelivery>
-                <ram:SpecifiedLineTradeSettlement>
-                    <ram:ApplicableTradeTax>
-                        
-                        <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>O</ram:CategoryCode>
-                    </ram:ApplicableTradeTax>
-                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
-                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
-                </ram:SpecifiedLineTradeSettlement>
-            </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
-                <ram:AssociatedDocumentLineDocument>
-                    <ram:LineID>2</ram:LineID>
-                </ram:AssociatedDocumentLineDocument>
-                <ram:SpecifiedTradeProduct>
-                    <ram:Name>123</ram:Name>
-                </ram:SpecifiedTradeProduct>
-                <ram:SpecifiedLineTradeAgreement>
-                    <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>1.0</ram:ChargeAmount>
-                    </ram:NetPriceProductTradePrice>
-                </ram:SpecifiedLineTradeAgreement>
-                <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="HUR">1.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="13">12.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -68,14 +43,14 @@
                         <ram:CategoryCode>S</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>144.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
                 <ram:ApplicableHeaderTradeAgreement>
                     <ram:BuyerReference>ref 123</ram:BuyerReference>
                     <ram:SellerTradeParty>
-            <ram:GlobalID schemeID="0088">zuiopü</ram:GlobalID>
+            <ram:GlobalID schemeID="0088">id</ram:GlobalID>
               <ram:Name>seller name</ram:Name>
                 <ram:DefinedTradeContact>
                 <ram:PersonName>vorname nachname</ram:PersonName>
@@ -115,28 +90,22 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>0.19</ram:CalculatedAmount>
+                    <ram:CalculatedAmount>27.36</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
-                    <ram:ExemptionReason>no</ram:ExemptionReason>
-                    <ram:BasisAmount>1.0</ram:BasisAmount>
+                    
+                    <ram:BasisAmount>144.0</ram:BasisAmount>
                     <ram:CategoryCode>S</ram:CategoryCode>
-                    <ram:RateApplicablePercent>0.19</ram:RateApplicablePercent>
-                </ram:ApplicableTradeTax><ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
-                    <ram:TypeCode>VAT</ram:TypeCode>
-                    <ram:ExemptionReason>no</ram:ExemptionReason>
-                    <ram:BasisAmount>0.0</ram:BasisAmount>
-                    <ram:CategoryCode>O</ram:CategoryCode>
-                    <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
+                    <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradePaymentTerms>
-                            <ram:Description>lala</ram:Description>
+                            <ram:Description>ja</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                    <ram:LineTotalAmount>1.0</ram:LineTotalAmount>
-                    <ram:TaxBasisTotalAmount>1.0</ram:TaxBasisTotalAmount>
-                    <ram:GrandTotalAmount>1.19</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>1.19</ram:DuePayableAmount>
+                    <ram:LineTotalAmount>144.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>144.0</ram:TaxBasisTotalAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">27.36</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>171.36</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>171.36</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

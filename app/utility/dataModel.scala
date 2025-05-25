@@ -48,7 +48,8 @@ case class InvoiceBuyer(
 case class InvoicePaymentInformation(
     currencycode: String,
     paymentMeansCode: String,
-    paymentTerms: String = ""
+    paymentTerms: String = "",
+    vatExemptionReason: String = ""
 )
 
 case class InvoicePosition(

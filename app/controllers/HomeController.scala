@@ -78,7 +78,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val paymentInformation = InvoicePaymentInformation(
       connectInput("InvoiceCurrencyCode"),
       connectInput("PaymentMeansTypeCode"),
-      connectInput("PaymentTerms")
+      connectInput("PaymentTerms"),
+      connectInput("VATExemptionReasonText")
     )
 
     var allPositions: List[InvoicePosition] = Nil
