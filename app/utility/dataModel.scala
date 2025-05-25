@@ -4,9 +4,7 @@ import scala.xml.XML
 
 case class Invoice(
     metadata: InvoiceMetaData,
-    seller: InvoiceSeller,
-    sellerContact: InvoiceSellerContact,
-    buyer: InvoiceBuyer,
+    involvedParties: InvoiceInvolvedParties,
     positions: List[InvoicePosition],
     paymentInformation: InvoicePaymentInformation
     )
@@ -16,6 +14,12 @@ case class InvoiceMetaData(
     date: String,
     typ: String
     )
+
+case class InvoiceInvolvedParties(
+    seller: InvoiceSeller,
+    sellerContact: InvoiceSellerContact,
+    buyer: InvoiceBuyer
+)
 
 case class InvoiceSeller(
     name: String,
@@ -70,6 +74,12 @@ enum InvoicePositionData{
         measurementCode: String
     )
 }
+
+case class Address (
+    city: String,
+    postCode: String,
+    countryCode: String
+)
 
 // Other possible ways to create an Invoice-Datamodel:
 

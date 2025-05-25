@@ -53,16 +53,22 @@ class XMLUtility(){
                 <rsm:SupplyChainTradeTransaction>
                 {for (i <- invoice.positions)
                     yield CreatePositionXML(i)}
-                <ram:ApplicableHeaderTradeAgreement>
-                    <ram:BuyerReference>{invoice.buyer.reference}</ram:BuyerReference>
-                    {CreateSellerXML(invoice.seller, invoice.sellerContact)}
-                    {CreateBuyerXML(invoice.buyer)}
-                </ram:ApplicableHeaderTradeAgreement>
+                {CreateInvolvedPartiesXML(invoice.involvedParties)}
                 <ram:ApplicableHeaderTradeDelivery>
                 </ram:ApplicableHeaderTradeDelivery>
                 {CreatePaymentInformationXML(invoice.paymentInformation)}
                 </rsm:SupplyChainTradeTransaction>
             </rsm:CrossIndustryInvoice>
+        return xml
+    }
+
+    private def CreateInvolvedPartiesXML(parties: InvoiceInvolvedParties): scala.xml.Elem = {
+        val xml =
+            <ram:ApplicableHeaderTradeAgreement>
+                <ram:BuyerReference>{parties.buyer.reference}</ram:BuyerReference>
+                {CreateSellerXML(parties.seller, parties.sellerContact)}
+                {CreateBuyerXML(parties.buyer)}
+            </ram:ApplicableHeaderTradeAgreement>
         return xml
     }
 

@@ -26,15 +26,15 @@
                     <ram:LineID>1</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>12</ram:Name>
+                    <ram:Name>13</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>12.0</ram:ChargeAmount>
+                        <ram:ChargeAmount>13.0</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="13">12.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="13">13.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -43,13 +43,13 @@
                         <ram:CategoryCode>S</ram:CategoryCode>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>144.0</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
                 <ram:ApplicableHeaderTradeAgreement>
-                    <ram:BuyerReference>ref 123</ram:BuyerReference>
-                    <ram:SellerTradeParty>
+                <ram:BuyerReference>ref 123</ram:BuyerReference>
+                <ram:SellerTradeParty>
             <ram:GlobalID schemeID="0088">id</ram:GlobalID>
               <ram:Name>seller name</ram:Name>
                 <ram:DefinedTradeContact>
@@ -70,7 +70,7 @@
                 <ram:URIID schemeID="EM">ex@mail.com</ram:URIID>
               </ram:URIUniversalCommunication>
             </ram:SellerTradeParty>
-                    <ram:BuyerTradeParty>
+                <ram:BuyerTradeParty>
                 <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
                     <ram:PostcodeCode>54321</ram:PostcodeCode>
@@ -81,7 +81,7 @@
                     <ram:URIID schemeID="EM">ex3@mail.com</ram:URIID>
                 </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
-                </ram:ApplicableHeaderTradeAgreement>
+            </ram:ApplicableHeaderTradeAgreement>
                 <ram:ApplicableHeaderTradeDelivery>
                 </ram:ApplicableHeaderTradeDelivery>
                 <ram:ApplicableHeaderTradeSettlement>
@@ -90,10 +90,10 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>27.36</ram:CalculatedAmount>
+                    <ram:CalculatedAmount>32.11</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     
-                    <ram:BasisAmount>144.0</ram:BasisAmount>
+                    <ram:BasisAmount>169.0</ram:BasisAmount>
                     <ram:CategoryCode>S</ram:CategoryCode>
                     <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
@@ -101,11 +101,11 @@
                             <ram:Description>ja</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                    <ram:LineTotalAmount>144.0</ram:LineTotalAmount>
-                    <ram:TaxBasisTotalAmount>144.0</ram:TaxBasisTotalAmount>
-                    <ram:TaxTotalAmount currencyID="EUR">27.36</ram:TaxTotalAmount>
-                    <ram:GrandTotalAmount>171.36</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>171.36</ram:DuePayableAmount>
+                    <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>169.0</ram:TaxBasisTotalAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">32.11</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>201.11</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>201.11</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

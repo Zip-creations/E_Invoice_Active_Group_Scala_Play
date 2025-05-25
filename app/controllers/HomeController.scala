@@ -107,7 +107,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
       allPositions = allPositions :+ position
 
-    val invoice = Invoice(meta, seller, sellerContact, buyer, allPositions, paymentInformation)
+    val involvedparties = InvoiceInvolvedParties(seller, sellerContact, buyer)
+    val invoice = Invoice(meta, involvedparties, allPositions, paymentInformation)
 
     val xmlData = xmlUtil.CreateInvoiceXML(invoice)
 
