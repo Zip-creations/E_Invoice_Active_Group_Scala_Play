@@ -1,5 +1,6 @@
 package utility
 import scala.xml.XML
+import cats.syntax.all._
 
 
 case class Invoice(
@@ -85,7 +86,7 @@ enum allowedCodes2 {
     case A()
     case B()
     case C()
-}
+}  // Can an Enum be parsed from a file at runtime?
 
 case class Example1(value1: Double, value2: String)
 
@@ -113,6 +114,42 @@ object Example1_5 {
         } else {
             Example1_5(value1, value2)
         }
+    }
+}
+
+
+final case class Example2(value1: Double, value2: String)
+
+sealed trait ErrorMessageHandling {
+    def errorMessage: String
+}
+
+case object ValueIsZero extends ErrorMessageHandling {
+    def errorMessage: String = "value1 can not be 0"
+}
+
+case object ValueNotInCodelist extends ErrorMessageHandling {
+    def errorMessage: String = "given value for value2 was not found in the codelist"
+}
+
+sealed trait InputValidator {
+    def ValidateValue1(value1: Double): Either[ErrorMessageHandling, Double] =
+        Either.cond(
+            value1 == 0,
+            value1,
+            ValueIsZero
+            )
+    def ValidateValue2(value2: String): Either[ErrorMessageHandling, String] =
+        Either.cond(
+            allowedCodes.contains(value2),
+            value2,
+            ValueNotInCodelist
+        )
+    def ValidateFormData(value1: Double, value2: String): Either[ErrorMessageHandling, Example2] = {
+        for {
+            validValue1 <- ValidateValue1(value1)
+            validValue2 <- ValidateValue2(value2)
+        } yield Example2(validValue1, value2)
     }
 }
 

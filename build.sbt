@@ -9,6 +9,7 @@ scalaVersion := "3.6.4"
 
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
+libraryDependencies += "org.typelevel" %% "cats-core" % "2.13.0"
 
 
 // Adds additional packages into Twirl
