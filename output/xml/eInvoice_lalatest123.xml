@@ -21,36 +21,11 @@
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
                 <rsm:SupplyChainTradeTransaction>
-                <ram:IncludedSupplyChainTradeLineItem>
-                <ram:AssociatedDocumentLineDocument>
-                    <ram:LineID>1</ram:LineID>
-                </ram:AssociatedDocumentLineDocument>
-                <ram:SpecifiedTradeProduct>
-                    <ram:Name>13</ram:Name>
-                </ram:SpecifiedTradeProduct>
-                <ram:SpecifiedLineTradeAgreement>
-                    <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>13.0</ram:ChargeAmount>
-                    </ram:NetPriceProductTradePrice>
-                </ram:SpecifiedLineTradeAgreement>
-                <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="13">13.0</ram:BilledQuantity>
-                </ram:SpecifiedLineTradeDelivery>
-                <ram:SpecifiedLineTradeSettlement>
-                    <ram:ApplicableTradeTax>
-                        
-                        <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>O</ram:CategoryCode>
-                    </ram:ApplicableTradeTax>
-                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
-                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
-                </ram:SpecifiedLineTradeSettlement>
-            </ram:IncludedSupplyChainTradeLineItem>
+                
                 <ram:ApplicableHeaderTradeAgreement>
                 <ram:BuyerReference>ref 123</ram:BuyerReference>
                 <ram:SellerTradeParty>
-            <ram:GlobalID schemeID="0088">id</ram:GlobalID>
+            <ram:GlobalID schemeID="0088">12345</ram:GlobalID>
               <ram:Name>seller name</ram:Name>
                 <ram:DefinedTradeContact>
                 <ram:PersonName>vorname nachname</ram:PersonName>
@@ -89,23 +64,16 @@
                 <ram:SpecifiedTradeSettlementPaymentMeans>
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
-                <ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>0.0</ram:CalculatedAmount>
-                    <ram:TypeCode>VAT</ram:TypeCode>
-                    <ram:ExemptionReason>nö</ram:ExemptionReason>
-                    <ram:BasisAmount>169.0</ram:BasisAmount>
-                    <ram:CategoryCode>O</ram:CategoryCode>
-                    <ram:RateApplicablePercent>0.0</ram:RateApplicablePercent>
-                </ram:ApplicableTradeTax>
+                
                 <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>ja</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                    <ram:LineTotalAmount>169.0</ram:LineTotalAmount>
-                    <ram:TaxBasisTotalAmount>169.0</ram:TaxBasisTotalAmount>
+                    <ram:LineTotalAmount>0.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>0.0</ram:TaxBasisTotalAmount>
                     <ram:TaxTotalAmount currencyID="EUR">0.0</ram:TaxTotalAmount>
-                    <ram:GrandTotalAmount>169.0</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>169.0</ram:DuePayableAmount>
+                    <ram:GrandTotalAmount>0.0</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>0.0</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>
