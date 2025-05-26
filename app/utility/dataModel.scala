@@ -3,6 +3,7 @@ import scala.xml.XML
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
+import scala.collection.mutable
 
 case class SimplePosition(identifier: VATCategory, netAmount: Double) // Stores positions with only the information the tax summary needs later on
 
@@ -52,6 +53,7 @@ case class InvoiceBuyer(
 case class InvoicePaymentInformation(
     currencycode: String,
     paymentMeansCode: String,
+    vatGroups: List[InvoiceVATGroup],
     paymentTerms: String = "",
     vatExemptionReason: String = ""
 )
@@ -63,7 +65,7 @@ case class VATCategory(
 
 case class InvoiceVATGroup(
     identifier: VATCategory,
-    positions: List[InvoicePosition],
+    positions: List[SimplePosition],
     vatExemptionReason: String = ""
 )
 

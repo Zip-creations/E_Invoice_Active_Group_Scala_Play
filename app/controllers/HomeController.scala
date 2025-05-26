@@ -80,14 +80,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("BuyerElectronicAddress")
       )
 
-    // TODO: replace hardcoded values
-    val paymentInformation = InvoicePaymentInformation(
-      connectInput("InvoiceCurrencyCode"),
-      connectInput("PaymentMeansTypeCode"),
-      connectInput("PaymentTerms"),
-      connectInput("VATExemptionReasonText")
-    )
-    
     var allPositions: List[InvoicePosition] = Nil
     var simplifiedPositions: List[SimplePosition] = Nil
     var groupedPositions: mutable.Map[VATCategory, List[SimplePosition]] = mutable.Map.empty
@@ -122,6 +114,14 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       val newPos = SimplePosition(identifier, pos.netAmount)
       groupedPositions.update(identifier, currentPos :+ newPos)
     }
+    var vatGroups: List[InvoiceVATGroup] = Nil
+    for (group <- groupedPositions.keys) {
+      val vatGroup = InvoiceVATGroup(
+        group,
+        groupedPositions(group)
+      )
+      vatGroups = vatGroups :+ vatGroup
+    }
     print(allPositions)
     print("\n")
     print(groupedPositions)
@@ -129,6 +129,13 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     print(groupedPositions.values.flatten.size)
     print("\n")
 
+    val paymentInformation = InvoicePaymentInformation(
+      connectInput("InvoiceCurrencyCode"),
+      connectInput("PaymentMeansTypeCode"),
+      vatGroups,
+      connectInput("PaymentTerms"),
+      connectInput("VATExemptionReasonText")
+    )
     // Testing validation prototypes
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // var ex6 = InputValidator.ValidateFormData(1, "A")
