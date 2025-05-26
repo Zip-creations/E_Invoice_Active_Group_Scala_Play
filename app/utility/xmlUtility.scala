@@ -3,26 +3,15 @@ import scala.collection.mutable
 import scala.xml.NodeSeq
 class XMLUtility(){
 
-    private case class StoredPosition(netAmount: Double, taxCode: String)
+    private case class StoredPosition(netAmount: Double, taxCode: String, vatRrate: Double)
     private var storedPositions: List[StoredPosition] = Nil
-    private val VATCodeToNum: Map[String, Double] = Map(  // Values are placeholders
-        "S" -> 19.0,
-        "Z" -> 0,
-        "E" -> 0,
-        "AE" -> 0,
-        "K" -> 0,
-        "G" -> 0,
-        "O" -> 0,
-        "L" -> 0,
-        "M" -> 0
-    )
 
-    // returns the value corresponding to the given VAT code (must be part of the VATCodeToNum Map)
-    // in a way that allows easy computations with the value.
-    // E.g: "S" -> 1.19
-    // "O": -> 1.0
-    private def getVATvalue(code: String): Double = {
-        return (VATCodeToNum(code) / 100) +1
+    // Assumes the vatRate in this format: A tax of 19.7% is given as 19.7
+    // returns the value with a leading 1; e.g.
+    // 19 -> 1.19
+    // 2.7 -> 1.027
+    private def getVATvalue(vatRate: Double): Double = {
+        return (vatRate / 100) +1
     }
 
     // Round to nearest two digits after comma
@@ -161,7 +150,7 @@ class XMLUtility(){
                 chargedQuantity = quantity
                 totalAmount = quantity * pricePerPart
         }
-        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.VATcategoryCode)
+        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatCategoryCode, position.vatRate)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -185,8 +174,8 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.VATcategoryCode}</ram:CategoryCode>
-                        <ram:RateApplicablePercent>{position.VATRate}</ram:RateApplicablePercent>
+                        <ram:CategoryCode>{position.vatCategoryCode}</ram:CategoryCode>
+                        <ram:RateApplicablePercent>{position.vatRate}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>
@@ -233,7 +222,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var totalVATAmount = 0.0
         for (pos <- positions) {
-            val vatValue = getVATvalue(vatCode)
+            val vatValue = getVATvalue(pos.vatRrate)
             totalAmount = totalAmount + pos.netAmount
             totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * vatValue
             totalVATAmount = totalVATAmount + (pos.netAmount * vatValue - pos.netAmount)
@@ -252,7 +241,7 @@ class XMLUtility(){
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
                     <ram:CategoryCode>{vatCode}</ram:CategoryCode>
-                    <ram:RateApplicablePercent>{VATCodeToNum(vatCode)}</ram:RateApplicablePercent>
+                    <ram:RateApplicablePercent>{10}</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
         }
         return xml
@@ -265,7 +254,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.taxCode)
+            val taxpercentage = getVATvalue(i.vatRrate)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount
