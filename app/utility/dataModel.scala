@@ -4,6 +4,7 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+case class SimplePosition(identifier: VATCategory, netAmount: Double) // Stores positions with only the information the tax summary needs later on
 
 case class Invoice(
     metadata: InvoiceMetaData,
@@ -55,10 +56,21 @@ case class InvoicePaymentInformation(
     vatExemptionReason: String = ""
 )
 
+case class VATCategory(
+    vatCode: String,
+    vatRate: Double
+)
+
+case class InvoiceVATGroup(
+    identifier: VATCategory,
+    positions: List[InvoicePosition],
+    vatExemptionReason: String = ""
+)
+
 case class InvoicePosition(
     id: String,
     name: String,
-    vatCategoryCode: String,
+    vatCode: String,
     vatRate: Double,
     data: InvoicePositionData
 )

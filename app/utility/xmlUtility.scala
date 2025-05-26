@@ -3,7 +3,7 @@ import scala.collection.mutable
 import scala.xml.NodeSeq
 class XMLUtility(){
 
-    private case class StoredPosition(netAmount: Double, taxCode: String, vatRrate: Double)
+    private case class StoredPosition(netAmount: Double, vatCode: String, vatRate: Double)
     private var storedPositions: List[StoredPosition] = Nil
 
     // Assumes the vatRate in this format: A tax of 19.7% is given as 19.7
@@ -150,7 +150,7 @@ class XMLUtility(){
                 chargedQuantity = quantity
                 totalAmount = quantity * pricePerPart
         }
-        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatCategoryCode, position.vatRate)
+        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatCode, position.vatRate)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -174,7 +174,7 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.vatCategoryCode}</ram:CategoryCode>
+                        <ram:CategoryCode>{position.vatCode}</ram:CategoryCode>
                         <ram:RateApplicablePercent>{position.vatRate}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
@@ -194,13 +194,13 @@ class XMLUtility(){
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 {
                     // Group all Positions based on their tax code, to create a tax summary for each code easily
-                    var sortedByVATCode: mutable.Map[String, List[StoredPosition]] = mutable.Map.empty
+                    var sortedByVATCode: mutable.Map[(String, Double), List[StoredPosition]] = mutable.Map.empty
                     for (pos <- storedPositions) {
-                        val currentPos = sortedByVATCode.getOrElse(pos.taxCode, List.empty)
-                        sortedByVATCode.update(pos.taxCode, currentPos :+ pos)
+                        val currentPos = sortedByVATCode.getOrElse((pos.vatCode, pos.vatRate), List.empty)
+                        sortedByVATCode.update((pos.vatCode, pos.vatRate), currentPos :+ pos)
                     }
-                    {for (vatCode <- sortedByVATCode.keys)
-                        yield CreateTaxSummaryXML(vatCode, sortedByVATCode(vatCode), paymentInfo.vatExemptionReason)}
+                    {for (vatInfo <- sortedByVATCode.keys)
+                        yield CreateTaxSummaryXML(vatInfo, sortedByVATCode(vatInfo), paymentInfo.vatExemptionReason)}
                 }
                 {
                     val value = paymentInfo.paymentTerms
@@ -217,12 +217,12 @@ class XMLUtility(){
 
     // This part need to be repeated for every VAT category code
     // TODO: replace hardcoded values
-    private def CreateTaxSummaryXML(vatCode: String, positions: List[StoredPosition], vatExemptionReason: String): scala.xml.Elem = {
+    private def CreateTaxSummaryXML(vatInfo: (String, Double), positions: List[StoredPosition], vatExemptionReason: String): scala.xml.Elem = {
         var totalAmount = 0.0
         var totalAmountWithVAT = 0.0
         var totalVATAmount = 0.0
         for (pos <- positions) {
-            val vatValue = getVATvalue(pos.vatRrate)
+            val vatValue = getVATvalue(pos.vatRate)
             totalAmount = totalAmount + pos.netAmount
             totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * vatValue
             totalVATAmount = totalVATAmount + (pos.netAmount * vatValue - pos.netAmount)
@@ -232,16 +232,15 @@ class XMLUtility(){
                     <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
-                        print(!"SZLM".contains(vatCode))
                         var value = vatExemptionReason
-                        if ("SZLM".contains(vatCode)){value = ""} // S / Z / L / M are the codes that can not contain an exemption reason. All other codes require one.
+                        if ("SZLM".contains(vatInfo(0))){value = ""} // S / Z / L / M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
                         insertOptionalInput(value, xml)
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
-                    <ram:CategoryCode>{vatCode}</ram:CategoryCode>
-                    <ram:RateApplicablePercent>{10}</ram:RateApplicablePercent>
+                    <ram:CategoryCode>{vatInfo(0)}</ram:CategoryCode>
+                    <ram:RateApplicablePercent>{vatInfo(1)}</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
         }
         return xml
@@ -254,7 +253,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.vatRrate)
+            val taxpercentage = getVATvalue(i.vatRate)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount

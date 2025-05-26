@@ -5,11 +5,13 @@ import scala.concurrent.ExecutionContext
 import play.api._
 import play.api.mvc._
 import scala.sys.process._
+import scala.collection.mutable
 
 import java.io.{File, PrintWriter}
 import scala.xml.XML
 
 import utility._
+import cats.syntax.group
 
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
 
@@ -85,8 +87,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("PaymentTerms"),
       connectInput("VATExemptionReasonText")
     )
-
+    
     var allPositions: List[InvoicePosition] = Nil
+    var simplifiedPositions: List[SimplePosition] = Nil
+    var groupedPositions: mutable.Map[VATCategory, List[SimplePosition]] = mutable.Map.empty
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
       var innerPosition: InvoicePositionData = null
@@ -111,18 +115,31 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         innerPosition
       )
       allPositions = allPositions :+ position
+      simplifiedPositions = simplifiedPositions :+ SimplePosition(VATCategory(position.vatCode, position.vatRate), connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
+    for (pos <- simplifiedPositions) {
+      val identifier = pos.identifier
+      val currentPos = groupedPositions.getOrElse(identifier, List.empty)
+      val newPos = SimplePosition(identifier, pos.netAmount)
+      groupedPositions.update(identifier, currentPos :+ newPos)
+    }
+    print(allPositions)
+    print("\n")
+    print(groupedPositions)
+    print("\n")
+    print(groupedPositions.values.flatten.size)
+    print("\n")
 
     // Testing validation prototypes
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    var ex6 = InputValidator.ValidateFormData(1, "A")
-    print(ex6)
-    print("\n")
-    var ex7 = InputValidator.ValidateFormData(0, "A")
-    print(ex7)
-    print("\n")
-    var ex8 = InputValidator.ValidateFormData(1, "D")
-    print(ex8)
-    print("\n")
+    // var ex6 = InputValidator.ValidateFormData(1, "A")
+    // print(ex6)
+    // print("\n")
+    // var ex7 = InputValidator.ValidateFormData(0, "A")
+    // print(ex7)
+    // print("\n")
+    // var ex8 = InputValidator.ValidateFormData(1, "D")
+    // print(ex8)
+    // print("\n")
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     val involvedparties = InvoiceInvolvedParties(seller, sellerContact, buyer)
