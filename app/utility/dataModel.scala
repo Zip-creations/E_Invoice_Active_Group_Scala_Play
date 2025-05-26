@@ -1,5 +1,7 @@
 package utility
 import scala.xml.XML
+import cats.data._
+import cats.data.Validated._
 import cats.syntax.all._
 
 
@@ -80,7 +82,7 @@ case class Address (
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Prototypes for input validation
 
-val allowedCodes: List[String] = List.apply("A", "B", "C") // or read from the same file frontend is using
+val allowedCodes: Set[String] = Set("A", "B", "C") // or read from the same file frontend is using
 
 enum allowedCodes2 {
     case A()
@@ -133,24 +135,22 @@ case object ValueNotInCodelist extends ErrorMessageHandling {
 }
 
 sealed trait InputValidator {
-    def ValidateValue1(value1: Double): Either[ErrorMessageHandling, Double] =
-        Either.cond(
+    def validateValue1(value1: Double): Validated[Seq[ErrorMessageHandling], Double] =
+        Validated.cond(
             !(value1 == 0),
             value1,
-            ValueIsZero
+            Seq(ValueIsZero)
             )
-    def ValidateValue2(value2: String): Either[ErrorMessageHandling, String] =
-        Either.cond(
+    def validateValue2(value2: String): Validated[Seq[ErrorMessageHandling], String] =
+        Validated.cond(
             allowedCodes.contains(value2),
             value2,
-            ValueNotInCodelist
+            Seq(ValueNotInCodelist)
         )
-    def ValidateFormData(value1: Double, value2: String): Either[ErrorMessageHandling, Example2] = {
-        for {
-            validValue1 <- ValidateValue1(value1)
-            validValue2 <- ValidateValue2(value2)
-        } yield Example2(validValue1, validValue2)
-    }
+    def ValidateFormData(value1: Double, value2: String): Validated[Seq[ErrorMessageHandling], Example2] = {
+            (validateValue1(value1),
+            validateValue2(value2)).mapN(Example2.apply)
+        }
 }
 
 object InputValidator extends InputValidator
