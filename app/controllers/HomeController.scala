@@ -82,7 +82,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     var allPositions: List[InvoicePosition] = Nil
     var simplifiedPositions: List[SimplePosition] = Nil
-    var groupedPositions: mutable.Map[VATCategory, List[SimplePosition]] = mutable.Map.empty
+    var groupedPositions: mutable.Map[VATCategoryIdentifier, List[SimplePosition]] = mutable.Map.empty
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
       var innerPosition: InvoicePositionData = null
@@ -107,7 +107,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         innerPosition
       )
       allPositions = allPositions :+ position
-      simplifiedPositions = simplifiedPositions :+ SimplePosition(VATCategory(position.vatCode, position.vatRate), connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
+      simplifiedPositions = simplifiedPositions :+ SimplePosition(VATCategoryIdentifier(position.vatCode, position.vatRate), connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
     for (pos <- simplifiedPositions) {
       val identifier = pos.identifier
       val currentPos = groupedPositions.getOrElse(identifier, List.empty)
@@ -122,19 +122,12 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
       vatGroups = vatGroups :+ vatGroup
     }
-    print(allPositions)
-    print("\n")
-    print(groupedPositions)
-    print("\n")
-    print(groupedPositions.values.flatten.size)
-    print("\n")
 
     val paymentInformation = InvoicePaymentInformation(
       connectInput("InvoiceCurrencyCode"),
       connectInput("PaymentMeansTypeCode"),
       vatGroups,
-      connectInput("PaymentTerms"),
-      connectInput("VATExemptionReasonText")
+      connectInput("PaymentTerms")
     )
     // Testing validation prototypes
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

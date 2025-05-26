@@ -5,7 +5,6 @@ import cats.data.Validated._
 import cats.syntax.all._
 import scala.collection.mutable
 
-case class SimplePosition(identifier: VATCategory, netAmount: Double) // Stores positions with only the information the tax summary needs later on
 
 case class Invoice(
     metadata: InvoiceMetaData,
@@ -50,24 +49,25 @@ case class InvoiceBuyer(
     email: String
     )
 
-case class InvoicePaymentInformation(
-    currencycode: String,
-    paymentMeansCode: String,
-    vatGroups: List[InvoiceVATGroup],
-    paymentTerms: String = "",
-    vatExemptionReason: String = ""
-)
-
-case class VATCategory(
+case class VATCategoryIdentifier(
     vatCode: String,
     vatRate: Double
 )
 
 case class InvoiceVATGroup(
-    identifier: VATCategory,
+    identifier: VATCategoryIdentifier,
     positions: List[SimplePosition],
     vatExemptionReason: String = ""
 )
+
+case class InvoicePaymentInformation(
+    currencycode: String,
+    paymentMeansCode: String,
+    vatGroups: List[InvoiceVATGroup],
+    paymentTerms: String = ""
+)
+
+case class SimplePosition(identifier: VATCategoryIdentifier, netAmount: Double) // Stores positions with only the information the tax summary needs later on
 
 case class InvoicePosition(
     id: String,
