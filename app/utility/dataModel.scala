@@ -91,36 +91,6 @@ enum allowedCodes2 {
     case C()
 }  // Can an Enum be parsed from a file at runtime?
 
-case class Example1 private (value1: Double, value2: String)
-
-object Example1 {
-    def create(value1: Double, value2: String): Option[Example1] = {
-        if (value1 == 0) {
-            None
-        } else if (!allowedCodes.contains(value2)) {
-            None
-        } else {
-            Some (new Example1(value1, value2))
-        }
-    }
-}
-
-// Example 1 with Exception
-case class Example1_5 private (value1: Double, value2: String)
-
-object Example1_5 {
-    def create(value1: Double, value2: String): Example1_5 = {
-        if (value1 == 0) {
-            throw new IllegalArgumentException("value1 can not be 0")
-        } else if (!allowedCodes.contains(value2)) {
-            throw new IllegalArgumentException("value2 must be from a specific code list")
-        } else {
-            new Example1_5(value1, value2)
-        }
-    }
-}
-
-
 final case class Example2(value1: Double, value2: String)
 
 sealed trait ErrorMessageHandling {

@@ -114,19 +114,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     // Testing validation prototypes
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    var ex1 = Example1.create(1, "A")
-    print(ex1)
-    print("\n")
-    var ex2 = Example1.create(0, "A")
-    print(ex2)
-    print("\n")
-    var ex3 = Example1.create(0, "D")
-    print(ex3)
-    print("\n")
-
-    var ex4 = Example1_5.create(1, "A")
-    // var ex5 = Example1_5.create(0, "A")  // Crashes (on purpose)
-
     var ex6 = InputValidator.ValidateFormData(1, "A")
     print(ex6)
     print("\n")
@@ -136,7 +123,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     var ex8 = InputValidator.ValidateFormData(1, "D")
     print(ex8)
     print("\n")
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     val involvedparties = InvoiceInvolvedParties(seller, sellerContact, buyer)
