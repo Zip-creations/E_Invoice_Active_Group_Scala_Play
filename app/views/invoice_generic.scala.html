@@ -25,6 +25,7 @@
             <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
         </div>
     </div> <!-- BT-151 -->
+    @GenerateInputField("InvoicedItemVATRate" + positionID, "Umsatzsteuersatz", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", true, classes="datatypePercentage") <!-- BT-152 -->
     @GenerateInputField("InvoiceLineNetAmount" + positionID, "Gesamtwert", "lorem ipsum", classes="datatypeAmount") <!-- BT-131 ? -->
     <div class="buttonContainer">
         <button type="button" class="removePositionButton">Position entfernen</button>

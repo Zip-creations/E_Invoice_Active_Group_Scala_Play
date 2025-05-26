@@ -31,7 +31,7 @@ case class InvoiceSeller(
     telephonenumber: String,
     websitelink: String,
     email: String,
-    identifier: String = ""
+    vatIdentifier: String
     )
 
 case class InvoiceSellerContact(
@@ -59,6 +59,7 @@ case class InvoicePosition(
     id: String,
     name: String,
     VATcategoryCode: String,
+    VATRate: Double,
     data: InvoicePositionData
 )
 

@@ -94,17 +94,15 @@ class XMLUtility(){
     private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
-            {
-                val value = seller.identifier
-                val xml = <ram:GlobalID schemeID="0088">{value}</ram:GlobalID>
-                insertOptionalInput(value, xml)
-            }
               <ram:Name>{seller.name}</ram:Name>
                 {CreateSellerContactXML(sellerContact)}
                 {CreateAddressXML(seller.address)}
                 <ram:URIUniversalCommunication>
                 <ram:URIID schemeID="EM">{seller.email}</ram:URIID>
                 </ram:URIUniversalCommunication>
+                <ram:SpecifiedTaxRegistration>
+                    <ram:ID schemeID="VA">{seller.vatIdentifier}</ram:ID>
+                </ram:SpecifiedTaxRegistration>
             </ram:SellerTradeParty>
         return xml
     }
@@ -188,6 +186,7 @@ class XMLUtility(){
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
                         <ram:CategoryCode>{position.VATcategoryCode}</ram:CategoryCode>
+                        <ram:RateApplicablePercent>{position.VATRate}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>

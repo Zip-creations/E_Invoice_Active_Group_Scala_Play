@@ -57,7 +57,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("TODO1"),
       connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),
-      connectInput("SellerIdentifier")
+      connectInput("SellerVATIdentifier")
       )
 
     val sellerContact = InvoiceSellerContact(
@@ -107,6 +107,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         connectInput("InvoiceLineIdentifier" + index),
         connectInput("ItemName" + index),
         connectInput("InvoicedItemVATCategoryCode" + index),
+        connectInput("InvoicedItemVATRate" + index).toDouble,
         innerPosition
       )
       allPositions = allPositions :+ position
