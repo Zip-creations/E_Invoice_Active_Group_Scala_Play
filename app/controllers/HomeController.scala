@@ -51,11 +51,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val seller = InvoiceSeller(
       connectInput("SellerName"),
       connectInput("SellerAddressLine1"),
-      new Address(
+      Address(
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
-      connectInput("SellerCountryCode")
-      ),
+      connectInput("SellerCountryCode"))
+      ,
       connectInput("TODO1"),
       connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),

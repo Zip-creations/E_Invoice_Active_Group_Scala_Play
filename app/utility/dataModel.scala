@@ -115,7 +115,7 @@ case object ValueIsZero extends ErrorMessageHandling {
     def errorMessage: String = "value1 can not be 0"
 }
 
-case object ValueNotInCodelist extends ErrorMessageHandling {
+case object ValueNotInCodeList extends ErrorMessageHandling {
     def errorMessage: String = "given value for value2 was not found in the codelist"
 }
 
@@ -130,7 +130,7 @@ sealed trait InputValidator {
         Validated.cond(
             allowedCodes.contains(value2),
             value2,
-            Seq(ValueNotInCodelist)
+            Seq(ValueNotInCodeList)
         )
     def ValidateFormData(value1: Double, value2: String): Validated[Seq[ErrorMessageHandling], Example2] = {
             (validateValue1(value1),
