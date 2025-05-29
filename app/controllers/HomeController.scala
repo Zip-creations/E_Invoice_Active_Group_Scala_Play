@@ -11,6 +11,7 @@ import java.io.{File, PrintWriter}
 import scala.xml.XML
 
 import utility._
+import codelists._
 import cats.syntax.group
 
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
@@ -141,6 +142,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // print(ex8)
     // print("\n")
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    // print(CountryCode.matchStr("DE"))
+    // print(CountryCode.matchStr("DE").get)
 
     val involvedparties = InvoiceInvolvedParties(seller, sellerContact, buyer)
     val invoice = Invoice(meta, involvedparties, allPositions, paymentInformation)

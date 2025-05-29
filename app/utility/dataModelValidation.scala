@@ -22,8 +22,8 @@ sealed trait AddressValidator {
     }
     def validateCountrycode(countrycode: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
-            true,
-            countrycode,
+            true, // CountryCode.strInList(countrycode)
+            countrycode,  // CountryCode.matchStr(str).get
             Seq(ArgumentError)
         )
     }
