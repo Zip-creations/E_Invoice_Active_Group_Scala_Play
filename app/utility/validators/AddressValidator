@@ -4,41 +4,6 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-sealed trait SellerValidator {
-    def validateName(name: String): Validated[Seq[ErrorMessage], String] = {
-        Validated.cond(
-            true,
-            name,
-            Seq(ArgumentError)
-        )
-    }
-    def validateAddress(address: Address): Validated[Seq[ErrorMessage], Address] = {
-        AddressValidator.validateAddress(address)
-    }
-    def validateSeller(address: Address): Validated[Seq[ErrorMessage], InvoiceSeller] = {
-        (
-            validateName("test"),
-            validateName("test"),
-            validateAddress(address),
-            validateName("test"),
-            validateName("test"),
-            validateName("test"),
-            validateName("test")
-        ).mapN(InvoiceSeller.apply)
-    }
-}
-object SellerValidator extends SellerValidator
-
-// case class InvoiceSeller(
-//     name: String,
-//     street: String,
-//     address: Address,
-//     telephonenumber: String,
-//     websitelink: String,
-//     email: String,
-//     vatIdentifier: String
-//     )
-
 sealed trait AddressValidator {
     def validatePostcode(postcode: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -77,9 +42,3 @@ sealed trait AddressValidator {
     }
 }
 object AddressValidator extends AddressValidator
-
-// case class Address (
-//     postCode: String,
-//     city: String,
-//     countryCode: String
-// )
