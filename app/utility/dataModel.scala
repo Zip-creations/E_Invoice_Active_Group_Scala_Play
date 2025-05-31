@@ -10,20 +10,17 @@ case class Invoice(
     metadata: InvoiceMetaData,
     involvedParties: InvoiceInvolvedParties,
     positions: List[InvoicePosition],
-    paymentInformation: InvoicePaymentInformation
-    )
+    paymentInformation: InvoicePaymentInformation)
 
 case class InvoiceMetaData(
     number: String,
     date: String,
-    typ: String
-    )
+    typ: String)
 
 case class InvoiceInvolvedParties(
     seller: InvoiceSeller,
     sellerContact: InvoiceSellerContact,
-    buyer: InvoiceBuyer
-)
+    buyer: InvoiceBuyer)
 
 case class InvoiceSeller(
     name: String,
@@ -32,50 +29,45 @@ case class InvoiceSeller(
     telephonenumber: String,
     websitelink: String,
     email: String,
-    vatIdentifier: String
-    )
+    vatIdentifier: String)
 
 case class InvoiceSellerContact(
     name: String,
     telephonenumber: String,
-    email: String
-    )
+    email: String)
 
 case class InvoiceBuyer(
     reference: String,
     name: String,
     address: Address,
     iban: String,
-    email: String
-    )
+    email: String)
 
 case class VATCategoryIdentifier(
     vatCode: String,
-    vatRate: Double
-)
+    vatRate: Double)
 
 case class InvoiceVATGroup(
     identifier: VATCategoryIdentifier,
     positions: List[SimplePosition],
-    vatExemptionReason: String = ""
-)
+    vatExemptionReason: String = "")
 
 case class InvoicePaymentInformation(
     currencycode: String,
     paymentMeansCode: String,
     vatGroups: List[InvoiceVATGroup],
-    paymentTerms: String = ""
-)
+    paymentTerms: String = "")
 
-case class SimplePosition(identifier: VATCategoryIdentifier, netAmount: Double) // Stores positions with only the information the tax summary needs later on
+case class SimplePosition(
+    identifier: VATCategoryIdentifier,
+    netAmount: Double) // Stores positions with only the information the tax summary needs later on
 
 case class InvoicePosition(
     id: String,
     name: String,
     vatCode: String,
     vatRate: Double,
-    data: InvoicePositionData
-)
+    data: InvoicePositionData)
 
 enum InvoicePositionData{
     case Stundenposition(
@@ -86,14 +78,12 @@ enum InvoicePositionData{
         quantity: Double,
         pricePerPart: Double,
         measurementCode: String
-    )
-}
+    )}
 
 case class Address (
     postCode: String,
     city: String,
-    countryCode: String
-)
+    countryCode: String)
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Prototypes for input validation
 
