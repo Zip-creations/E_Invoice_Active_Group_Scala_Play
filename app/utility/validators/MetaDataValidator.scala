@@ -4,6 +4,7 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+
 sealed trait MetaDataValidator {
     def validateNumber(number: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -32,6 +33,13 @@ sealed trait MetaDataValidator {
             validateDate(date),
             validateTyp(typ)
         ).mapN(InvoiceMetaData.apply)
+    }
+    def validateMetaData(metadata: InvoiceMetaData): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
+        validateMetaData(
+            metadata.number,
+            metadata.date,
+            metadata.typ
+        )
     }
 }
 object MetaDataValidator extends MetaDataValidator

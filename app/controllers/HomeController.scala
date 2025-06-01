@@ -103,12 +103,14 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       val position = InvoicePosition(
         connectInput("InvoiceLineIdentifier" + index),
         connectInput("ItemName" + index),
+        new VATCategoryIdentifier(
         connectInput("InvoicedItemVATCategoryCode" + index),
-        connectInput("InvoicedItemVATRate" + index).toDouble,
+        connectInput("InvoicedItemVATRate" + index).toDouble
+        ),
         innerPosition
       )
       allPositions = allPositions :+ position
-      simplifiedPositions = simplifiedPositions :+ SimplePosition(VATCategoryIdentifier(position.vatCode, position.vatRate), connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
+      simplifiedPositions = simplifiedPositions :+ SimplePosition(position.vatId, connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
     for (pos <- simplifiedPositions) {
       val identifier = pos.identifier
       val currentPos = groupedPositions.getOrElse(identifier, List.empty)

@@ -22,7 +22,15 @@ sealed trait InvolvedPartiesValidator {
             validateBuyer(buyer)
         ).mapN(InvoiceInvolvedParties.apply)
     }
+    def validateInvolvedParties(parties: InvoiceInvolvedParties): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
+        validateInvolvedParties(
+            parties.seller,
+            parties.sellerContact,
+            parties.buyer
+        )
+    }
 }
+object InvolvedPartiesValidator extends InvolvedPartiesValidator
 
 // case class InvoiceInvolvedParties(
 //     seller: InvoiceSeller,

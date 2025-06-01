@@ -1,9 +1,11 @@
 package utility
+
 import scala.xml.XML
+import scala.collection.mutable
+
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
-import scala.collection.mutable
 
 
 case class Invoice(
@@ -65,8 +67,7 @@ case class SimplePosition(
 case class InvoicePosition(
     id: String,
     name: String,
-    vatCode: String,
-    vatRate: Double,
+    vatId: VATCategoryIdentifier,
     data: InvoicePositionData)
 
 enum InvoicePositionData{
@@ -85,50 +86,7 @@ case class Address (
     city: String,
     countryCode: String)
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Prototypes for input validation
 
-val allowedCodes: Set[String] = Set("A", "B", "C") // or read from the same file frontend is using
-
-enum allowedCodes2 {
-    case A()
-    case B()
-    case C()
-}  // Can an Enum be parsed from a file at runtime?
-
-final case class Example2(value1: Double, value2: String)
-
-sealed trait ErrorMessageHandling {
-    def errorMessage: String
-}
-
-case object ValueIsZero extends ErrorMessageHandling {
-    def errorMessage: String = "value1 can not be 0"
-}
-
-case object ValueNotInCodeList extends ErrorMessageHandling {
-    def errorMessage: String = "given value for value2 was not found in the codelist"
-}
-
-sealed trait InputValidator {
-    def validateValue1(value1: Double): Validated[Seq[ErrorMessageHandling], Double] =
-        Validated.cond(
-            !(value1 == 0),
-            value1,
-            Seq(ValueIsZero)
-            )
-    def validateValue2(value2: String): Validated[Seq[ErrorMessageHandling], String] =
-        Validated.cond(
-            allowedCodes.contains(value2),
-            value2,
-            Seq(ValueNotInCodeList)
-        )
-    def ValidateFormData(value1: Double, value2: String): Validated[Seq[ErrorMessageHandling], Example2] = {
-            (validateValue1(value1),
-            validateValue2(value2)).mapN(Example2.apply)
-        }
-}
-
-object InputValidator extends InputValidator
 
 // Other possible ways to create an Invoice-Datamodel:
 

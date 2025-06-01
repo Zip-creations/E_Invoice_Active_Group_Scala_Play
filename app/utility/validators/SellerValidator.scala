@@ -4,6 +4,7 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+
 sealed trait SellerValidator {
     def validateName(name: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(

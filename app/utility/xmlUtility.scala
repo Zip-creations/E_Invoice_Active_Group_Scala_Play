@@ -3,7 +3,7 @@ import scala.collection.mutable
 import scala.xml.NodeSeq
 class XMLUtility(){
 
-    private case class StoredPosition(netAmount: Double, vatCode: String, vatRate: Double)
+    private case class StoredPosition(netAmount: Double, vatId: VATCategoryIdentifier)
     private var storedPositions: List[StoredPosition] = Nil
 
     // Assumes the vatRate in this format: A tax of 19.7% is given as 19.7
@@ -150,7 +150,7 @@ class XMLUtility(){
                 chargedQuantity = quantity
                 totalAmount = quantity * pricePerPart
         }
-        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatCode, position.vatRate)
+        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatId)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -174,8 +174,8 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.vatCode}</ram:CategoryCode>
-                        <ram:RateApplicablePercent>{position.vatRate}</ram:RateApplicablePercent>
+                        <ram:CategoryCode>{position.vatId.vatCode}</ram:CategoryCode>
+                        <ram:RateApplicablePercent>{position.vatId.vatRate}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>
@@ -248,7 +248,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.vatRate)
+            val taxpercentage = getVATvalue(i.vatId.vatRate)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount  // Whats the differnce to totalNetAmount?
