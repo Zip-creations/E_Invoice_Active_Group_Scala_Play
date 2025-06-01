@@ -159,7 +159,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val invoicePathXML = new File(s"./output/xml/$invoiceName.xml").getPath
     val invoicePathPDF = new File(s"./output/pdf/$invoiceName.pdf").getPath
     val reportPath = new File(s"app/views/validation_reports/${invoiceName}_validation.html").getPath
-    
+
     // Store invoice as .xml
     val writer = new PrintWriter(new File(invoicePathXML))
     writer.write("<?xml version='1.0' encoding='UTF-8'?>\n" ++ xmlData.toString() ++ "\n")
