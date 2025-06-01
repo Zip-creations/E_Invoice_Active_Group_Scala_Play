@@ -86,7 +86,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
 
     var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
-    var simplifiedPositions: List[Validated[Seq[ErrorMessage], SimplePosition]] = Nil
     var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
@@ -113,6 +112,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         }
       )
       allPositions = allPositions :+ position
+      // Group positions with only the info that is relevant for the VAT groups
       val newPos = createSimplePosition(vatId, connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
       val currentPos = groupedPositions.getOrElse(vatId, List.empty)
       groupedPositions.update(vatId, currentPos :+ newPos)
@@ -132,18 +132,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       vatGroups,
       connectInput("PaymentTerms")
     )
-    // Testing validation prototypes
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // var ex6 = InputValidator.ValidateFormData(1, "A")
-    // print(ex6)
-    // print("\n")
-    // var ex7 = InputValidator.ValidateFormData(0, "A")
-    // print(ex7)
-    // print("\n")
-    // var ex8 = InputValidator.ValidateFormData(1, "D")
-    // print(ex8)
-    // print("\n")
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // print(CountryCode.matchStr("DE"))
     // print(CountryCode.matchStr("DE").get)

@@ -1,5 +1,7 @@
 package utility
 
+import codelists._
+
 import scala.xml.XML
 import scala.collection.mutable
 
@@ -84,7 +86,7 @@ enum InvoicePositionData{
 case class Address (
     postCode: String,
     city: String,
-    countryCode: String)
+    countryCode: CountryCode)
 
 
 // Other possible ways to create an Invoice-Datamodel:

@@ -1,5 +1,7 @@
 package utility
 
+import codelists._
+
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
@@ -20,10 +22,10 @@ sealed trait AddressValidator {
             Seq(ArgumentError)
         )
     }
-    def validateCountrycode(countrycode: String): Validated[Seq[ErrorMessage], String] = {
+    def validateCountrycode(countrycode: String): Validated[Seq[ErrorMessage], CountryCode] = {
         Validated.cond(
-            true, // CountryCode.strInList(countrycode)
-            countrycode,  // CountryCode.matchStr(str).get
+            CountryCode.strInList(countrycode),
+            CountryCode.matchStr(countrycode).get,
             Seq(ArgumentError)
         )
     }
@@ -34,12 +36,12 @@ sealed trait AddressValidator {
         validateCountrycode(countrycode)
         ).mapN(Address.apply)
     }
-    def validateAddress(address: Address): Validated[Seq[ErrorMessage], Address] = {
-        validateAddress(
-            address.postCode,
-            address.city,
-            address.countryCode
-        )
-    }
+    // def validateAddress(address: Address): Validated[Seq[ErrorMessage], Address] = {
+    //     validateAddress(
+    //         address.postCode,
+    //         address.city,
+    //         address.countryCode
+    //     )
+    // }
 }
 object AddressValidator extends AddressValidator
