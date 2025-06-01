@@ -6,12 +6,17 @@ import cats.syntax.all._
 
 
 sealed trait PositionDataValidator {
-    def validatePositionData(positionData: InvoicePositionData): Validated[Seq[ErrorMessage], InvoicePositionData] = {
+    def validatePositionData(positionData: Validated[Seq[ErrorMessage], InvoicePosition]): Validated[Seq[ErrorMessage], InvoicePositionData] = {
         positionData match {
-            case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
-                    StundenpositionValidator.validateStundenposition(hours, hourlyrate)
-            case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
-                    LeistungspositionValidator.validateLeistungsposition(quantity, pricePerPart, measurementCode)
+            case Valid(a) => 
+                a.data match {
+                    case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
+                            StundenpositionValidator.validateStundenposition(hours, hourlyrate)
+                    case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
+                            LeistungspositionValidator.validateLeistungsposition(quantity, pricePerPart, measurementCode)
+                }
+            case Invalid(e) =>
+                Invalid(e)
         }
     }
 }

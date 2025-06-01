@@ -20,13 +20,13 @@ sealed trait PositionValidator {
             Seq(ArgumentError)
         )
     }
-    def validateVATId(vatId: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
-        VATCategoryIdentifierValidator.validateVATCategoryIdentifier(vatId)
+    def validateVATId(vatId: Validated[Seq[ErrorMessage], VATCategoryIdentifier]): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+        vatId
     }
-    def validateData(data: InvoicePositionData): Validated[Seq[ErrorMessage], InvoicePositionData] = {
-        PositionDataValidator.validatePositionData(data)
+    def validateData(data: Validated[Seq[ErrorMessage], InvoicePositionData]): Validated[Seq[ErrorMessage], InvoicePositionData] = {
+        data
     }
-    def validatePosition(id: String, name: String, vatId: VATCategoryIdentifier, data :InvoicePositionData): Validated[Seq[ErrorMessage], InvoicePosition] = {
+    def validatePosition(id: String, name: String, vatId: Validated[Seq[ErrorMessage], VATCategoryIdentifier], data :Validated[Seq[ErrorMessage], InvoicePositionData]): Validated[Seq[ErrorMessage], InvoicePosition] = {
         (
             valideteId(id),
             valideteName(name),
@@ -34,13 +34,13 @@ sealed trait PositionValidator {
             validateData(data)
         ).mapN(InvoicePosition.apply)
     }
-    def validatePosition(position: InvoicePosition): Validated[Seq[ErrorMessage], InvoicePosition] = {
-        validatePosition(
-            position.id,
-            position.name,
-            position.vatId,
-            position.data
-        )
-    }
+    // def validatePosition(position: InvoicePosition): Validated[Seq[ErrorMessage], InvoicePosition] = {
+    //     validatePosition(
+    //         position.id,
+    //         position.name,
+    //         position.vatId,
+    //         position.data
+    //     )
+    // }
 }
 object PositionValidator extends PositionValidator

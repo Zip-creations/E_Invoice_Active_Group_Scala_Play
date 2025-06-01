@@ -10,6 +10,10 @@ import scala.collection.mutable
 import java.io.{File, PrintWriter}
 import scala.xml.XML
 
+import cats.data._
+import cats.data.Validated._
+import cats.syntax.all._
+
 import utility._
 import codelists._
 import cats.syntax.group
@@ -43,16 +47,16 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def connectInput = (inputIdentifier: String) =>
       formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
 
-    val meta = InvoiceMetaData(
+    val meta = createMetaData(
       connectInput("InvoiceNumber"),
       connectInput("InvoiceIssueDate").replace("-", ""),
       "380" // TODO: replace with a value the user can set OR replace with fitting default
       )
 
-    val seller = InvoiceSeller(
+    val seller = createSeller(
       connectInput("SellerName"),
       connectInput("SellerAddressLine1"),
-      Address(
+      createAddress(
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
       connectInput("SellerCountryCode"))
@@ -63,16 +67,16 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerVATIdentifier")
       )
 
-    val sellerContact = InvoiceSellerContact(
+    val sellerContact = createSellerContact(
       connectInput("SellerContactPoint"),
       connectInput("SellerContactTelephoneNumber"),
       connectInput("SellerContactEmailAddress"),
       )
 
-    val buyer = InvoiceBuyer(
+    val buyer = createBuyer(
       connectInput("BuyerReference"),
       connectInput("BuyerName"),
-      new Address(
+      createAddress(
       connectInput("BuyerPostCode"),
       connectInput("BuyerCity"),
       connectInput("BuyerCountryCode")
@@ -81,52 +85,48 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("BuyerElectronicAddress")
       )
 
-    var allPositions: List[InvoicePosition] = Nil
-    var simplifiedPositions: List[SimplePosition] = Nil
-    var groupedPositions: mutable.Map[VATCategoryIdentifier, List[SimplePosition]] = mutable.Map.empty
+    var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
+    var simplifiedPositions: List[Validated[Seq[ErrorMessage], SimplePosition]] = Nil
+    var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
-      var innerPosition: InvoicePositionData = null
-      positionType match {
+      val vatId = createVATCategoryIdentifier(
+        connectInput("InvoicedItemVATCategoryCode" + index),
+        connectInput("InvoicedItemVATRate" + index).toDouble
+        )
+      val position = createPosition(
+        connectInput("InvoiceLineIdentifier" + index),
+        connectInput("ItemName" + index),
+        vatId,
+        positionType match {
         case "time" =>
-          innerPosition = InvoicePositionData.Stundenposition(
+          createStundenposition(
             connectInput("InvoicedQuantity" + index).toDouble,
             connectInput("ItemNetPrice" + index).toDouble
           )
         case "item" =>
-          innerPosition = InvoicePositionData.Leistungsposition(
+          createLeistungsposition(
             connectInput("InvoicedQuantity" + index).toDouble,
             connectInput("ItemNetPrice" + index).toDouble,
             connectInput("InvoicedQuantityUnitOfMeasureCode" + index)
           )
-      }
-      val position = InvoicePosition(
-        connectInput("InvoiceLineIdentifier" + index),
-        connectInput("ItemName" + index),
-        new VATCategoryIdentifier(
-        connectInput("InvoicedItemVATCategoryCode" + index),
-        connectInput("InvoicedItemVATRate" + index).toDouble
-        ),
-        innerPosition
+        }
       )
       allPositions = allPositions :+ position
-      simplifiedPositions = simplifiedPositions :+ SimplePosition(position.vatId, connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
-    for (pos <- simplifiedPositions) {
-      val identifier = pos.identifier
-      val currentPos = groupedPositions.getOrElse(identifier, List.empty)
-      val newPos = SimplePosition(identifier, pos.netAmount)
-      groupedPositions.update(identifier, currentPos :+ newPos)
-    }
-    var vatGroups: List[InvoiceVATGroup] = Nil
+      val newPos = createSimplePosition(vatId, connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
+      val currentPos = groupedPositions.getOrElse(vatId, List.empty)
+      groupedPositions.update(vatId, currentPos :+ newPos)
+
+    var vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]] = Nil
     for (group <- groupedPositions.keys) {
-      val vatGroup = InvoiceVATGroup(
+      val vatGroup = createVATGroup(
         group,
         groupedPositions(group)
       )
       vatGroups = vatGroups :+ vatGroup
     }
 
-    val paymentInformation = InvoicePaymentInformation(
+    val paymentInformation = createPaymentInformation(
       connectInput("InvoiceCurrencyCode"),
       connectInput("PaymentMeansTypeCode"),
       vatGroups,
@@ -148,10 +148,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // print(CountryCode.matchStr("DE"))
     // print(CountryCode.matchStr("DE").get)
 
-    val involvedparties = InvoiceInvolvedParties(seller, sellerContact, buyer)
-    val invoice = Invoice(meta, involvedparties, allPositions, paymentInformation)
+    val involvedparties = createInvolvedParties(seller, sellerContact, buyer)
+    val invoice = createInvoice(meta, involvedparties, allPositions, paymentInformation)
 
-    val xmlData = xmlUtil.CreateInvoiceXML(invoice)
+    var xmlData: scala.xml.NodeSeq = scala.xml.NodeSeq.Empty
+    invoice match {
+      case Valid(a) =>
+        xmlData = xmlUtil.CreateInvoiceXML(a)
+      case Invalid(e) =>
+    }
 
     // Paths
     val inputInvoiceNumber = connectInput("InvoiceNumber")

@@ -6,8 +6,8 @@ import cats.syntax.all._
 
 
 sealed trait SimplePositionValidator {
-    def validateIdentifier(id: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
-        VATCategoryIdentifierValidator.validateVATCategoryIdentifier(id)
+    def validateIdentifier(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier]): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+        id
     }
     def validateNetAmount(amount: Double): Validated[Seq[ErrorMessage], Double] = {
         Validated.cond(
@@ -16,17 +16,17 @@ sealed trait SimplePositionValidator {
             Seq(ArgumentError)
         )
     }
-    def validateSimplePosition(identifier: VATCategoryIdentifier, netAmount: Double): Validated[Seq[ErrorMessage], SimplePosition] = {
+    def validateSimplePosition(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], netAmount: Double): Validated[Seq[ErrorMessage], SimplePosition] = {
         (
             validateIdentifier(identifier),
             validateNetAmount(netAmount)
         ).mapN(SimplePosition.apply)
     }
-    def validateSimplePosition(simplePosition: SimplePosition): Validated[Seq[ErrorMessage], SimplePosition] = {
-        validateSimplePosition(
-            simplePosition.identifier,
-            simplePosition.netAmount
-        )
-    }
+    // def validateSimplePosition(simplePosition: SimplePosition): Validated[Seq[ErrorMessage], SimplePosition] = {
+    //     validateSimplePosition(
+    //         simplePosition.identifier,
+    //         simplePosition.netAmount
+    //     )
+    // }
 }
 object SimplePositionValidator extends SimplePositionValidator

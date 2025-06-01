@@ -6,11 +6,11 @@ import cats.syntax.all._
 
 
 sealed trait VATGroupValidator {
-    def validateIdentifier(id: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
-        VATCategoryIdentifierValidator.validateVATCategoryIdentifier(id)
+    def validateIdentifier(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier]): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+        id
     }
-    def validatePositions(positions: List[SimplePosition]): Validated[Seq[ErrorMessage], List[SimplePosition]] = {
-        positions.traverse(SimplePositionValidator.validateSimplePosition)
+    def validatePositions(positions: List[Validated[Seq[ErrorMessage], SimplePosition]]): Validated[Seq[ErrorMessage], List[SimplePosition]] = {
+        positions.sequence
     }
     def validateVATExemptionReason(reason: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -19,19 +19,19 @@ sealed trait VATGroupValidator {
             Seq(ArgumentError)
         )
     }
-    def validateVATGroup(identifier: VATCategoryIdentifier, positions: List[SimplePosition], vatExemptionReason: String=""): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
+    def validateVATGroup(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], SimplePosition]], vatExemptionReason: String=""): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
         (
             validateIdentifier(identifier),
             validatePositions(positions),
             validateVATExemptionReason(vatExemptionReason)
         ).mapN(InvoiceVATGroup.apply)
     }
-    def validateVATGroup(vatGroup: InvoiceVATGroup): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
-        validateVATGroup(
-            vatGroup.identifier,
-            vatGroup.positions,
-            vatGroup.vatExemptionReason
-        )
-    }
+    // def validateVATGroup(vatGroup: InvoiceVATGroup): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
+    //     validateVATGroup(
+    //         vatGroup.identifier,
+    //         vatGroup.positions,
+    //         vatGroup.vatExemptionReason
+    //     )
+    // }
 }
 object VATGroupValidator extends VATGroupValidator

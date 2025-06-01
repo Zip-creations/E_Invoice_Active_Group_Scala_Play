@@ -34,13 +34,13 @@ sealed trait SellerContactValidator {
             validateEmail(email)
         ).mapN(InvoiceSellerContact.apply)
     }
-    def validateSellerContact(sellerContact: InvoiceSellerContact): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
-        validateSellerContact(
-            sellerContact.name,
-            sellerContact.telephonenumber,
-            sellerContact.email
-        )
-    }
+    // def validateSellerContact(sellerContact: InvoiceSellerContact): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
+    //     validateSellerContact(
+    //         sellerContact.name,
+    //         sellerContact.telephonenumber,
+    //         sellerContact.email
+    //     )
+    // }
 }
 object SellerContactValidator extends SellerContactValidator
 

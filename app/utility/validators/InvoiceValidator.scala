@@ -6,19 +6,19 @@ import cats.syntax.all._
 
 
 sealed trait InvoiceValidator {
-    def validateMetadata(metadata: InvoiceMetaData): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
-        MetaDataValidator.validateMetaData(metadata)
+    def validateMetadata(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData]): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
+        metadata
     }
-    def validateInvolvedparties(parties: InvoiceInvolvedParties): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
-        InvolvedPartiesValidator.validateInvolvedParties(parties)
+    def validateInvolvedparties(parties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties]): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
+        parties
     }
-    def validatePositions(positions: List[InvoicePosition]): Validated[Seq[ErrorMessage], List[InvoicePosition]] = {
-        positions.traverse(PositionValidator.validatePosition)
+    def validatePositions(positions: List[Validated[Seq[ErrorMessage], InvoicePosition]]): Validated[Seq[ErrorMessage], List[InvoicePosition]] = {
+        positions.sequence
     }
-    def validatePaymentInformation(info: InvoicePaymentInformation): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
-        PaymentInformationValidator.validatePaymentInformation(info)
+    def validatePaymentInformation(info: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+        info
     }
-    def validateInvoice(metadata: InvoiceMetaData, involvedParties: InvoiceInvolvedParties, positions: List[InvoicePosition], paymentInformation: InvoicePaymentInformation): Validated[Seq[ErrorMessage], Invoice] = {
+    def validateInvoice(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData], involvedParties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], paymentInformation: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], Invoice] = {
         (
         validateMetadata(metadata),
         validateInvolvedparties(involvedParties),
@@ -26,13 +26,13 @@ sealed trait InvoiceValidator {
         validatePaymentInformation(paymentInformation)
         ).mapN(Invoice.apply)
     }
-    def validateInvoice(invoice: Invoice): Validated[Seq[ErrorMessage], Invoice] = {
-        validateInvoice(
-            invoice.metadata,
-            invoice.involvedParties,
-            invoice.positions,
-            invoice.paymentInformation
-        )
-    }
+    // def validateInvoice(invoice: Invoice): Validated[Seq[ErrorMessage], Invoice] = {
+    //     validateInvoice(
+    //         invoice.metadata,
+    //         invoice.involvedParties,
+    //         invoice.positions,
+    //         invoice.paymentInformation
+    //     )
+    // }
 }
 object InvoiceValidator extends InvoiceValidator

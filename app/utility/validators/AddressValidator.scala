@@ -8,7 +8,7 @@ import cats.syntax.all._
 sealed trait AddressValidator {
     def validatePostcode(postcode: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
-            true,
+            postcode != "FEHLERTEST",
             postcode,
             Seq(ArgumentError)
         )

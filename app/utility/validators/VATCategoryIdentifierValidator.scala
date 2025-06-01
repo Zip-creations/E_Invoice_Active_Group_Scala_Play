@@ -26,11 +26,11 @@ sealed trait VATCategoryIdentifierValidator {
             validateVatRate(vatRate)
         ).mapN(VATCategoryIdentifier.apply)
     }
-    def validateVATCategoryIdentifier(vatCategoryIdentifier: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
-        validateVATCategoryIdentifier(
-            vatCategoryIdentifier.vatCode,
-            vatCategoryIdentifier.vatRate
-        )
-    }
+    // def validateVATCategoryIdentifier(vatCategoryIdentifier: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+    //     validateVATCategoryIdentifier(
+    //         vatCategoryIdentifier.vatCode,
+    //         vatCategoryIdentifier.vatRate
+    //     )
+    // }
 }
 object VATCategoryIdentifierValidator extends VATCategoryIdentifierValidator

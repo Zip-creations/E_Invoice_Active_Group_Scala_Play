@@ -34,12 +34,12 @@ sealed trait MetaDataValidator {
             validateTyp(typ)
         ).mapN(InvoiceMetaData.apply)
     }
-    def validateMetaData(metadata: InvoiceMetaData): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
-        validateMetaData(
-            metadata.number,
-            metadata.date,
-            metadata.typ
-        )
-    }
+    // def validateMetaData(metadata: InvoiceMetaData): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
+    //     validateMetaData(
+    //         metadata.number,
+    //         metadata.date,
+    //         metadata.typ
+    //     )
+    // }
 }
 object MetaDataValidator extends MetaDataValidator

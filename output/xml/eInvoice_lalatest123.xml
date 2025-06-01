@@ -34,7 +34,7 @@
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode="20">11.0</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode="KI">11.0</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -45,6 +45,58 @@
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
+                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
+                </ram:SpecifiedLineTradeSettlement>
+            </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
+                <ram:AssociatedDocumentLineDocument>
+                    <ram:LineID>2</ram:LineID>
+                </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>item name 2</ram:Name>
+                </ram:SpecifiedTradeProduct>
+                <ram:SpecifiedLineTradeAgreement>
+                    <ram:NetPriceProductTradePrice>
+                        <ram:ChargeAmount>10.0</ram:ChargeAmount>
+                    </ram:NetPriceProductTradePrice>
+                </ram:SpecifiedLineTradeAgreement>
+                <ram:SpecifiedLineTradeDelivery>
+                    <ram:BilledQuantity unitCode="J2">2.0</ram:BilledQuantity>
+                </ram:SpecifiedLineTradeDelivery>
+                <ram:SpecifiedLineTradeSettlement>
+                    <ram:ApplicableTradeTax>
+                        
+                        <ram:TypeCode>VAT</ram:TypeCode>
+                        <ram:CategoryCode>S</ram:CategoryCode>
+                        <ram:RateApplicablePercent>10.0</ram:RateApplicablePercent>
+                    </ram:ApplicableTradeTax>
+                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
+                        <ram:LineTotalAmount>20.0</ram:LineTotalAmount>
+                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
+                </ram:SpecifiedLineTradeSettlement>
+            </ram:IncludedSupplyChainTradeLineItem><ram:IncludedSupplyChainTradeLineItem>
+                <ram:AssociatedDocumentLineDocument>
+                    <ram:LineID>3</ram:LineID>
+                </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>item name 3</ram:Name>
+                </ram:SpecifiedTradeProduct>
+                <ram:SpecifiedLineTradeAgreement>
+                    <ram:NetPriceProductTradePrice>
+                        <ram:ChargeAmount>4.0</ram:ChargeAmount>
+                    </ram:NetPriceProductTradePrice>
+                </ram:SpecifiedLineTradeAgreement>
+                <ram:SpecifiedLineTradeDelivery>
+                    <ram:BilledQuantity unitCode="HUR">1.0</ram:BilledQuantity>
+                </ram:SpecifiedLineTradeDelivery>
+                <ram:SpecifiedLineTradeSettlement>
+                    <ram:ApplicableTradeTax>
+                        
+                        <ram:TypeCode>VAT</ram:TypeCode>
+                        <ram:CategoryCode>S</ram:CategoryCode>
+                        <ram:RateApplicablePercent>10.0</ram:RateApplicablePercent>
+                    </ram:ApplicableTradeTax>
+                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
+                        <ram:LineTotalAmount>80.0</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
@@ -93,6 +145,13 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
+                    <ram:CalculatedAmount>10.0</ram:CalculatedAmount>
+                    <ram:TypeCode>VAT</ram:TypeCode>
+                    
+                    <ram:BasisAmount>100.0</ram:BasisAmount>
+                    <ram:CategoryCode>S</ram:CategoryCode>
+                    <ram:RateApplicablePercent>10.0</ram:RateApplicablePercent>
+                </ram:ApplicableTradeTax><ram:ApplicableTradeTax>
                     <ram:CalculatedAmount>20.9</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     
@@ -104,11 +163,11 @@
                             <ram:Description>y</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-                    <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
-                    <ram:TaxBasisTotalAmount>110.0</ram:TaxBasisTotalAmount>
-                    <ram:TaxTotalAmount currencyID="EUR">20.9</ram:TaxTotalAmount>
-                    <ram:GrandTotalAmount>130.9</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>130.9</ram:DuePayableAmount>
+                    <ram:LineTotalAmount>210.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>210.0</ram:TaxBasisTotalAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">30.9</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>240.9</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>240.9</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

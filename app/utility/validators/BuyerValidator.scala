@@ -20,8 +20,8 @@ sealed trait BuyerValidator {
             Seq(ArgumentError)
         )
     }
-    def validateAddress(address: Address): Validated[Seq[ErrorMessage], Address] = {
-        AddressValidator.validateAddress(address)
+    def validateAddress(address: Validated[Seq[ErrorMessage], Address]): Validated[Seq[ErrorMessage], Address] = {
+        address
     }
     def validateIban(iban: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -37,7 +37,7 @@ sealed trait BuyerValidator {
             Seq(ArgumentError)
         )
     }
-    def validateBuyer(reference: String, name: String, address: Address, iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
+    def validateBuyer(reference: String, name: String, address: Validated[Seq[ErrorMessage], Address], iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
         (
             validateReference(reference),
             validateName(name),
@@ -46,14 +46,14 @@ sealed trait BuyerValidator {
             validateEmail(email)
         ).mapN(InvoiceBuyer.apply)
     }
-    def validateBuyer(buyer: InvoiceBuyer): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
-        validateBuyer(
-            buyer.reference,
-            buyer.name,
-            buyer.address,
-            buyer.iban,
-            buyer.email
-        )
-    }
+    // def validateBuyer(buyer: InvoiceBuyer): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
+    //     validateBuyer(
+    //         buyer.reference,
+    //         buyer.name,
+    //         buyer.address,
+    //         buyer.iban,
+    //         buyer.email
+    //     )
+    // }
 }
 object BuyerValidator extends BuyerValidator

@@ -20,8 +20,8 @@ sealed trait PaymentInformationValidator {
             Seq(ArgumentError)
         )
     }
-    def validateVATGroup(vatGroups: List[InvoiceVATGroup]): Validated[Seq[ErrorMessage], List[InvoiceVATGroup]] = {
-        vatGroups.traverse(VATGroupValidator.validateVATGroup)
+    def validateVATGroup(vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]]): Validated[Seq[ErrorMessage], List[InvoiceVATGroup]] = {
+        vatGroups.sequence
     }
     def validatePaymentTerms(terms: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -30,7 +30,7 @@ sealed trait PaymentInformationValidator {
             Seq(ArgumentError)
         )
     }
-    def validatePaymentInformation(currencycode: String, paymentMeansCode: String, vatGroups: List[InvoiceVATGroup], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+    def validatePaymentInformation(currencycode: String, paymentMeansCode: String, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
         (
             valideteCurrencyCode(currencycode),
             validatePaymentMeansCode(paymentMeansCode),
@@ -38,13 +38,13 @@ sealed trait PaymentInformationValidator {
             validatePaymentTerms(paymentTerms)
         ).mapN(InvoicePaymentInformation.apply)
     }
-    def validatePaymentInformation(paymentInformation: InvoicePaymentInformation): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
-        validatePaymentInformation(
-            paymentInformation.currencycode,
-            paymentInformation.paymentMeansCode,
-            paymentInformation.vatGroups,
-            paymentInformation.paymentTerms
-        )
-    }
+    // def validatePaymentInformation(paymentInformation: InvoicePaymentInformation): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+    //     validatePaymentInformation(
+    //         paymentInformation.currencycode,
+    //         paymentInformation.paymentMeansCode,
+    //         paymentInformation.vatGroups,
+    //         paymentInformation.paymentTerms
+    //     )
+    // }
 }
 object PaymentInformationValidator extends PaymentInformationValidator

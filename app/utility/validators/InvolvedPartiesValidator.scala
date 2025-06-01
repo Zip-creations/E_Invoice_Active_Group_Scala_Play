@@ -6,34 +6,28 @@ import cats.syntax.all._
 
 
 sealed trait InvolvedPartiesValidator {
-    def validateSeller(seller: InvoiceSeller): Validated[Seq[ErrorMessage], InvoiceSeller] = {
-        SellerValidator.validateSeller(seller)
+    def validateSeller(seller: Validated[Seq[ErrorMessage], InvoiceSeller]): Validated[Seq[ErrorMessage], InvoiceSeller] = {
+        seller
     }
-    def validateSellerContact(sellerContact: InvoiceSellerContact): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
-        SellerContactValidator.validateSellerContact(sellerContact)
+    def validateSellerContact(sellerContact: Validated[Seq[ErrorMessage], InvoiceSellerContact]): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
+        sellerContact
     }
-    def validateBuyer(buyer: InvoiceBuyer): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
-        BuyerValidator.validateBuyer(buyer)
+    def validateBuyer(buyer: Validated[Seq[ErrorMessage], InvoiceBuyer]): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
+        buyer
     }
-    def validateInvolvedParties(seller: InvoiceSeller, sellerContact: InvoiceSellerContact, buyer: InvoiceBuyer): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
+    def validateInvolvedParties(seller: Validated[Seq[ErrorMessage], InvoiceSeller], sellerContact: Validated[Seq[ErrorMessage], InvoiceSellerContact], buyer: Validated[Seq[ErrorMessage], InvoiceBuyer]): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
         (
             validateSeller(seller),
             validateSellerContact(sellerContact),
             validateBuyer(buyer)
         ).mapN(InvoiceInvolvedParties.apply)
     }
-    def validateInvolvedParties(parties: InvoiceInvolvedParties): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
-        validateInvolvedParties(
-            parties.seller,
-            parties.sellerContact,
-            parties.buyer
-        )
-    }
+    // def validateInvolvedParties(parties: InvoiceInvolvedParties): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
+    //     validateInvolvedParties(
+    //         parties.seller,
+    //         parties.sellerContact,
+    //         parties.buyer
+    //     )
+    // }
 }
 object InvolvedPartiesValidator extends InvolvedPartiesValidator
-
-// case class InvoiceInvolvedParties(
-//     seller: InvoiceSeller,
-//     sellerContact: InvoiceSellerContact,
-//     buyer: InvoiceBuyer
-// )
