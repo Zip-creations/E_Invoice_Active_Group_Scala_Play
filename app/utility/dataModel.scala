@@ -87,7 +87,6 @@ case class Address (
     countryCode: String)
 
 
-
 // Other possible ways to create an Invoice-Datamodel:
 
 // enum Rechnungstyp {
