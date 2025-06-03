@@ -84,10 +84,18 @@ enum InvoicePositionData{
     )}
 
 case class Address (
-    postCode: String,
-    city: String,
+    postCode: PostCode,
+    city: City,
     countryCode: CountryCode)
-
+object Address {
+    def validate(postCode: String, city: String, countrycode: String): Validated[Seq[ErrorMessage], Address] = {
+        (
+        PostCode.validate(postCode),
+        City.validate(city),
+        CountryCode.validate(countrycode)
+        ).mapN(Address.apply)
+    }
+}
 
 // Other possible ways to create an Invoice-Datamodel:
 

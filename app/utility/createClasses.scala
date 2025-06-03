@@ -56,7 +56,3 @@ def createStundenposition(hours: Double, hourlyrate: Double): Validated[Seq[Erro
 def createLeistungsposition(quantity: Double, pricePerPart: Double, measurementCode: String): Validated[Seq[ErrorMessage], InvoicePositionData.Leistungsposition] = {
     LeistungspositionValidator.validateLeistungsposition(quantity, pricePerPart, measurementCode)
 }
-
-def createAddress(postCode: String, city: String, countryCode: String): Validated[Seq[ErrorMessage], Address] = {
-    AddressValidator.validateAddress(postCode, city, countryCode)
-}

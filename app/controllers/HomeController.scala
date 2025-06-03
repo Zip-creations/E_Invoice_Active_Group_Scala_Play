@@ -56,7 +56,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val seller = createSeller(
       connectInput("SellerName"),
       connectInput("SellerAddressLine1"),
-      createAddress(
+      Address.validate(
       connectInput("SellerPostCode"),
       connectInput("SellerCity"),
       connectInput("SellerCountryCode"))
@@ -76,7 +76,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val buyer = createBuyer(
       connectInput("BuyerReference"),
       connectInput("BuyerName"),
-      createAddress(
+      Address.validate(
       connectInput("BuyerPostCode"),
       connectInput("BuyerCity"),
       connectInput("BuyerCountryCode")

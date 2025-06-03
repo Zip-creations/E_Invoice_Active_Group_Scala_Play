@@ -1,11 +1,25 @@
 package codelists
 
+import utility._
+
+import cats.data._
+import cats.data.Validated._
+import cats.syntax.all._
+
+
 object CountryCode {
     def matchStr(str: String): Option[CountryCode] = {
         CountryCode.values.find(_.toString == str)
     }
     def strInList(str: String): Boolean = {
         matchStr(str).isDefined
+    }
+    def validate(countrycode: String): Validated[Seq[ErrorMessage], CountryCode] = {
+        Validated.cond(
+            CountryCode.strInList(countrycode),
+            CountryCode.matchStr(countrycode).get,
+            Seq(ArgumentError)
+        )
     }
 }
 

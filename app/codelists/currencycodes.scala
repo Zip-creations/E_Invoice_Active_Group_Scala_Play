@@ -1,5 +1,10 @@
 package codelists
 
+import cats.data._
+import cats.data.Validated._
+import cats.syntax.all._
+
+
 object CurrencyCode {
     def matchStr(str: String): Option[CurrencyCode] = {
         CurrencyCode.values.find(_.toString == str)

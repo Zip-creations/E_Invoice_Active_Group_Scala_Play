@@ -5,7 +5,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-sealed trait VATCategoryIdentifierValidator {
+object VATCategoryIdentifierValidator {
     def validateVatCode(code: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
             true,
@@ -26,11 +26,4 @@ sealed trait VATCategoryIdentifierValidator {
             validateVatRate(vatRate)
         ).mapN(VATCategoryIdentifier.apply)
     }
-    // def validateVATCategoryIdentifier(vatCategoryIdentifier: VATCategoryIdentifier): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
-    //     validateVATCategoryIdentifier(
-    //         vatCategoryIdentifier.vatCode,
-    //         vatCategoryIdentifier.vatRate
-    //     )
-    // }
 }
-object VATCategoryIdentifierValidator extends VATCategoryIdentifierValidator
