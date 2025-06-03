@@ -5,28 +5,12 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-def createInvoice(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData], involvedParties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties], positions :List[Validated[Seq[ErrorMessage], InvoicePosition]], paymentInformation: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], Invoice] = {
-    InvoiceValidator.validateInvoice(metadata, involvedParties, positions, paymentInformation)
-}
-
-def createMetaData(number: String, date: String, typ: String): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
-    MetaDataValidator.validateMetaData(number, date, typ)
-}
-
-def createInvolvedParties(seller: Validated[Seq[ErrorMessage], InvoiceSeller], sellerContact: Validated[Seq[ErrorMessage], InvoiceSellerContact], buyer: Validated[Seq[ErrorMessage], InvoiceBuyer]): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] =  {
-    InvolvedPartiesValidator.validateInvolvedParties(seller, sellerContact, buyer)
-}
-
 def createSeller(name: String, street: String, address: Validated[Seq[ErrorMessage], Address], telephonenumber: String, websitelink: String, email: String, vatIdentifier: String): Validated[Seq[ErrorMessage], InvoiceSeller] = {
     SellerValidator.validateSeller(name, street, address, telephonenumber, websitelink, email, vatIdentifier)
 }
 
 def createSellerContact(name: String, telephonenumber: String, email: String): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
     SellerContactValidator.validateSellerContact(name, telephonenumber, email)
-}
-
-def createBuyer(reference: String, name: String, address: Validated[Seq[ErrorMessage], Address], iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
-    BuyerValidator.validateBuyer(reference, name, address, iban, email)
 }
 
 def createVATCategoryIdentifier(vatCode: String, vatRate: Double): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {

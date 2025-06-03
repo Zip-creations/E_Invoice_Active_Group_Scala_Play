@@ -1,27 +1,20 @@
 package utility
 
+import codelists._
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
+import java.util.Currency
 
 
 sealed trait PaymentInformationValidator {
-    def valideteCurrencyCode(currencycode: String): Validated[Seq[ErrorMessage], String] = {
-        Validated.cond(
-            true,
-            currencycode,
-            Seq(ArgumentError)
-        )
-    }
+
     def validatePaymentMeansCode(code: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
             true,
             code,
             Seq(ArgumentError)
         )
-    }
-    def validateVATGroup(vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]]): Validated[Seq[ErrorMessage], List[InvoiceVATGroup]] = {
-        vatGroups.sequence
     }
     def validatePaymentTerms(terms: String): Validated[Seq[ErrorMessage], String] = {
         Validated.cond(
@@ -32,9 +25,9 @@ sealed trait PaymentInformationValidator {
     }
     def validatePaymentInformation(currencycode: String, paymentMeansCode: String, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
         (
-            valideteCurrencyCode(currencycode),
+            CurrencyCode.validate(currencycode),
             validatePaymentMeansCode(paymentMeansCode),
-            validateVATGroup(vatGroups),
+            vatGroups.sequence,
             validatePaymentTerms(paymentTerms)
         ).mapN(InvoicePaymentInformation.apply)
     }

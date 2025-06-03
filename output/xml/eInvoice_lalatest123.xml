@@ -62,8 +62,8 @@
                 </ram:EmailURIUniversalCommunication>
                 </ram:DefinedTradeContact>
                 <ram:PostalTradeAddress>
-                <ram:PostcodeCode>PostCode(11223)</ram:PostcodeCode>
-                <ram:CityName>City(Example city)</ram:CityName>
+                <ram:PostcodeCode>11223</ram:PostcodeCode>
+                <ram:CityName>Example city</ram:CityName>
                 <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
                 <ram:URIUniversalCommunication>
@@ -76,8 +76,8 @@
                 <ram:BuyerTradeParty>
                 <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
-                <ram:PostcodeCode>PostCode(54321)</ram:PostcodeCode>
-                <ram:CityName>City(buyer city)</ram:CityName>
+                <ram:PostcodeCode>54321</ram:PostcodeCode>
+                <ram:CityName>buyer city</ram:CityName>
                 <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
                 <ram:URIUniversalCommunication>

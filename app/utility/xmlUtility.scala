@@ -1,6 +1,9 @@
 package utility
-import scala.collection.mutable
+
+import codelists._
 import scala.xml.NodeSeq
+
+
 class XMLUtility(){
 
     private case class StoredPosition(netAmount: Double, vatId: VATCategoryIdentifier)
@@ -55,15 +58,15 @@ class XMLUtility(){
         val xml = 
             <rsm:ExchangedDocument>
                 <ram:ID>
-                {meta.number}
+                {meta.identifier.id}
                 </ram:ID>
-                <ram:TypeCode>{meta.typ}</ram:TypeCode>
+                <ram:TypeCode>{meta.invoiceType.typeCode}</ram:TypeCode>
                 <ram:IssueDateTime>
                 {
                     // format="102" is determined in the EN 16931 - CII Mapping scheme
                 }
                 <udt:DateTimeString format="102">
-                    {meta.date}
+                    {meta.date.date}
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -73,7 +76,7 @@ class XMLUtility(){
     private def CreateInvolvedPartiesXML(parties: InvoiceInvolvedParties): scala.xml.Elem = {
         val xml =
             <ram:ApplicableHeaderTradeAgreement>
-                <ram:BuyerReference>{parties.buyer.reference}</ram:BuyerReference>
+                <ram:BuyerReference>{parties.buyer.reference.ref}</ram:BuyerReference>
                 {CreateSellerXML(parties.seller, parties.sellerContact)}
                 {CreateBuyerXML(parties.buyer)}
             </ram:ApplicableHeaderTradeAgreement>
@@ -99,8 +102,8 @@ class XMLUtility(){
     private def CreateAddressXML(address: Address): scala.xml.Elem = {
         val xml = 
             <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{address.postCode}</ram:PostcodeCode>
-                <ram:CityName>{address.city}</ram:CityName>
+                <ram:PostcodeCode>{address.postCode.postcode}</ram:PostcodeCode>
+                <ram:CityName>{address.city.city}</ram:CityName>
                 <ram:CountryID>{address.countryCode}</ram:CountryID>
             </ram:PostalTradeAddress>
         return xml
@@ -123,10 +126,10 @@ class XMLUtility(){
     private def CreateBuyerXML(buyer: InvoiceBuyer): scala.xml.Elem = {
         val xml =
             <ram:BuyerTradeParty>
-                <ram:Name>{buyer.name}</ram:Name>
+                <ram:Name>{buyer.name.name}</ram:Name>
                 {CreateAddressXML(buyer.address)}
                 <ram:URIUniversalCommunication>
-                    <ram:URIID schemeID="EM">{buyer.email}</ram:URIID>
+                    <ram:URIID schemeID="EM">{buyer.email.email}</ram:URIID>
                 </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
         return xml
@@ -204,7 +207,7 @@ class XMLUtility(){
                         </ram:SpecifiedTradePaymentTerms>
                     insertOptionalInput(value, xml)
                 }
-                {CreateDocumentSummaryXML(storedPositions, paymentInfo.currencycode)}
+                {CreateDocumentSummaryXML(storedPositions, paymentInfo.currencycode.toString)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
     }

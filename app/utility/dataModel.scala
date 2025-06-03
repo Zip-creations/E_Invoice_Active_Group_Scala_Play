@@ -2,9 +2,6 @@ package utility
 
 import codelists._
 
-import scala.xml.XML
-import scala.collection.mutable
-
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
@@ -15,16 +12,44 @@ case class Invoice(
     involvedParties: InvoiceInvolvedParties,
     positions: List[InvoicePosition],
     paymentInformation: InvoicePaymentInformation)
+object Invoice {
+    def validate(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData], involvedParties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], paymentInformation: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], Invoice] = {
+        (
+            metadata,
+            involvedParties,
+            positions.sequence,
+            paymentInformation
+        ).mapN(Invoice.apply)
+    }
+}
 
 case class InvoiceMetaData(
-    number: String,
-    date: String,
-    typ: String)
+    identifier: InvoiceIdentifier,
+    date: Date,
+    invoiceType: InvoiceTypeCode)
+object InvoiceMetaData {
+    def validate(number: String, date: String, typ: String): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
+        (
+            InvoiceIdentifier.validate(number),
+            Date.validate(date),
+            InvoiceTypeCode.validate(typ)
+        ).mapN(InvoiceMetaData.apply)
+    }
+}
 
 case class InvoiceInvolvedParties(
     seller: InvoiceSeller,
     sellerContact: InvoiceSellerContact,
     buyer: InvoiceBuyer)
+object InvoiceInvolvedParties {
+    def validate(seller: Validated[Seq[ErrorMessage], InvoiceSeller], sellerContact: Validated[Seq[ErrorMessage], InvoiceSellerContact], buyer: Validated[Seq[ErrorMessage], InvoiceBuyer]): Validated[Seq[ErrorMessage], InvoiceInvolvedParties] = {
+        (
+            seller,
+            sellerContact,
+            buyer
+        ).mapN(InvoiceInvolvedParties.apply)
+    }
+}
 
 case class InvoiceSeller(
     name: String,
@@ -41,11 +66,22 @@ case class InvoiceSellerContact(
     email: String)
 
 case class InvoiceBuyer(
-    reference: String,
-    name: String,
+    reference: BuyerReference,
+    name: BuyerName,
     address: Address,
-    iban: String,
-    email: String)
+    iban: Iban,
+    email: Email)
+object InvoiceBuyer {
+    def validate(reference: String, name: String, address: Validated[Seq[ErrorMessage], Address], iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
+        (
+            BuyerReference.validate(reference),
+            BuyerName.validate(name),
+            address,
+            Iban.validate(iban),
+            Email.validate(email)
+        ).mapN(InvoiceBuyer.apply)
+    }
+}
 
 case class VATCategoryIdentifier(
     vatCode: String,
@@ -57,7 +93,7 @@ case class InvoiceVATGroup(
     vatExemptionReason: String = "")
 
 case class InvoicePaymentInformation(
-    currencycode: String,
+    currencycode: CurrencyCode,
     paymentMeansCode: String,
     vatGroups: List[InvoiceVATGroup],
     paymentTerms: String = "")

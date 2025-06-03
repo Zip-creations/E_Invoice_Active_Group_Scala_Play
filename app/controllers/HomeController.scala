@@ -47,7 +47,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     def connectInput = (inputIdentifier: String) =>
       formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
 
-    val meta = createMetaData(
+    val meta = InvoiceMetaData.validate(
       connectInput("InvoiceNumber"),
       connectInput("InvoiceIssueDate").replace("-", ""),
       "380" // TODO: replace with a value the user can set OR replace with fitting default
@@ -73,7 +73,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerContactEmailAddress"),
       )
 
-    val buyer = createBuyer(
+    val buyer = InvoiceBuyer.validate(
       connectInput("BuyerReference"),
       connectInput("BuyerName"),
       Address.validate(
@@ -136,8 +136,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     // print(CountryCode.matchStr("DE"))
     // print(CountryCode.matchStr("DE").get)
 
-    val involvedparties = createInvolvedParties(seller, sellerContact, buyer)
-    val invoice = createInvoice(meta, involvedparties, allPositions, paymentInformation)
+    val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)
+    val invoice = Invoice.validate(meta, involvedparties, allPositions, paymentInformation)
 
     var xmlData: scala.xml.NodeSeq = scala.xml.NodeSeq.Empty
     invoice match {

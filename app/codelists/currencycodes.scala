@@ -1,5 +1,6 @@
 package codelists
 
+import utility._
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
@@ -11,6 +12,13 @@ object CurrencyCode {
     }
     def strInList(str: String): Boolean = {
         matchStr(str).isDefined
+    }
+    def validate(currencycode: String): Validated[Seq[ErrorMessage], CurrencyCode] = {
+        Validated.cond(
+            CurrencyCode.strInList(currencycode),
+            CurrencyCode.matchStr(currencycode).get,
+            Seq(ArgumentError)
+        )
     }
 }
 
