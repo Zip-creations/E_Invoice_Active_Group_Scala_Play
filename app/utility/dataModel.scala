@@ -52,22 +52,44 @@ object InvoiceInvolvedParties {
 }
 
 case class InvoiceSeller(
-    name: String,
-    street: String,
+    name: Name,
+    street: Street,
     address: Address,
-    telephonenumber: String,
-    websitelink: String,
-    email: String,
-    vatIdentifier: String)
+    telephonenumber: TelephoneNumber,
+    websitelink: WebsiteLink,
+    email: Email,
+    vatIdentifier: SellerVATIdentifier)
+object InvoiceSeller {
+    def validate(name: String, street: String, address: Validated[Seq[ErrorMessage], Address], telephonenumber: String, websitelink: String, email: String, vatIdentifier: String): Validated[Seq[ErrorMessage], InvoiceSeller] = {
+        (
+            Name.validate(name),
+            Street.validate(street),
+            address,
+            TelephoneNumber.validate(telephonenumber),
+            WebsiteLink.validate(websitelink),
+            Email.validate(email),
+            SellerVATIdentifier.validate(vatIdentifier)
+        ).mapN(InvoiceSeller.apply)
+    }
+}
 
 case class InvoiceSellerContact(
-    name: String,
-    telephonenumber: String,
-    email: String)
+    name: Name,
+    telephonenumber: TelephoneNumber,
+    email: Email)
+object InvoiceSellerContact {
+    def validate(name: String, telephonenumber: String, email: String): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
+        (
+            Name.validate(name),
+            TelephoneNumber.validate(telephonenumber),
+            Email.validate(email)
+        ).mapN(InvoiceSellerContact.apply)
+    }
+}
 
 case class InvoiceBuyer(
     reference: BuyerReference,
-    name: BuyerName,
+    name: Name,
     address: Address,
     iban: Iban,
     email: Email)
@@ -75,7 +97,7 @@ object InvoiceBuyer {
     def validate(reference: String, name: String, address: Validated[Seq[ErrorMessage], Address], iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
         (
             BuyerReference.validate(reference),
-            BuyerName.validate(name),
+            Name.validate(name),
             address,
             Iban.validate(iban),
             Email.validate(email)
@@ -84,40 +106,106 @@ object InvoiceBuyer {
 }
 
 case class VATCategoryIdentifier(
-    vatCode: String,
-    vatRate: Double)
-
+    vatCode: VATCategoryCode,
+    vatRate: VATRate)
+object VATCategoryIdentifier {
+    def validate(vatCode: String, vatRate: String): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+        (
+            VATCategoryCode.validate(vatCode),
+            VATRate.validate(vatRate)
+        ).mapN(VATCategoryIdentifier.apply)
+    }
+}
 case class InvoiceVATGroup(
-    identifier: VATCategoryIdentifier,
+    id: VATCategoryIdentifier,
     positions: List[SimplePosition],
-    vatExemptionReason: String = "")
+    vatExemptionReason: VATExemptionReason)
+object InvoiceVATGroup {
+    def validate(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], SimplePosition]], vatExemptionReason: String= ""): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
+        (
+            id,
+            positions.sequence,
+            VATExemptionReason.validate(vatExemptionReason)
+        ).mapN(InvoiceVATGroup.apply)
+    }
+}
 
 case class InvoicePaymentInformation(
     currencycode: CurrencyCode,
-    paymentMeansCode: String,
+    paymentMeansCode: PaymentMeansCode,
     vatGroups: List[InvoiceVATGroup],
-    paymentTerms: String = "")
+    paymentTerms: PaymentTerms)
+object InvoicePaymentInformation {
+        def validate(currencycode: String, paymentMeansCode: String, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+        (
+            CurrencyCode.validate(currencycode),
+            PaymentMeansCode.validate(paymentMeansCode),
+            vatGroups.sequence,
+            PaymentTerms.validate(paymentTerms)
+        ).mapN(InvoicePaymentInformation.apply)
+    }
+}
 
 case class SimplePosition(
     identifier: VATCategoryIdentifier,
-    netAmount: Double) // Stores positions with only the information the tax summary needs later on
+    quantity: Quantity,
+    netPrice: NetPrice,
+    netAmount: NetAmount) // Stores positions with only the information the tax summary needs later on
+object SimplePosition {
+    def validate(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], quantity: String, netPrice: String): Validated[Seq[ErrorMessage], SimplePosition] = {
+        (
+            identifier,
+            Quantity.validate(quantity),
+            NetPrice.validate(netPrice),
+            NetAmount.validate(quantity, netPrice)
+        ).mapN(SimplePosition.apply)
+    }
+}
 
 case class InvoicePosition(
-    id: String,
-    name: String,
+    id: PositionID,
+    name: PositionName,
     vatId: VATCategoryIdentifier,
     data: InvoicePositionData)
+object InvoicePosition {
+    def validate(id: String, name: String, vatId: Validated[Seq[ErrorMessage], VATCategoryIdentifier], data: Validated[Seq[ErrorMessage], InvoicePositionData]): Validated[Seq[ErrorMessage], InvoicePosition] = {
+        (
+            PositionID.validate(id),
+            PositionName.validate(name),
+            vatId,
+            data
+        ).mapN(InvoicePosition.apply)
+    }
+}
 
 enum InvoicePositionData{
     case Stundenposition(
-        hours: Double,
-        hourlyrate: Double
+        hours: Hours,
+        hourlyrate: HourlyRate
     )
     case Leistungsposition(
-        quantity: Double,
-        pricePerPart: Double,
-        measurementCode: String
+        quantity: Quantity,
+        pricePerPart: NetPrice,
+        measurementCode: MeasurementCode
     )}
+object Stundenposition {
+    def validate(hours: String, hourlyrate: String): Validated[Seq[ErrorMessage], InvoicePositionData.Stundenposition] = {
+        (
+            Hours.validate(hours),
+            HourlyRate.validate(hourlyrate)
+        ).mapN(InvoicePositionData.Stundenposition.apply)
+    }
+
+}
+object Leistungsposition {
+    def validate(quantity: String, pricePerPart: String, measurementCode: String): Validated[Seq[ErrorMessage], InvoicePositionData.Leistungsposition] = {
+        (
+            Quantity.validate(quantity),
+            NetPrice.validate(pricePerPart),
+            MeasurementCode.validate(measurementCode)
+        ).mapN(InvoicePositionData.Leistungsposition.apply)
+    }
+}
 
 case class Address (
     postCode: PostCode,

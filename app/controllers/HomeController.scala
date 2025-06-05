@@ -53,7 +53,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       "380" // TODO: replace with a value the user can set OR replace with fitting default
       )
 
-    val seller = createSeller(
+    val seller = InvoiceSeller.validate(
       connectInput("SellerName"),
       connectInput("SellerAddressLine1"),
       Address.validate(
@@ -67,7 +67,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("SellerVATIdentifier")
       )
 
-    val sellerContact = createSellerContact(
+    val sellerContact = InvoiceSellerContact.validate(
       connectInput("SellerContactPoint"),
       connectInput("SellerContactTelephoneNumber"),
       connectInput("SellerContactEmailAddress"),
@@ -89,44 +89,44 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
-      val vatId = createVATCategoryIdentifier(
+      val vatId = VATCategoryIdentifier.validate(
         connectInput("InvoicedItemVATCategoryCode" + index),
-        connectInput("InvoicedItemVATRate" + index).toDouble
+        connectInput("InvoicedItemVATRate" + index)
         )
-      val position = createPosition(
+      val position = InvoicePosition.validate(
         connectInput("InvoiceLineIdentifier" + index),
         connectInput("ItemName" + index),
         vatId,
         positionType match {
         case "time" =>
-          createStundenposition(
-            connectInput("InvoicedQuantity" + index).toDouble,
-            connectInput("ItemNetPrice" + index).toDouble
+          Stundenposition.validate(
+            connectInput("InvoicedQuantity" + index),
+            connectInput("ItemNetPrice" + index)
           )
         case "item" =>
-          createLeistungsposition(
-            connectInput("InvoicedQuantity" + index).toDouble,
-            connectInput("ItemNetPrice" + index).toDouble,
+          Leistungsposition.validate(
+            connectInput("InvoicedQuantity" + index),
+            connectInput("ItemNetPrice" + index),
             connectInput("InvoicedQuantityUnitOfMeasureCode" + index)
           )
         }
       )
       allPositions = allPositions :+ position
       // Group positions with only the info that is relevant for the VAT groups
-      val newPos = createSimplePosition(vatId, connectInput("InvoicedQuantity" + index).toDouble * connectInput("ItemNetPrice" + index).toDouble)
+      val newPos = SimplePosition.validate(vatId, connectInput("InvoicedQuantity" + index), connectInput("ItemNetPrice" + index))
       val currentPos = groupedPositions.getOrElse(vatId, List.empty)
       groupedPositions.update(vatId, currentPos :+ newPos)
 
     var vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]] = Nil
     for (group <- groupedPositions.keys) {
-      val vatGroup = createVATGroup(
+      val vatGroup = InvoiceVATGroup.validate(
         group,
         groupedPositions(group)
       )
       vatGroups = vatGroups :+ vatGroup
     }
 
-    val paymentInformation = createPaymentInformation(
+    val paymentInformation = InvoicePaymentInformation.validate(
       connectInput("InvoiceCurrencyCode"),
       connectInput("PaymentMeansTypeCode"),
       vatGroups,

@@ -86,14 +86,14 @@ class XMLUtility(){
     private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
-              <ram:Name>{seller.name}</ram:Name>
+              <ram:Name>{seller.name.name}</ram:Name>
                 {CreateSellerContactXML(sellerContact)}
                 {CreateAddressXML(seller.address)}
                 <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{seller.email}</ram:URIID>
+                <ram:URIID schemeID="EM">{seller.email.email}</ram:URIID>
                 </ram:URIUniversalCommunication>
                 <ram:SpecifiedTaxRegistration>
-                    <ram:ID schemeID="VA">{seller.vatIdentifier}</ram:ID>
+                    <ram:ID schemeID="VA">{seller.vatIdentifier.id}</ram:ID>
                 </ram:SpecifiedTaxRegistration>
             </ram:SellerTradeParty>
         return xml
@@ -112,12 +112,12 @@ class XMLUtility(){
     private def CreateSellerContactXML(sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:DefinedTradeContact>
-                <ram:PersonName>{sellerContact.name}</ram:PersonName>
+                <ram:PersonName>{sellerContact.name.name}</ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                    <ram:CompleteNumber>{sellerContact.telephonenumber}</ram:CompleteNumber>
+                    <ram:CompleteNumber>{sellerContact.telephonenumber.number}</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                    <ram:URIID>{sellerContact.email}</ram:URIID>
+                    <ram:URIID>{sellerContact.email.email}</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
                 </ram:DefinedTradeContact>
         return xml
@@ -136,7 +136,7 @@ class XMLUtility(){
     }
 
     private def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
-        var unitcode = ""
+        var unitcode = "" //: MeasurementCode = MeasurementCode.A10  // a default is requiered by Scala. A10 is just the lexicographical first member
         var chargedAmount = 0.0
         var totalAmount = 0.0
         var chargedQuantity = 0.0
@@ -144,32 +144,32 @@ class XMLUtility(){
         position.data match{
             case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
                 unitcode = "HUR"  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
-                chargedAmount = hourlyrate
+                chargedAmount = hourlyrate.rate
                 chargedQuantity = 1
-                totalAmount = hours * hourlyrate
+                totalAmount = hours.hours * hourlyrate.rate
             case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
-                unitcode = measurementCode
-                chargedAmount = pricePerPart
-                chargedQuantity = quantity
-                totalAmount = quantity * pricePerPart
+                unitcode = measurementCode.toString
+                chargedAmount = pricePerPart.netPrice
+                chargedQuantity = quantity.quantity
+                totalAmount = quantity.quantity * pricePerPart.netPrice
         }
         storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatId)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
                 <ram:AssociatedDocumentLineDocument>
-                    <ram:LineID>{position.id}</ram:LineID>
+                    <ram:LineID>{position.id.id}</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>{position.name}</ram:Name>
+                    <ram:Name>{position.name.name}</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
-                        <ram:ChargeAmount>{chargedAmount.toString}</ram:ChargeAmount>
+                        <ram:ChargeAmount>{chargedAmount}</ram:ChargeAmount>
                     </ram:NetPriceProductTradePrice>
                 </ram:SpecifiedLineTradeAgreement>
                 <ram:SpecifiedLineTradeDelivery>
-                    <ram:BilledQuantity unitCode={unitcode}>{chargedQuantity.toString}</ram:BilledQuantity>
+                    <ram:BilledQuantity unitCode={unitcode}>{chargedQuantity}</ram:BilledQuantity>
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
@@ -177,11 +177,11 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.vatId.vatCode}</ram:CategoryCode>
-                        <ram:RateApplicablePercent>{position.vatId.vatRate}</ram:RateApplicablePercent>
+                        <ram:CategoryCode>{position.vatId.vatCode.code}</ram:CategoryCode>
+                        <ram:RateApplicablePercent>{position.vatId.vatRate.rate}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
-                        <ram:LineTotalAmount>{totalAmount.toString}</ram:LineTotalAmount>
+                        <ram:LineTotalAmount>{totalAmount}</ram:LineTotalAmount>
                     </ram:SpecifiedTradeSettlementLineMonetarySummation>
                 </ram:SpecifiedLineTradeSettlement>
             </ram:IncludedSupplyChainTradeLineItem>
@@ -193,14 +193,14 @@ class XMLUtility(){
             <ram:ApplicableHeaderTradeSettlement>
                 <ram:InvoiceCurrencyCode>{paymentInfo.currencycode}</ram:InvoiceCurrencyCode>
                 <ram:SpecifiedTradeSettlementPaymentMeans>
-                    <ram:TypeCode>{paymentInfo.paymentMeansCode}</ram:TypeCode>
+                    <ram:TypeCode>{paymentInfo.paymentMeansCode.code}</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 {
                     {for (group <- paymentInfo.vatGroups)
                         yield CreateTaxSummaryXML(group)}
                 }
                 {
-                    val value = paymentInfo.paymentTerms
+                    val value = paymentInfo.paymentTerms.terms
                     val xml =
                         <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>{value}</ram:Description>
@@ -215,30 +215,31 @@ class XMLUtility(){
     // This part need to be repeated for every VAT category code
     // TODO: replace hardcoded values
     private def CreateTaxSummaryXML(vatGroup: InvoiceVATGroup): scala.xml.Elem = {
-        val id = vatGroup.identifier
+        val id = vatGroup.id
         var totalAmount = 0.0
         var totalAmountWithVAT = 0.0
         var totalVATAmount = 0.0
         for (pos <- vatGroup.positions) {
-            val vatValue = getVATvalue(pos.identifier.vatRate)
-            totalAmount = totalAmount + pos.netAmount
-            totalAmountWithVAT = totalAmountWithVAT + pos.netAmount * vatValue
-            totalVATAmount = totalVATAmount + (pos.netAmount * vatValue - pos.netAmount)
+            val vatValue = getVATvalue(pos.identifier.vatRate.rate)
+            val amount = pos.netAmount.amount
+            totalAmount = totalAmount + amount
+            totalAmountWithVAT = totalAmountWithVAT + amount * vatValue
+            totalVATAmount = totalVATAmount + (amount * vatValue - amount)
         }
         val xml = {
                 <ram:ApplicableTradeTax>
                     <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
-                        var value = vatGroup.vatExemptionReason
-                        if ("SZLM".contains(id.vatCode)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
+                        var value = vatGroup.vatExemptionReason.reason
+                        if ("SZLM".contains(id.vatCode.code)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
                         insertOptionalInput(value, xml)
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
-                    <ram:CategoryCode>{id.vatCode}</ram:CategoryCode>
-                    <ram:RateApplicablePercent>{id.vatRate}</ram:RateApplicablePercent>
+                    <ram:CategoryCode>{id.vatCode.code}</ram:CategoryCode>
+                    <ram:RateApplicablePercent>{id.vatRate.rate}</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
         }
         return xml
@@ -251,7 +252,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.vatId.vatRate)
+            val taxpercentage = getVATvalue(i.vatId.vatRate.rate)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount  // Whats the differnce to totalNetAmount?
