@@ -132,14 +132,14 @@ object InvoiceVATGroup {
 
 case class InvoicePaymentInformation(
     currencycode: CurrencyCode,
-    paymentMeansCode: PaymentMeansCode,
+    paymentMeansCode: PaymentMeansTypeCode,
     vatGroups: List[InvoiceVATGroup],
     paymentTerms: PaymentTerms)
 object InvoicePaymentInformation {
         def validate(currencycode: String, paymentMeansCode: String, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
         (
             CurrencyCode.validate(currencycode),
-            PaymentMeansCode.validate(paymentMeansCode),
+            PaymentMeansTypeCode.validate(paymentMeansCode),
             vatGroups.sequence,
             PaymentTerms.validate(paymentTerms)
         ).mapN(InvoicePaymentInformation.apply)

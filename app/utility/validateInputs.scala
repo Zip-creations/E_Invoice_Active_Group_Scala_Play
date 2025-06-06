@@ -109,17 +109,6 @@ object InvoiceTypeCode {
     }
 }
 
-case class PaymentMeansCode(code: String) extends ValidateAble[String](code)
-object PaymentMeansCode {
-        def validate(code: String): Validated[Seq[ErrorMessage], PaymentMeansCode] = {
-        Validated.cond(
-            true,
-            PaymentMeansCode(code),
-            Seq(ArgumentError)
-        )
-    }
-}
-
 case class PaymentTerms(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {
         def validate(terms: String): Validated[Seq[ErrorMessage], PaymentTerms] = {

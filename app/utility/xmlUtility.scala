@@ -193,7 +193,7 @@ class XMLUtility(){
             <ram:ApplicableHeaderTradeSettlement>
                 <ram:InvoiceCurrencyCode>{paymentInfo.currencycode}</ram:InvoiceCurrencyCode>
                 <ram:SpecifiedTradeSettlementPaymentMeans>
-                    <ram:TypeCode>{paymentInfo.paymentMeansCode.code}</ram:TypeCode>
+                    <ram:TypeCode>{paymentInfo.paymentMeansCode}</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 {
                     {for (group <- paymentInfo.vatGroups)

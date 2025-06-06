@@ -1,11 +1,24 @@
 package codelists
 
+import utility._
+import cats.data._
+import cats.data.Validated._
+import cats.syntax.all._
+
+
 object PaymentMeansTypeCode {
     def matchStr(str: String): Option[PaymentMeansTypeCode] = {
         PaymentMeansTypeCode.values.find(_.toString == str)
     }
     def strInList(str: String): Boolean = {
         matchStr(str).isDefined
+    }
+    def validate(code: String): Validated[Seq[ErrorMessage], PaymentMeansTypeCode] = {
+        Validated.cond(
+            PaymentMeansTypeCode.strInList(code),
+            PaymentMeansTypeCode.matchStr(code).get,
+            Seq(ArgumentError)
+        )
     }
 }
 
