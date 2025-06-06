@@ -41,7 +41,8 @@ document.querySelector('[name="BuyerPostCode"]').value = "54321";\
 document.querySelector('[name="BuyerCountryCode"]').value = "DE";\
 document.querySelector('[name="TODO4"]').value = "DE12 3456 7890";\
 document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
-document.querySelector('[name="PaymentMeansTypeCode"]').value = "ZZZ";
+document.querySelector('[name="PaymentMeansTypeCode"]').value = "ZZZ";\
+document.querySelector('[name="PaymentTerms"]').value = "yes";
 
 document.querySelector('[name="ItemName1"]').value = "item name 1";\
 document.querySelector('[name="InvoicedQuantity1"]').value = "11";\

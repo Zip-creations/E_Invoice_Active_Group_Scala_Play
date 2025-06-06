@@ -17,9 +17,9 @@ class XMLUtility(){
         return (vatRate / 100) +1
     }
 
-    // Round to nearest two digits after comma
+    // Round to nearest two digits after deciaml point
     private def roundAmount(num: Double): Double = {
-        return (math.rint(num * 100) / 100)
+        return (math.rint(num * 100) / 100)  // rint := round to nearest Int
     }
 
     private def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
@@ -58,15 +58,15 @@ class XMLUtility(){
         val xml = 
             <rsm:ExchangedDocument>
                 <ram:ID>
-                {meta.identifier.id}
+                {meta.identifier.get}
                 </ram:ID>
-                <ram:TypeCode>{meta.invoiceType.typeCode}</ram:TypeCode>
+                <ram:TypeCode>{meta.invoiceType.get}</ram:TypeCode>
                 <ram:IssueDateTime>
                 {
                     // format="102" is determined in the EN 16931 - CII Mapping scheme
                 }
                 <udt:DateTimeString format="102">
-                    {meta.date.date}
+                    {meta.date.get}
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -76,7 +76,7 @@ class XMLUtility(){
     private def CreateInvolvedPartiesXML(parties: InvoiceInvolvedParties): scala.xml.Elem = {
         val xml =
             <ram:ApplicableHeaderTradeAgreement>
-                <ram:BuyerReference>{parties.buyer.reference.ref}</ram:BuyerReference>
+                <ram:BuyerReference>{parties.buyer.reference.get}</ram:BuyerReference>
                 {CreateSellerXML(parties.seller, parties.sellerContact)}
                 {CreateBuyerXML(parties.buyer)}
             </ram:ApplicableHeaderTradeAgreement>
@@ -86,14 +86,14 @@ class XMLUtility(){
     private def CreateSellerXML(seller: InvoiceSeller, sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:SellerTradeParty>
-              <ram:Name>{seller.name.name}</ram:Name>
+              <ram:Name>{seller.name.get}</ram:Name>
                 {CreateSellerContactXML(sellerContact)}
                 {CreateAddressXML(seller.address)}
                 <ram:URIUniversalCommunication>
-                <ram:URIID schemeID="EM">{seller.email.email}</ram:URIID>
+                <ram:URIID schemeID="EM">{seller.email.get}</ram:URIID>
                 </ram:URIUniversalCommunication>
                 <ram:SpecifiedTaxRegistration>
-                    <ram:ID schemeID="VA">{seller.vatIdentifier.id}</ram:ID>
+                    <ram:ID schemeID="VA">{seller.vatIdentifier.get}</ram:ID>
                 </ram:SpecifiedTaxRegistration>
             </ram:SellerTradeParty>
         return xml
@@ -102,8 +102,8 @@ class XMLUtility(){
     private def CreateAddressXML(address: Address): scala.xml.Elem = {
         val xml = 
             <ram:PostalTradeAddress>
-                <ram:PostcodeCode>{address.postCode.postcode}</ram:PostcodeCode>
-                <ram:CityName>{address.city.city}</ram:CityName>
+                <ram:PostcodeCode>{address.postCode.get}</ram:PostcodeCode>
+                <ram:CityName>{address.city.get}</ram:CityName>
                 <ram:CountryID>{address.countryCode}</ram:CountryID>
             </ram:PostalTradeAddress>
         return xml
@@ -112,12 +112,12 @@ class XMLUtility(){
     private def CreateSellerContactXML(sellerContact: InvoiceSellerContact): scala.xml.Elem = {
         val xml =
             <ram:DefinedTradeContact>
-                <ram:PersonName>{sellerContact.name.name}</ram:PersonName>
+                <ram:PersonName>{sellerContact.name.get}</ram:PersonName>
                 <ram:TelephoneUniversalCommunication>
-                    <ram:CompleteNumber>{sellerContact.telephonenumber.number}</ram:CompleteNumber>
+                    <ram:CompleteNumber>{sellerContact.telephonenumber.get}</ram:CompleteNumber>
                 </ram:TelephoneUniversalCommunication>
                 <ram:EmailURIUniversalCommunication>
-                    <ram:URIID>{sellerContact.email.email}</ram:URIID>
+                    <ram:URIID>{sellerContact.email.get}</ram:URIID>
                 </ram:EmailURIUniversalCommunication>
                 </ram:DefinedTradeContact>
         return xml
@@ -129,7 +129,7 @@ class XMLUtility(){
                 <ram:Name>{buyer.name.name}</ram:Name>
                 {CreateAddressXML(buyer.address)}
                 <ram:URIUniversalCommunication>
-                    <ram:URIID schemeID="EM">{buyer.email.email}</ram:URIID>
+                    <ram:URIID schemeID="EM">{buyer.email.get}</ram:URIID>
                 </ram:URIUniversalCommunication>
             </ram:BuyerTradeParty>
         return xml
@@ -144,24 +144,24 @@ class XMLUtility(){
         position.data match{
             case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
                 unitcode = "HUR"  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
-                chargedAmount = hourlyrate.rate
+                chargedAmount = hourlyrate.get
                 chargedQuantity = 1
-                totalAmount = hours.hours * hourlyrate.rate
+                totalAmount = hours.get * chargedAmount
             case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
                 unitcode = measurementCode.toString
-                chargedAmount = pricePerPart.netPrice
-                chargedQuantity = quantity.quantity
-                totalAmount = quantity.quantity * pricePerPart.netPrice
+                chargedAmount = pricePerPart.get
+                chargedQuantity = quantity.get
+                totalAmount = chargedQuantity * chargedAmount
         }
         storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatId)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
                 <ram:AssociatedDocumentLineDocument>
-                    <ram:LineID>{position.id.id}</ram:LineID>
+                    <ram:LineID>{position.id.get}</ram:LineID>
                 </ram:AssociatedDocumentLineDocument>
                 <ram:SpecifiedTradeProduct>
-                    <ram:Name>{position.name.name}</ram:Name>
+                    <ram:Name>{position.name.get}</ram:Name>
                 </ram:SpecifiedTradeProduct>
                 <ram:SpecifiedLineTradeAgreement>
                     <ram:NetPriceProductTradePrice>
@@ -177,8 +177,8 @@ class XMLUtility(){
                         // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
                         <ram:TypeCode>VAT</ram:TypeCode>
-                        <ram:CategoryCode>{position.vatId.vatCode.code}</ram:CategoryCode>
-                        <ram:RateApplicablePercent>{position.vatId.vatRate.rate}</ram:RateApplicablePercent>
+                        <ram:CategoryCode>{position.vatId.vatCode.get}</ram:CategoryCode>
+                        <ram:RateApplicablePercent>{position.vatId.vatRate.get}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>{totalAmount}</ram:LineTotalAmount>
@@ -200,7 +200,7 @@ class XMLUtility(){
                         yield CreateTaxSummaryXML(group)}
                 }
                 {
-                    val value = paymentInfo.paymentTerms.terms
+                    val value = paymentInfo.paymentTerms.get
                     val xml =
                         <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>{value}</ram:Description>
@@ -232,14 +232,14 @@ class XMLUtility(){
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
                         var value = vatGroup.vatExemptionReason.reason
-                        if ("SZLM".contains(id.vatCode.code)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
+                        if ("SZLM".contains(id.vatCode.get)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
                         insertOptionalInput(value, xml)
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
-                    <ram:CategoryCode>{id.vatCode.code}</ram:CategoryCode>
-                    <ram:RateApplicablePercent>{id.vatRate.rate}</ram:RateApplicablePercent>
+                    <ram:CategoryCode>{id.vatCode.get}</ram:CategoryCode>
+                    <ram:RateApplicablePercent>{id.vatRate.get}</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
         }
         return xml

@@ -16,7 +16,7 @@
                 <ram:IssueDateTime>
                 
                 <udt:DateTimeString format="102">
-                    20250605
+                    20250606
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -101,7 +101,7 @@
                     <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradePaymentTerms>
-                            <ram:Description>y</ram:Description>
+                            <ram:Description>yes</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
                     <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
