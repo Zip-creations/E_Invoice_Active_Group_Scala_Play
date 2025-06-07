@@ -1,9 +1,11 @@
 package codelists
 
 import utility._
+
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
+
 
 object MeasurementCode {
     def matchStr(str: String): Option[MeasurementCode] = {
@@ -12,10 +14,10 @@ object MeasurementCode {
     def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
-    def validate(measurementCode: String): Validated[Seq[ErrorMessage], MeasurementCode] = {
+    def validate(code: String): Validated[Seq[ErrorMessage], MeasurementCode] = {
         Validated.cond(
-            MeasurementCode.strInList(measurementCode),
-            MeasurementCode.matchStr(measurementCode).get,
+            MeasurementCode.strInList(code),
+            MeasurementCode.matchStr(code).get,
             Seq(ArgumentError)
         )
     }

@@ -1,6 +1,7 @@
 package codelists
 
 import utility._
+
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._

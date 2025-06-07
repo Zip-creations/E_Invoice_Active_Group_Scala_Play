@@ -14,10 +14,10 @@ object CountryCode {
     def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
-    def validate(countrycode: String): Validated[Seq[ErrorMessage], CountryCode] = {
+    def validate(code: String): Validated[Seq[ErrorMessage], CountryCode] = {
         Validated.cond(
-            CountryCode.strInList(countrycode),
-            CountryCode.matchStr(countrycode).get,
+            CountryCode.strInList(code),
+            CountryCode.matchStr(code).get,
             Seq(ArgumentError)
         )
     }
