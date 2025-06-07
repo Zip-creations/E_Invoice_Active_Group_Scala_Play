@@ -12,7 +12,6 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1
 libraryDependencies += "org.typelevel" %% "cats-core" % "2.13.0"
 libraryDependencies += "org.scalameta" %% "munit" % "1.1.1" % Test
 
-
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.example.controllers._"
 

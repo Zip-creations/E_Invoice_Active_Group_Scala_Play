@@ -22,11 +22,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def index() = Action { implicit request: Request[AnyContent] =>
     //Ok(views.html.index(request))
-    Ok(views.html.index(request))
+    Ok(views.html.index(using request))
   }
 
   def addPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.index(request))
+    Ok(views.html.index(using request))
   }
 
   def generateLeistungsabrechnungPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
