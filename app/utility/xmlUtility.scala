@@ -104,7 +104,7 @@ class XMLUtility(){
             <ram:PostalTradeAddress>
                 <ram:PostcodeCode>{address.postCode.get}</ram:PostcodeCode>
                 <ram:CityName>{address.city.get}</ram:CityName>
-                <ram:CountryID>{address.countryCode}</ram:CountryID>
+                <ram:CountryID>{address.countryCode.get}</ram:CountryID>
             </ram:PostalTradeAddress>
         return xml
     }
@@ -148,7 +148,7 @@ class XMLUtility(){
                 chargedQuantity = 1
                 totalAmount = hours.get * chargedAmount
             case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
-                unitcode = measurementCode.toString
+                unitcode = measurementCode.get
                 chargedAmount = pricePerPart.get
                 chargedQuantity = quantity.get
                 totalAmount = chargedQuantity * chargedAmount
@@ -189,11 +189,12 @@ class XMLUtility(){
     }
 
     private def CreatePaymentInformationXML(paymentInfo: InvoicePaymentInformation): scala.xml.Elem = {
+        val currencycode = paymentInfo.currencycode.get
         val xml =
             <ram:ApplicableHeaderTradeSettlement>
-                <ram:InvoiceCurrencyCode>{paymentInfo.currencycode}</ram:InvoiceCurrencyCode>
+                <ram:InvoiceCurrencyCode>{currencycode}</ram:InvoiceCurrencyCode>
                 <ram:SpecifiedTradeSettlementPaymentMeans>
-                    <ram:TypeCode>{paymentInfo.paymentMeansCode}</ram:TypeCode>
+                    <ram:TypeCode>{paymentInfo.paymentMeansCode.get}</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 {
                     {for (group <- paymentInfo.vatGroups)
@@ -207,7 +208,7 @@ class XMLUtility(){
                         </ram:SpecifiedTradePaymentTerms>
                     insertOptionalInput(value, xml)
                 }
-                {CreateDocumentSummaryXML(storedPositions, paymentInfo.currencycode.toString)}
+                {CreateDocumentSummaryXML(storedPositions, currencycode)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
     }
