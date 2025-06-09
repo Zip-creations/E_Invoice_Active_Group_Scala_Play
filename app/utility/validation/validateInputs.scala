@@ -18,9 +18,9 @@ case class PostCode private(postcode: String) extends ValidateAble[String](postc
 object PostCode {
     def validate(postcode: String): Validated[Seq[ErrorMessage], PostCode] = {
         (Validated.cond(
-            postcode != "FEHLERTEST",
+            NoDoubleWhitespace(postcode),
             PostCode(postcode),
-            Seq(ArgumentError(postcode))
+            Seq(ArgumentError(makeError("Eine Postleitzahl darf keine 2 Leerzeichen hintereinander enthalten.", postcode)))
         )).map((_) => PostCode(postcode))
     }
 }
@@ -102,9 +102,9 @@ case class Date(date: String) extends ValidateAble[String](date)
 object Date {
     def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
         Validated.cond(
-            true,
+            IsValidDate(date),
             Date(date),
-            Seq(ArgumentError(date))
+            Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date)))
         )
     }
 }
@@ -190,9 +190,9 @@ case class VATRate(rate: Double) extends ValidateAble[Double](rate)
 object VATRate {
     def validate(rate: String): Validated[Seq[ErrorMessage], VATRate] = {
         Validated.cond(
-            true,  // Check here if the String can be converted to a Double
+            IsValidDouble(rate),
             VATRate(rate.toDouble),
-            Seq(ArgumentError(rate))
+            Seq(ArgumentError(makeError("Für eine VAR rate wurde keine gültige Zahl eingegeben.", rate)))
         )
     }
 }
@@ -201,9 +201,9 @@ case class Quantity(quantity: Double) extends ValidateAble[Double](quantity)
 object Quantity {
     def validate(quantity: String): Validated[Seq[ErrorMessage], Quantity] = {
         Validated.cond(
-            true,
+            IsValidDouble(quantity),
             Quantity(quantity.toDouble),
-            Seq(ArgumentError(quantity))
+            Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", quantity)))
         )
     }
 }
@@ -212,9 +212,9 @@ case class NetPrice(netPrice: Double) extends ValidateAble[Double](netPrice)
 object NetPrice {
     def validate(netPrice: String): Validated[Seq[ErrorMessage], NetPrice] = {
         Validated.cond(
-            true,
+            IsValidDouble(netPrice),
             NetPrice(netPrice.toDouble),
-            Seq(ArgumentError(netPrice))
+            Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", netPrice)))
         )
     }
 }
@@ -267,9 +267,9 @@ case class Hours(hours: Double) extends ValidateAble[Double](hours)
 object Hours {
     def validate(hours: String): Validated[Seq[ErrorMessage], Hours] = {
         Validated.cond(
-            true,
+            IsValidDouble(hours),
             Hours(hours.toDouble),
-            Seq(ArgumentError(hours))
+            Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", hours)))
         )
     }
 }
@@ -278,9 +278,9 @@ case class HourlyRate(rate: Double) extends ValidateAble[Double](rate)
 object HourlyRate {
     def validate(hourlyrate: String): Validated[Seq[ErrorMessage], HourlyRate] = {
         Validated.cond(
-            true,
+            IsValidDouble(hourlyrate),
             HourlyRate(hourlyrate.toDouble),
-            Seq(ArgumentError(hourlyrate))
+            Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", hourlyrate)))
         )
     }
 }

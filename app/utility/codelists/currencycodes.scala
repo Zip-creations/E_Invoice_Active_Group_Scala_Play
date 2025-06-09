@@ -23,11 +23,12 @@ object CurrencyCode {
         Validated.cond(
             CurrencyCode.strInList(code),
             CurrencyCode.matchStr(code).get,
-            Seq(ValueNotInCodelist(code))
+            Seq(ValueNotInCodelistError(code))
         )
     }
 }
 
+// Added Code_ to enable the Enum to work with codes that start with numbers, and preserve uniformity
 enum CurrencyCodes {
     case
         Code_AED,

@@ -23,11 +23,12 @@ object PaymentMeansTypeCode {
         Validated.cond(
             PaymentMeansTypeCode.strInList(code),
             PaymentMeansTypeCode.matchStr(code).get,
-            Seq(ValueNotInCodelist(code))
+            Seq(ValueNotInCodelistError(code))
         )
     }
 }
 
+// Added Code_ to enable the Enum to work with codes that start with numbers, and preserve uniformity
 enum PaymentMeansTypeCodes{
     case
         Code_1,

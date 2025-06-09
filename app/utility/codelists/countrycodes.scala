@@ -23,11 +23,12 @@ object CountryCode {
         Validated.cond(
             CountryCode.strInList(code),
             CountryCode.matchStr(code).get,
-            Seq(ValueNotInCodelist(code))
+            Seq(ValueNotInCodelistError(code))
         )
     }
 }
 
+// Added Code_ to enable the Enum to work with codes that start with numbers, and preserve uniformity
 enum CountryCodes {
     case
      Code_AD,

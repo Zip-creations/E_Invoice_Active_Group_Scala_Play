@@ -23,11 +23,12 @@ object MeasurementCode {
         Validated.cond(
             MeasurementCode.strInList(code),
             MeasurementCode.matchStr(code).get,
-            Seq(ValueNotInCodelist(code))
+            Seq(ValueNotInCodelistError(code))
         )
     }
 }
 
+// Added Code_ to enable the Enum to work with codes that start with numbers, and preserve uniformity
 enum MeasurementCodes{
     case
         Code_10,
