@@ -1,13 +1,13 @@
 package utility.validation
 
-sealed trait ErrorMessage {
+abstract class ErrorMessage(val str: Seq[String]) {
     def errorMessage: String
 }
 
-case object ArgumentError extends ErrorMessage {
-    def errorMessage: String = "Given value is invalid"
+case class ArgumentError(override val str: String*) extends ErrorMessage(str) {
+    def errorMessage: String = s"Given value ${str} is invalid\n"
 }
 
-case object ValueNotInCodelist extends ErrorMessage {
-    def errorMessage: String = "Given value was not found in codelist"
+case class ValueNotInCodelist(override val str: String*) extends ErrorMessage(str) {
+    def errorMessage: String = s"Given value ${str} was not found in codelist"
 }

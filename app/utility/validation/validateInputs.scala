@@ -16,7 +16,7 @@ object PostCode {
         Validated.cond(
             postcode != "FEHLERTEST",
             PostCode(postcode),
-            Seq(ArgumentError)
+            Seq(ArgumentError(postcode))
         )
     }
 }
@@ -25,9 +25,9 @@ case class City private(city: String) extends ValidateAble[String](city)
 object City {
     def validate(city: String): Validated[Seq[ErrorMessage], City] = {
         Validated.cond(
-            true,
+            proof(ContainsDoubleWhitespace(city)),
             City(city),
-            Seq(ArgumentError)
+            Seq(ArgumentError(city))
         )
     }
 }
@@ -38,7 +38,7 @@ object BuyerReference {
         Validated.cond(
             true,
             BuyerReference(ref),
-            Seq(ArgumentError)
+            Seq(ArgumentError(ref))
         )
     }
 }
@@ -49,7 +49,7 @@ object Name{
         Validated.cond(
             true,
             Name(name),
-            Seq(ArgumentError)
+            Seq(ArgumentError(name))
         )
     }
 }
@@ -60,7 +60,7 @@ object Iban{
         Validated.cond(
             true,
             Iban(iban),
-            Seq(ArgumentError)
+            Seq(ArgumentError(iban))
         )
     }
 }
@@ -71,7 +71,7 @@ object Email {
         Validated.cond(
             true,
             Email(email),
-            Seq(ArgumentError)
+            Seq(ArgumentError(email))
         )
     }
 }
@@ -82,7 +82,7 @@ object InvoiceIdentifier {
         Validated.cond(
             true,
             InvoiceIdentifier(id),
-            Seq(ArgumentError)
+            Seq(ArgumentError(id))
         )
     }
 }
@@ -93,7 +93,7 @@ object Date {
         Validated.cond(
             true,
             Date(date),
-            Seq(ArgumentError)
+            Seq(ArgumentError(date))
         )
     }
 }
@@ -104,7 +104,7 @@ object InvoiceTypeCode {
         Validated.cond(
             true,
             InvoiceTypeCode(typeCode),
-            Seq(ArgumentError)
+            Seq(ArgumentError(typeCode))
         )
     }
 }
@@ -115,7 +115,7 @@ object PaymentTerms {
         Validated.cond(
             true,
             PaymentTerms(terms),
-            Seq(ArgumentError)
+            Seq(ArgumentError(terms))
         )
     }
 }
@@ -126,7 +126,7 @@ object TelephoneNumber {
         Validated.cond(
             true,
             TelephoneNumber(number),
-            Seq(ArgumentError)
+            Seq(ArgumentError(number))
         )
     }
 }
@@ -137,7 +137,7 @@ object WebsiteLink {
         Validated.cond(
             true,
             WebsiteLink(link),
-            Seq(ArgumentError)
+            Seq(ArgumentError(link))
         )
     }
 }
@@ -148,7 +148,7 @@ object Street {
         Validated.cond(
             true,
             Street(street),
-            Seq(ArgumentError)
+            Seq(ArgumentError(street))
         )
     }
 }
@@ -159,7 +159,7 @@ object SellerVATIdentifier {
         Validated.cond(
             true,
             SellerVATIdentifier(id),
-            Seq(ArgumentError)
+            Seq(ArgumentError(id))
         )
     }
 }
@@ -170,7 +170,7 @@ object VATCategoryCode {
         Validated.cond(
             true,
             VATCategoryCode(code),
-            Seq(ArgumentError)
+            Seq(ArgumentError(code))
         )
     }
 }
@@ -181,7 +181,7 @@ object VATRate {
         Validated.cond(
             true,  // Check here if the String can be converted to a Double
             VATRate(rate.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(rate))
         )
     }
 }
@@ -192,7 +192,7 @@ object Quantity {
         Validated.cond(
             true,
             Quantity(quantity.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(quantity))
         )
     }
 }
@@ -203,7 +203,7 @@ object NetPrice {
         Validated.cond(
             true,
             NetPrice(netPrice.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(netPrice))
         )
     }
 }
@@ -214,7 +214,7 @@ object NetAmount {
         Validated.cond(
             true,
             NetAmount(quantity.toDouble * netPrice.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(quantity, netPrice))
         )
     }
 }
@@ -225,7 +225,7 @@ object VATExemptionReason {
         Validated.cond(
             true,
             VATExemptionReason(reason),
-            Seq(ArgumentError)
+            Seq(ArgumentError(reason))
         )
     }
 }
@@ -236,7 +236,7 @@ object PositionID {
         Validated.cond(
             true,
             PositionID(id),
-            Seq(ArgumentError)
+            Seq(ArgumentError(id))
         )
     }
 }
@@ -247,7 +247,7 @@ object PositionName {
         Validated.cond(
             true,
             PositionName(name),
-            Seq(ArgumentError)
+            Seq(ArgumentError(name))
         )
     }
 }
@@ -258,7 +258,7 @@ object Hours {
         Validated.cond(
             true,
             Hours(hours.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(hours))
         )
     }
 }
@@ -269,7 +269,7 @@ object HourlyRate {
         Validated.cond(
             true,
             HourlyRate(hourlyrate.toDouble),
-            Seq(ArgumentError)
+            Seq(ArgumentError(hourlyrate))
         )
     }
 }

@@ -23,7 +23,7 @@ object CountryCode {
         Validated.cond(
             CountryCode.strInList(code),
             CountryCode.matchStr(code).get,
-            Seq(ValueNotInCodelist)
+            Seq(ValueNotInCodelist(code))
         )
     }
 }

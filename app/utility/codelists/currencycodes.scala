@@ -23,7 +23,7 @@ object CurrencyCode {
         Validated.cond(
             CurrencyCode.strInList(code),
             CurrencyCode.matchStr(code).get,
-            Seq(ValueNotInCodelist)
+            Seq(ValueNotInCodelist(code))
         )
     }
 }

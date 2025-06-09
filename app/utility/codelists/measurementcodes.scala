@@ -23,7 +23,7 @@ object MeasurementCode {
         Validated.cond(
             MeasurementCode.strInList(code),
             MeasurementCode.matchStr(code).get,
-            Seq(ValueNotInCodelist)
+            Seq(ValueNotInCodelist(code))
         )
     }
 }

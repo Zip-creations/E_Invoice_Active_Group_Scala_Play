@@ -23,7 +23,7 @@ object PaymentMeansTypeCode {
         Validated.cond(
             PaymentMeansTypeCode.strInList(code),
             PaymentMeansTypeCode.matchStr(code).get,
-            Seq(ValueNotInCodelist)
+            Seq(ValueNotInCodelist(code))
         )
     }
 }

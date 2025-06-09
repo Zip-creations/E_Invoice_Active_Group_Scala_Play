@@ -145,6 +145,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       case Valid(a) =>
         xmlData = xmlUtil.CreateInvoiceXML(a)
       case Invalid(e) =>
+        e.foreach {error =>
+          print(error.errorMessage)
+        }
     }
 
     // Paths
