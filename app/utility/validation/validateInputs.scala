@@ -4,6 +4,10 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+def makeError(message: String, value: String): String = {
+    s"${message} Fehlerquelle: \"${value}\""
+}
+
 abstract class ValidateAble[T](val value: T) {
     def get: T = {
         value
@@ -13,22 +17,29 @@ abstract class ValidateAble[T](val value: T) {
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {
     def validate(postcode: String): Validated[Seq[ErrorMessage], PostCode] = {
-        Validated.cond(
+        (Validated.cond(
             postcode != "FEHLERTEST",
             PostCode(postcode),
             Seq(ArgumentError(postcode))
-        )
+        )).map((_) => PostCode(postcode))
     }
 }
 
 case class City private(city: String) extends ValidateAble[String](city)
 object City {
     def validate(city: String): Validated[Seq[ErrorMessage], City] = {
-        Validated.cond(
-            proof(ContainsDoubleWhitespace(city)),
+        (
+            Validated.cond(
+            NoDoubleWhitespace(city),
             City(city),
-            Seq(ArgumentError(city))
+            Seq(ArgumentError(makeError("Der Name eine Stadt darf keine 2 Leerzeichen hintereinander enthalten.", city)))
+        ),
+            Validated.cond(  // testcode for more than 1 tests for a different error
+            NoDoubleWhitespace(city),
+            City(city),
+            Seq(ArgumentError("anderer Fehler"))
         )
+        ).mapN((_, _) => City(city))
     }
 }
 

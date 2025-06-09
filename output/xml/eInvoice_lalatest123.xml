@@ -1,2 +1,115 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
+<rsm:CrossIndustryInvoice xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100">
+                <rsm:ExchangedDocumentContext>
+                <ram:BusinessProcessSpecifiedDocumentContextParameter>
+                    <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+                </ram:BusinessProcessSpecifiedDocumentContextParameter>
+                <ram:GuidelineSpecifiedDocumentContextParameter>
+                    <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
+                </ram:GuidelineSpecifiedDocumentContextParameter>
+                </rsm:ExchangedDocumentContext>
+                <rsm:ExchangedDocument>
+                <ram:ID>
+                lalatest123
+                </ram:ID>
+                <ram:TypeCode>380</ram:TypeCode>
+                <ram:IssueDateTime>
+                
+                <udt:DateTimeString format="102">
+                    20250609
+                </udt:DateTimeString>
+                </ram:IssueDateTime>
+            </rsm:ExchangedDocument>
+                <rsm:SupplyChainTradeTransaction>
+                <ram:IncludedSupplyChainTradeLineItem>
+                <ram:AssociatedDocumentLineDocument>
+                    <ram:LineID>1</ram:LineID>
+                </ram:AssociatedDocumentLineDocument>
+                <ram:SpecifiedTradeProduct>
+                    <ram:Name>item name 1</ram:Name>
+                </ram:SpecifiedTradeProduct>
+                <ram:SpecifiedLineTradeAgreement>
+                    <ram:NetPriceProductTradePrice>
+                        <ram:ChargeAmount>10.0</ram:ChargeAmount>
+                    </ram:NetPriceProductTradePrice>
+                </ram:SpecifiedLineTradeAgreement>
+                <ram:SpecifiedLineTradeDelivery>
+                    <ram:BilledQuantity unitCode="HUR">1.0</ram:BilledQuantity>
+                </ram:SpecifiedLineTradeDelivery>
+                <ram:SpecifiedLineTradeSettlement>
+                    <ram:ApplicableTradeTax>
+                        
+                        <ram:TypeCode>VAT</ram:TypeCode>
+                        <ram:CategoryCode>S</ram:CategoryCode>
+                        <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
+                    </ram:ApplicableTradeTax>
+                    <ram:SpecifiedTradeSettlementLineMonetarySummation>
+                        <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
+                    </ram:SpecifiedTradeSettlementLineMonetarySummation>
+                </ram:SpecifiedLineTradeSettlement>
+            </ram:IncludedSupplyChainTradeLineItem>
+                <ram:ApplicableHeaderTradeAgreement>
+                <ram:BuyerReference>ref 123</ram:BuyerReference>
+                <ram:SellerTradeParty>
+              <ram:Name>seller name</ram:Name>
+                <ram:DefinedTradeContact>
+                <ram:PersonName>vorname nachname</ram:PersonName>
+                <ram:TelephoneUniversalCommunication>
+                    <ram:CompleteNumber>012 345</ram:CompleteNumber>
+                </ram:TelephoneUniversalCommunication>
+                <ram:EmailURIUniversalCommunication>
+                    <ram:URIID>ex2@mail.com</ram:URIID>
+                </ram:EmailURIUniversalCommunication>
+                </ram:DefinedTradeContact>
+                <ram:PostalTradeAddress>
+                <ram:PostcodeCode>12345</ram:PostcodeCode>
+                <ram:CityName>Example city</ram:CityName>
+                <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+                <ram:URIUniversalCommunication>
+                <ram:URIID schemeID="EM">ex@mail.com</ram:URIID>
+                </ram:URIUniversalCommunication>
+                <ram:SpecifiedTaxRegistration>
+                    <ram:ID schemeID="VA">DE123456789</ram:ID>
+                </ram:SpecifiedTaxRegistration>
+            </ram:SellerTradeParty>
+                <ram:BuyerTradeParty>
+                <ram:Name>buyer name</ram:Name>
+                <ram:PostalTradeAddress>
+                <ram:PostcodeCode>54321</ram:PostcodeCode>
+                <ram:CityName>buyer city</ram:CityName>
+                <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+                <ram:URIUniversalCommunication>
+                    <ram:URIID schemeID="EM">ex3@mail.com</ram:URIID>
+                </ram:URIUniversalCommunication>
+            </ram:BuyerTradeParty>
+            </ram:ApplicableHeaderTradeAgreement>
+                <ram:ApplicableHeaderTradeDelivery>
+                </ram:ApplicableHeaderTradeDelivery>
+                <ram:ApplicableHeaderTradeSettlement>
+                <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+                <ram:SpecifiedTradeSettlementPaymentMeans>
+                    <ram:TypeCode>ZZZ</ram:TypeCode>
+                </ram:SpecifiedTradeSettlementPaymentMeans>
+                <ram:ApplicableTradeTax>
+                    <ram:CalculatedAmount>20.9</ram:CalculatedAmount>
+                    <ram:TypeCode>VAT</ram:TypeCode>
+                    
+                    <ram:BasisAmount>110.0</ram:BasisAmount>
+                    <ram:CategoryCode>S</ram:CategoryCode>
+                    <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
+                </ram:ApplicableTradeTax>
+                <ram:SpecifiedTradePaymentTerms>
+                            <ram:Description>yes</ram:Description>
+                        </ram:SpecifiedTradePaymentTerms>
+                <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                    <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
+                    <ram:TaxBasisTotalAmount>110.0</ram:TaxBasisTotalAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">20.9</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>130.9</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>130.9</ram:DuePayableAmount>
+                </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+            </ram:ApplicableHeaderTradeSettlement>
+                </rsm:SupplyChainTradeTransaction>
+            </rsm:CrossIndustryInvoice>
