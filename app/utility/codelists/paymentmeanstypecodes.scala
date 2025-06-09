@@ -1,4 +1,4 @@
-package codelists
+package utility.codelists
 
 import utility.validation._
 
@@ -23,7 +23,7 @@ object PaymentMeansTypeCode {
         Validated.cond(
             PaymentMeansTypeCode.strInList(code),
             PaymentMeansTypeCode.matchStr(code).get,
-            Seq(ArgumentError)
+            Seq(ValueNotInCodelist)
         )
     }
 }

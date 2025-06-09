@@ -1,4 +1,4 @@
-package codelists
+package utility.codelists
 
 // I want to create an abstract class for all case class that use enums to validate their codes
 
@@ -23,7 +23,7 @@ abstract class ValidateAbleCode[T, T2](val value: T) {
     //     Validated.cond(
     //         strInList(code),
     //         matchStr(code).get,
-    //         Seq(ArgumentError)
+    //         Seq(ValueNotInCodelist)
     //     )
     // }
 }

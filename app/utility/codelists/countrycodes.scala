@@ -1,4 +1,4 @@
-package codelists
+package utility.codelists
 
 import utility.validation._
 
@@ -23,7 +23,7 @@ object CountryCode {
         Validated.cond(
             CountryCode.strInList(code),
             CountryCode.matchStr(code).get,
-            Seq(ArgumentError)
+            Seq(ValueNotInCodelist)
         )
     }
 }

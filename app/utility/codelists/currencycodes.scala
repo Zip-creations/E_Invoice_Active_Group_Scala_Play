@@ -1,4 +1,4 @@
-package codelists
+package utility.codelists
 
 import utility.validation._
 
@@ -23,7 +23,7 @@ object CurrencyCode {
         Validated.cond(
             CurrencyCode.strInList(code),
             CurrencyCode.matchStr(code).get,
-            Seq(ArgumentError)
+            Seq(ValueNotInCodelist)
         )
     }
 }

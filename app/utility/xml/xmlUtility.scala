@@ -1,6 +1,6 @@
 package utility.xml
 
-import codelists._
+import utility.codelists._
 import utility.validation._
 import scala.xml.NodeSeq
 
