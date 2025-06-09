@@ -1,4 +1,4 @@
-package utility
+package utility.validation
 
 sealed trait ErrorMessage {
     def errorMessage: String

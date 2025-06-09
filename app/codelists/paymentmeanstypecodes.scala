@@ -1,6 +1,6 @@
 package codelists
 
-import utility._
+import utility.validation._
 
 import cats.data._
 import cats.data.Validated._

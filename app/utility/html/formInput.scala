@@ -1,4 +1,4 @@
-package utility
+package utility.html
 import play.twirl.api.Html
 
 object FormInputHelper {

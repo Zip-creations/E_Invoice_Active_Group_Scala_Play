@@ -1,4 +1,4 @@
-package utility
+package utility.validation
 
 import cats.data._
 import cats.data.Validated._

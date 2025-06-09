@@ -1,5 +1,5 @@
 @(implicit request: RequestHeader)
-@import utility.FormInputHelper._
+@import utility.html.FormInputHelper._
 @main("E Rechnung erstellen", "main.css"){
     <div id="indexbody">
         <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoicecontainer" target="_blank">
