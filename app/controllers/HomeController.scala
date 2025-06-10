@@ -134,9 +134,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("PaymentTerms")
     )
 
-    // print(CountryCode.matchStr("DE"))
-    // print(CountryCode.matchStr("DE").get)
-
     val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)
     val invoice = Invoice.validate(meta, involvedparties, allPositions, paymentInformation)
 

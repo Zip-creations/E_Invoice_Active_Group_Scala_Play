@@ -27,3 +27,7 @@ def IsValidDate(str: String): Boolean = {
             false
     }
 }
+
+def NotNegative(num: Double): Boolean = {
+    num >= 0
+}

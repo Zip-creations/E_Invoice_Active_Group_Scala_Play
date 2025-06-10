@@ -5,23 +5,26 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 def makeError(message: String, value: String): String = {
-    s"${message} Fehlerquelle: \"${value}\""
+    s"${message} Fehlerquelle: \'${value}\'"
 }
 
 abstract class ValidateAble[T](val value: T) {
     def get: T = {
         value
     }
+    def getStr: String = {
+        value.toString
+    }
 }
 
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {
     def validate(postcode: String): Validated[Seq[ErrorMessage], PostCode] = {
-        (Validated.cond(
+        Validated.cond(
             NoDoubleWhitespace(postcode),
             PostCode(postcode),
             Seq(ArgumentError(makeError("Eine Postleitzahl darf keine 2 Leerzeichen hintereinander enthalten.", postcode)))
-        )).map((_) => PostCode(postcode))
+        )
     }
 }
 
@@ -192,8 +195,13 @@ object VATRate {
         Validated.cond(
             IsValidDouble(rate),
             VATRate(rate.toDouble),
-            Seq(ArgumentError(makeError("Für eine VAR rate wurde keine gültige Zahl eingegeben.", rate)))
-        )
+            Seq(ArgumentError(makeError("Für einen Umsatzsteuersatz wurde keine gültige Zahl eingegeben.", rate)))).andThen{
+                rate =>
+                    Validated.cond(
+                        NotNegative(rate.get),
+                        rate,
+                        Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", rate.getStr))))
+        }
     }
 }
 
@@ -203,8 +211,13 @@ object Quantity {
         Validated.cond(
             IsValidDouble(quantity),
             Quantity(quantity.toDouble),
-            Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", quantity)))
-        )
+            Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", quantity)))).andThen{
+                quantity =>
+                    Validated.cond(
+                        NotNegative(quantity.get),
+                        quantity,
+                        Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", quantity.getStr))))
+        }
     }
 }
 
@@ -214,8 +227,13 @@ object NetPrice {
         Validated.cond(
             IsValidDouble(netPrice),
             NetPrice(netPrice.toDouble),
-            Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", netPrice)))
-        )
+            Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", netPrice)))).andThen{
+                netPrice =>
+                    Validated.cond(
+                        NotNegative(netPrice.get),
+                        netPrice,
+                        Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", netPrice.getStr))))
+        }
     }
 }
 
@@ -269,8 +287,13 @@ object Hours {
         Validated.cond(
             IsValidDouble(hours),
             Hours(hours.toDouble),
-            Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", hours)))
-        )
+            Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", hours)))).andThen{
+                hours =>
+                    Validated.cond(
+                        NotNegative(hours.get),
+                        hours,
+                        Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", hours.getStr))))
+        }
     }
 }
 
