@@ -8,7 +8,7 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-abstract class ValidateAbleCode[T, T2](val value: T) {
+abstract class ValidateableCode[T, T2](val value: T) {
     // def matchStr(str: String): Option[T] = {
     // T2.values.find(_.toString == "Code_" ++ str) match 
     //     case Some(_) =>

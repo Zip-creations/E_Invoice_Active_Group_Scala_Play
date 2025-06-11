@@ -220,7 +220,7 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: empty String
         val test3 = CountryCode.validate("")
         assert(assertInvalid(test3.map(_.get)))
-        // test invalid case: lower case
+        // test invalid case: lower case letters
         val test4 = CountryCode.validate("de")
         assert(assertInvalid(test4.map(_.get)))
     }
@@ -236,7 +236,7 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: empty String
         val test3 = CurrencyCode.validate("")
         assert(assertInvalid(test3.map(_.get)))
-        // test invalid case: lower case
+        // test invalid case: lower case letters
         val test4 = CurrencyCode.validate("eur")
         assert(assertInvalid(test4.map(_.get)))
     }
@@ -255,7 +255,7 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: empty String
         val test4 = MeasurementCode.validate("")
         assert(assertInvalid(test4.map(_.get)))
-        // test invalid case: lower case
+        // test invalid case: lower case letters
         val test5 = MeasurementCode.validate("h87")
         assert(assertInvalid(test5.map(_.get)))
     }
@@ -274,8 +274,24 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: empty String
         val test4 = PaymentMeansTypeCode.validate("")
         assert(assertInvalid(test4.map(_.get)))
-        // test invalid case: lower case
+        // test invalid case: lower case letters
         val test5 = PaymentMeansTypeCode.validate("zzz")
         assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing VATCategoryCode") {
+        // test regular case (member of Enum)
+        val test1 = VATCategoryCode.validate("S")
+        assertEquals(test1.map(_.get), Valid("S"))
+
+        // test invalid case (not a member of Enum)
+        val test2 = VATCategoryCode.validate("XY")
+        assert(assertInvalid(test2.map(_.get)))
+        // test invalid case: empty String
+        val test3 = VATCategoryCode.validate("")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: lower case letters
+        val test4 = VATCategoryCode.validate("s")
+        assert(assertInvalid(test4.map(_.get)))
     }
 }

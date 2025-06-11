@@ -191,17 +191,6 @@ object SellerVATIdentifier {
     }
 }
 
-case class VATCategoryCode(code: String) extends ValidateAble[String](code)
-object VATCategoryCode {
-    def validate(code: String): Validated[Seq[ErrorMessage], VATCategoryCode] = {
-        Validated.cond(
-            true,
-            VATCategoryCode(code),
-            Seq(ArgumentError(code))
-        )
-    }
-}
-
 case class VATRate(rate: Double) extends ValidateAble[Double](rate)
 object VATRate {
     def validate(rate: String): Validated[Seq[ErrorMessage], VATRate] = {
