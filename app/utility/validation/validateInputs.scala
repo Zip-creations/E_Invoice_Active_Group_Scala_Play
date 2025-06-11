@@ -7,6 +7,9 @@ import cats.syntax.all._
 def makeError(message: String, value: String): String = {
     s"${message} Fehlerquelle: \'${value}\'"
 }
+def makeError(message: String, value: ValidateAble[?]): String = {
+    s"${message} Fehlerquelle: \'${value.getStr.slice(4,5)}\'"
+}
 
 abstract class ValidateAble[T](val value: T) {
     def get: T = {
@@ -105,10 +108,20 @@ case class Date(date: String) extends ValidateAble[String](date)
 object Date {
     def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
         Validated.cond(
-            IsValidDate(date),
+            IsValidDateFormat(date),
             Date(date),
-            Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date)))
-        )
+            Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date)))).andThen{
+                date =>
+                    (Validated.cond(
+                        ValidMonth(date.get),
+                        date,
+                        Seq(ArgumentError(makeError("Der Monat eines Datum muss zwischen 1 und 12 liegen.", date)))), 
+                    Validated.cond(
+                        ValidDay(date.get),
+                        date,
+                        Seq(ArgumentError(makeError("Der Tag eines Datums muss zwischen 1 und 31 liegen.", date))))
+                    ).mapN((_, _) => Date(date.getStr))
+            }
     }
 }
 
@@ -200,8 +213,8 @@ object VATRate {
                     Validated.cond(
                         NotNegative(rate.get),
                         rate,
-                        Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", rate.getStr))))
-        }
+                        Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", rate))))
+            }
     }
 }
 
@@ -216,8 +229,8 @@ object Quantity {
                     Validated.cond(
                         NotNegative(quantity.get),
                         quantity,
-                        Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", quantity.getStr))))
-        }
+                        Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", quantity))))
+            }
     }
 }
 
@@ -232,8 +245,8 @@ object NetPrice {
                     Validated.cond(
                         NotNegative(netPrice.get),
                         netPrice,
-                        Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", netPrice.getStr))))
-        }
+                        Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", netPrice))))
+            }
     }
 }
 

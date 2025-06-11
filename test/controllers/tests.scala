@@ -1,13 +1,21 @@
 package test
 
-import utility._
-import codelists._
+import utility.validation._
+import utility.codelists._
 
 import munit.FunSuite
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+def assertInvalid(value: Any): Boolean = {
+    value match {
+        case Invalid(_) =>
+            true
+        case _ =>
+            false
+    }
+}
 
 class MUnitTest extends munit.FunSuite {
     test("testing PostCode") {
@@ -18,24 +26,71 @@ class MUnitTest extends munit.FunSuite {
         val test2 = PostCode.validate("DE 12345")
         assertEquals(test2.map(_.get), Valid("DE 12345"))
     }
+
     test("testing City") {
-        // Standart test case, ASCII letters only
+        // test regular case, ASCII letters only
         val test1 = City.validate("Freiburg")
         assertEquals(test1.map(_.get), Valid("Freiburg"))
-        // testing 'ö'
+        // test 'ö'
         val test2 = City.validate("Köln")
         assertEquals(test2.map(_.get), Valid("Köln"))
-        // testing 'ø'
+        // test 'ø'
         val test3 = City.validate("Hillerød")
         assertEquals(test3.map(_.get), Valid("Hillerød"))
-        // testing ciryllic letters (Kyjiw)
+        // test ciryllic letters (Kyjiw)
         val test4 = City.validate("Київ")
         assertEquals(test4.map(_.get), Valid("Київ"))
-        // testing chinese letters (Peking)
+        // test chinese letters (Peking)
         val test5 = City.validate("北京市")
         assertEquals(test5.map(_.get), Valid("北京市"))
-        // testing several words with whitespace
+        // test several words with whitespace
         val test6 = City.validate("New York")
         assertEquals(test6.map(_.get), Valid("New York"))
+
+        // test invalid case: Double whitespace
+        val test7 = City.validate("New  York")
+        assert(assertInvalid(test7.map(_.get)))
+    }
+
+    test("date") {
+        // test regular case
+        val test1 = Date.validate("20000101")
+        assertEquals(test1.map(_.get), Valid("20000101"))
+
+        // test invalid case: not a number
+        val test2 = Date.validate("a0000101")
+        assert(assertInvalid(test2.map(_.get)))
+        // test invalid case: whitespace, correct lenght of number
+        val test11 = Date.validate("1111 2222")
+        assert(assertInvalid(test11.map(_.get)))
+        // test invalid case: whitespace, correct length of string
+        val test12 = Date.validate("1111 222")
+        assert(assertInvalid(test12.map(_.get)))
+        // test invalid case: negative number
+        val test3 = Date.validate("-9990101")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: date format as it is communicated by a html-input with input type="date"
+        val test4 = Date.validate("2000-01-01")
+        assert(assertInvalid(test4.map(_.get)))
+
+        // test invalid case: too short
+        val test5 = Date.validate("1999130")
+        assert(assertInvalid(test5.map(_.get)))
+        // test invalid case: too long
+        val test6 = Date.validate("199913010")
+        assert(assertInvalid(test6.map(_.get)))
+        
+        // test invalid case: month > 12
+        val test7 = Date.validate("19991301")
+        assert(assertInvalid(test7.map(_.get)))
+        // test invalid case: month < 1
+        val test8 = Date.validate("19990001")
+        assert(assertInvalid(test8.map(_.get)))
+        // test invalid case: day > 31
+        val test9 = Date.validate("19990132")
+        assert(assertInvalid(test9.map(_.get)))
+        // test invalid case: day < 1
+        val test10 = Date.validate("19990100")
+        assert(assertInvalid(test10.map(_.get)))
     }
 }
