@@ -125,16 +125,6 @@ object Date {
     }
 }
 
-case class InvoiceTypeCode(typeCode: String) extends ValidateAble[String](typeCode)
-object InvoiceTypeCode {
-    def validate(typeCode: String): Validated[Seq[ErrorMessage], InvoiceTypeCode] = {
-        Validated.cond(
-            true,
-            InvoiceTypeCode(typeCode),
-            Seq(ArgumentError(typeCode))
-        )
-    }
-}
 
 case class PaymentTerms(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {

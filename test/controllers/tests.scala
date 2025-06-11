@@ -294,4 +294,17 @@ class MUnitTest extends munit.FunSuite {
         val test4 = VATCategoryCode.validate("s")
         assert(assertInvalid(test4.map(_.get)))
     }
+
+    test("testing InvoiceTypeCode") {
+        // test regular case (member of Enum)
+        val test1 = InvoiceTypeCode.validate("380")
+        assertEquals(test1.map(_.get), Valid("380"))
+
+        // test invalid case (not a member of Enum)
+        val test2 = InvoiceTypeCode.validate("XY")
+        assert(assertInvalid(test2.map(_.get)))
+        // test invalid case: empty String
+        val test3 = InvoiceTypeCode.validate("")
+        assert(assertInvalid(test3.map(_.get)))
+    }
 }
