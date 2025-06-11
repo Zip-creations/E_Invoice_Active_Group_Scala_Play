@@ -25,6 +25,10 @@ class MUnitTest extends munit.FunSuite {
         // mixture of numbers, letters and whitespace
         val test2 = PostCode.validate("DE 12345")
         assertEquals(test2.map(_.get), Valid("DE 12345"))
+
+        // test invalid case: Double whitespace
+        val test3 = PostCode.validate("DE  12345")
+        assert(assertInvalid(test3.map(_.get)))
     }
 
     test("testing City") {

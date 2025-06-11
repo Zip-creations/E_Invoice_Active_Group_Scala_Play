@@ -125,7 +125,6 @@ object Date {
     }
 }
 
-
 case class PaymentTerms(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {
         def validate(terms: String): Validated[Seq[ErrorMessage], PaymentTerms] = {
