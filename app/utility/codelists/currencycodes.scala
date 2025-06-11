@@ -9,14 +9,14 @@ import cats.syntax.all._
 
 case class CurrencyCode(code: String) extends ValidateAble[String](code)
 object CurrencyCode {
-    def matchStr(str: String): Option[CurrencyCode] = {
+    private def matchStr(str: String): Option[CurrencyCode] = {
         CurrencyCodes.values.find(_.toString == "Code_" ++ str) match 
             case Some(_) =>
                 Some(CurrencyCode(str))
             case None => 
                 None
     }
-    def strInList(str: String): Boolean = {
+    private def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
     def validate(code: String): Validated[Seq[ErrorMessage], CurrencyCode] = {

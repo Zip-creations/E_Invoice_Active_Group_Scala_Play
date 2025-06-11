@@ -189,4 +189,93 @@ class MUnitTest extends munit.FunSuite {
         val test5 = HourlyRate.validate("-19.0")
         assert(assertInvalid(test5.map(_.get)))
     }
+
+    test("testing NetAmount") {
+        // test regular case
+        val test1 = NetAmount.validate("10.0", "10.0")
+        assertEquals(test1.map(_.get), Valid(100.0))
+        // test without decimal point
+        val test2 = NetAmount.validate("10", "10")
+        assertEquals(test2.map(_.get), Valid(100.0))
+
+        // test invalid case: quantity is invalid
+        val test3 = NetAmount.validate("-10.0", "10.0")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: netPrice is invalid
+        val test4 = NetAmount.validate("10.0", "-10.0")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: quantity and netPrice are invalid
+        val test5 = NetAmount.validate("-10.0", "-10.0")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing CountryCode") {
+        // test regular case (member of Enum)
+        val test1 = CountryCode.validate("DE")
+        assertEquals(test1.map(_.get), Valid("DE"))
+
+        // test invalid case (not a member of Enum)
+        val test2 = CountryCode.validate("XY")
+        assert(assertInvalid(test2.map(_.get)))
+        // test invalid case: empty String
+        val test3 = CountryCode.validate("")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: lower case
+        val test4 = CountryCode.validate("de")
+        assert(assertInvalid(test4.map(_.get)))
+    }
+
+    test("testing CurrencyCode") {
+        // test regular case (member of Enum)
+        val test1 = CurrencyCode.validate("EUR")
+        assertEquals(test1.map(_.get), Valid("EUR"))
+
+        // test invalid case (not a member of Enum)
+        val test2 = CurrencyCode.validate("XY")
+        assert(assertInvalid(test2.map(_.get)))
+        // test invalid case: empty String
+        val test3 = CurrencyCode.validate("")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: lower case
+        val test4 = CurrencyCode.validate("eur")
+        assert(assertInvalid(test4.map(_.get)))
+    }
+
+    test("testing MeasurementCode") {
+        // test regular case (member of Enum)
+        val test1 = MeasurementCode.validate("H87")
+        assertEquals(test1.map(_.get), Valid("H87"))
+        // test regular case (member of Enum, original code starts with a number)
+        val test2 = MeasurementCode.validate("35")
+        assertEquals(test2.map(_.get), Valid("35"))
+
+        // test invalid case (not a member of Enum)
+        val test3 = MeasurementCode.validate("XY")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: empty String
+        val test4 = MeasurementCode.validate("")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: lower case
+        val test5 = MeasurementCode.validate("h87")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing PaymentMeansTypeCode") {
+        // test regular case (member of Enum)
+        val test1 = PaymentMeansTypeCode.validate("ZZZ")
+        assertEquals(test1.map(_.get), Valid("ZZZ"))
+        // test regular case (member of Enum, original code starts with a number)
+        val test2 = PaymentMeansTypeCode.validate("1")
+        assertEquals(test2.map(_.get), Valid("1"))
+
+        // test invalid case (not a member of Enum)
+        val test3 = PaymentMeansTypeCode.validate("XY")
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: empty String
+        val test4 = PaymentMeansTypeCode.validate("")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: lower case
+        val test5 = PaymentMeansTypeCode.validate("zzz")
+        assert(assertInvalid(test5.map(_.get)))
+    }
 }

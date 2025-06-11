@@ -9,14 +9,14 @@ import cats.syntax.all._
 
 case class MeasurementCode(code: String) extends ValidateAble[String](code)
 object MeasurementCode {
-    def matchStr(str: String): Option[MeasurementCode] = {
+    private def matchStr(str: String): Option[MeasurementCode] = {
         MeasurementCodes.values.find(_.toString == "Code_" ++ str) match 
             case Some(_) =>
                 Some(MeasurementCode(str))
             case None => 
                 None
     }
-    def strInList(str: String): Boolean = {
+    private def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
     def validate(code: String): Validated[Seq[ErrorMessage], MeasurementCode] = {

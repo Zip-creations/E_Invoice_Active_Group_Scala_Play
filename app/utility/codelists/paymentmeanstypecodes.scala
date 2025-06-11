@@ -9,14 +9,14 @@ import cats.syntax.all._
 
 case class PaymentMeansTypeCode(code: String) extends ValidateAble[String](code)
 object PaymentMeansTypeCode {
-    def matchStr(str: String): Option[PaymentMeansTypeCode] = {
+    private def matchStr(str: String): Option[PaymentMeansTypeCode] = {
         PaymentMeansTypeCodes.values.find(_.toString == "Code_" ++ str) match 
             case Some(_) =>
                 Some(PaymentMeansTypeCode(str))
             case None => 
                 None
     }
-    def strInList(str: String): Boolean = {
+    private def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
     def validate(code: String): Validated[Seq[ErrorMessage], PaymentMeansTypeCode] = {
