@@ -52,7 +52,7 @@ class MUnitTest extends munit.FunSuite {
         assert(assertInvalid(test7.map(_.get)))
     }
 
-    test("date") {
+    test("testing date") {
         // test regular case
         val test1 = Date.validate("20000101")
         assertEquals(test1.map(_.get), Valid("20000101"))
@@ -79,7 +79,7 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: too long
         val test6 = Date.validate("199913010")
         assert(assertInvalid(test6.map(_.get)))
-        
+
         // test invalid case: month > 12
         val test7 = Date.validate("19991301")
         assert(assertInvalid(test7.map(_.get)))
@@ -92,5 +92,101 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: day < 1
         val test10 = Date.validate("19990100")
         assert(assertInvalid(test10.map(_.get)))
+        // TODO: combination of wrong day and month
+    }
+
+    test("testing VATRate") {
+        // test regular case
+        val test1 = VATRate.validate("19.0")
+        assertEquals(test1.map(_.get), Valid(19.0))
+        // test 0.0
+        val test2 = VATRate.validate("0.0")
+        assertEquals(test2.map(_.get), Valid(0.0))
+        // test without decimal point
+        val test3 = VATRate.validate("19")
+        assertEquals(test3.map(_.get), Valid(19.0))
+
+        // test invalid case: not a number
+        val test4 = VATRate.validate("a.bc")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: negative number
+        val test5 = VATRate.validate("-19.0")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing Quantity") {
+        // test regular case
+        val test1 = Quantity.validate("19.0")
+        assertEquals(test1.map(_.get), Valid(19.0))
+        // test 0.0
+        val test2 = Quantity.validate("0.0")
+        assertEquals(test2.map(_.get), Valid(0.0))
+        // test without decimal point
+        val test3 = Quantity.validate("19")
+        assertEquals(test3.map(_.get), Valid(19.0))
+
+        // test invalid case: not a number
+        val test4 = Quantity.validate("a.bc")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: negative number
+        val test5 = Quantity.validate("-19.0")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing NetPrice") {
+        // test regular case
+        val test1 = NetPrice.validate("19.0")
+        assertEquals(test1.map(_.get), Valid(19.0))
+        // test 0.0
+        val test2 = NetPrice.validate("0.0")
+        assertEquals(test2.map(_.get), Valid(0.0))
+        // test without decimal point
+        val test3 = NetPrice.validate("19")
+        assertEquals(test3.map(_.get), Valid(19.0))
+
+        // test invalid case: not a number
+        val test4 = NetPrice.validate("a.bc")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: negative number
+        val test5 = NetPrice.validate("-19.0")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing Hours") {
+        // test regular case
+        val test1 = Hours.validate("19.0")
+        assertEquals(test1.map(_.get), Valid(19.0))
+        // test 0.0
+        val test2 = Hours.validate("0.0")
+        assertEquals(test2.map(_.get), Valid(0.0))
+        // test without decimal point
+        val test3 = Hours.validate("19")
+        assertEquals(test3.map(_.get), Valid(19.0))
+
+        // test invalid case: not a number
+        val test4 = Hours.validate("a.bc")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: negative number
+        val test5 = Hours.validate("-19.0")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing HourlyRate") {
+        // test regular case
+        val test1 = HourlyRate.validate("19.0")
+        assertEquals(test1.map(_.get), Valid(19.0))
+        // test 0.0
+        val test2 = HourlyRate.validate("0.0")
+        assertEquals(test2.map(_.get), Valid(0.0))
+        // test without decimal point
+        val test3 = HourlyRate.validate("19")
+        assertEquals(test3.map(_.get), Valid(19.0))
+
+        // test invalid case: not a number
+        val test4 = HourlyRate.validate("a.bc")
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: negative number
+        val test5 = HourlyRate.validate("-19.0")
+        assert(assertInvalid(test5.map(_.get)))
     }
 }

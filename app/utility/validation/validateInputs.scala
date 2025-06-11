@@ -253,11 +253,9 @@ object NetPrice {
 case class NetAmount(amount: Double) extends ValidateAble[Double](amount)
 object NetAmount {
     def validate(quantity: String, netPrice: String): Validated[Seq[ErrorMessage], NetAmount] = {
-        Validated.cond(
-            true,
-            NetAmount(quantity.toDouble * netPrice.toDouble),
-            Seq(ArgumentError(quantity, netPrice))
-        )
+        (Quantity.validate(quantity),
+        NetPrice.validate(netPrice)
+        ).mapN((_,_) => NetAmount(quantity.toDouble * netPrice.toDouble))
     }
 }
 
@@ -306,7 +304,7 @@ object Hours {
                         NotNegative(hours.get),
                         hours,
                         Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", hours.getStr))))
-        }
+            }
     }
 }
 
@@ -316,7 +314,13 @@ object HourlyRate {
         Validated.cond(
             IsValidDouble(hourlyrate),
             HourlyRate(hourlyrate.toDouble),
-            Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", hourlyrate)))
-        )
+            Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", hourlyrate)))).andThen{
+                hourlyrate =>
+                    Validated.cond(
+                        NotNegative(hourlyrate.get),
+                        hourlyrate,
+                        Seq(ArgumentError(makeError("Ein Stundensatz darf nicht negativ sein.", hourlyrate)))
+                    )
+            }
     }
 }
