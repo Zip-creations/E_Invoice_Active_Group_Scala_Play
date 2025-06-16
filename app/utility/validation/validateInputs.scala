@@ -104,24 +104,39 @@ object InvoiceIdentifier {
     }
 }
 
-case class Date(date: String) extends ValidateAble[String](date)
-object Date {
-    def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
+case class Year(year: String) extends ValidateAble(year)
+object Year {
+    def validate(year: String): Validated[Seq[ErrorMessage], Year] = {
+        val validatedYear = ValidYear(year)
         Validated.cond(
-            IsValidDateFormat(date),
-            Date(date),
-            Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date)))).andThen{
-                date =>
-                    (Validated.cond(
-                        ValidMonth(date.get),
-                        date,
-                        Seq(ArgumentError(makeError("Der Monat eines Datum muss zwischen 1 und 12 liegen.", date)))), 
-                    Validated.cond(
-                        ValidDay(date.get),
-                        date,
-                        Seq(ArgumentError(makeError("Der Tag eines Datums muss zwischen 1 und 31 liegen.", date))))
-                    ).mapN((_, _) => Date(date.getStr))
-            }
+            validatedYear.isDefined,
+            Year(validatedYear.get),
+            Seq(ArgumentError(makeError("Das Jahr eines Datums muss größer oder gleich 0 sein.", year)))
+        )
+    }
+}
+
+case class Month(month: String) extends ValidateAble(month)
+object Month {
+    def validate(month: String) = {
+        val validatedMonth = ValidMonth(month)
+        Validated.cond(
+            validatedMonth.isDefined,
+            Month(validatedMonth.get),
+            Seq(ArgumentError(makeError("Der Monat eines Datum muss zwischen 1 und 12 liegen.", month)))
+        )
+    }
+}
+
+case class Day(day: String) extends ValidateAble(day)
+object Day {
+    def validate(day: String) = {
+        val validatedDay = ValidYear(day)
+        Validated.cond(
+            validatedDay.isDefined,
+            Day(validatedDay.get),
+            Seq(ArgumentError(makeError("Der Tag eines Datums muss zwischen 1 und 31 liegen.", day)))
+        )
     }
 }
 

@@ -221,6 +221,28 @@ object Address {
     }
 }
 
+case class Date(
+    year: Year,
+    month: Month,
+    day: Day
+)
+object Date {
+    def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
+        if (IsValidDateFormat(date)) {
+            (
+                Year.validate(date.slice(0,4)),
+                Month.validate(date.slice(4,6)),
+                Day.validate(date.slice(6,8))
+            ).mapN(Date.apply)
+        } else {
+            Invalid(Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date))))
+        }
+    }
+    def get(date: Date): String = {
+        date.year.get + date.month.get + date.day.get
+    }
+}
+
 // Other possible ways to create an Invoice-Datamodel:
 
 // enum Rechnungstyp {

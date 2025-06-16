@@ -2,8 +2,8 @@ package utility.validation
 
 import scala.util.{Try, Success, Failure}
 
+
 // Each function shall return if the test result is negative (ergo: return true if the input is valid, and false if the input is invalid)
-// so the result of each validation function can be used in a disjuction
 
 // Tests for two or more consecutive whitespaces
 def NoDoubleWhitespace(str: String): Boolean = {
@@ -23,21 +23,39 @@ def NotNegative(num: Double): Boolean = {
     num >= 0
 }
 
+// Only valid date format: YYYYMMDD
 def IsValidDateFormat(str: String): Boolean = {
     Try(str.toInt) match{
         case Success(v) =>
-            str.length() == 8 && str.toInt > 0
+            str.length() == 8 && v >= 0
         case Failure(e) =>
             false
     }
 }
 
-def ValidMonth(str: String): Boolean = {
-    val month = str.slice(4, 6).toInt
-    month > 0 && month <= 12
+def ValidYear(str: String): Option[String] = {
+    val year = str.slice(0, 4).toInt
+    if (year >= 0) {
+        Some(year.toString)
+    } else {
+        None
+    }
 }
 
-def ValidDay(str: String): Boolean = {
+def ValidMonth(str: String): Option[String] = {
+    val month = str.slice(4, 6).toInt
+    if (month > 0 && month <= 12){
+        Some(month.toString)
+    } else {
+        None
+    }
+}
+
+def ValidDay(str: String): Option[String] = {
     val day = str.slice(6, 8).toInt
-    day > 0 && day <= 31
+    if (day > 0 && day <= 31) {
+        Some(day.toString)
+    } else {
+        None
+    }
 }

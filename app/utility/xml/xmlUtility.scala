@@ -67,7 +67,7 @@ class XMLUtility(){
                     // format="102" is determined in the EN 16931 - CII Mapping scheme
                 }
                 <udt:DateTimeString format="102">
-                    {meta.date.get}
+                    {Date.get(meta.date)}
                 </udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -137,7 +137,7 @@ class XMLUtility(){
     }
 
     private def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
-        var unitcode = "" //: MeasurementCode = MeasurementCode.A10  // a default is requiered by Scala. A10 is just the lexicographical first member
+        var unitcode = ""
         var chargedAmount = 0.0
         var totalAmount = 0.0
         var chargedQuantity = 0.0
