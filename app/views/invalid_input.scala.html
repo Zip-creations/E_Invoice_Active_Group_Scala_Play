@@ -1,0 +1,9 @@
+@import utility.validation._
+@(errorMessages: Seq[ErrorMessage])
+@main("Fehlerhafte Angaben im Dokument", "main.css"){
+<div>
+    @for(error <- errorMessages) {
+        <p>@error.errorMessage</p>
+    }
+</div>
+}

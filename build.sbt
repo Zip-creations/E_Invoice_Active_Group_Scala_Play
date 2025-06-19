@@ -22,9 +22,3 @@ lazy val backend = (project in file(".")).enablePlugins(PlayScala).settings(
     ).dependsOn(scalaJS).settings(
         Compile / compile := (Compile/compile).dependsOn(scalaJS / Compile / fullOptJS).value
     )
-
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "com.example.controllers._"
-
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
