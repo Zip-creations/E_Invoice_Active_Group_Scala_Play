@@ -107,7 +107,7 @@ object InvoiceIdentifier {
 case class Year(year: String) extends ValidateAble(year)
 object Year {
     def validate(year: String): Validated[Seq[ErrorMessage], Year] = {
-        val validatedYear = ValidYear(year)
+        val validatedYear = isValidYear(year)
         Validated.cond(
             validatedYear.isDefined,
             Year(validatedYear.get),
@@ -119,7 +119,7 @@ object Year {
 case class Month(month: String) extends ValidateAble(month)
 object Month {
     def validate(month: String) = {
-        val validatedMonth = ValidMonth(month)
+        val validatedMonth = isValidMonth(month)
         Validated.cond(
             validatedMonth.isDefined,
             Month(validatedMonth.get),
@@ -131,7 +131,7 @@ object Month {
 case class Day(day: String) extends ValidateAble(day)
 object Day {
     def validate(day: String) = {
-        val validatedDay = ValidYear(day)
+        val validatedDay = isValidDay(day)
         Validated.cond(
             validatedDay.isDefined,
             Day(validatedDay.get),

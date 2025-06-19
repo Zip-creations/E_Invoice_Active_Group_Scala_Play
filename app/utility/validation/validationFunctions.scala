@@ -33,28 +33,28 @@ def IsValidDateFormat(str: String): Boolean = {
     }
 }
 
-def ValidYear(str: String): Option[String] = {
-    val year = str.slice(0, 4).toInt
+def isValidYear(str: String): Option[String] = {
+    val year = str.toInt
     if (year >= 0) {
-        Some(year.toString)
+        Some(str)
     } else {
         None
     }
 }
 
-def ValidMonth(str: String): Option[String] = {
-    val month = str.slice(4, 6).toInt
+def isValidMonth(str: String): Option[String] = {
+    val month = str.toInt
     if (month > 0 && month <= 12){
-        Some(month.toString)
+        Some(str)
     } else {
         None
     }
 }
 
-def ValidDay(str: String): Option[String] = {
-    val day = str.slice(6, 8).toInt
+def isValidDay(str: String): Option[String] = {
+    val day = str.toInt
     if (day > 0 && day <= 31) {
-        Some(day.toString)
+        Some(str)
     } else {
         None
     }
