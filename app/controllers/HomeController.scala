@@ -8,7 +8,6 @@ import scala.sys.process._
 import scala.collection.mutable
 
 import java.io.{File, PrintWriter}
-import scala.xml.XML
 
 import cats.data._
 import cats.data.Validated._
@@ -168,10 +167,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         // Open the .html report
         Ok.sendFile(new java.io.File(reportPath))
       case Invalid(e) =>
-        e.foreach {error =>
-          print(error.errorMessage)
-        }
-        // Ok.sendFile(new java.io.File("./"))
         Ok(views.html.invalid_input(e))
       }
   }

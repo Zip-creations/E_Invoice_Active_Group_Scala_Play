@@ -14,17 +14,17 @@
 }
 
 #errorContainer>div{
-    border: 3px solid black;
+    border: 3px solid rgb(255, 0, 0);
     border-radius: 5px;
     margin-bottom: 5px;
     padding: 5px;
     width: fit-content;
 }
 
-#errorContainer>div:last-child{
-    margin-bottom: 0px;
-}
-
 #headline, #errorContainer{
     background-color: wheat;
+}
+
+#errorContainer>div:last-child{
+    margin-bottom: 0px;
 }
