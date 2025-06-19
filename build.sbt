@@ -1,12 +1,15 @@
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 
+// See https://github.com/jkutner/play-with-scalajs-example/tree/master
+
 // version := "1.0-SNAPSHOT"
 ThisBuild / scalaVersion := "3.7.1"
 
 lazy val scalaJS = (project in file("ScalaJS")).enablePlugins(ScalaJSPlugin).settings(
     name := "ScalaJS",
     scalaJSUseMainModuleInitializer := true,
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
     Compile / fullOptJS / artifactPath := baseDirectory.value / "../public/javascripts/scalaJSmain.js"
     )
 

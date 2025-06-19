@@ -1,9 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var invoiceDateInput = document.getElementsByName("InvoiceIssueDate");
-    // Set InvoiceIssueDate to "today"
-    invoiceDateInput.forEach(function (invoiceDateInput) {
-        invoiceDateInput.setAttribute("value", new Date().toISOString().split("T")[0]);
-    });
     var positionID = 1
 
     // Add LeistungsPosition
