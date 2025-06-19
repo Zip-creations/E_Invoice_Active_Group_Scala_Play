@@ -1,9 +1,12 @@
 @import utility.validation._
 @(errorMessages: Seq[ErrorMessage])
-@main("Fehlerhafte Angaben im Dokument", "main.css"){
-<div>
+@main("Fehlerhafte Angaben im Dokument", Seq("main.css", "invalid_input.css")){
+<div id="headline">
+    <h1>Folgende Fehler beim Ausfüllen des Dokumentes wurden erkannt:</h1>
+</div>
+<div id="errorContainer">
     @for(error <- errorMessages) {
-        <p>@error.errorMessage</p>
+        <div>@error.errorMessage</div>
     }
 </div>
 }

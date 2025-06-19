@@ -5,7 +5,7 @@
  * object to insert into the body of the page.
  *@
 
-@(title: String, stylesheetlink: String)(content: Html)
+@(title: String, stylesheetlinks: Seq[String])(content: Html)
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -13,10 +13,12 @@
         <title>@title</title>
         <link rel="stylesheet" href="@routes.Assets.versioned("fontawesome/css/all.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("awesomplete/awesomplete.css")">
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/"+stylesheetlink)">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+        @for(link <- stylesheetlinks){
+            <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/"+link)">
+        }
         <script src="@routes.Assets.versioned("javascripts/scalaJSmain.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("awesomplete/awesomplete.js")" type="text/javascript"></script>
     </head>
     <body>

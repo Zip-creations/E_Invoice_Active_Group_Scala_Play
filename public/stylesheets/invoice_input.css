@@ -1,0 +1,111 @@
+
+#indexbody {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    background-color: wheat;
+    padding: 4px;
+}
+
+#invoicecontainer {
+    grid-column: 2;
+    grid-row: 3;
+    background-color: wheat;
+    padding: 2px;
+}
+
+#invoicecontainer>div {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    border-top: rgb(40, 40, 40) solid 4px;
+    border-right: rgb(40, 40, 40) solid 4px;
+    border-left: rgb(40, 40, 40) solid 4px;
+    padding: 4px;
+}
+
+#invoicecontainer>div>div:first-child {
+    display: flex;
+    justify-content: center;
+}
+
+#invoicecontainer>div>div:not(:first-child), #positionContainer>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+ #positionContainer>div {
+    border: 3px solid black;
+    margin-bottom: 20px;
+ }
+
+#invoicecontainer>div:last-of-type {
+    border-bottom: rgb(40, 40, 40) solid 4px;
+    margin-bottom: 4px;
+}
+
+.inputfield{
+    display: flex;
+    padding: 4px;
+    gap: 3px;
+    margin-right: 10px;
+}
+
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip>i {
+    color: rgb(40, 40, 40);
+    margin-top: 2px;
+}
+
+.tooltip>span {
+    position: absolute;
+    visibility: hidden;
+    min-width: 5vw;
+    top: 110%;
+    left: -1000%;
+    z-index: 1;
+
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.tooltip:hover>span {
+    visibility: visible;
+}
+
+input:focus {
+    outline: 0;
+}
+
+input, select, button {
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: rgb(50, 50, 50);
+    max-width: 15vw;
+}
+
+.buttonContainer {
+    gap: 5px
+}
+
+:required {
+    background-color: yellow;
+}
+
+input:read-only:not([type=submit]) {
+    border-color: red;
+    pointer-events: none;
+}
+
+.awesomplete > ul {
+    max-height: 75vh;
+    overflow-y: auto;
+}
