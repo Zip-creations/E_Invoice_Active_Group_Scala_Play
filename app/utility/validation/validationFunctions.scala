@@ -32,30 +32,3 @@ def IsValidDateFormat(str: String): Boolean = {
             false
     }
 }
-
-def isValidYear(str: String): Option[String] = {
-    val year = str.toInt
-    if (year >= 0) {
-        Some(str)
-    } else {
-        None
-    }
-}
-
-def isValidMonth(str: String): Option[String] = {
-    val month = str.toInt
-    if (month > 0 && month <= 12){
-        Some(str)
-    } else {
-        None
-    }
-}
-
-def isValidDay(str: String): Option[String] = {
-    val day = str.toInt
-    if (day > 0 && day <= 31) {
-        Some(str)
-    } else {
-        None
-    }
-}

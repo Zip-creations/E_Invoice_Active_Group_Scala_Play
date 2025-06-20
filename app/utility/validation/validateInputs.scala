@@ -104,37 +104,37 @@ object InvoiceIdentifier {
     }
 }
 
-case class Year(year: String) extends ValidateAble(year)
+case class Year(year: Int) extends ValidateAble(year)
 object Year {
     def validate(year: String): Validated[Seq[ErrorMessage], Year] = {
-        val validatedYear = isValidYear(year)
+        val parsedYear = year.toInt
         Validated.cond(
-            validatedYear.isDefined,
-            Year(validatedYear.get),
+            parsedYear > 0,
+            Year(parsedYear),
             Seq(ArgumentError(makeError("Das Jahr eines Datums muss größer oder gleich 0 sein.", year)))
         )
     }
 }
 
-case class Month(month: String) extends ValidateAble(month)
+case class Month(month: Int) extends ValidateAble(month)
 object Month {
     def validate(month: String) = {
-        val validatedMonth = isValidMonth(month)
+        val parsedMonth = month.toInt
         Validated.cond(
-            validatedMonth.isDefined,
-            Month(validatedMonth.get),
+            parsedMonth > 0 && parsedMonth <= 12,
+            Month(parsedMonth),
             Seq(ArgumentError(makeError("Der Monat eines Datum muss zwischen 1 und 12 liegen.", month)))
         )
     }
 }
 
-case class Day(day: String) extends ValidateAble(day)
+case class Day(day: Int) extends ValidateAble(day)
 object Day {
     def validate(day: String) = {
-        val validatedDay = isValidDay(day)
+        val parsedDay = day.toInt
         Validated.cond(
-            validatedDay.isDefined,
-            Day(validatedDay.get),
+            parsedDay > 0 && parsedDay <= 31, // Can't detect errors like 31. April or 30. February
+            Day(parsedDay),
             Seq(ArgumentError(makeError("Der Tag eines Datums muss zwischen 1 und 31 liegen.", day)))
         )
     }

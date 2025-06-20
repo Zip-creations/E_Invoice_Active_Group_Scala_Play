@@ -1,6 +1,7 @@
 package utility.validation
 
 import utility.codelists._
+import utility.fillWithZero
 
 import cats.data._
 import cats.data.Validated._
@@ -239,7 +240,7 @@ object Date {
         }
     }
     def get(date: Date): String = {
-        date.year.get + date.month.get + date.day.get
+        date.year.get.toString + fillWithZero(date.month.get.toString) + fillWithZero(date.day.get.toString)
     }
 }
 

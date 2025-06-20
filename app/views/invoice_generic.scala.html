@@ -3,7 +3,7 @@
 <div class="inputContainer">
     <input type="hidden" name="positionIDcontainer" value=@positionID></input> <!-- Stores the ID of the postion for easy access on the backend -->
     <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType></input> <!-- Stores the ID of the postion for easy access on the backend -->
-    @GenerateInputField("InvoiceLineIdentifier" + positionID, "Pos.", "ID der Rechnungsposition. Nicht bearbeitbar", readOnly=true, defaultValue=positionID) <!-- BT-126 -->
+    @GenerateInputField("InvoiceLineIdentifier" + positionID, "Pos.", "ID der Rechnungsposition. Nicht bearbeitbar.", readOnly=true, defaultValue=positionID) <!-- BT-126 -->
     @GenerateInputField("ItemName" + positionID, "Bezeichnung", "lorem ipsum", true) <!-- BT-153 -->
     @content
     <div class="inputfield">
