@@ -1,6 +1,6 @@
-package utility.codelists
+package codelists
 
-import utility.validation._
+import sharedUtility.validation._
 
 import cats.data._
 import cats.data.Validated._

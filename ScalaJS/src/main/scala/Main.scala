@@ -3,11 +3,7 @@ import org.scalajs.dom.document
 import org.scalajs.dom.html
 
 import scala.scalajs.js.Date
-
-
-def fillWithZero(str: String): String = {
-    if (str.length == 2) str else "0" + str
-}
+import sharedUtility.utility._
 
 @main def main(): Unit =
     document.addEventListener("DOMContentLoaded", { (e: dom.Event) =>

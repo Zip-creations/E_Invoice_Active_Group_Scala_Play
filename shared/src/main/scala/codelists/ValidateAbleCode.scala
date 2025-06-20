@@ -1,8 +1,8 @@
-package utility.codelists
+package codelists
 
 // I want to create an abstract class for all case class that use enums to validate their codes
 
-import utility._
+import sharedUtility.validation._
 
 import cats.data._
 import cats.data.Validated._

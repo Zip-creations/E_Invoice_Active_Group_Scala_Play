@@ -1,7 +1,7 @@
 package test
 
 import utility.validation._
-import utility.codelists._
+import codelists._
 
 import munit.FunSuite
 import cats.data._

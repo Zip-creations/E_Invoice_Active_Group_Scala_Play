@@ -4,21 +4,8 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-def makeError(message: String, value: String): String = {
-    s"${message} Fehlerquelle: \'${value}\'"
-}
-def makeError(message: String, value: ValidateAble[?]): String = {
-    s"${message} Fehlerquelle: \'${value.getStr.slice(4,5)}\'"
-}
+import sharedUtility.validation._
 
-abstract class ValidateAble[T](val value: T) {
-    def get: T = {
-        value
-    }
-    def getStr: String = {
-        value.toString
-    }
-}
 
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {

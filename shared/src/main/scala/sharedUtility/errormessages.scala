@@ -1,4 +1,4 @@
-package utility.validation
+package sharedUtility.validation
 
 abstract class ErrorMessage(val str: Seq[String]) {
     def errorMessage: String
