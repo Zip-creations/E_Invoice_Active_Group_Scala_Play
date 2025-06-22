@@ -4,7 +4,8 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-import sharedUtility.validation._
+import sharedUtility.error._
+import sharedUtility.ValidateAble._
 
 
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)

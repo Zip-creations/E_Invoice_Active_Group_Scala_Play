@@ -1,6 +1,7 @@
 package codelists
 
-import sharedUtility.validation._
+import sharedUtility.ValidateAble._
+import sharedUtility.error._
 
 import cats.data._
 import cats.data.Validated._

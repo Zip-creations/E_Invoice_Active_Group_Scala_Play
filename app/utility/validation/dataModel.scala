@@ -1,7 +1,8 @@
 package utility.validation
 
 import codelists._
-import sharedUtility.validation._
+import sharedUtility.ValidateAble._
+import sharedUtility.error._
 import sharedUtility.utility._
 
 import cats.data._

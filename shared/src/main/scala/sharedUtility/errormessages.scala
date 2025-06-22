@@ -1,4 +1,12 @@
-package sharedUtility.validation
+package sharedUtility.error
+import sharedUtility.ValidateAble._
+
+def makeError(message: String, value: String): String = {
+    s"${message} Fehlerquelle: \'${value}\'"
+}
+def makeError(message: String, value: ValidateAble[?]): String = {
+    s"${message} Fehlerquelle: \'${value.getStr}\'"
+}
 
 abstract class ErrorMessage(val str: Seq[String]) {
     def errorMessage: String
