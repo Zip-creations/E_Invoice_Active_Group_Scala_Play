@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class PaymentMeansTypeCode(code: String) extends ValidateAble[String](code)
+case class PaymentMeansTypeCode private(code: String) extends ValidateAble[String](code)
 object PaymentMeansTypeCode {
     private def matchStr(str: String): Option[PaymentMeansTypeCode] = {
         PaymentMeansTypeCodes.values.find(_.toString == "Code_" ++ str) match 

@@ -20,7 +20,6 @@ import cats.syntax.all
         val today = now.getFullYear().toString() + "-" + fillWithZero((now.getMonth()+1).toString()) + "-" + fillWithZero(now.getDate().toString())
         invoiceDateInput.setAttribute("value", today)
         val positionID = 1
-        println(today)
         loadRestrictions()
     })
     def parseCode[T](code: T): String = {
@@ -55,7 +54,7 @@ import cats.syntax.all
                 )
             case _ =>
                 values :+ "Error: No values found for codelist"
-        println(values.mkString(", "))
+        // println(values.mkString(", "))
         values
     }
     def loadRestrictions(): Unit = {
@@ -64,7 +63,7 @@ import cats.syntax.all
             val input = allInputFields(i).asInstanceOf[HTMLElement]
             if (input.className == "awesomplete"){
                 val values = getCodelist(input.dataset("file"))
-                input.asInstanceOf[js.Dynamic].data = values.toJSArray
+                input.asInstanceOf[js.Dynamic].data = values.toJSArray // input.data is used by awesomplete as source for values
             }
         }
     }

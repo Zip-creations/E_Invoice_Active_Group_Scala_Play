@@ -36,7 +36,7 @@ object City {
     }
 }
 
-case class BuyerReference(ref: String) extends ValidateAble[String](ref)
+case class BuyerReference private(ref: String) extends ValidateAble[String](ref)
 object BuyerReference {
     def validate(ref: String): Validated[Seq[ErrorMessage], BuyerReference] = {
         Validated.cond(
@@ -47,7 +47,7 @@ object BuyerReference {
     }
 }
 
-case class Name(name: String) extends ValidateAble[String](name)
+case class Name private(name: String) extends ValidateAble[String](name)
 object Name{
     def validate(name: String): Validated[Seq[ErrorMessage], Name] = {
         Validated.cond(
@@ -58,7 +58,7 @@ object Name{
     }
 }
 
-case class Iban(iban: String) extends ValidateAble[String](iban)
+case class Iban private(iban: String) extends ValidateAble[String](iban)
 object Iban{
     def validate(iban: String): Validated[Seq[ErrorMessage], Iban] = {
         Validated.cond(
@@ -69,7 +69,7 @@ object Iban{
     }
 }
 
-case class Email(email: String) extends ValidateAble[String](email)
+case class Email private(email: String) extends ValidateAble[String](email)
 object Email {
     def validate(email: String): Validated[Seq[ErrorMessage], Email] = {
         Validated.cond(
@@ -80,7 +80,7 @@ object Email {
     }
 }
 
-case class InvoiceIdentifier(id: String) extends ValidateAble[String](id)
+case class InvoiceIdentifier private(id: String) extends ValidateAble[String](id)
 object InvoiceIdentifier {
     def validate(id: String): Validated[Seq[ErrorMessage], InvoiceIdentifier] = {
         Validated.cond(
@@ -91,7 +91,7 @@ object InvoiceIdentifier {
     }
 }
 
-case class Year(year: Int) extends ValidateAble(year)
+case class Year private(year: Int) extends ValidateAble(year)
 object Year {
     def validate(year: String): Validated[Seq[ErrorMessage], Year] = {
         val parsedYear = year.toInt
@@ -103,7 +103,7 @@ object Year {
     }
 }
 
-case class Month(month: Int) extends ValidateAble(month)
+case class Month private(month: Int) extends ValidateAble(month)
 object Month {
     def validate(month: String) = {
         val parsedMonth = month.toInt
@@ -115,7 +115,7 @@ object Month {
     }
 }
 
-case class Day(day: Int) extends ValidateAble(day)
+case class Day private(day: Int) extends ValidateAble(day)
 object Day {
     def validate(day: String) = {
         val parsedDay = day.toInt
@@ -127,7 +127,7 @@ object Day {
     }
 }
 
-case class PaymentTerms(terms: String) extends ValidateAble[String](terms)
+case class PaymentTerms private(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {
         def validate(terms: String): Validated[Seq[ErrorMessage], PaymentTerms] = {
         Validated.cond(
@@ -138,7 +138,7 @@ object PaymentTerms {
     }
 }
 
-case class TelephoneNumber(number: String) extends ValidateAble[String](number)
+case class TelephoneNumber private(number: String) extends ValidateAble[String](number)
 object TelephoneNumber {
     def validate(number: String): Validated[Seq[ErrorMessage], TelephoneNumber] = {
         Validated.cond(
@@ -149,7 +149,7 @@ object TelephoneNumber {
     }
 }
 
-case class WebsiteLink(link: String) extends ValidateAble[String](link)
+case class WebsiteLink private(link: String) extends ValidateAble[String](link)
 object WebsiteLink {
     def validate(link: String): Validated[Seq[ErrorMessage], WebsiteLink] = {
         Validated.cond(
@@ -160,7 +160,7 @@ object WebsiteLink {
     }
 }
 
-case class Street(street: String) extends ValidateAble[String](street)
+case class Street private(street: String) extends ValidateAble[String](street)
 object Street {
     def validate(street: String): Validated[Seq[ErrorMessage], Street] = {
         Validated.cond(
@@ -171,7 +171,7 @@ object Street {
     }
 }
 
-case class SellerVATIdentifier(id: String) extends ValidateAble[String](id)
+case class SellerVATIdentifier private(id: String) extends ValidateAble[String](id)
 object SellerVATIdentifier {
     def validate(id: String): Validated[Seq[ErrorMessage], SellerVATIdentifier] = {
         Validated.cond(
@@ -182,7 +182,7 @@ object SellerVATIdentifier {
     }
 }
 
-case class VATRate(rate: Double) extends ValidateAble[Double](rate)
+case class VATRate private(rate: Double) extends ValidateAble[Double](rate)
 object VATRate {
     def validate(rate: String): Validated[Seq[ErrorMessage], VATRate] = {
         Validated.cond(
@@ -198,7 +198,7 @@ object VATRate {
     }
 }
 
-case class Quantity(quantity: Double) extends ValidateAble[Double](quantity)
+case class Quantity private(quantity: Double) extends ValidateAble[Double](quantity)
 object Quantity {
     def validate(quantity: String): Validated[Seq[ErrorMessage], Quantity] = {
         Validated.cond(
@@ -214,7 +214,7 @@ object Quantity {
     }
 }
 
-case class NetPrice(netPrice: Double) extends ValidateAble[Double](netPrice)
+case class NetPrice private(netPrice: Double) extends ValidateAble[Double](netPrice)
 object NetPrice {
     def validate(netPrice: String): Validated[Seq[ErrorMessage], NetPrice] = {
         Validated.cond(
@@ -230,7 +230,7 @@ object NetPrice {
     }
 }
 
-case class NetAmount(amount: Double) extends ValidateAble[Double](amount)
+case class NetAmount private(amount: Double) extends ValidateAble[Double](amount)
 object NetAmount {
     def validate(quantity: String, netPrice: String): Validated[Seq[ErrorMessage], NetAmount] = {
         (Quantity.validate(quantity),
@@ -239,7 +239,7 @@ object NetAmount {
     }
 }
 
-case class VATExemptionReason(reason: String) extends ValidateAble[String](reason)
+case class VATExemptionReason private(reason: String) extends ValidateAble[String](reason)
 object VATExemptionReason {
     def validate(reason: String): Validated[Seq[ErrorMessage], VATExemptionReason] = {
         Validated.cond(
@@ -250,7 +250,7 @@ object VATExemptionReason {
     }
 }
 
-case class PositionID(id: String) extends ValidateAble[String](id)
+case class PositionID private(id: String) extends ValidateAble[String](id)
 object PositionID {
     def validate(id: String): Validated[Seq[ErrorMessage], PositionID] = {
         Validated.cond(
@@ -261,7 +261,7 @@ object PositionID {
     }
 }
 
-case class PositionName(name: String) extends ValidateAble[String](name)
+case class PositionName private(name: String) extends ValidateAble[String](name)
 object PositionName {
     def validate(name: String): Validated[Seq[ErrorMessage], PositionName] = {
         Validated.cond(
@@ -272,7 +272,7 @@ object PositionName {
     }
 }
 
-case class Hours(hours: Double) extends ValidateAble[Double](hours)
+case class Hours private(hours: Double) extends ValidateAble[Double](hours)
 object Hours {
     def validate(hours: String): Validated[Seq[ErrorMessage], Hours] = {
         Validated.cond(
@@ -288,7 +288,7 @@ object Hours {
     }
 }
 
-case class HourlyRate(rate: Double) extends ValidateAble[Double](rate)
+case class HourlyRate private(rate: Double) extends ValidateAble[Double](rate)
 object HourlyRate {
     def validate(hourlyrate: String): Validated[Seq[ErrorMessage], HourlyRate] = {
         Validated.cond(

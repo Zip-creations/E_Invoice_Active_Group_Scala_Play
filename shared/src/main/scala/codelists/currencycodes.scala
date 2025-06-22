@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class CurrencyCode(code: String) extends ValidateAble[String](code)
+case class CurrencyCode private(code: String) extends ValidateAble[String](code)
 object CurrencyCode {
     private def matchStr(str: String): Option[CurrencyCode] = {
         CurrencyCodes.values.find(_.toString == "Code_" ++ str) match 

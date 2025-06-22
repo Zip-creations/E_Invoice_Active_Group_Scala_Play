@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class VATCategoryCode(code: String) extends ValidateAble[String](code)
+case class VATCategoryCode private(code: String) extends ValidateAble[String](code)
 object VATCategoryCode {
     private def matchStr (str: String): Option[VATCategoryCode] = {
         VATCategoryCodes.values.find(_.toString == "Code_" ++ str) match 
@@ -28,6 +28,7 @@ object VATCategoryCode {
     }
 }
 
+// Added Code_ to enable the Enum to work with codes that start with numbers, and preserve uniformity
 enum VATCategoryCodes {
     case
         Code_S,

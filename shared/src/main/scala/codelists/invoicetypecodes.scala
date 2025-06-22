@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class InvoiceTypeCode(val code: String) extends ValidateAble[String](code) // extends ValidateableCode2[InvoiceTypeCode](code, InvoiceTypeCodes.values)
+case class InvoiceTypeCode private(val code: String) extends ValidateAble[String](code) // extends ValidateableCode2[InvoiceTypeCode](code, InvoiceTypeCodes.values)
 object InvoiceTypeCode {
     private def matchStr(str: String): Option[InvoiceTypeCode] = {
         InvoiceTypeCodes.values.find(_.toString == "Code_" ++ str) match 

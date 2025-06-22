@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class CountryCode(code: String) extends ValidateAble[String](code)
+case class CountryCode private(code: String) extends ValidateAble[String](code)
 object CountryCode {
     private def matchStr (str: String): Option[CountryCode] = {
         CountryCodes.values.find(_.toString == "Code_" ++ str) match 

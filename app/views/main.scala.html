@@ -17,8 +17,8 @@
         @for(link <- stylesheetlinks){
             <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/"+link)">
         }
-        <script src="@routes.Assets.versioned("javascripts/scalaJSmain.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/scalaJSmain.js")" type="text/javascript"></script> <!-- Must be loaded before main.js (sets the data awesomplete uses) -->
+        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script> <!-- Must be loaded after scalaJSmain.js -->
         <script src="@routes.Assets.versioned("awesomplete/awesomplete.js")" type="text/javascript"></script>
     </head>
     <body>

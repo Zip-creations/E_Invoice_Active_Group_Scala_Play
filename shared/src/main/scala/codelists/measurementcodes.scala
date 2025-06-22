@@ -7,7 +7,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class MeasurementCode(code: String) extends ValidateAble[String](code)
+case class MeasurementCode private(code: String) extends ValidateAble[String](code)
 object MeasurementCode {
     private def matchStr(str: String): Option[MeasurementCode] = {
         MeasurementCodes.values.find(_.toString == "Code_" ++ str) match 
