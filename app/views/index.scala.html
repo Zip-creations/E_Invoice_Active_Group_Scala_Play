@@ -22,7 +22,7 @@
                     @GenerateInputField("SellerAddressLine1", "Straße", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
                     @GenerateInputField("SellerPostCode", "PLZ", "Die Postleitzahl.", true) <!-- BT-38 -->
                     @GenerateInputField("SellerCity", "Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.", true) <!-- BT-37 -->
-                    @GenerateInputField("SellerCountryCode", "Verkäufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-40 -->
+                    @GenerateInputField("SellerCountryCode", "Verkäufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-40 -->
                     @GenerateInputField("TODO1", "Tel", "lorem ipsum")
                     @GenerateInputField("TODO3", "Website Link", "lorem ipsum")
                     @GenerateInputField("SellerElectronicAddress", "E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", true, inputType="email") <!-- BT-34 -->
@@ -49,7 +49,7 @@
                     @GenerateInputField("BuyerElectronicAddress", "Käufer Email", "Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.", true, inputType="email") <!-- BT-49 -->
                     @GenerateInputField("BuyerCity", "Käufer Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
                     @GenerateInputField("BuyerPostCode", "PLZ", "Die Postleitzahl.", true) <!-- BT-53 -->
-                    @GenerateInputField("BuyerCountryCode", "Käufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="ISO_ISOTwo-letterCountryCode_SecondEdition2006.xsd") <!-- BT-55 -->
+                    @GenerateInputField("BuyerCountryCode", "Käufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-55 -->
                     @GenerateInputField("TODO4", "IBAN", "lorem ipsum")
                 </div>
             </div>
@@ -69,8 +69,8 @@
                     <h2>Angaben zum Zahlungsweg</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("InvoiceCurrencyCode", "Währung der Rechnung", "Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.", true, classes="awesomplete", data="ISO_ISO3AlphaCurrencyCode_2012-08-31.xsd") <!-- BT-5 -->
-                    @GenerateInputField("PaymentMeansTypeCode", "Means Type Code", "Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461 verwiesen.", true, classes="awesomplete", data="UNECE_PaymentMeansCode_D16A.xsd") <!-- BT-81 -->
+                    @GenerateInputField("InvoiceCurrencyCode", "Währung der Rechnung", "Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.", true, classes="awesomplete", data="currencycode") <!-- BT-5 -->
+                    @GenerateInputField("PaymentMeansTypeCode", "Means Type Code", "Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461 verwiesen.", true, classes="awesomplete", data="paymentmeanstypecode") <!-- BT-81 -->
                 </div>
             </div>
             <div>

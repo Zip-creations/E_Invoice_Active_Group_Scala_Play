@@ -283,7 +283,7 @@ object Hours {
                     Validated.cond(
                         NotNegative(hours.get),
                         hours,
-                        Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", hours.getStr))))
+                        Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", hours))))
             }
     }
 }

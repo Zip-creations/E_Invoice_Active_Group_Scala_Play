@@ -107,24 +107,6 @@ function ConnectAllOptionalButtons() {
     });
 }
 
-/**
- *  Reads values from a .xsd file and returns them as Array. Assumes the format: <xsd:enumeration value="foo"/>
- *  @param {*} positionID filename for .xsd
- */
-// Needs to be async because values is set in the fetch .then part
-async function ConnectData(filename) {
-    var values = []
-    // Will be translated to public/codelists/filename
-    filepath = "assets/codelists/" + filename
-    await fetch(filepath)
-        .then(response => response.text())
-        .then(xsdtext => {
-            const matches = Array.from(xsdtext.matchAll(/<xsd:enumeration value="(.*?)"/g));
-            values = matches.map(match => match[1]);
-        })
-    return values
-}
-
 // window.onbeforeunload = function(){
 //     return "";
 // };
@@ -227,32 +209,28 @@ function AddNumericRestriction(input){
 }
 
 function AddAwesompleteRestriction(input) {
-    ConnectData(input.dataset.file).then(values => {
-        // Set the data the completionchecker uses
-        input.data = values
-        // Set awesomplete properties
-        input.awesomplete = new Awesomplete(input, {
-            minChars: 0,
-            maxItems: Infinity,
-            autoFirst: true,
-            tabSelect: true,
-            list: values,
-            filter: Awesomplete.FILTER_STARTSWITH,
-        });
-        // Allows the autocomplete-list to appear when the user clicks into the input field,
-        // even if no input has been given yet
-        input.addEventListener("focus", function () {
-            input.awesomplete.evaluate();
-        });
+    // Set awesomplete properties
+    input.awesomplete = new Awesomplete(input, {
+        minChars: 0,
+        maxItems: Infinity,
+        autoFirst: true,
+        tabSelect: true,
+        list: input.data,
+        filter: Awesomplete.FILTER_STARTSWITH,
+    });
+    // Allows the autocomplete-list to appear when the user clicks into the input field,
+    // even if no input has been given yet
+    input.addEventListener("focus", function () {
+        input.awesomplete.evaluate();
+    });
 
-        input.addEventListener("focusout", (e) => {
-            const proposed = e.target.value
-            if (!input.data.includes(proposed)) {
-                SendProposedInput(input, e, "")
-            }
-            input.awesomplete.close()
-            // else: Input is valid, do nothing
-        })
+    input.addEventListener("focusout", (e) => {
+        const proposed = e.target.value
+        if (!input.data.includes(proposed)) {
+            SendProposedInput(input, e, "")
+        }
+        input.awesomplete.close()
+        // else: Input is valid, do nothing
     })
 
     input.addEventListener("beforeinput", (e) => {
