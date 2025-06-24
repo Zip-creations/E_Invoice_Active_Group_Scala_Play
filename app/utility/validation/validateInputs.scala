@@ -3,6 +3,7 @@ package utility.validation
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
+import scala.util.matching.Regex
 
 import sharedUtility.error._
 import sharedUtility.ValidateAble._
@@ -73,10 +74,11 @@ object Iban{
 case class Email private(email: String) extends ValidateAble[String](email)
 object Email {
     def validate(email: String): Validated[Seq[ErrorMessage], Email] = {
+        val regex = "^(?!\\.)(?!.*\\.\\.)([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*)@([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$".r  // base for the regex has been taken from https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
         Validated.cond(
-            true,
+            regex.matches(email),
             Email(email),
-            Seq(ArgumentError(email))
+            Seq(ArgumentError(makeError("Eine Email hat ein ungültiges Format.", email)))
         )
     }
 }

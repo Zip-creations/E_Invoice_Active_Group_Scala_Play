@@ -1004,3 +1004,7 @@
 2025-06-22-14:07:35 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
 2025-06-22-14:19:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
 2025-06-22-14:19:46 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
+2025-06-24-21:19:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
+2025-06-24-21:19:45 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
+2025-06-24-21:21:05 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.
+2025-06-24-21:21:05 | ERROR | org.oxt.toolbox.visualization.VisualizerImpl (VisualizerImpl.java:116) | cvc-elt.1.a: Deklaration des Elements "rsm:CrossIndustryInvoice" kann nicht gefunden werden.

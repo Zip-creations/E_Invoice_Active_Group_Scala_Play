@@ -56,6 +56,100 @@ class MUnitTest extends munit.FunSuite {
         assert(assertInvalid(test7.map(_.get)))
     }
 
+    test("testing Email") {
+        // test regular case, simple mail
+        val test1 = Email.validate("name@mail.com")
+        assertEquals(test1.map(_.get), Valid("name@mail.com"))
+        // test minimun size
+        val test16 = Email.validate("n@m")
+        assertEquals(test16.map(_.get), Valid("n@m"))
+        // test regular case, numbers only
+        val test17 = Email.validate("123@456")
+        assertEquals(test17.map(_.get), Valid("123@456"))
+        // test . left of @
+        val test2 = Email.validate("name.lastname@mail.com")
+        assertEquals(test2.map(_.get), Valid("name.lastname@mail.com"))
+        // test several . left of @
+        val test13 = Email.validate("name.lastname.some.more.names@mail.com")
+        assertEquals(test13.map(_.get), Valid("name.lastname.some.more.names@mail.com"))
+        // test . right of @
+        val test3 = Email.validate("name@mail.com.de")
+        assertEquals(test3.map(_.get), Valid("name@mail.com.de"))
+        // test several . right of @
+        val test14 = Email.validate("name@mail.com.de.bw.fr")
+        assertEquals(test14.map(_.get), Valid("name@mail.com.de.bw.fr"))
+        // test . left and right of @
+        val test4 = Email.validate("name.lastname@mail.com.de")
+        assertEquals(test4.map(_.get), Valid("name.lastname@mail.com.de"))
+        // test several . left and right of @
+        val test15 = Email.validate("name.lastname.some.more.names@mail.com.de.bw.fr")
+        assertEquals(test15.map(_.get), Valid("name.lastname.some.more.names@mail.com.de.bw.fr"))
+        // test _
+        val test5 = Email.validate("name_middlename@mail.com")
+        assertEquals(test5.map(_.get), Valid("name_middlename@mail.com"))
+        // test +
+        val test6 = Email.validate("name+jobtitle@mail.com")
+        assertEquals(test6.map(_.get), Valid("name+jobtitle@mail.com"))
+        // test _ with . left of @
+        val test7 = Email.validate("name_middlename.lastname@mail.com")
+        assertEquals(test7.map(_.get), Valid("name_middlename.lastname@mail.com"))
+        // test + with . left of @
+        val test8 = Email.validate("name+jobtitle.lastname@mail.com")
+        assertEquals(test8.map(_.get), Valid("name+jobtitle.lastname@mail.com"))
+        // test _ with . right of @
+        val test9 = Email.validate("name_middlename@mail.com.de")
+        assertEquals(test9.map(_.get), Valid("name_middlename@mail.com.de"))
+        // test + with . right of @
+        val test10 = Email.validate("name+jobtitle@mail.com.de")
+        assertEquals(test10.map(_.get), Valid("name+jobtitle@mail.com.de"))
+        // test _ with . left and right of @
+        val test11 = Email.validate("name_middlename.lastname@mail.com.de")
+        assertEquals(test11.map(_.get), Valid("name_middlename.lastname@mail.com.de"))
+        // test + with . left and right of @
+        val test12 = Email.validate("name+jobtitle.lastname@mail.com.de")
+        assertEquals(test12.map(_.get), Valid("name+jobtitle.lastname@mail.com.de"))
+
+        // test invalid case: no @
+        val test20 = Email.validate("namemail")
+        assert(assertInvalid(test20.map(_.get)))
+        // test invalid case: nothing left of @
+        val test21 = Email.validate("name@")
+        assert(assertInvalid(test21.map(_.get)))
+        // test invalid case: nothing right of @
+        val test22 = Email.validate("@mail")
+        assert(assertInvalid(test22.map(_.get)))
+        // test invalid case: .. left of @ 
+        val test23 = Email.validate("name..lastname@mail")
+        assert(assertInvalid(test23.map(_.get)))
+        // test invalid case: .. right of @
+        val test26 = Email.validate("name@mail..de")
+        assert(assertInvalid(test26.map(_.get)))
+        // test invalid case: . directly after @
+        val test24 = Email.validate("name@.mail")
+        assert(assertInvalid(test24.map(_.get)))
+        // test invalid case: . directly before @
+        val test27 = Email.validate("name.@mail")
+        assert(assertInvalid(test27.map(_.get)))
+        // test invalid case: . at the beginning
+        val test25 = Email.validate(".name@mail")
+        assert(assertInvalid(test25.map(_.get)))
+        // test invalid case: . at the end
+        val test28 = Email.validate("name@mail.")
+        assert(assertInvalid(test28.map(_.get)))
+        // test invalid case: , left of @
+        val test29 = Email.validate("name,lastname@mail")
+        assert(assertInvalid(test29.map(_.get)))
+        // test invalid case: , right of @
+        val test30 = Email.validate("name@mail,de")
+        assert(assertInvalid(test30.map(_.get)))
+        // test invalid case: whitespace in the mail
+        val test31 = Email.validate("name lastname@mail")
+        assert(assertInvalid(test31.map(_.get)))
+        // test invalid case: whitespace in the mail
+        val test32 = Email.validate("name@mail de")
+        assert(assertInvalid(test32.map(_.get)))
+    }
+
     test("testing date") {
         // test regular case
         val test1 = Date.validate("20000101")
