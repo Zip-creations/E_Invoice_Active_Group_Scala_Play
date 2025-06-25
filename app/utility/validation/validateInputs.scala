@@ -134,9 +134,9 @@ case class PaymentTerms private(terms: String) extends ValidateAble[String](term
 object PaymentTerms {
         def validate(terms: String): Validated[Seq[ErrorMessage], PaymentTerms] = {
         Validated.cond(
-            true,
+            terms.length <= 1000,
             PaymentTerms(terms),
-            Seq(ArgumentError(terms))
+            Seq(ArgumentError(makeError("Zu viele Zeichen für die Zahlungsbedingungen.", terms)))
         )
     }
 }
@@ -167,9 +167,9 @@ case class Street private(street: String) extends ValidateAble[String](street)
 object Street {
     def validate(street: String): Validated[Seq[ErrorMessage], Street] = {
         Validated.cond(
-            true,
+            street.length <= 100,
             Street(street),
-            Seq(ArgumentError(street))
+            Seq(ArgumentError(makeError("Zu viele Zeichen für einen Straßennamen.", street)))
         )
     }
 }
@@ -246,9 +246,9 @@ case class VATExemptionReason private(reason: String) extends ValidateAble[Strin
 object VATExemptionReason {
     def validate(reason: String): Validated[Seq[ErrorMessage], VATExemptionReason] = {
         Validated.cond(
-            true,
+            reason.length <= 1000,
             VATExemptionReason(reason),
-            Seq(ArgumentError(reason))
+            Seq(ArgumentError(makeError("Zu viele Zeichen für einen Befreiugsgrund.", reason)))
         )
     }
 }

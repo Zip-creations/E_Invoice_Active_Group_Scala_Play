@@ -184,7 +184,8 @@ object InvoicePosition {
 enum InvoicePositionData{
     case Stundenposition(
         hours: Hours,
-        hourlyrate: HourlyRate
+        hourlyrate: HourlyRate,
+        measurementCode: MeasurementCode
     )
     case Leistungsposition(
         quantity: Quantity,
@@ -195,7 +196,8 @@ object Stundenposition {
     def validate(hours: String, hourlyrate: String): Validated[Seq[ErrorMessage], InvoicePositionData.Stundenposition] = {
         (
             Hours.validate(hours),
-            HourlyRate.validate(hourlyrate)
+            HourlyRate.validate(hourlyrate),
+            MeasurementCode.validate("HUR")  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
         ).mapN(InvoicePositionData.Stundenposition.apply)
     }
 

@@ -142,10 +142,10 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: , right of @
         val test30 = Email.validate("name@mail,de")
         assert(assertInvalid(test30.map(_.get)))
-        // test invalid case: whitespace in the mail
+        // test invalid case: whitespace left of @
         val test31 = Email.validate("name lastname@mail")
         assert(assertInvalid(test31.map(_.get)))
-        // test invalid case: whitespace in the mail
+        // test invalid case: whitespace right of @
         val test32 = Email.validate("name@mail de")
         assert(assertInvalid(test32.map(_.get)))
     }

@@ -143,8 +143,8 @@ class XMLUtility(){
         var chargedQuantity = 0.0
 
         position.data match{
-            case InvoicePositionData.Stundenposition(hours, hourlyrate) =>
-                unitcode = "HUR"  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
+            case InvoicePositionData.Stundenposition(hours, hourlyrate, measurementCode) =>
+                unitcode = measurementCode.get
                 chargedAmount = hourlyrate.get
                 chargedQuantity = 1
                 totalAmount = hours.get * chargedAmount
@@ -254,7 +254,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.vatId.vatRate.rate)
+            val taxpercentage = getVATvalue(i.vatId.vatRate.get)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount  // Whats the differnce to totalNetAmount?
