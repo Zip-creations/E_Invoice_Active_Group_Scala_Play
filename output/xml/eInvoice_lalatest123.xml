@@ -9,15 +9,10 @@
                 </ram:GuidelineSpecifiedDocumentContextParameter>
                 </rsm:ExchangedDocumentContext>
                 <rsm:ExchangedDocument>
-                <ram:ID>
-                lalatest123
-                </ram:ID>
+                <ram:ID>lalatest123</ram:ID>
                 <ram:TypeCode>380</ram:TypeCode>
                 <ram:IssueDateTime>
-                
-                <udt:DateTimeString format="102">
-                    20250626
-                </udt:DateTimeString>
+                    <udt:DateTimeString format="102">20250626</udt:DateTimeString>
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
                 <rsm:SupplyChainTradeTransaction>
@@ -38,7 +33,6 @@
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
-                        
                         <ram:TypeCode>VAT</ram:TypeCode>
                         <ram:CategoryCode>S</ram:CategoryCode>
                         <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>

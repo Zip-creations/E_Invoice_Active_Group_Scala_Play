@@ -58,17 +58,11 @@ class XMLUtility(){
     private def CreateMetaDataXML(meta: InvoiceMetaData): scala.xml.Elem = {
         val xml = 
             <rsm:ExchangedDocument>
-                <ram:ID>
-                {meta.identifier.get}
-                </ram:ID>
+                <ram:ID>{meta.identifier.get}</ram:ID>
                 <ram:TypeCode>{meta.invoiceType.get}</ram:TypeCode>
                 <ram:IssueDateTime>
-                {
-                    // format="102" is determined in the EN 16931 - CII Mapping scheme
-                }
-                <udt:DateTimeString format="102">
-                    {Date.get(meta.date)}
-                </udt:DateTimeString>
+                    <udt:DateTimeString format="102">{Date.get(meta.date)}</udt:DateTimeString>{// format="102" is determined in the EN 16931 - CII Mapping scheme
+                    }
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
         return xml
@@ -174,10 +168,8 @@ class XMLUtility(){
                 </ram:SpecifiedLineTradeDelivery>
                 <ram:SpecifiedLineTradeSettlement>
                     <ram:ApplicableTradeTax>
-                        {
-                        // TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
+                        <ram:TypeCode>VAT</ram:TypeCode>{// TypeCode=VAT is determined in the EN 16931 - CII Mapping scheme
                         }
-                        <ram:TypeCode>VAT</ram:TypeCode>
                         <ram:CategoryCode>{position.vatId.vatCode.get}</ram:CategoryCode>
                         <ram:RateApplicablePercent>{position.vatId.vatRate.get}</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
