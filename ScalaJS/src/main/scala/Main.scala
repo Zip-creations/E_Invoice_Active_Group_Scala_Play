@@ -1,15 +1,15 @@
 import org.scalajs.dom
 import org.scalajs.dom.document
 import org.scalajs.dom.html._
+import org.scalajs.dom.HTMLElement
 
 import scala.scalajs.js
 import scala.scalajs.js.Date
 import scala.scalajs.js.Dynamic._
 import scala.scalajs.js.JSConverters._
+
 import sharedUtility.utility._
 import codelists._
-import org.scalajs.dom.HTMLElement
-import cats.syntax.all
 
 @main def main(): Unit =
     document.addEventListener("DOMContentLoaded", { (e: dom.Event) =>
@@ -19,7 +19,6 @@ import cats.syntax.all
         // Format the date so a html input can use it
         val today = now.getFullYear().toString() + "-" + fillWithZero((now.getMonth()+1).toString()) + "-" + fillWithZero(now.getDate().toString())
         invoiceDateInput.setAttribute("value", today)
-        val positionID = 1
         loadRestrictions()
     })
     def parseCode[T](code: T): String = {
@@ -67,14 +66,3 @@ import cats.syntax.all
             }
         }
     }
-    // def addCodelistRestriction(input: Input): Unit = {
-    //     val values = getCodelist(input.dataset("file"))
-    //     input.asInstanceOf[js.Dynamic].awesomplete = js.Dynamic.newInstance(global.selectDynamic("Awesomplete"))(input, js.Dynamic.literal(
-    //         "minChars" -> 0,
-    //         "maxItems" -> Infinity,
-    //         "autoFirst" -> true,
-    //         "tabSelect" -> true,
-    //         "list" -> values,
-    //         "filter" -> Awesomplete.FILTER_STARTSWITH,
-    //     ))
-    // }
