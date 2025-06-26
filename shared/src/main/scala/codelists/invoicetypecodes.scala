@@ -1,6 +1,6 @@
 package codelists
 
-import sharedUtility.ValidateAble._
+import sharedUtility.validation._
 import sharedUtility.error._
 
 import cats.data._
@@ -20,11 +20,12 @@ object InvoiceTypeCode {
     private def strInList(str: String): Boolean = {
         matchStr(str).isDefined
     }
-    def validate(code: String): Validated[Seq[ErrorMessage], InvoiceTypeCode] = {
+    def validate(input: InputType): Validated[Seq[ErrorMessage], InvoiceTypeCode] = {
+        val code = input.value
         Validated.cond(
             InvoiceTypeCode.strInList(code),
             InvoiceTypeCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(code))
+            Seq(ValueNotInCodelistError(input))
         )
     }
 }

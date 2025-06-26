@@ -1,21 +1,21 @@
 package sharedUtility.error
-import sharedUtility.ValidateAble._
+import sharedUtility.validation._
 
-def makeError(message: String, value: String): String = {
-    s"${message} Fehlerquelle: \'${value}\'"
+def makeError(message: String, input: InputType): InputType = {
+    InputType(s"${message} Fehlerquelle: \'${input.value}\'", input.source)
 }
 def makeError(message: String, value: ValidateAble[?]): String = {
     s"${message} Fehlerquelle: \'${value.getStr}\'"
 }
 
-abstract class ErrorMessage(val str: Seq[String]) {
+abstract class ErrorMessage(value: InputType) {
     def errorMessage: String
 }
 
-case class ArgumentError(override val str: String*) extends ErrorMessage(str) {
-    def errorMessage: String = s"ArgumentError: ${str.map(_ + "\n").mkString}"
+case class ArgumentError(input: InputType) extends ErrorMessage(input) {
+    def errorMessage: String = s"ArgumentError: ${input.value.map(_ + "\n").mkString}"
 }
 
-case class ValueNotInCodelistError(override val str: String*) extends ErrorMessage(str) {
-    def errorMessage: String = s"ValueNotInCodelistError: ${str.map(_ + "\n").mkString}"
+case class ValueNotInCodelistError(input: InputType) extends ErrorMessage(input) {
+    def errorMessage: String = s"ValueNotInCodelistError: ${input.value.map(_ + "\n").mkString}"
 }

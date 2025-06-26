@@ -14,7 +14,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 import sharedUtility.error._
-import sharedUtility.ValidateAble._
+import sharedUtility.validation._
 
 import utility.xml._
 import utility.validation._
@@ -45,44 +45,46 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       .flatMap(_.get("positionIDcontainer"))
       .getOrElse(Seq.empty)
 
-    def connectInput = (inputIdentifier: String) =>
+    def connectInput(inputIdentifier: String) = {
       formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
-
+    }
+    def createInputType(source: String): InputType = {
+      InputType(connectInput(source), source)
+    }
     val meta = InvoiceMetaData.validate(
-      connectInput("InvoiceNumber"),
-      connectInput("InvoiceIssueDate").replace("-", ""),
-      "380" // Default value, from InvoiceTypeCodes
+      createInputType("InvoiceNumber"),
+      InputType(connectInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),
+      InputType("380", "") // Default value, from InvoiceTypeCodes
       )
 
     val seller = InvoiceSeller.validate(
-      connectInput("SellerName"),
-      connectInput("SellerAddressLine1"),
+      createInputType("SellerName"),
+      createInputType("SellerAddressLine1"),
       Address.validate(
-      (connectInput("SellerPostCode"), "SellerPostCode"),
-      connectInput("SellerCity"),
-      connectInput("SellerCountryCode")),
-      connectInput("TODO1"),
-      connectInput("TODO3"),
-      connectInput("SellerElectronicAddress"),
-      connectInput("SellerVATIdentifier")
+      createInputType("SellerPostCode"),
+      createInputType("SellerCity"),
+      createInputType("SellerCountryCode")),
+      createInputType("TODO1"),
+      createInputType("TODO3"),
+      createInputType("SellerElectronicAddress"),
+      createInputType("SellerVATIdentifier")
       )
 
     val sellerContact = InvoiceSellerContact.validate(
-      connectInput("SellerContactPoint"),
-      connectInput("SellerContactTelephoneNumber"),
-      connectInput("SellerContactEmailAddress"),
+      createInputType("SellerContactPoint"),
+      createInputType("SellerContactTelephoneNumber"),
+      createInputType("SellerContactEmailAddress"),
       )
 
     val buyer = InvoiceBuyer.validate(
-      connectInput("BuyerReference"),
-      connectInput("BuyerName"),
+      createInputType("BuyerReference"),
+      createInputType("BuyerName"),
       Address.validate(
-      (connectInput("BuyerPostCode"), "BuyerPostCode"),
-      connectInput("BuyerCity"),
-      connectInput("BuyerCountryCode")
-      ),
-      connectInput("TODO4"),
-      connectInput("BuyerElectronicAddress")
+      createInputType("BuyerPostCode"),
+      createInputType("BuyerCity"),
+      createInputType("BuyerCountryCode")),
+      createInputType("TODO4"),
+      createInputType("BuyerElectronicAddress")
       )
 
     var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
@@ -90,30 +92,30 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     for index <- allPositionIDs do
       val positionType = connectInput("positionTypecontainer" + index)
       val vatId = VATCategoryIdentifier.validate(
-        connectInput("InvoicedItemVATCategoryCode" + index),
-        connectInput("InvoicedItemVATRate" + index)
+        createInputType("InvoicedItemVATCategoryCode" + index),
+        createInputType("InvoicedItemVATRate" + index)
         )
       val position = InvoicePosition.validate(
-        connectInput("InvoiceLineIdentifier" + index),
-        connectInput("ItemName" + index),
+        createInputType("InvoiceLineIdentifier" + index),
+        createInputType("ItemName" + index),
         vatId,
         positionType match {
         case "time" =>
           Stundenposition.validate(
-            connectInput("InvoicedQuantity" + index),
-            connectInput("ItemNetPrice" + index)
+            createInputType("InvoicedQuantity" + index),
+            createInputType("ItemNetPrice" + index)
           )
         case "item" =>
           Leistungsposition.validate(
-            connectInput("InvoicedQuantity" + index),
-            connectInput("ItemNetPrice" + index),
-            connectInput("InvoicedQuantityUnitOfMeasureCode" + index)
+            createInputType("InvoicedQuantity" + index),
+            createInputType("ItemNetPrice" + index),
+            createInputType("InvoicedQuantityUnitOfMeasureCode" + index)
           )
         }
       )
       allPositions = allPositions :+ position
       // Group positions with only the info that is relevant for the VAT groups
-      val newPos = SimplePosition.validate(vatId, connectInput("InvoicedQuantity" + index), connectInput("ItemNetPrice" + index))
+      val newPos = SimplePosition.validate(vatId, createInputType("InvoicedQuantity" + index), createInputType("ItemNetPrice" + index))
       val currentPos = groupedPositions.getOrElse(vatId, List.empty)
       groupedPositions.update(vatId, currentPos :+ newPos)
 
@@ -127,10 +129,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     }
 
     val paymentInformation = InvoicePaymentInformation.validate(
-      connectInput("InvoiceCurrencyCode"),
-      connectInput("PaymentMeansTypeCode"),
+      createInputType("InvoiceCurrencyCode"),
+      createInputType("PaymentMeansTypeCode"),
       vatGroups,
-      connectInput("PaymentTerms")
+      createInputType("PaymentTerms")
     )
 
     val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)

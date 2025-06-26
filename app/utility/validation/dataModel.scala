@@ -1,7 +1,7 @@
 package utility.validation
 
 import codelists._
-import sharedUtility.ValidateAble._
+import sharedUtility.validation._
 import sharedUtility.error._
 import sharedUtility.utility._
 
@@ -31,7 +31,7 @@ case class InvoiceMetaData(
     date: Date,
     invoiceType: InvoiceTypeCode)
 object InvoiceMetaData {
-    def validate(number: String, date: String, typ: String): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
+    def validate(number: InputType, date: InputType, typ: InputType): Validated[Seq[ErrorMessage], InvoiceMetaData] = {
         (
             InvoiceIdentifier.validate(number),
             Date.validate(date),
@@ -63,7 +63,7 @@ case class InvoiceSeller(
     email: Email,
     vatIdentifier: SellerVATIdentifier)
 object InvoiceSeller {
-    def validate(name: String, street: String, address: Validated[Seq[ErrorMessage], Address], telephonenumber: String, websitelink: String, email: String, vatIdentifier: String): Validated[Seq[ErrorMessage], InvoiceSeller] = {
+    def validate(name: InputType, street: InputType, address: Validated[Seq[ErrorMessage], Address], telephonenumber: InputType, websitelink: InputType, email: InputType, vatIdentifier: InputType): Validated[Seq[ErrorMessage], InvoiceSeller] = {
         (
             Name.validate(name),
             Street.validate(street),
@@ -81,7 +81,7 @@ case class InvoiceSellerContact(
     telephonenumber: TelephoneNumber,
     email: Email)
 object InvoiceSellerContact {
-    def validate(name: String, telephonenumber: String, email: String): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
+    def validate(name: InputType, telephonenumber: InputType, email: InputType): Validated[Seq[ErrorMessage], InvoiceSellerContact] = {
         (
             Name.validate(name),
             TelephoneNumber.validate(telephonenumber),
@@ -97,7 +97,7 @@ case class InvoiceBuyer(
     iban: Iban,
     email: Email)
 object InvoiceBuyer {
-    def validate(reference: String, name: String, address: Validated[Seq[ErrorMessage], Address], iban: String, email: String): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
+    def validate(reference: InputType, name: InputType, address: Validated[Seq[ErrorMessage], Address], iban: InputType, email: InputType): Validated[Seq[ErrorMessage], InvoiceBuyer] = {
         (
             BuyerReference.validate(reference),
             Name.validate(name),
@@ -112,7 +112,7 @@ case class VATCategoryIdentifier(
     vatCode: VATCategoryCode,
     vatRate: VATRate)
 object VATCategoryIdentifier {
-    def validate(vatCode: String, vatRate: String): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
+    def validate(vatCode: InputType, vatRate: InputType): Validated[Seq[ErrorMessage], VATCategoryIdentifier] = {
         (
             VATCategoryCode.validate(vatCode),
             VATRate.validate(vatRate)
@@ -124,7 +124,7 @@ case class InvoiceVATGroup(
     positions: List[SimplePosition],
     vatExemptionReason: VATExemptionReason)
 object InvoiceVATGroup {
-    def validate(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], SimplePosition]], vatExemptionReason: String= ""): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
+    def validate(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], SimplePosition]], vatExemptionReason: InputType= InputType.empty): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
         (
             id,
             positions.sequence,
@@ -139,7 +139,7 @@ case class InvoicePaymentInformation(
     vatGroups: List[InvoiceVATGroup],
     paymentTerms: PaymentTerms)
 object InvoicePaymentInformation {
-        def validate(currencycode: String, paymentMeansCode: String, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: String = ""): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+        def validate(currencycode: InputType, paymentMeansCode: InputType, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: InputType = InputType.empty): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
         (
             CurrencyCode.validate(currencycode),
             PaymentMeansTypeCode.validate(paymentMeansCode),
@@ -155,7 +155,7 @@ case class SimplePosition(
     netPrice: NetPrice,
     netAmount: NetAmount) // Stores positions with only the information the tax summary needs later on
 object SimplePosition {
-    def validate(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], quantity: String, netPrice: String): Validated[Seq[ErrorMessage], SimplePosition] = {
+    def validate(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], quantity: InputType, netPrice: InputType): Validated[Seq[ErrorMessage], SimplePosition] = {
         (
             identifier,
             Quantity.validate(quantity),
@@ -171,7 +171,7 @@ case class InvoicePosition(
     vatId: VATCategoryIdentifier,
     data: InvoicePositionData)
 object InvoicePosition {
-    def validate(id: String, name: String, vatId: Validated[Seq[ErrorMessage], VATCategoryIdentifier], data: Validated[Seq[ErrorMessage], InvoicePositionData]): Validated[Seq[ErrorMessage], InvoicePosition] = {
+    def validate(id: InputType, name: InputType, vatId: Validated[Seq[ErrorMessage], VATCategoryIdentifier], data: Validated[Seq[ErrorMessage], InvoicePositionData]): Validated[Seq[ErrorMessage], InvoicePosition] = {
         (
             PositionID.validate(id),
             PositionName.validate(name),
@@ -193,16 +193,17 @@ enum InvoicePositionData{
         measurementCode: MeasurementCode
     )}
 object Stundenposition {
-    def validate(hours: String, hourlyrate: String): Validated[Seq[ErrorMessage], InvoicePositionData.Stundenposition] = {
+    def validate(hours: InputType, hourlyrate: InputType): Validated[Seq[ErrorMessage], InvoicePositionData.Stundenposition] = {
         (
             Hours.validate(hours),
             HourlyRate.validate(hourlyrate),
-            MeasurementCode.validate("HUR")  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
+            // TODO: Whats a good default for the source for a hardcoded value?  
+            MeasurementCode.validate(InputType("HUR", ""))// Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
         ).mapN(InvoicePositionData.Stundenposition.apply)
     }
 }
 object Leistungsposition {
-    def validate(quantity: String, pricePerPart: String, measurementCode: String): Validated[Seq[ErrorMessage], InvoicePositionData.Leistungsposition] = {
+    def validate(quantity: InputType, pricePerPart: InputType, measurementCode: InputType): Validated[Seq[ErrorMessage], InvoicePositionData.Leistungsposition] = {
         (
             Quantity.validate(quantity),
             NetPrice.validate(pricePerPart),
@@ -216,9 +217,9 @@ case class Address (
     city: City,
     countryCode: CountryCode)
 object Address {
-    def validate(postCode: (value: String, html: String), city: String, countrycode: String): Validated[Seq[ErrorMessage], Address] = {
+    def validate(postCode: InputType, city: InputType, countrycode: InputType): Validated[Seq[ErrorMessage], Address] = {
         (
-        PostCode.validate(postCode.value),
+        PostCode.validate(postCode),
         City.validate(city),
         CountryCode.validate(countrycode)
         ).mapN(Address.apply)
@@ -231,15 +232,16 @@ case class Date(
     day: Day
 )
 object Date {
-    def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
+    def validate(input: InputType): Validated[Seq[ErrorMessage], Date] = {
+        val date = input.value
         if (isValidDateFormat(date)) {
             (
-                Year.validate(date.slice(0,4)),
-                Month.validate(date.slice(4,6)),
-                Day.validate(date.slice(6,8))
+                Year.validate(InputType(date.slice(0,4), input.source)),
+                Month.validate(InputType(date.slice(4,6), input.source)),
+                Day.validate(InputType(date.slice(6,8), input.source))
             ).mapN(Date.apply)
         } else {
-            Invalid(Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", date))))
+            Invalid(Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", input))))
         }
     }
     def get(date: Date): String = {
