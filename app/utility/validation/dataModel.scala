@@ -200,7 +200,6 @@ object Stundenposition {
             MeasurementCode.validate("HUR")  // Code for "hour" (see https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:rec20_3) ("labour hour" is LH)
         ).mapN(InvoicePositionData.Stundenposition.apply)
     }
-
 }
 object Leistungsposition {
     def validate(quantity: String, pricePerPart: String, measurementCode: String): Validated[Seq[ErrorMessage], InvoicePositionData.Leistungsposition] = {
@@ -217,9 +216,9 @@ case class Address (
     city: City,
     countryCode: CountryCode)
 object Address {
-    def validate(postCode: String, city: String, countrycode: String): Validated[Seq[ErrorMessage], Address] = {
+    def validate(postCode: (value: String, html: String), city: String, countrycode: String): Validated[Seq[ErrorMessage], Address] = {
         (
-        PostCode.validate(postCode),
+        PostCode.validate(postCode.value),
         City.validate(city),
         CountryCode.validate(countrycode)
         ).mapN(Address.apply)

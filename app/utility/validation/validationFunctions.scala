@@ -5,12 +5,11 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 import sharedUtility.error._
-import scala.scalajs.js.Dynamic.literal
 
 // Each function shall return if the test result is negative (ergo: return true if the input is valid, and false if the input is invalid)
 
 
-def basicTests[T](value: String, maxlength: Int, constructor: String => T, addDisallowed: Seq[String] = Seq.empty, removeDisallowed: Seq[String] = Seq.empty, newDisallowed: Seq[String] = Seq.empty): Validated[Seq[ErrorMessage], T] = {
+def basicTests(value: String, maxlength: Int, errorHead: String, addDisallowed: Seq[String] = Seq.empty, removeDisallowed: Seq[String] = Seq.empty, newDisallowed: Seq[String] = Seq.empty): Seq[ErrorMessage] = {
     var disallowedLiterals: Seq[String] = Seq.empty
     if (newDisallowed.isEmpty){
         disallowedLiterals = Seq("#", ";", ":", "=", "*") ++ addDisallowed  // default disallowed literals
@@ -22,22 +21,13 @@ def basicTests[T](value: String, maxlength: Int, constructor: String => T, addDi
     removeDisallowed.foreach(literal =>
         disallowedLiterals.filterNot(elem => elem == literal))
     if (value.length > maxlength){
-        errorlist = errorlist :+ ArgumentError(f"$value enthält mehr Zeichen als das erlaubte Limit für diesen Input: $maxlength")
+        errorlist = errorlist :+ ArgumentError(f"$errorHead: \"$value\" enthält mehr Zeichen als das erlaubte Limit für diesen Typen: $maxlength")
     }
     disallowedLiterals.foreach(literal =>
         if (value.contains(literal)){
-            errorlist = errorlist :+ ArgumentError(f"$value enthält ein ungültiges Zeichen: $literal")
+            errorlist = errorlist :+ ArgumentError(f"$errorHead: \"$value\" enthält ein ungültiges Zeichen: $literal")
         })
-    if (errorlist.isEmpty) {
-        Valid(constructor(value))
-    } else {
-        Invalid(errorlist)
-    }
-}
-
-// Tests for two or more consecutive whitespaces
-def noDoubleWhitespace(str: String): Boolean = {
-    !str.contains("  ")
+    errorlist
 }
 
 def isValidDouble(str: String): Boolean = {

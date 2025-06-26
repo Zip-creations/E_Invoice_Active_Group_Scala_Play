@@ -27,7 +27,7 @@ document.querySelector('[name="SellerPostCode"]').value = "11223";\
 document.querySelector('[name="SellerCity"]').value = "Example city";\
 document.querySelector('[name="SellerCountryCode"]').value = "DE";\
 document.querySelector('[name="TODO1"]').value = "plh1";\
-document.querySelector('[name="TODO3"]').value = "plh3";\
+document.querySelector('[name="TODO3"]').value = "https://github.com/Zip-creations/E_Invoice_Active_Group_Scala_Play";\
 document.querySelector('[name="SellerElectronicAddress"]').value = "ex@mail.com";\
 document.querySelector('[name="SellerVATIdentifier"]').value = "DE123456789";\
 document.querySelector('[name="SellerContactPoint"]').value = "vorname nachname";\

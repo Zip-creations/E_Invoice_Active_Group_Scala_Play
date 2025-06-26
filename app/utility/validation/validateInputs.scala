@@ -7,35 +7,29 @@ import scala.util.matching.Regex
 
 import sharedUtility.error._
 import sharedUtility.ValidateAble._
-
+import java.net.URL
 
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {
     def validate(postcode: String): Validated[Seq[ErrorMessage], PostCode] = {
-        basicTests(postcode, 50, PostCode.apply)
-        // Validated.cond(
-        //     postcode.length() <= 50,
-        //     PostCode(postcode),
-        //     Seq(ArgumentError(makeError("Eine Postleitzahl enthält zu viele Zeichen.", postcode)))
-        // )
+        val errors = basicTests(postcode, 50, "Die Postleitzahl")
+        if (errors.isEmpty) {
+            Valid(PostCode(postcode))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
 case class City private(city: String) extends ValidateAble[String](city)
 object City {
     def validate(city: String): Validated[Seq[ErrorMessage], City] = {
-        (
-            Validated.cond(
-            noDoubleWhitespace(city),
-            City(city),
-            Seq(ArgumentError(makeError("Der Name eine Stadt darf keine 2 Leerzeichen hintereinander enthalten.", city)))
-        ),
-            Validated.cond(
-            city.length() <= 100,
-            City(city),
-            Seq(ArgumentError(makeError("Ein Stadtnamen enthält zu viele Zeichen.", city)))
-        )
-        ).mapN((_, _) => City(city))  // with this pattern, several errors can be tested idependently from another
+        val errors = basicTests(city, 100, "Der Stadtname")
+        if (errors.isEmpty) {
+            Valid(City(city))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -43,7 +37,7 @@ case class BuyerReference private(ref: String) extends ValidateAble[String](ref)
 object BuyerReference {
     def validate(ref: String): Validated[Seq[ErrorMessage], BuyerReference] = {
         Validated.cond(
-            true,
+            true,  // Can be used for Leitweg-ID; depends on the Bundesland
             BuyerReference(ref),
             Seq(ArgumentError(ref))
         )
@@ -87,11 +81,12 @@ object Email {
 case class InvoiceIdentifier private(id: String) extends ValidateAble[String](id)
 object InvoiceIdentifier {
     def validate(id: String): Validated[Seq[ErrorMessage], InvoiceIdentifier] = {
-        Validated.cond(
-            true,
-            InvoiceIdentifier(id),
-            Seq(ArgumentError(id))
-        )
+        val errors = basicTests(id, 50, "Die Rechnungsnummer")
+        if (errors.isEmpty) {
+            Valid(InvoiceIdentifier(id))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -156,11 +151,12 @@ object TelephoneNumber {
 case class WebsiteLink private(link: String) extends ValidateAble[String](link)
 object WebsiteLink {
     def validate(link: String): Validated[Seq[ErrorMessage], WebsiteLink] = {
-        Validated.cond(
-            true,
-            WebsiteLink(link),
-            Seq(ArgumentError(link))
-        )
+        try {
+            new URL(link)
+            Valid(WebsiteLink(link))
+        } catch {
+            case _: Exception => Invalid(Seq(ArgumentError(link)))
+        }
     }
 }
 
@@ -179,7 +175,7 @@ case class SellerVATIdentifier private(id: String) extends ValidateAble[String](
 object SellerVATIdentifier {
     def validate(id: String): Validated[Seq[ErrorMessage], SellerVATIdentifier] = {
         Validated.cond(
-            true,
+            true,  // See https://evatr.bff-online.de/eVatR/xmlrpc/ and https://www.ihk-muenchen.de/de/Service/Recht-und-Steuern/Steuerrecht/Umsatzsteuer/Umsatzsteuer-Identifikationsnummer/
             SellerVATIdentifier(id),
             Seq(ArgumentError(id))
         )

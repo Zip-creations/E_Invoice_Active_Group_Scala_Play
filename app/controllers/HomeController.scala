@@ -51,17 +51,16 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val meta = InvoiceMetaData.validate(
       connectInput("InvoiceNumber"),
       connectInput("InvoiceIssueDate").replace("-", ""),
-      "380" // TODO: replace with a value the user can set OR replace with fitting default
+      "380" // Default value, from InvoiceTypeCodes
       )
 
     val seller = InvoiceSeller.validate(
       connectInput("SellerName"),
       connectInput("SellerAddressLine1"),
       Address.validate(
-      connectInput("SellerPostCode"),
+      (connectInput("SellerPostCode"), "SellerPostCode"),
       connectInput("SellerCity"),
-      connectInput("SellerCountryCode"))
-      ,
+      connectInput("SellerCountryCode")),
       connectInput("TODO1"),
       connectInput("TODO3"),
       connectInput("SellerElectronicAddress"),
@@ -78,7 +77,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       connectInput("BuyerReference"),
       connectInput("BuyerName"),
       Address.validate(
-      connectInput("BuyerPostCode"),
+      (connectInput("BuyerPostCode"), "BuyerPostCode"),
       connectInput("BuyerCity"),
       connectInput("BuyerCountryCode")
       ),
