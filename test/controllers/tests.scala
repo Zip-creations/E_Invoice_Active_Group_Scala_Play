@@ -25,10 +25,13 @@ class MUnitTest extends munit.FunSuite {
         // mixture of numbers, letters and whitespace
         val test2 = PostCode.validate("DE 12345")
         assertEquals(test2.map(_.get), Valid("DE 12345"))
+        // test maximum length
+        val test3 = PostCode.validate("1234567890"*5)
+        assertEquals(test3.map(_.get), Valid("1234567890"*5))
 
-        // test invalid case: Double whitespace
-        val test3 = PostCode.validate("DE  12345")
-        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: more than 50 letters
+        val test4 = PostCode.validate("1234567890"*5+"1")
+        assert(assertInvalid(test4.map(_.get)))
     }
 
     test("testing City") {
@@ -50,10 +53,29 @@ class MUnitTest extends munit.FunSuite {
         // test several words with whitespace
         val test6 = City.validate("New York")
         assertEquals(test6.map(_.get), Valid("New York"))
+        // test maximum length
+        val test7 = City.validate("1234567890"*10)
+        assertEquals(test7.map(_.get), Valid("1234567890"*10))
 
+        // test invalid case: more than 100 letters
+        val test8 = City.validate("1234567890"*10+"1")
+        assert(assertInvalid(test8.map(_.get)))
         // test invalid case: Double whitespace
-        val test7 = City.validate("New  York")
-        assert(assertInvalid(test7.map(_.get)))
+        val test9 = City.validate("New  York")
+        assert(assertInvalid(test9.map(_.get)))
+    }
+
+    test("testing Name") {
+        // test regular case
+        val test1 = Name.validate("vorname nachname")
+        assertEquals(test1.map(_.get), Valid("vorname nachname"))
+        // test maximum length
+        val test2 = Name.validate("1234567890"*10)
+        assertEquals(test2.map(_.get), Valid("1234567890"*10))
+
+        // test invalid case: more than 100 letters
+        val test3 = Name.validate("1234567890"*10+"1")
+        assert(assertInvalid(test3.map(_.get)))
     }
 
     test("testing Email") {
@@ -150,7 +172,39 @@ class MUnitTest extends munit.FunSuite {
         assert(assertInvalid(test32.map(_.get)))
     }
 
-    test("testing date") {
+    test("payment PaymentTerms") {
+        // test regular case
+        val test1 = PaymentTerms.validate("Zahlung innerhalb von 2 Wochen")
+        assertEquals(test1.map(_.get), Valid("Zahlung innerhalb von 2 Wochen"))
+        // test maximum length
+        val test2 = PaymentTerms.validate("1234567890"*100)
+        assertEquals(test2.map(_.get), Valid("1234567890"*100))
+
+        // test invalid case: more than 1000 letters
+        val test3 = PaymentTerms.validate("1234567890"*100+"1")
+        assert(assertInvalid(test3.map(_.get)))
+    }
+
+    test("testing Street") {
+        // test regular case
+        val test1 = Street.validate("Gartenweg")
+        assertEquals(test1.map(_.get), Valid("Gartenweg"))
+        // test whitespace
+        val test2 = Street.validate("Charlottenburger Straße")
+        assertEquals(test2.map(_.get), Valid("Charlottenburger Straße"))
+        // test whitespace with number
+        val test3 = Street.validate("Charlottenburger Straße 2")
+        assertEquals(test3.map(_.get), Valid("Charlottenburger Straße 2"))
+        // test maximum length
+        val test4 = Street.validate("1234567890"*10)
+        assertEquals(test4.map(_.get), Valid("1234567890"*10))
+
+        // test invalid case: more than 100 letters
+        val test5 = Street.validate("1234567890"*10+"1")
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing Date") {
         // test regular case
         val test1 = Date.validate("20000101")
         assertEquals(test1.map(Date.get(_)), Valid("20000101"))

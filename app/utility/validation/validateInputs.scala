@@ -12,11 +12,12 @@ import sharedUtility.ValidateAble._
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {
     def validate(postcode: String): Validated[Seq[ErrorMessage], PostCode] = {
-        Validated.cond(
-            NoDoubleWhitespace(postcode),
-            PostCode(postcode),
-            Seq(ArgumentError(makeError("Eine Postleitzahl darf keine 2 Leerzeichen hintereinander enthalten.", postcode)))
-        )
+        basicTests(postcode, 50, PostCode.apply)
+        // Validated.cond(
+        //     postcode.length() <= 50,
+        //     PostCode(postcode),
+        //     Seq(ArgumentError(makeError("Eine Postleitzahl enthält zu viele Zeichen.", postcode)))
+        // )
     }
 }
 
@@ -25,16 +26,16 @@ object City {
     def validate(city: String): Validated[Seq[ErrorMessage], City] = {
         (
             Validated.cond(
-            NoDoubleWhitespace(city),
+            noDoubleWhitespace(city),
             City(city),
             Seq(ArgumentError(makeError("Der Name eine Stadt darf keine 2 Leerzeichen hintereinander enthalten.", city)))
         ),
-            Validated.cond(  // testcode for more than 1 tests for a different error
-            NoDoubleWhitespace(city),
+            Validated.cond(
+            city.length() <= 100,
             City(city),
-            Seq(ArgumentError("anderer Fehler"))
+            Seq(ArgumentError(makeError("Ein Stadtnamen enthält zu viele Zeichen.", city)))
         )
-        ).mapN((_, _) => City(city))
+        ).mapN((_, _) => City(city))  // with this pattern, several errors can be tested idependently from another
     }
 }
 
@@ -53,7 +54,7 @@ case class Name private(name: String) extends ValidateAble[String](name)
 object Name{
     def validate(name: String): Validated[Seq[ErrorMessage], Name] = {
         Validated.cond(
-            true,
+            name.length <= 100,
             Name(name),
             Seq(ArgumentError(name))
         )
@@ -136,7 +137,7 @@ object PaymentTerms {
         Validated.cond(
             terms.length <= 1000,
             PaymentTerms(terms),
-            Seq(ArgumentError(makeError("Zu viele Zeichen für die Zahlungsbedingungen.", terms)))
+            Seq(ArgumentError(makeError("Die Zahlungsbedingungen enthalten zu viele Zeichen.", terms)))
         )
     }
 }
@@ -169,7 +170,7 @@ object Street {
         Validated.cond(
             street.length <= 100,
             Street(street),
-            Seq(ArgumentError(makeError("Zu viele Zeichen für einen Straßennamen.", street)))
+            Seq(ArgumentError(makeError("Ein Straßenname enthält zu viele Zeichen.", street)))
         )
     }
 }
@@ -189,12 +190,12 @@ case class VATRate private(rate: Double) extends ValidateAble[Double](rate)
 object VATRate {
     def validate(rate: String): Validated[Seq[ErrorMessage], VATRate] = {
         Validated.cond(
-            IsValidDouble(rate),
+            isValidDouble(rate),
             VATRate(rate.toDouble),
             Seq(ArgumentError(makeError("Für einen Umsatzsteuersatz wurde keine gültige Zahl eingegeben.", rate)))).andThen{
                 rate =>
                     Validated.cond(
-                        NotNegative(rate.get),
+                        notNegative(rate.get),
                         rate,
                         Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", rate))))
             }
@@ -205,12 +206,12 @@ case class Quantity private(quantity: Double) extends ValidateAble[Double](quant
 object Quantity {
     def validate(quantity: String): Validated[Seq[ErrorMessage], Quantity] = {
         Validated.cond(
-            IsValidDouble(quantity),
+            isValidDouble(quantity),
             Quantity(quantity.toDouble),
             Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", quantity)))).andThen{
                 quantity =>
                     Validated.cond(
-                        NotNegative(quantity.get),
+                        notNegative(quantity.get),
                         quantity,
                         Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", quantity))))
             }
@@ -221,12 +222,12 @@ case class NetPrice private(netPrice: Double) extends ValidateAble[Double](netPr
 object NetPrice {
     def validate(netPrice: String): Validated[Seq[ErrorMessage], NetPrice] = {
         Validated.cond(
-            IsValidDouble(netPrice),
+            isValidDouble(netPrice),
             NetPrice(netPrice.toDouble),
             Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", netPrice)))).andThen{
                 netPrice =>
                     Validated.cond(
-                        NotNegative(netPrice.get),
+                        notNegative(netPrice.get),
                         netPrice,
                         Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", netPrice))))
             }
@@ -248,7 +249,7 @@ object VATExemptionReason {
         Validated.cond(
             reason.length <= 1000,
             VATExemptionReason(reason),
-            Seq(ArgumentError(makeError("Zu viele Zeichen für einen Befreiugsgrund.", reason)))
+            Seq(ArgumentError(makeError("Ein Befreiugsgrund enthält zu viele Zeichen.", reason)))
         )
     }
 }
@@ -279,12 +280,12 @@ case class Hours private(hours: Double) extends ValidateAble[Double](hours)
 object Hours {
     def validate(hours: String): Validated[Seq[ErrorMessage], Hours] = {
         Validated.cond(
-            IsValidDouble(hours),
+            isValidDouble(hours),
             Hours(hours.toDouble),
             Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", hours)))).andThen{
                 hours =>
                     Validated.cond(
-                        NotNegative(hours.get),
+                        notNegative(hours.get),
                         hours,
                         Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", hours))))
             }
@@ -295,12 +296,12 @@ case class HourlyRate private(rate: Double) extends ValidateAble[Double](rate)
 object HourlyRate {
     def validate(hourlyrate: String): Validated[Seq[ErrorMessage], HourlyRate] = {
         Validated.cond(
-            IsValidDouble(hourlyrate),
+            isValidDouble(hourlyrate),
             HourlyRate(hourlyrate.toDouble),
             Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", hourlyrate)))).andThen{
                 hourlyrate =>
                     Validated.cond(
-                        NotNegative(hourlyrate.get),
+                        notNegative(hourlyrate.get),
                         hourlyrate,
                         Seq(ArgumentError(makeError("Ein Stundensatz darf nicht negativ sein.", hourlyrate)))
                     )

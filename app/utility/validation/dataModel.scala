@@ -233,7 +233,7 @@ case class Date(
 )
 object Date {
     def validate(date: String): Validated[Seq[ErrorMessage], Date] = {
-        if (IsValidDateFormat(date)) {
+        if (isValidDateFormat(date)) {
             (
                 Year.validate(date.slice(0,4)),
                 Month.validate(date.slice(4,6)),
