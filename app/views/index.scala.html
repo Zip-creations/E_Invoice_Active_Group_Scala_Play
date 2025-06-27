@@ -2,7 +2,7 @@
 @import utility.html.FormInputHelper._
 @main("E Rechnung erstellen", Seq("main.css", "invoice_input.css")){
     <div id="indexbody">
-        <form action="@routes.HomeController.generateEInvoice()" method="post" id="invoicecontainer" target="_blank">
+        <form id="invoicecontainer">
             @helper.CSRF.formField
             <div>
                 <div>

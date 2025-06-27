@@ -2,6 +2,9 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import play.api.mvc.MultipartFormData
+import play.api.libs.Files.TemporaryFile
+import play.api.libs.json._
 
 import javax.inject._
 import scala.concurrent.ExecutionContext
@@ -18,11 +21,11 @@ import sharedUtility.validation._
 
 import utility.xml._
 import utility.validation._
+import utility.html._
 
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
 
   def index() = Action { implicit request: Request[AnyContent] =>
-    //Ok(views.html.index(request))
     Ok(views.html.index(using request))
   }
 
@@ -38,22 +41,25 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.invoice_time(positionID))
   }
 
-  def generateEInvoice(counter: Int = 0) = Action { implicit request: Request[AnyContent] =>
-    var xmlUtil = XMLUtility()
-    val formData = request.body.asFormUrlEncoded
-    val allPositionIDs: Seq[String] = formData
-      .flatMap(_.get("positionIDcontainer"))
-      .getOrElse(Seq.empty)
+  // JS can't access app/views/validation_reports/, that's why this function exists
+  def getReport(path: String) = Action { (request: Request[AnyContent]) =>
+    Ok.sendFile(new java.io.File(path))
+  }
 
-    def connectInput(inputIdentifier: String) = {
-      formData.flatMap(_.get(inputIdentifier).flatMap(_.headOption)).getOrElse("")
+  def generateEInvoice = Action(parse.multipartFormData) { implicit request: Request[MultipartFormData[TemporaryFile]] =>
+    var xmlUtil = XMLUtility()
+    val formData = request.body
+    val allPositionIDs: Seq[String] = formData.dataParts
+      .getOrElse("positionIDcontainer", Seq.empty)
+    def getInput(inputIdentifier: String) = {
+      formData.dataParts.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
     }
     def createInputType(source: String): InputType = {
-      InputType(connectInput(source), source)
+      InputType(getInput(source), source)
     }
     val meta = InvoiceMetaData.validate(
       createInputType("InvoiceNumber"),
-      InputType(connectInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),
+      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),
       InputType("380", "") // Default value, from InvoiceTypeCodes
       )
 
@@ -90,7 +96,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
     var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
     for index <- allPositionIDs do
-      val positionType = connectInput("positionTypecontainer" + index)
+      val positionType = getInput("positionTypecontainer" + index)
       val vatId = VATCategoryIdentifier.validate(
         createInputType("InvoicedItemVATCategoryCode" + index),
         createInputType("InvoicedItemVATRate" + index)
@@ -142,7 +148,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       case Valid(a) =>
         val xmlData = xmlUtil.CreateInvoiceXML(a)
         // Paths
-        val inputInvoiceNumber = connectInput("InvoiceNumber")
+        val inputInvoiceNumber = getInput("InvoiceNumber")
         val invoiceName = new File(s"eInvoice_$inputInvoiceNumber").getPath 
         val invoicePathXML = new File(s"./output/xml/$invoiceName.xml").getPath
         val invoicePathPDF = new File(s"./output/pdf/$invoiceName.pdf").getPath
@@ -167,7 +173,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         Process(createReport, directory).!
 
         // Open the .html report
-        Ok.sendFile(new java.io.File(reportPath))
+        Ok(Json.obj("status"-> "ok", "data" -> reportPath))
       case Invalid(e) =>
         Ok(views.html.invalid_input(e))
       }

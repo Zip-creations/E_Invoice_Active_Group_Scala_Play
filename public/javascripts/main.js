@@ -24,6 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
             container.remove();
         }
     });
+
+    document.getElementById("invoicecontainer").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const response = await fetch("/generateEInvoice", {
+            method: "POST",
+            body: data
+        })
+        .then(response => response.json())
+        .then(json => {
+            if (json.status === "ok") {
+                window.open(`/validationReport?path=${json.data}`, "_blank")
+            }
+        })
+    });
     LoadRestrictions()
 });
 
