@@ -21,7 +21,6 @@ import sharedUtility.validation._
 
 import utility.xml._
 import utility.validation._
-import utility.html._
 
 class HomeController @Inject() (val controllerComponents: ControllerComponents) (implicit ec: ExecutionContext) extends BaseController {
 
