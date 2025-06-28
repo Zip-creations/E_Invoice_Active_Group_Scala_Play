@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
             } else {
                 console.log(json.data)
-                Object.entries(json.data).forEach(([key, values]) => {
-                    const erroneousInput = document.getElementsByName(key)[0]
+                Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
+                    const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
                     values.forEach(errorMessage => {
                         const targetDiv = erroneousInput.parentElement.parentElement.querySelector(".errorDisplay");
                         targetDiv.insertAdjacentHTML("beforeend", errorMessage);
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function clearAllErrorDisplays() {
     const allErrorDisplays = Array.from(document.getElementsByClassName("errorDisplay"))
     allErrorDisplays.forEach(display => {
-        display.innerHTML = ""
+        display.innerHTML = ""  // nuke everything within the div, without the div itself
     });
 }
 
