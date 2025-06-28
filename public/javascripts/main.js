@@ -41,9 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(json.data)
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
+                    var jumpOnce = true
                     values.forEach(errorMessage => {
                         const targetDiv = erroneousInput.parentElement.parentElement.querySelector(".errorDisplay");
                         targetDiv.insertAdjacentHTML("beforeend", errorMessage);
+                        // Jump to the header of first div that contains errors
+                        if (jumpOnce) {
+                            erroneousInput.parentElement.parentElement.parentElement.parentElement.scrollIntoView();
+                            jumpOnce = false
+                        }  
                     });
                 });
             }

@@ -7,22 +7,27 @@
     @GenerateInputField("ItemName" + positionID, "Bezeichnung", "lorem ipsum", true) <!-- BT-153 -->
     @content
     <div class="inputfield">
-        <label for='@("InvoicedItemVATCategoryCode" + positionID)'>Steuerkategorie:</label>
-        <select name='@("InvoicedItemVATCategoryCode" + positionID)' required>
-            <option disabled selected value=""> -- select a code -- </option>
-            <option value="S">S (Standard rate)</option>
-            <option value="Z">Z (Zero rated goods)</option>
-            <option value="E">E (Exempt from tax)</option>
-            <option value="AE">AE (VAT Reverse Charge)</option>
-            <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
-            <option value="G">G (Free export item, tax not charged)</option>
-            <option value="O">O (Services outside scope of tax)</option>
-            <option value="L">L (Canary Islands general indirect tax)</option>
-            <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
-        </select>
-        <div class="tooltip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
+        <div class="inputDataField">
+            <label for='@("InvoicedItemVATCategoryCode" + positionID)'>Steuerkategorie:</label>
+            <select name='@("InvoicedItemVATCategoryCode" + positionID)' required>
+                <option disabled selected value=""> -- select a code -- </option>
+                <option value="S">S (Standard rate)</option>
+                <option value="Z">Z (Zero rated goods)</option>
+                <option value="E">E (Exempt from tax)</option>
+                <option value="AE">AE (VAT Reverse Charge)</option>
+                <option value="K">K (VAT exempt for EEA intra-community <br><br> supply of goods and services)</option>
+                <option value="G">G (Free export item, tax not charged)</option>
+                <option value="O">O (Services outside scope of tax)</option>
+                <option value="L">L (Canary Islands general indirect tax)</option>
+                <option value="M">M (Tax for production, services and <br> importation in Ceuta and Melilla)</option>
+            </select>
+            <div class="tooltip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Der Code der für den in Rechnung gestellten Posten geltenden Umsatzsteuerkategorie.</span>
+            </div>
+
+        </div>
+        <div class="errorDisplay">
         </div>
     </div> <!-- BT-151 -->
     @GenerateInputField("InvoicedItemVATRate" + positionID, "Umsatzsteuersatz", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", true, classes="datatypePercentage") <!-- BT-152 -->
