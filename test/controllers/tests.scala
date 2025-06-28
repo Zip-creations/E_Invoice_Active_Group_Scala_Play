@@ -71,6 +71,18 @@ class MUnitTest extends munit.FunSuite {
         // test regular case
         val test1 = Name.validate(addDefaultSource("vorname nachname"))
         assertEquals(test1.map(_.get), Valid("vorname nachname"))
+        // test japanese literals
+        val test4 = Name.validate(addDefaultSource("山田花子"))
+        assertEquals(test4.map(_.get), Valid("山田花子"))
+        // test -
+        val test5 = Name.validate(addDefaultSource("Sören-Gandalf"))
+        assertEquals(test5.map(_.get), Valid("Sören-Gandalf"))
+        // test ' (e.g. Irish names)
+        val test6 = Name.validate(addDefaultSource("Caoimhe O'Conner"))
+        assertEquals(test6.map(_.get), Valid("Caoimhe O'Conner"))
+        // test & (company names)
+        val test7 = Name.validate(addDefaultSource("Zimmermann & Söhne"))
+        assertEquals(test7.map(_.get), Valid("Zimmermann & Söhne"))
         // test maximum length
         val test2 = Name.validate(addDefaultSource("1234567890"*10))
         assertEquals(test2.map(_.get), Valid("1234567890"*10))
@@ -306,6 +318,46 @@ class MUnitTest extends munit.FunSuite {
         assert(assertInvalid(test5.map(_.get)))
     }
 
+    test("testing NetAmount") {
+        // test regular case
+        val test1 = NetAmount.validate(addDefaultSource("10.0"), addDefaultSource("10.0"))
+        assertEquals(test1.map(_.get), Valid(100.0))
+        // test without decimal point
+        val test2 = NetAmount.validate(addDefaultSource("10"), addDefaultSource("10"))
+        assertEquals(test2.map(_.get), Valid(100.0))
+
+        // test invalid case: quantity is invalid
+        val test3 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("10.0"))
+        assert(assertInvalid(test3.map(_.get)))
+        // test invalid case: netPrice is invalid
+        val test4 = NetAmount.validate(addDefaultSource("10.0"), addDefaultSource("-10.0"))
+        assert(assertInvalid(test4.map(_.get)))
+        // test invalid case: quantity and netPrice are invalid
+        val test5 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("-10.0"))
+        assert(assertInvalid(test5.map(_.get)))
+    }
+
+    test("testing PositionName") {
+        // test regular case
+        val test1 = PositionName.validate(addDefaultSource("Schraube"))
+        assertEquals(test1.map(_.get), Valid("Schraube"))
+        // test _
+        val test2 = PositionName.validate(addDefaultSource("Reifen_rot"))
+        assertEquals(test2.map(_.get), Valid("Reifen_rot"))
+        // test "
+        val test3 = PositionName.validate(addDefaultSource("Kleber \"Klebemeister\""))
+        assertEquals(test3.map(_.get), Valid("Kleber \"Klebemeister\""))
+        // test ,
+        val test4 = PositionName.validate(addDefaultSource("Schraubenzieherset, neu"))
+        assertEquals(test4.map(_.get), Valid("Schraubenzieherset, neu"))
+        // test .
+        val test5 = PositionName.validate(addDefaultSource("Miete Beratungsraum Nr.2"))
+        assertEquals(test5.map(_.get), Valid("Miete Beratungsraum Nr.2"))
+        // test #
+        val test6 = PositionName.validate(addDefaultSource("Miete Beratungsraum #2"))
+        assertEquals(test6.map(_.get), Valid("Miete Beratungsraum #2"))
+    }
+
     test("testing Hours") {
         // test regular case
         val test1 = Hours.validate(addDefaultSource("19.0"))
@@ -341,25 +393,6 @@ class MUnitTest extends munit.FunSuite {
         assert(assertInvalid(test4.map(_.get)))
         // test invalid case: negative number
         val test5 = HourlyRate.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
-    }
-
-    test("testing NetAmount") {
-        // test regular case
-        val test1 = NetAmount.validate(addDefaultSource("10.0"), addDefaultSource("10.0"))
-        assertEquals(test1.map(_.get), Valid(100.0))
-        // test without decimal point
-        val test2 = NetAmount.validate(addDefaultSource("10"), addDefaultSource("10"))
-        assertEquals(test2.map(_.get), Valid(100.0))
-
-        // test invalid case: quantity is invalid
-        val test3 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("10.0"))
-        assert(assertInvalid(test3.map(_.get)))
-        // test invalid case: netPrice is invalid
-        val test4 = NetAmount.validate(addDefaultSource("10.0"), addDefaultSource("-10.0"))
-        assert(assertInvalid(test4.map(_.get)))
-        // test invalid case: quantity and netPrice are invalid
-        val test5 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("-10.0"))
         assert(assertInvalid(test5.map(_.get)))
     }
 

@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("invoicecontainer").addEventListener("submit", async function (e) {
         e.preventDefault();
-        clearAllErrorDisplays();
+        clearErrorDisplays();
         const data = new FormData(e.target);
         await fetch("/generateEInvoice", {
             method: "POST",
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     LoadRestrictions()
 });
 
-function clearAllErrorDisplays() {
+function clearErrorDisplays() {
     const allErrorDisplays = Array.from(document.getElementsByClassName("errorDisplay"))
     allErrorDisplays.forEach(display => {
         display.innerHTML = ""  // nuke everything within the div, without the div itself

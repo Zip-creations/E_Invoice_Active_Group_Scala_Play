@@ -9,6 +9,10 @@ import sharedUtility.error._
 import sharedUtility.validation._
 import java.net.URL
 
+object AllowedLiterals {  // Reminder: -[] need to be escaped twice!
+    val freeText = " .,#$%&?!+\\-*<>/()\\[\\]\"\'"
+}
+
 case class PostCode private(postcode: String) extends ValidateAble[String](postcode)
 object PostCode {
     def validate(postcode: InputType): Validated[Seq[ErrorMessage], PostCode] = {
@@ -47,7 +51,7 @@ object BuyerReference {
 case class Name private(name: String) extends ValidateAble[String](name)
 object Name{
     def validate(name: InputType): Validated[Seq[ErrorMessage], Name] = {
-        val errors = basicTests(name, 100, "Der Name")
+        val errors = basicTests(name, 100, "Der Name", " \\-\'&")
         if (errors.isEmpty) {
             Valid(Name(name.value))
         } else {
@@ -82,7 +86,7 @@ object Email {
 case class InvoiceIdentifier private(id: String) extends ValidateAble[String](id)
 object InvoiceIdentifier {
     def validate(id: InputType): Validated[Seq[ErrorMessage], InvoiceIdentifier] = {
-        val errors = basicTests(id, 50, "Die Rechnungsnummer")
+        val errors = basicTests(id, 50, "Die Rechnungsnummer", " _#")
         if (errors.isEmpty) {
             Valid(InvoiceIdentifier(id.value))
         } else {
@@ -130,7 +134,7 @@ object Day {
 case class PaymentTerms private(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {
     def validate(terms: InputType): Validated[Seq[ErrorMessage], PaymentTerms] = {
-        val errors = basicTests(terms, 1000, "Die Zahlungsbedingungen")
+        val errors = basicTests(terms, 1000, "Die Zahlungsbedingungen", AllowedLiterals.freeText)
         if (errors.isEmpty) {
             Valid(PaymentTerms(terms.value))
         } else {
@@ -252,7 +256,7 @@ object NetAmount {
 case class VATExemptionReason private(reason: String) extends ValidateAble[String](reason)
 object VATExemptionReason {
     def validate(reason: InputType): Validated[Seq[ErrorMessage], VATExemptionReason] = {
-        val errors = basicTests(reason, 1000, "Der Befreiungsgrund")
+        val errors = basicTests(reason, 1000, "Der Befreiungsgrund", AllowedLiterals.freeText)
         if (errors.isEmpty) {
             Valid(VATExemptionReason(reason.value))
         } else {
@@ -276,7 +280,7 @@ object PositionID {
 case class PositionName private(name: String) extends ValidateAble[String](name)
 object PositionName {
     def validate(name: InputType): Validated[Seq[ErrorMessage], PositionName] = {
-        val errors = basicTests(name, 200, "Der Name einer Position")
+        val errors = basicTests(name, 200, "Der Name einer Position", " \\-#,._\"")
         if (errors.isEmpty) {
             Valid(PositionName(name.value))
         } else {

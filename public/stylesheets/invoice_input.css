@@ -3,14 +3,14 @@
     grid-row: 2;
     display: flex;
     justify-content: space-between;
-    background-color: wheat;
+    background-color: rgb(235, 210, 155);
     padding: 4px;
 }
 
 #invoicecontainer {
     grid-column: 2;
     grid-row: 3;
-    background-color: wheat;
+    background-color: rgb(235, 210, 155);
     padding: 2px;
 }
 
