@@ -47,11 +47,12 @@ object BuyerReference {
 case class Name private(name: String) extends ValidateAble[String](name)
 object Name{
     def validate(name: InputType): Validated[Seq[ErrorMessage], Name] = {
-        Validated.cond(
-            name.value.length <= 100,
-            Name(name.value),
-            Seq(ArgumentError(name))
-        )
+        val errors = basicTests(name, 100, "Der Name")
+        if (errors.isEmpty) {
+            Valid(Name(name.value))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -128,13 +129,13 @@ object Day {
 
 case class PaymentTerms private(terms: String) extends ValidateAble[String](terms)
 object PaymentTerms {
-    def validate(input: InputType): Validated[Seq[ErrorMessage], PaymentTerms] = {
-        val terms = input.value
-        Validated.cond(
-            terms.length <= 1000,
-            PaymentTerms(terms),
-            Seq(ArgumentError(makeError("Die Zahlungsbedingungen enthalten zu viele Zeichen.", input)))
-        )
+    def validate(terms: InputType): Validated[Seq[ErrorMessage], PaymentTerms] = {
+        val errors = basicTests(terms, 1000, "Die Zahlungsbedingungen")
+        if (errors.isEmpty) {
+            Valid(PaymentTerms(terms.value))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -165,13 +166,13 @@ object WebsiteLink {
 
 case class Street private(street: String) extends ValidateAble[String](street)
 object Street {
-    def validate(input: InputType): Validated[Seq[ErrorMessage], Street] = {
-        val street = input.value
-        Validated.cond(
-            street.length <= 100,
-            Street(street),
-            Seq(ArgumentError(makeError("Ein Straßenname enthält zu viele Zeichen.", input)))
-        )
+    def validate(street: InputType): Validated[Seq[ErrorMessage], Street] = {
+        val errors = basicTests(street, 100, "Der Straßenname")
+        if (errors.isEmpty) {
+            Valid(Street(street.value))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -250,13 +251,13 @@ object NetAmount {
 
 case class VATExemptionReason private(reason: String) extends ValidateAble[String](reason)
 object VATExemptionReason {
-    def validate(input: InputType): Validated[Seq[ErrorMessage], VATExemptionReason] = {
-        val reason = input.value
-        Validated.cond(
-            reason.length <= 1000,
-            VATExemptionReason(reason),
-            Seq(ArgumentError(makeError("Ein Befreiugsgrund enthält zu viele Zeichen.", input)))
-        )
+    def validate(reason: InputType): Validated[Seq[ErrorMessage], VATExemptionReason] = {
+        val errors = basicTests(reason, 1000, "Der Befreiungsgrund")
+        if (errors.isEmpty) {
+            Valid(VATExemptionReason(reason.value))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 
@@ -274,13 +275,13 @@ object PositionID {
 
 case class PositionName private(name: String) extends ValidateAble[String](name)
 object PositionName {
-    def validate(input: InputType): Validated[Seq[ErrorMessage], PositionName] = {
-        val name = input.value
-        Validated.cond(
-            true,
-            PositionName(name),
-            Seq(ArgumentError(input))
-        )
+    def validate(name: InputType): Validated[Seq[ErrorMessage], PositionName] = {
+        val errors = basicTests(name, 200, "Der Name einer Position")
+        if (errors.isEmpty) {
+            Valid(PositionName(name.value))
+        } else {
+            Invalid(errors)
+        }
     }
 }
 

@@ -1,32 +1,27 @@
 package utility.validation
 
 import scala.util.{Try, Success, Failure}
+import scala.util.matching.Regex
+
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
+
 import sharedUtility.error._
 import sharedUtility.validation._
 
 // Each function shall return if the test result is negative (ergo: return true if the input is valid, and false if the input is invalid)
 
 
-def basicTests(input: InputType, maxlength: Int, errorHead: String, addDisallowed: Seq[String] = Seq.empty, removeDisallowed: Seq[String] = Seq.empty, newDisallowed: Seq[String] = Seq.empty): Seq[ErrorMessage] = {
+def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedLiterals: String = " "): Seq[ErrorMessage] = {
     val value = input.value
-    var disallowedLiterals: Seq[String] = Seq.empty
-    if (newDisallowed.isEmpty){
-        disallowedLiterals = Seq("#", ";", ":", "=", "*") ++ addDisallowed  // default disallowed literals
-    } else {
-        disallowedLiterals = newDisallowed
-    }
+    val regex = ("(?u)[\\p{L}\\d"+ allowedLiterals + "]*$").r
     var errorlist: Seq[ErrorMessage] = Seq.empty
-    // allow all literals from removeDisallowed
-    removeDisallowed.foreach(literal =>
-        disallowedLiterals.filterNot(elem => elem == literal))
     if (value.length > maxlength){
-        errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält mehr Zeichen als das Limit für diesen Typen: $maxlength", input.source))
+        errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" ist zu lang. Zeichenlimit für diesen Typen: $maxlength", input.source))
     }
-    disallowedLiterals.foreach(literal =>
-        if (value.contains(literal)){
+    value.foreach(literal =>
+        if (!regex.matches(literal.toString())){
             errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält ein ungültiges Zeichen: $literal", input.source))
         })
     errorlist
