@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (json.status === "ok") {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
             } else {
-                console.log(json.data)
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
                     var jumpOnce = true
@@ -106,43 +105,6 @@ function GetAllDescendants(node){
         allDescendants = allDescendants.concat(GetAllDescendants(child))
     });
     return allDescendants
-}
-
-function ToggleOptionalGroup(button) {
-    // get the div the button is supposed to control
-    var adjacentDiv = button.nextSibling
-    while (adjacentDiv.className != "groupContainer") {
-        adjacentDiv = adjacentDiv.nextSibling
-    }
-    // Toggle visibility and (de)activate the inputs (so they can be ignored by the form element accordingly)
-    var allRelevantChilds = Array.from(adjacentDiv.childNodes).filter(elem => elem.tagName === "DIV" || elem.tagName === "BUTTON")
-    var allInputs = []
-    allRelevantChilds.forEach(elem => {
-        allInputs = allInputs.concat(Array.from(GetAllDescendants(elem)).filter(desc => desc.tagName === "INPUT"))
-    })
-    allInputs.forEach(elem => {
-        if (adjacentDiv.style.display === "none") {
-            elem.disabled = false
-        } else {
-            elem.disabled = true
-        }
-    })
-    if (adjacentDiv.style.display === "none") {
-        adjacentDiv.style.display = "flex";
-        button.innerHTML = button.innerHTML.replace("einblenden", "ausblenden")
-    } else {
-        adjacentDiv.style.display = "none";
-        button.innerHTML = button.innerHTML.replace("ausblenden", "einblenden")
-    }
-}
-
-function ConnectAllOptionalButtons() {
-    var allOptButtons = Array.from(document.getElementsByClassName("buttonForOptionalGroups"))
-    allOptButtons.forEach(button => {
-        button.addEventListener("click", function(){ToggleOptionalGroup(button)})
-        // Collapse all optional groups when the document is initially loaded
-        ToggleOptionalGroup(button)
-    });
 }
 
 // window.onbeforeunload = function(){
