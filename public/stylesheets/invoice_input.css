@@ -45,13 +45,12 @@
     margin-bottom: 4px;
 }
 
-.inputfield{
+.inputDataField{
     display: flex;
     padding: 4px;
     gap: 3px;
     margin-right: 10px;
 }
-
 
 .tooltip {
     position: relative;
@@ -108,4 +107,19 @@ input:read-only:not([type=submit]) {
 .awesomplete > ul {
     max-height: 75vh;
     overflow-y: auto;
+}
+
+.errorDisplay {
+    display: block;
+    max-width: 30vw;
+    padding: 3px;
+}
+
+.errorDisplay>p {
+    background-color: white;
+    border: red solid 5px;
+    max-width: 15vw;
+    overflow-wrap: break-word;
+    margin-top: 0px;
+    padding: 2px;
 }

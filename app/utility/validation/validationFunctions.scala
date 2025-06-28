@@ -23,7 +23,7 @@ def basicTests(input: InputType, maxlength: Int, errorHead: String, addDisallowe
     removeDisallowed.foreach(literal =>
         disallowedLiterals.filterNot(elem => elem == literal))
     if (value.length > maxlength){
-        errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält mehr Zeichen als das erlaubte Limit für diesen Typen: $maxlength", input.source))
+        errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält mehr Zeichen als das Limit für diesen Typen: $maxlength", input.source))
     }
     disallowedLiterals.foreach(literal =>
         if (value.contains(literal)){

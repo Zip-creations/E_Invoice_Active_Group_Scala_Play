@@ -8,8 +8,9 @@ def makeError(message: String, value: ValidateAble[?]): String = {
     s"${message} Fehlerquelle: \'${value.getStr}\'"
 }
 
-abstract class ErrorMessage(value: InputType) {
+abstract class ErrorMessage(input: InputType) {
     def errorMessage: String
+    val value = input
 }
 
 case class ArgumentError(input: InputType) extends ErrorMessage(input) {

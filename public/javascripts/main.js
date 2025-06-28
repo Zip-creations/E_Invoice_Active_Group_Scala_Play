@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("invoicecontainer").addEventListener("submit", async function (e) {
         e.preventDefault();
+        clearAllErrorDisplays();
         const data = new FormData(e.target);
-        const response = await fetch("/generateEInvoice", {
+        await fetch("/generateEInvoice", {
             method: "POST",
             body: data
         })
@@ -36,11 +37,27 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(json => {
             if (json.status === "ok") {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
+            } else {
+                console.log(json.data)
+                Object.entries(json.data).forEach(([key, values]) => {
+                    const erroneousInput = document.getElementsByName(key)[0]
+                    values.forEach(errorMessage => {
+                        const targetDiv = erroneousInput.parentElement.parentElement.querySelector(".errorDisplay");
+                        targetDiv.insertAdjacentHTML("beforeend", errorMessage);
+                    });
+                });
             }
         })
     });
     LoadRestrictions()
 });
+
+function clearAllErrorDisplays() {
+    const allErrorDisplays = Array.from(document.getElementsByClassName("errorDisplay"))
+    allErrorDisplays.forEach(display => {
+        display.innerHTML = ""
+    });
+}
 
 /**
  *Fetches invoice_item.scala.html, tranfers the current PostionID, attaches the created content

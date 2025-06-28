@@ -40,7 +40,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.invoice_time(positionID))
   }
 
-  // JS can't access app/views/validation_reports/, that's why this function exists
+  // JS can't access app/views/validation_reports/ directly, that's why this function exists
   def getReport(path: String) = Action { (request: Request[AnyContent]) =>
     Ok.sendFile(new java.io.File(path))
   }
@@ -50,16 +50,18 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val formData = request.body
     val allPositionIDs: Seq[String] = formData.dataParts
       .getOrElse("positionIDcontainer", Seq.empty)
+
     def getInput(inputIdentifier: String) = {
       formData.dataParts.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
     }
     def createInputType(source: String): InputType = {
       InputType(getInput(source), source)
     }
+
     val meta = InvoiceMetaData.validate(
       createInputType("InvoiceNumber"),
-      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),
-      InputType("380", "") // Default value, from InvoiceTypeCodes
+      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),  // Xrechnung requieres the format YYYYMMDD without '-'
+      InputType("380", "") // hardcoded default value, from InvoiceTypeCodes
       )
 
     val seller = InvoiceSeller.validate(
@@ -174,7 +176,12 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         // Open the .html report
         Ok(Json.obj("status"-> "ok", "data" -> reportPath))
       case Invalid(e) =>
-        Ok(views.html.invalid_input(e))
+        val errors: mutable.Map[String, Seq[String]] = mutable.Map.empty
+        e.foreach(error =>
+          val currentPos = errors.getOrElse(error.value.source, List.empty)
+          errors.update(error.value.source, currentPos :+ "<p>"+error.value.value+"</p>")
+          )
+        Ok(Json.obj("status" -> "error", "data" -> Json.toJson(errors)))
       }
   }
 }

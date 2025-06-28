@@ -28,6 +28,6 @@ object FormInputHelper {
         if (defaultValue != "") {
             valueStr = "value=\"" + defaultValue + "\" "
         }
-        Html(s"<div$showStr class=\"inputfield\"><label for=$inputID>$displayname:</label><input type=\"$inputType\" name=$inputID $valueStr $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div>")
+        Html(s"<div class=\"inputfield\"><div$showStr class=\"inputDataField\"><label for=$inputID>$displayname:</label><input type=\"$inputType\" name=$inputID $valueStr $classStr$dataStr$reqString$readStr><div class=\"tooltip\"><i class=\"fa-solid fa-circle-info\"></i><span>$description</span></div></div><div class=errorDisplay></div></div>")
     }
 }
