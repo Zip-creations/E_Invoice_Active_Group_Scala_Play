@@ -179,7 +179,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         val errors: mutable.Map[String, Seq[String]] = mutable.Map.empty
         e.foreach(error =>
           val currentPos = errors.getOrElse(error.value.source, List.empty)
-          errors.update(error.value.source, currentPos :+ "<p>"+error.value.value+"</p>")
+          errors.update(error.value.source, currentPos :+ "<div><p>"+error.value.value+"</p></div>")
           )
         Ok(Json.obj("status" -> "error", "data" -> Json.toJson(errors)))
       }

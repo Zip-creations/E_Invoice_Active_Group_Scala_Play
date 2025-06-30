@@ -114,11 +114,26 @@ input:read-only:not([type=submit]) {
     padding: 3px;
 }
 
-.errorDisplay>p {
+.errorDisplay>div {
     background-color: white;
     border: red solid 5px;
-    max-width: 15vw;
+    max-width: 17em;
     overflow-wrap: break-word;
-    margin-top: 0px;
+    margin-top: 1.2em;
     padding: 2px;
+    position: relative;
+}
+
+.errorDisplay>div:after {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-top: red 5px solid;
+    border-left: red 5px solid;
+    background-color: white;
+    left: 50%;
+    top: -0.9em;
+    margin-left: -10px;
+    content: '';
+    transform: rotate(45deg);
 }
