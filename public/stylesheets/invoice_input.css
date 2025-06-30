@@ -132,7 +132,7 @@ input:read-only:not([type=submit]) {
     border-left: red 5px solid;
     background-color: white;
     left: 50%;
-    top: -0.9em;
+    top: -0.86em;
     margin-left: -10px;
     content: '';
     transform: rotate(45deg);
