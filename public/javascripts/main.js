@@ -69,16 +69,15 @@ function clearErrorDisplays() {
 
 function toggleForm(disable) {
     var allElements = Array.from(document.getElementById("invoicecontainer").elements)
-    // a <select> cannot be used with readOnly, and disabling would prevent it from being send to the backend
     var allButtons = allElements.filter(elem => elem.type === "submit" || elem.tagName === "BUTTON")
-    allElements = allElements.filter(elem => !elem.name.includes("InvoiceLineIdentifier"))  // add all elements to the filter that are supposed to stay readyOnly
-    allElements.forEach(elem => elem.readOnly = disable)
-    allButtons.forEach(elem => elem.disabled = disable)
     if (disable) {
         document.body.style.cursor = "wait"
+        allElements.forEach(elem => elem.style.pointerEvents = "none")
     } else {
         document.body.style.cursor = ""
+        allElements.forEach(elem => elem.style.pointerEvents = "auto")
     }
+    allButtons.forEach(elem => elem.disabled = disable)
 }
 
 /**
