@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("invoicecontainer").addEventListener("submit", async function (e) {
         e.preventDefault();
-        toggleForm(true)
+        toggleUserInteraction(true)
         clearErrorDisplays();
         const data = new FormData(e.target);
         await fetch("/generateEInvoice", {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(json => {
             if (json.status === "ok") {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
-                toggleForm(false)
+                toggleUserInteraction(false)
             } else {
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         }  
                     });
                 });
-                toggleForm(false)
+                toggleUserInteraction(false)
             }
         })
     });
@@ -67,7 +67,7 @@ function clearErrorDisplays() {
     });
 }
 
-function toggleForm(disable) {
+function toggleUserInteraction(disable) {
     var allElements = Array.from(document.getElementById("invoicecontainer").elements)
     var allButtons = allElements.filter(elem => elem.type === "submit" || elem.tagName === "BUTTON")
     if (disable) {

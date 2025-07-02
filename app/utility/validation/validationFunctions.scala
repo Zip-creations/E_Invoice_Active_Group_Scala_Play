@@ -11,17 +11,21 @@ import sharedUtility.error._
 import sharedUtility.validation._
 
 
-def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedLiterals: String = " "): Seq[ErrorMessage] = {
+def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedChars: String = " "): Seq[ErrorMessage] = {
     val value = input.value
-    val regex = ("(?u)[\\p{L}\\d"+ allowedLiterals + "]*$").r
+    val regex = ("(?u)[\\p{L}\\d"+ allowedChars + "]*$").r
     var errorlist: Seq[ErrorMessage] = Seq.empty
     if (value.length > maxlength){
         errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" ist zu lang. Zeichenlimit für diesen Typen: $maxlength", input.source))
     }
-    value.foreach(literal =>
-        if (!regex.matches(literal.toString())){
-            errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält ein ungültiges Zeichen: $literal", input.source))
+    var invalidChars: Set[Char] = Set()
+    value.foreach(char =>
+        if (!regex.matches(char.toString())){
+            invalidChars = invalidChars + char
         })
+    invalidChars.foreach(char =>
+            errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält ein ungültiges Zeichen: $char", input.source))
+        )
     errorlist
 }
 
