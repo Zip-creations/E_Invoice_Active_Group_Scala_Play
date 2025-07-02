@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("invoicecontainer").addEventListener("submit", async function (e) {
         e.preventDefault();
-        toggleSubmitButton();
+        toggleForm(true)
         clearErrorDisplays();
         const data = new FormData(e.target);
         await fetch("/generateEInvoice", {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(json => {
             if (json.status === "ok") {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
-                toggleSubmitButton();
+                toggleForm(false)
             } else {
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         }  
                     });
                 });
-                toggleSubmitButton();
+                toggleForm(false)
             }
         })
     });
@@ -67,9 +67,18 @@ function clearErrorDisplays() {
     });
 }
 
-function toggleSubmitButton() {
-    var submitButton = document.getElementById("submitButton")
-    submitButton.disabled = !submitButton.disabled
+function toggleForm(disable) {
+    var allElements = Array.from(document.getElementById("invoicecontainer").elements)
+    // a <select> cannot be used with readOnly, and disabling would prevent it from being send to the backend
+    var allButtons = allElements.filter(elem => elem.type === "submit" || elem.tagName === "BUTTON")
+    allElements = allElements.filter(elem => !elem.name.includes("InvoiceLineIdentifier"))  // add all elements to the filter that are supposed to stay readyOnly
+    allElements.forEach(elem => elem.readOnly = disable)
+    allButtons.forEach(elem => elem.disabled = disable)
+    if (disable) {
+        document.body.style.cursor = "wait"
+    } else {
+        document.body.style.cursor = ""
+    }
 }
 
 /**
