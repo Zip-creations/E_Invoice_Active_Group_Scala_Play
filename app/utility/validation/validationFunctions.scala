@@ -9,6 +9,7 @@ import cats.syntax.all._
 
 import sharedUtility.error._
 import sharedUtility.validation._
+import scala.collection.mutable
 
 
 def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedChars: String = " "): Seq[ErrorMessage] = {
@@ -18,14 +19,16 @@ def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedChars
     if (value.length > maxlength){
         errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" ist zu lang. Zeichenlimit für diesen Typen: $maxlength", input.source))
     }
-    var invalidChars: Set[Char] = Set()
+    var invalidChars: mutable.Map[Char, Int] = mutable.Map.empty
     value.foreach(char =>
         if (!regex.matches(char.toString())){
-            invalidChars = invalidChars + char
+            var count = invalidChars.getOrElse(char, 0)
+            invalidChars.update(char, count+1)
         })
-    invalidChars.foreach(char =>
-            errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält ein ungültiges Zeichen: $char", input.source))
-        )
+    for (char <- invalidChars.keys) {
+        val count = invalidChars(char)
+        errorlist = errorlist :+ ArgumentError(InputType(f"$errorHead: \"$value\" enthält ${count}x das ungültige Zeichen: $char", input.source))
+    }
     errorlist
 }
 
