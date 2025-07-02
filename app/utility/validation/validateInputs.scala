@@ -8,6 +8,7 @@ import scala.util.matching.Regex
 import sharedUtility.error._
 import sharedUtility.validation._
 import java.net.URL
+import scala.annotation.switch
 
 object AllowedLiterals {  // Reminder: -[] need to be escaped twice!
     val freeText = " .,#$%&?!+\\-*<>/()\\[\\]\"\'"
@@ -194,51 +195,48 @@ object SellerVATIdentifier {
 case class VATRate private(rate: Double) extends ValidateAble[Double](rate)
 object VATRate {
     def validate(input: InputType): Validated[Seq[ErrorMessage], VATRate] = {
-        val rate = input.value
-        Validated.cond(
-            isValidDouble(rate),
-            VATRate(rate.toDouble),
-            Seq(ArgumentError(makeError("Für einen Umsatzsteuersatz wurde keine gültige Zahl eingegeben.", input)))).andThen{
-                rate =>
-                    Validated.cond(
-                        notNegative(rate.get),
-                        rate,
-                        Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", input))))
-            }
+        val rate = isValidDouble(input.value)
+        rate match
+            case Some(validDoubleRate) =>
+                if (notNegative(validDoubleRate)) {
+                    Valid(VATRate(validDoubleRate))
+                } else {
+                    Invalid(Seq(ArgumentError(makeError("Der Umsatzsteuersatz darf nicht negativ sein.", input))))
+                }
+            case None =>
+                Invalid(Seq(ArgumentError(makeError("Für einen Umsatzsteuersatz wurde keine gültige Zahl eingegeben.", input))))
     }
 }
 
 case class Quantity private(quantity: Double) extends ValidateAble[Double](quantity)
 object Quantity {
     def validate(input: InputType): Validated[Seq[ErrorMessage], Quantity] = {
-        val quantity = input.value
-        Validated.cond(
-            isValidDouble(quantity),
-            Quantity(quantity.toDouble),
-            Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", input)))).andThen{
-                quantity =>
-                    Validated.cond(
-                        notNegative(quantity.get),
-                        quantity,
-                        Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", input))))
-            }
+        val quantity = isValidDouble(input.value)
+        quantity match
+            case Some(validDoubleQuantity) =>
+                if (notNegative(validDoubleQuantity)) {
+                    Valid(Quantity(validDoubleQuantity))
+                } else {
+                    Invalid(Seq(ArgumentError(makeError("Eine Menge darf nicht negativ sein.", input))))
+                }
+            case None =>
+                Invalid(Seq(ArgumentError(makeError("Für eine Menge wurde keine gültige Zahl eingegeben.", input))))
     }
 }
 
 case class NetPrice private(netPrice: Double) extends ValidateAble[Double](netPrice)
 object NetPrice {
     def validate(input: InputType): Validated[Seq[ErrorMessage], NetPrice] = {
-        val netPrice = input.value
-        Validated.cond(
-            isValidDouble(netPrice),
-            NetPrice(netPrice.toDouble),
-            Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", input)))).andThen{
-                netPrice =>
-                    Validated.cond(
-                        notNegative(netPrice.get),
-                        netPrice,
-                        Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", input))))
-            }
+        val netPrice = isValidDouble(input.value)
+        netPrice match
+            case Some(validDoubleNetPrice) =>
+                if (notNegative(validDoubleNetPrice)) {
+                    Valid(NetPrice(validDoubleNetPrice))
+                } else {
+                    Invalid(Seq(ArgumentError(makeError("Der Stückpreis darf nicht negativ sein.", input))))
+                }
+            case None =>
+                Invalid(Seq(ArgumentError(makeError("Für einen Stückpreis wurde keine gültige Zahl eingegeben.", input))))
     }
 }
 
@@ -292,34 +290,31 @@ object PositionName {
 case class Hours private(hours: Double) extends ValidateAble[Double](hours)
 object Hours {
     def validate(input: InputType): Validated[Seq[ErrorMessage], Hours] = {
-        val hours = input.value
-        Validated.cond(
-            isValidDouble(hours),
-            Hours(hours.toDouble),
-            Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", input)))).andThen{
-                hours =>
-                    Validated.cond(
-                        notNegative(hours.get),
-                        hours,
-                        Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", input))))
-            }
+        val hours = isValidDouble(input.value)
+        hours match
+            case Some(validDoubleHours) =>
+                if (notNegative(validDoubleHours)) {
+                    Valid(Hours(validDoubleHours))
+                } else {
+                    Invalid(Seq(ArgumentError(makeError("Eine Stundenanzahl darf nicht negativ sein.", input))))
+                }
+            case None =>
+                Invalid(Seq(ArgumentError(makeError("Für eine Anzahl an Stunden wurde keine gültige Zahl eingegeben.", input))))
     }
 }
 
 case class HourlyRate private(rate: Double) extends ValidateAble[Double](rate)
 object HourlyRate {
     def validate(input: InputType): Validated[Seq[ErrorMessage], HourlyRate] = {
-        val hourlyrate = input.value
-        Validated.cond(
-            isValidDouble(hourlyrate),
-            HourlyRate(hourlyrate.toDouble),
-            Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", input)))).andThen{
-                hourlyrate =>
-                    Validated.cond(
-                        notNegative(hourlyrate.get),
-                        hourlyrate,
-                        Seq(ArgumentError(makeError("Ein Stundensatz darf nicht negativ sein.", input)))
-                    )
-            }
+        val hourlyrate = isValidDouble(input.value)
+        hourlyrate match
+            case Some(validDoubleHourlyRate) =>
+                if (notNegative(validDoubleHourlyRate)) {
+                    Valid(HourlyRate(validDoubleHourlyRate))
+                } else {
+                    Invalid(Seq(ArgumentError(makeError("Ein Stundensatz darf nicht negativ sein.", input))))
+                }
+            case None =>
+                Invalid(Seq(ArgumentError(makeError("Für einen Stundensatz wurde keine gültige Zahl eingegeben.", input))))
     }
 }

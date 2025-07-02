@@ -10,8 +10,6 @@ import cats.syntax.all._
 import sharedUtility.error._
 import sharedUtility.validation._
 
-// Each function shall return if the test result is negative (ergo: return true if the input is valid, and false if the input is invalid)
-
 
 def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedLiterals: String = " "): Seq[ErrorMessage] = {
     val value = input.value
@@ -27,12 +25,12 @@ def basicTests(input: InputType, maxlength: Int, errorHead: String, allowedLiter
     errorlist
 }
 
-def isValidDouble(str: String): Boolean = {
+def isValidDouble(str: String): Option[Double] = {
     Try(str.toDouble) match{
-        case Success(v) =>
-            true
+        case Success(num) =>
+            Some(num)
         case Failure(e) =>
-            false
+            None
     }
 }
 
