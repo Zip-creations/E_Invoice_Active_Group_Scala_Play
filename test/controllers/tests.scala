@@ -3,20 +3,13 @@ package test
 import utility.validation._
 import codelists._
 import sharedUtility.validation._
+import sharedUtility.error._
 
 import munit.FunSuite
 import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-def assertInvalid(value: Any): Boolean = {
-    value match {
-        case Invalid(_) =>
-            true
-        case _ =>
-            false
-    }
-}
 
 def addDefaultSource(str: String): InputType = {
     InputType(str, "")
@@ -36,7 +29,7 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: more than 50 letters
         val test4 = PostCode.validate(addDefaultSource("1"*50+"1"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
     }
 
     test("testing City") {
@@ -64,7 +57,7 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: more than 100 letters
         val test8 = City.validate(addDefaultSource("1234567890"*10+"1"))
-        assert(assertInvalid(test8.map(_.get)))
+        assert(test8.map(_.get).isInvalid)
     }
 
     test("testing Name") {
@@ -89,7 +82,7 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: more than 100 letters
         val test3 = Name.validate(addDefaultSource("1234567890"*10+"1"))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
     }
 
     test("testing Email") {
@@ -147,43 +140,43 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: no @
         val test20 = Email.validate(addDefaultSource("namemail"))
-        assert(assertInvalid(test20.map(_.get)))
+        assert(test20.map(_.get).isInvalid)
         // test invalid case: nothing left of @
         val test21 = Email.validate(addDefaultSource("name@"))
-        assert(assertInvalid(test21.map(_.get)))
+        assert(test21.map(_.get).isInvalid)
         // test invalid case: nothing right of @
         val test22 = Email.validate(addDefaultSource("@mail"))
-        assert(assertInvalid(test22.map(_.get)))
+        assert(test22.map(_.get).isInvalid)
         // test invalid case: .. left of @ 
         val test23 = Email.validate(addDefaultSource("name..lastname@mail"))
-        assert(assertInvalid(test23.map(_.get)))
+        assert(test23.map(_.get).isInvalid)
         // test invalid case: .. right of @
         val test26 = Email.validate(addDefaultSource("name@mail..de"))
-        assert(assertInvalid(test26.map(_.get)))
+        assert(test26.map(_.get).isInvalid)
         // test invalid case: . directly after @
         val test24 = Email.validate(addDefaultSource("name@.mail"))
-        assert(assertInvalid(test24.map(_.get)))
+        assert(test24.map(_.get).isInvalid)
         // test invalid case: . directly before @
         val test27 = Email.validate(addDefaultSource("name.@mail"))
-        assert(assertInvalid(test27.map(_.get)))
+        assert(test27.map(_.get).isInvalid)
         // test invalid case: . at the beginning
         val test25 = Email.validate(addDefaultSource(".name@mail"))
-        assert(assertInvalid(test25.map(_.get)))
+        assert(test25.map(_.get).isInvalid)
         // test invalid case: . at the end
         val test28 = Email.validate(addDefaultSource("name@mail."))
-        assert(assertInvalid(test28.map(_.get)))
+        assert(test28.map(_.get).isInvalid)
         // test invalid case: , left of @
         val test29 = Email.validate(addDefaultSource("name,lastname@mail"))
-        assert(assertInvalid(test29.map(_.get)))
+        assert(test29.map(_.get).isInvalid)
         // test invalid case: , right of @
         val test30 = Email.validate(addDefaultSource("name@mail,de"))
-        assert(assertInvalid(test30.map(_.get)))
+        assert(test30.map(_.get).isInvalid)
         // test invalid case: whitespace left of @
         val test31 = Email.validate(addDefaultSource("name lastname@mail"))
-        assert(assertInvalid(test31.map(_.get)))
+        assert(test31.map(_.get).isInvalid)
         // test invalid case: whitespace right of @
         val test32 = Email.validate(addDefaultSource("name@mail de"))
-        assert(assertInvalid(test32.map(_.get)))
+        assert(test32.map(_.get).isInvalid)
     }
 
     test("testing PaymentTerms") {
@@ -196,7 +189,7 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: more than 1000 letters
         val test3 = PaymentTerms.validate(addDefaultSource("1234567890"*100+"1"))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
     }
 
     test("testing Street") {
@@ -215,7 +208,7 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: more than 100 letters
         val test5 = Street.validate(addDefaultSource("1234567890"*10+"1"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing Date") {
@@ -225,39 +218,45 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test2 = Date.validate(addDefaultSource("a0000101"))
-        assert(assertInvalid(test2.map(Date.get(_))))
+        assert(test2.map(Date.get(_)).isInvalid)
         // test invalid case: whitespace, correct lenght of number
         val test11 = Date.validate(addDefaultSource("1111 2222"))
-        assert(assertInvalid(test11.map(Date.get(_))))
+        assert(test11.map(Date.get(_)).isInvalid)
         // test invalid case: whitespace, correct length of string
         val test12 = Date.validate(addDefaultSource("1111 222"))
-        assert(assertInvalid(test12.map(Date.get(_))))
+        assert(test12.map(Date.get(_)).isInvalid)
         // test invalid case: negative number
         val test3 = Date.validate(addDefaultSource("-9990101"))
-        assert(assertInvalid(test3.map(Date.get(_))))
+        assert(test3.map(Date.get(_)).isInvalid)
         // test invalid case: date format as it is communicated by a html-input with input type="date"
         val test4 = Date.validate(addDefaultSource("2000-01-01"))
-        assert(assertInvalid(test4.map(Date.get(_))))
+        assert(test4.map(Date.get(_)).isInvalid)
 
         // test invalid case: too short
         val test5 = Date.validate(addDefaultSource("1999130"))
-        assert(assertInvalid(test5.map(Date.get(_))))
+        assert(test5.map(Date.get(_)).isInvalid)
         // test invalid case: too long
         val test6 = Date.validate(addDefaultSource("199913010"))
-        assert(assertInvalid(test6.map(Date.get(_))))
+        assert(test6.map(Date.get(_)).isInvalid)
 
         // test invalid case: month > 12
         val test7 = Date.validate(addDefaultSource("19991301"))
-        assert(assertInvalid(test7.map(Date.get(_))))
+        assert(test7.map(Date.get(_)).isInvalid)
         // test invalid case: month < 1
         val test8 = Date.validate(addDefaultSource("19990001"))
-        assert(assertInvalid(test8.map(Date.get(_))))
+        assert(test8.map(Date.get(_)).isInvalid)
         // test invalid case: day > 31
         val test9 = Date.validate(addDefaultSource("19990132"))
-        assert(assertInvalid(test9.map(Date.get(_))))
+        assert(test9.map(Date.get(_)).isInvalid)
         // test invalid case: day < 1
         val test10 = Date.validate(addDefaultSource("19990100"))
-        assert(assertInvalid(test10.map(Date.get(_))))
+        assert(test10.map(Date.get(_)).isInvalid)
+        // test 30th November
+        val test14 = Date.validate(addDefaultSource("20001130"))
+        assertEquals(test14.map(Date.get(_)), Valid("20001130"))
+        // test invalid case: 31th November
+        val test13 = Date.validate(addDefaultSource("20001131"))
+        assert(test13.map(Date.get(_)).isInvalid)
         // TODO: combination of wrong day and month
     }
 
@@ -274,10 +273,10 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test4 = VATRate.validate(addDefaultSource("a.bc"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: negative number
         val test5 = VATRate.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing Quantity") {
@@ -293,10 +292,10 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test4 = Quantity.validate(addDefaultSource("a.bc"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: negative number
         val test5 = Quantity.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing NetPrice") {
@@ -312,10 +311,10 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test4 = NetPrice.validate(addDefaultSource("a.bc"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: negative number
         val test5 = NetPrice.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing NetAmount") {
@@ -328,13 +327,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: quantity is invalid
         val test3 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("10.0"))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: netPrice is invalid
         val test4 = NetAmount.validate(addDefaultSource("10.0"), addDefaultSource("-10.0"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: quantity and netPrice are invalid
         val test5 = NetAmount.validate(addDefaultSource("-10.0"), addDefaultSource("-10.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing PositionName") {
@@ -371,10 +370,10 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test4 = Hours.validate(addDefaultSource("a.bc"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: negative number
         val test5 = Hours.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing HourlyRate") {
@@ -390,10 +389,10 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case: not a number
         val test4 = HourlyRate.validate(addDefaultSource("a.bc"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: negative number
         val test5 = HourlyRate.validate(addDefaultSource("-19.0"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing CountryCode") {
@@ -403,13 +402,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test2 = CountryCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test2.map(_.get)))
+        assert(test2.map(_.get).isInvalid)
         // test invalid case: empty String
         val test3 = CountryCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: lower case letters
         val test4 = CountryCode.validate(addDefaultSource("de"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
     }
 
     test("testing CurrencyCode") {
@@ -419,13 +418,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test2 = CurrencyCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test2.map(_.get)))
+        assert(test2.map(_.get).isInvalid)
         // test invalid case: empty String
         val test3 = CurrencyCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: lower case letters
         val test4 = CurrencyCode.validate(addDefaultSource("eur"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
     }
 
     test("testing MeasurementCode") {
@@ -438,13 +437,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test3 = MeasurementCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: empty String
         val test4 = MeasurementCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: lower case letters
         val test5 = MeasurementCode.validate(addDefaultSource("h87"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing PaymentMeansTypeCode") {
@@ -457,13 +456,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test3 = PaymentMeansTypeCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: empty String
         val test4 = PaymentMeansTypeCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
         // test invalid case: lower case letters
         val test5 = PaymentMeansTypeCode.validate(addDefaultSource("zzz"))
-        assert(assertInvalid(test5.map(_.get)))
+        assert(test5.map(_.get).isInvalid)
     }
 
     test("testing VATCategoryCode") {
@@ -473,13 +472,13 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test2 = VATCategoryCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test2.map(_.get)))
+        assert(test2.map(_.get).isInvalid)
         // test invalid case: empty String
         val test3 = VATCategoryCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
         // test invalid case: lower case letters
         val test4 = VATCategoryCode.validate(addDefaultSource("s"))
-        assert(assertInvalid(test4.map(_.get)))
+        assert(test4.map(_.get).isInvalid)
     }
 
     test("testing InvoiceTypeCode") {
@@ -489,9 +488,9 @@ class MUnitTest extends munit.FunSuite {
 
         // test invalid case (not a member of Enum)
         val test2 = InvoiceTypeCode.validate(addDefaultSource("XY"))
-        assert(assertInvalid(test2.map(_.get)))
+        assert(test2.map(_.get).isInvalid)
         // test invalid case: empty String
         val test3 = InvoiceTypeCode.validate(addDefaultSource(""))
-        assert(assertInvalid(test3.map(_.get)))
+        assert(test3.map(_.get).isInvalid)
     }
 }

@@ -10,7 +10,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
-case class Invoice(
+case class Invoice private(
     metadata: InvoiceMetaData,
     involvedParties: InvoiceInvolvedParties,
     positions: List[InvoicePosition],
@@ -26,7 +26,7 @@ object Invoice {
     }
 }
 
-case class InvoiceMetaData(
+case class InvoiceMetaData private(
     identifier: InvoiceIdentifier,
     date: Date,
     invoiceType: InvoiceTypeCode)
@@ -40,7 +40,7 @@ object InvoiceMetaData {
     }
 }
 
-case class InvoiceInvolvedParties(
+case class InvoiceInvolvedParties private(
     seller: InvoiceSeller,
     sellerContact: InvoiceSellerContact,
     buyer: InvoiceBuyer)
@@ -54,7 +54,7 @@ object InvoiceInvolvedParties {
     }
 }
 
-case class InvoiceSeller(
+case class InvoiceSeller private(
     name: Name,
     street: Street,
     address: Address,
@@ -76,7 +76,7 @@ object InvoiceSeller {
     }
 }
 
-case class InvoiceSellerContact(
+case class InvoiceSellerContact private(
     name: Name,
     telephonenumber: TelephoneNumber,
     email: Email)
@@ -90,7 +90,7 @@ object InvoiceSellerContact {
     }
 }
 
-case class InvoiceBuyer(
+case class InvoiceBuyer private(
     reference: BuyerReference,
     name: Name,
     address: Address,
@@ -108,7 +108,7 @@ object InvoiceBuyer {
     }
 }
 
-case class VATCategoryIdentifier(
+case class VATCategoryIdentifier private(
     vatCode: VATCategoryCode,
     vatRate: VATRate)
 object VATCategoryIdentifier {
@@ -119,7 +119,7 @@ object VATCategoryIdentifier {
         ).mapN(VATCategoryIdentifier.apply)
     }
 }
-case class InvoiceVATGroup(
+case class InvoiceVATGroup private(
     id: VATCategoryIdentifier,
     positions: List[SimplePosition],
     vatExemptionReason: VATExemptionReason)
@@ -133,7 +133,7 @@ object InvoiceVATGroup {
     }
 }
 
-case class InvoicePaymentInformation(
+case class InvoicePaymentInformation private(
     currencycode: CurrencyCode,
     paymentMeansCode: PaymentMeansTypeCode,
     vatGroups: List[InvoiceVATGroup],
@@ -149,7 +149,7 @@ object InvoicePaymentInformation {
     }
 }
 
-case class SimplePosition(
+case class SimplePosition private(
     identifier: VATCategoryIdentifier,
     quantity: Quantity,
     netPrice: NetPrice,
@@ -165,7 +165,7 @@ object SimplePosition {
     }
 }
 
-case class InvoicePosition(
+case class InvoicePosition private(
     id: PositionID,
     name: PositionName,
     vatId: VATCategoryIdentifier,
@@ -181,7 +181,7 @@ object InvoicePosition {
     }
 }
 
-enum InvoicePositionData{
+enum InvoicePositionData private{
     case Stundenposition(
         hours: Hours,
         hourlyrate: HourlyRate,
@@ -212,7 +212,7 @@ object Leistungsposition {
     }
 }
 
-case class Address (
+case class Address private(
     postCode: PostCode,
     city: City,
     countryCode: CountryCode)
@@ -226,7 +226,7 @@ object Address {
     }
 }
 
-case class Date(
+case class Date private(
     year: Year,
     month: Month,
     day: Day
