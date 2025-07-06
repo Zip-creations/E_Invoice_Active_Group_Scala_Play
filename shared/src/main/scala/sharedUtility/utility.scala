@@ -1,5 +1,6 @@
 package sharedUtility.utility
 
-def fillWithZero(str: String): String = {
-    if (str.length == 2) str else "0" + str
+def fillWithZero(str: String, len: Int): String = {
+    val strLen = str.length
+    if (strLen == len) str else "0" * (len - strLen) + str
 }

@@ -270,7 +270,7 @@ object Date {
         }
     }
     def get(date: Date): String = {
-        date.year.get.toString + fillWithZero(date.month.get.toString) + fillWithZero(date.day.get.toString)
+        fillWithZero(date.year.get.toString, 4) + fillWithZero(date.month.get.toString, 2) + fillWithZero(date.day.get.toString, 2)
     }
 }
 

@@ -215,6 +215,15 @@ class MUnitTest extends munit.FunSuite {
         // test regular case
         val test1 = Date.validate(addDefaultSource("20000101"))
         assertEquals(test1.map(Date.get(_)), Valid("20000101"))
+        // test year with 3 digits
+        val test15 = Date.validate(addDefaultSource("01230101"))
+        assertEquals(test15.map(Date.get(_)), Valid("01230101"))
+        // test earliest possible date
+        val test16 = Date.validate(addDefaultSource("00000101"))
+        assertEquals(test16.map(Date.get(_)), Valid("00000101"))
+        // test last possible date
+        val test17 = Date.validate(addDefaultSource("99991231"))
+        assertEquals(test17.map(Date.get(_)), Valid("99991231"))
 
         // test invalid case: not a number
         val test2 = Date.validate(addDefaultSource("a0000101"))
@@ -233,23 +242,23 @@ class MUnitTest extends munit.FunSuite {
         assert(test4.map(Date.get(_)).isInvalid)
 
         // test invalid case: too short
-        val test5 = Date.validate(addDefaultSource("1999130"))
+        val test5 = Date.validate(addDefaultSource("2000130"))
         assert(test5.map(Date.get(_)).isInvalid)
         // test invalid case: too long
-        val test6 = Date.validate(addDefaultSource("199913010"))
+        val test6 = Date.validate(addDefaultSource("200013010"))
         assert(test6.map(Date.get(_)).isInvalid)
 
         // test invalid case: month > 12
-        val test7 = Date.validate(addDefaultSource("19991301"))
+        val test7 = Date.validate(addDefaultSource("20001301"))
         assert(test7.map(Date.get(_)).isInvalid)
         // test invalid case: month < 1
-        val test8 = Date.validate(addDefaultSource("19990001"))
+        val test8 = Date.validate(addDefaultSource("20000001"))
         assert(test8.map(Date.get(_)).isInvalid)
         // test invalid case: day > 31
-        val test9 = Date.validate(addDefaultSource("19990132"))
+        val test9 = Date.validate(addDefaultSource("20000132"))
         assert(test9.map(Date.get(_)).isInvalid)
         // test invalid case: day < 1
-        val test10 = Date.validate(addDefaultSource("19990100"))
+        val test10 = Date.validate(addDefaultSource("20000100"))
         assert(test10.map(Date.get(_)).isInvalid)
         // test 30th November
         val test14 = Date.validate(addDefaultSource("20001130"))
@@ -257,7 +266,6 @@ class MUnitTest extends munit.FunSuite {
         // test invalid case: 31th November
         val test13 = Date.validate(addDefaultSource("20001131"))
         assert(test13.map(Date.get(_)).isInvalid)
-        // TODO: combination of wrong day and month
     }
 
     test("testing VATRate") {
