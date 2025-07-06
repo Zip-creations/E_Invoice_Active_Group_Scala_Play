@@ -65,7 +65,7 @@ case class Iban private(iban: String) extends ValidateAble[String](iban)
 object Iban{
     def validate(iban: InputType): Validated[Seq[ErrorMessage], Iban] = {
         Validated.cond(
-            true,
+            true,  // currently not used in xml
             Iban(iban.value),
             Seq(ArgumentError(iban))
         )
@@ -125,7 +125,7 @@ object Day {
     def validate(day: InputType) = {
         val parsedDay = day.value.toInt
         Validated.cond(
-            parsedDay > 0 && parsedDay <= 31, // Can't detect errors like 31. April or 30. February
+            parsedDay > 0 && parsedDay <= 31, // Can't detect errors like 31. April or 30. February, see Date.validate
             Day(parsedDay),
             Seq(ArgumentError(makeError("Der Tag eines Datums muss zwischen 1 und 31 liegen.", day)))
         )
@@ -149,7 +149,7 @@ object TelephoneNumber {
     def validate(input: InputType): Validated[Seq[ErrorMessage], TelephoneNumber] = {
         val number = input.value
         Validated.cond(
-            true,
+            true,  // currently not used in xml
             TelephoneNumber(number),
             Seq(ArgumentError(input))
         )

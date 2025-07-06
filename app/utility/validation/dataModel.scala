@@ -234,14 +234,39 @@ case class Date(
 object Date {
     def validate(input: InputType): Validated[Seq[ErrorMessage], Date] = {
         val date = input.value
-        if (isValidDateFormat(date)) {
-            (
-                Year.validate(InputType(date.slice(0,4), input.source)),
-                Month.validate(InputType(date.slice(4,6), input.source)),
-                Day.validate(InputType(date.slice(6,8), input.source))
-            ).mapN(Date.apply)
-        } else {
+        if (!isValidDateFormat(date)) {
             Invalid(Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", input))))
+        } else {
+            val validYear = Year.validate(InputType(date.slice(0,4), input.source))
+            val validMonth = Month.validate(InputType(date.slice(4,6), input.source))
+            val validDay = Day.validate(InputType(date.slice(6,8), input.source))
+            (validYear, validMonth, validDay) match {
+                case (Valid(validY), Valid(validM), Valid(validD)) =>
+                    val year = validY.get
+                    val month = validM.get
+                    val day = validD.get
+                    if((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day == 31) {
+                        Invalid(Seq(ArgumentError(makeError("Das Datum enthält einen unmöglichen 31. Tag.", input))))
+                    } else if(month == 2 && day == 30) {
+                        Invalid(Seq(ArgumentError(makeError("Das Datum enthält den 30. Februar.", input))))
+                    } else if (month == 2 && day == 29 && !(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))){
+                        // this way of testing for leap years can lead to inaccuracies around the year 4813. 
+                        // See https://de.wikipedia.org/wiki/Schaltjahr#Gregorianischer_Kalender
+                        Invalid(Seq(ArgumentError(makeError("Das Datum enthält den 29. Februar außerhalb eines Schaltjahres.", input))))
+                    } else {
+                        (
+                            validYear,
+                            validMonth,
+                            validDay
+                        ).mapN(Date.apply)
+                    }
+                case _ =>
+                    (
+                        validYear,
+                        validMonth,
+                        validDay
+                    ).mapN(Date.apply)
+            }
         }
     }
     def get(date: Date): String = {
