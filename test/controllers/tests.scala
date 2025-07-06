@@ -216,56 +216,71 @@ class MUnitTest extends munit.FunSuite {
         val test1 = Date.validate(addDefaultSource("20000101"))
         assertEquals(test1.map(Date.get(_)), Valid("20000101"))
         // test year with 3 digits
-        val test15 = Date.validate(addDefaultSource("01230101"))
-        assertEquals(test15.map(Date.get(_)), Valid("01230101"))
+        val test2 = Date.validate(addDefaultSource("01230101"))
+        assertEquals(test2.map(Date.get(_)), Valid("01230101"))
         // test earliest possible date
-        val test16 = Date.validate(addDefaultSource("00000101"))
-        assertEquals(test16.map(Date.get(_)), Valid("00000101"))
+        val test3 = Date.validate(addDefaultSource("00000101"))
+        assertEquals(test3.map(Date.get(_)), Valid("00000101"))
         // test last possible date
-        val test17 = Date.validate(addDefaultSource("99991231"))
-        assertEquals(test17.map(Date.get(_)), Valid("99991231"))
+        val test4 = Date.validate(addDefaultSource("99991231"))
+        assertEquals(test4.map(Date.get(_)), Valid("99991231"))
 
         // test invalid case: not a number
-        val test2 = Date.validate(addDefaultSource("a0000101"))
-        assert(test2.map(Date.get(_)).isInvalid)
+        val test5 = Date.validate(addDefaultSource("a0000101"))
+        assert(test5.map(Date.get(_)).isInvalid)
         // test invalid case: whitespace, correct lenght of number
-        val test11 = Date.validate(addDefaultSource("1111 2222"))
-        assert(test11.map(Date.get(_)).isInvalid)
+        val test6 = Date.validate(addDefaultSource("1111 2222"))
+        assert(test6.map(Date.get(_)).isInvalid)
         // test invalid case: whitespace, correct length of string
-        val test12 = Date.validate(addDefaultSource("1111 222"))
-        assert(test12.map(Date.get(_)).isInvalid)
+        val test7 = Date.validate(addDefaultSource("1111 222"))
+        assert(test7.map(Date.get(_)).isInvalid)
         // test invalid case: negative number
-        val test3 = Date.validate(addDefaultSource("-9990101"))
-        assert(test3.map(Date.get(_)).isInvalid)
+        val test8 = Date.validate(addDefaultSource("-9990101"))
+        assert(test8.map(Date.get(_)).isInvalid)
         // test invalid case: date format as it is communicated by a html-input with input type="date"
-        val test4 = Date.validate(addDefaultSource("2000-01-01"))
-        assert(test4.map(Date.get(_)).isInvalid)
+        val test9 = Date.validate(addDefaultSource("2000-01-01"))
+        assert(test9.map(Date.get(_)).isInvalid)
 
         // test invalid case: too short
-        val test5 = Date.validate(addDefaultSource("2000130"))
-        assert(test5.map(Date.get(_)).isInvalid)
+        val test10 = Date.validate(addDefaultSource("2000130"))
+        assert(test10.map(Date.get(_)).isInvalid)
         // test invalid case: too long
-        val test6 = Date.validate(addDefaultSource("200013010"))
-        assert(test6.map(Date.get(_)).isInvalid)
+        val test11 = Date.validate(addDefaultSource("200013010"))
+        assert(test11.map(Date.get(_)).isInvalid)
 
         // test invalid case: month > 12
-        val test7 = Date.validate(addDefaultSource("20001301"))
-        assert(test7.map(Date.get(_)).isInvalid)
+        val test12 = Date.validate(addDefaultSource("20001301"))
+        assert(test12.map(Date.get(_)).isInvalid)
         // test invalid case: month < 1
-        val test8 = Date.validate(addDefaultSource("20000001"))
-        assert(test8.map(Date.get(_)).isInvalid)
-        // test invalid case: day > 31
-        val test9 = Date.validate(addDefaultSource("20000132"))
-        assert(test9.map(Date.get(_)).isInvalid)
-        // test invalid case: day < 1
-        val test10 = Date.validate(addDefaultSource("20000100"))
-        assert(test10.map(Date.get(_)).isInvalid)
-        // test 30th November
-        val test14 = Date.validate(addDefaultSource("20001130"))
-        assertEquals(test14.map(Date.get(_)), Valid("20001130"))
-        // test invalid case: 31th November
-        val test13 = Date.validate(addDefaultSource("20001131"))
+        val test13 = Date.validate(addDefaultSource("20000001"))
         assert(test13.map(Date.get(_)).isInvalid)
+        // test invalid case: day > 31
+        val test14 = Date.validate(addDefaultSource("20000132"))
+        assert(test14.map(Date.get(_)).isInvalid)
+        // test invalid case: day < 1
+        val test15 = Date.validate(addDefaultSource("20000100"))
+        assert(test15.map(Date.get(_)).isInvalid)
+        // test 30th November
+        val test16 = Date.validate(addDefaultSource("20001130"))
+        assertEquals(test16.map(Date.get(_)), Valid("20001130"))
+        // test invalid case: 31th November
+        val test17 = Date.validate(addDefaultSource("20001131"))
+        assert(test17.map(Date.get(_)).isInvalid)
+        // test leap year
+        val test18 = Date.validate(addDefaultSource("18960229"))
+        assertEquals(test18.map(Date.get(_)), Valid("18960229"))
+        // test leap year: divisible by 100, not divisible by 400
+        val test19 = Date.validate(addDefaultSource("19000229"))
+        assert(test13.map(Date.get(_)).isInvalid)
+        // test leap year: divisible by 100, not divisible by 400, 28th February
+        val test20 = Date.validate(addDefaultSource("19000228"))
+        assertEquals(test20.map(Date.get(_)), Valid("19000228"))
+        // test leap year: divisible by 400
+        val test21 = Date.validate(addDefaultSource("20000229"))
+        assertEquals(test21.map(Date.get(_)), Valid("20000229"))
+        // test leap year: divisible by 400, 30th February
+        val test22 = Date.validate(addDefaultSource("20000230"))
+        assert(test22.map(Date.get(_)).isInvalid)
     }
 
     test("testing VATRate") {
