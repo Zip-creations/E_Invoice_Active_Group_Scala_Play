@@ -145,11 +145,29 @@ function LoadRestrictions() {
         // Prevents that a Listener gets assigned to the same input multiple times
         if (input.dataset.beforeinputBound) {return}
         input.dataset.beforeinputBound = "true"
-        
         if (numericClasses.includes(input.className)) {
             AddNumericRestriction(input)
-        } else if (input.className === "awesomplete")
+        } else if (input.className === "awesomplete") {
             AddAwesompleteRestriction(input);
+        }
+        // compute the net amount again if any of these 3 inputs is changed
+        if (/(InvoicedQuantity|ItemNetPrice|InvoicedItemVATRate)\d+/.test(input.name)){
+            addLineNetAmountComputation(input)
+        }
+    })
+}
+
+function addLineNetAmountComputation(input) {
+    input.addEventListener("input", function(e) {
+        function getValue(inputName) {
+            return parseFloat(document.getElementsByName(inputName)[0].value)
+        }
+        var index = input.name.match(/\d+$/)[0]
+        var invoiceLineNetAmount = document.getElementsByName("InvoiceLineNetAmount" + index)[0]
+        var invoicedQuantity = getValue("InvoicedQuantity" + index) || 1
+        var itemNetPrice = getValue("ItemNetPrice" + index) || 1
+        var invoicedItemVATRate = getValue("InvoicedItemVATRate" + index) || 0
+        invoiceLineNetAmount.value = parseInt((invoicedQuantity * itemNetPrice * (1+ invoicedItemVATRate / 100)) * 100) / 100
     })
 }
 
