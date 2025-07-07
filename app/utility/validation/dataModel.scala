@@ -237,11 +237,10 @@ object Date {
         if (!isValidDateFormat(date)) {
             Invalid(Seq(ArgumentError(makeError("Das angebene Datum entspricht nicht dem geforderten Format YYYYMMDD.", input))))
         } else {
-            val validYear = Year.validate(InputType(date.slice(0,4), input.source))
-            val validMonth = Month.validate(InputType(date.slice(4,6), input.source))
-            val validDay = Day.validate(InputType(date.slice(6,8), input.source))
-            (validYear, validMonth, validDay) match {
-                case (Valid(validY), Valid(validM), Valid(validD)) =>
+            (Year.validate(InputType(date.slice(0,4), input.source)),
+            Month.validate(InputType(date.slice(4,6), input.source)),
+            Day.validate(InputType(date.slice(6,8), input.source))).mapN((_,_,_)).andThen{
+                case (validY, validM, validD) =>
                     val year = validY.get
                     val month = validM.get
                     val day = validD.get
@@ -254,21 +253,11 @@ object Date {
                         // See https://de.wikipedia.org/wiki/Schaltjahr#Gregorianischer_Kalender
                         Invalid(Seq(ArgumentError(makeError("Das Datum enthält den 29. Februar außerhalb eines Schaltjahres.", input))))
                     } else {
-                        (
-                            validYear,
-                            validMonth,
-                            validDay
-                        ).mapN(Date.apply)
+                        Valid(Date(validY,validM,validD))
                     }
-                case _ =>
-                    (
-                        validYear,
-                        validMonth,
-                        validDay
-                    ).mapN(Date.apply)
+                }
             }
         }
-    }
     def get(date: Date): String = {
         fillWithZero(date.year.get.toString, 4) + fillWithZero(date.month.get.toString, 2) + fillWithZero(date.day.get.toString, 2)
     }
