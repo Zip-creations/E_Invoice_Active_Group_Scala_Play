@@ -17,6 +17,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 import sharedUtility.error._
+import sharedUtility.inputNames._
 import sharedUtility.validation._
 
 import utility.xml._
@@ -60,7 +61,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     val meta = InvoiceMetaData.validate(
       createInputType("InvoiceNumber"),
-      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),  // Xrechnung requieres the format YYYYMMDD without '-'
+      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),  // Xrechnung requires the format YYYYMMDD without '-'
       InputType("380", "") // hardcoded default value, from InvoiceTypeCodes
       )
 
@@ -144,6 +145,12 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)
     val invoice = Invoice.validate(meta, involvedparties, allPositions, paymentInformation)
+    println(InputName.ItemName)
+    println(InputName.ItemName(5))
+    println(InputName2.ItemName)
+    println(InputName2.ItemName(5))
+    println(InputName3.ItemName)
+    println(InputName3.ItemName(5))
 
     invoice match {
       case Valid(a) =>
