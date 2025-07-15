@@ -1,4 +1,4 @@
-package sharedUtility.inputNames
+package utility.inputNames
 
 enum InputName {
     // def indexed(index: Int = 1) = {

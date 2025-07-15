@@ -1,5 +1,5 @@
 @import utility.html.FormInputHelper._
-@import sharedUtility.inputNames._
+@import utility.inputNames._
 @(positionID: Int)
 @invoicePosition_generic(positionID, "item") {
     @GenerateInputField(InputName.InvoicedQuantity(positionID), "Menge", "lorem ipsum", true, classes="datatypeQuantity") <!-- BT-129 -->

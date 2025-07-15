@@ -44,8 +44,8 @@ document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
 document.querySelector('[name="PaymentMeansTypeCode"]').value = "ZZZ";\
 document.querySelector('[name="PaymentTerms"]').value = "yes";
 
-document.querySelector('[name="ItemName1"]').value = "item name 1";\
-document.querySelector('[name="InvoicedQuantity1"]').value = "11";\
-document.querySelector('[name="ItemNetPrice1"]').value = "10";\
-document.querySelector('[name="InvoicedItemVATCategoryCode1"]').value = "S";\
-document.querySelector('[name="InvoicedItemVATRate1"]').value = "19.0";
+document.querySelector('[name="ItemName(1)"]').value = "item name 1";\
+document.querySelector('[name="InvoicedQuantity(1)"]').value = "11";\
+document.querySelector('[name="ItemNetPrice(1)"]').value = "10";\
+document.querySelector('[name="InvoicedItemVATCategoryCode(1)"]').value = "S";\
+document.querySelector('[name="InvoicedItemVATRate(1)"]').value = "19.0";
