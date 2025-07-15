@@ -1,7 +1,7 @@
 @import utility.html.FormInputHelper._
 @import sharedUtility.inputNames._
 @(positionID: Int)
-@invoice_generic(positionID, "item") {
+@invoicePosition_generic(positionID, "item") {
     @GenerateInputField(InputName.InvoicedQuantity(positionID), "Menge", "lorem ipsum", true, classes="datatypeQuantity") <!-- BT-129 -->
     @GenerateInputField(InputName.InvoicedQuantityUnitOfMeasureCode(positionID), "Code der Maßeinheit", "Die für die \"Invoiced Quantity\" geltende Maßeinheit.", true, classes="awesomplete", data="InvoicedQuantityUnitOfMeasureCodes.xsd") <!-- BT-130 -->
     @GenerateInputField(InputName.ItemNetPrice(positionID), "Stückpreis", "lorem ipsum", true, classes="datatypeAmount") <!-- BT-146 -->

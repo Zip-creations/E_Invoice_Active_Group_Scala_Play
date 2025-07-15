@@ -34,11 +34,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def generateLeistungsabrechnungPosition(positionID: Int) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.invoice_item(positionID))
+    Ok(views.html.invoicePosition_item(positionID))
   }
 
   def generateStundenabrechnungPosition(positionID: Int) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.invoice_time(positionID))
+    Ok(views.html.invoicePosition_time(positionID))
   }
 
   // JS can't access app/views/validation_reports/ directly, that's why this function exists
