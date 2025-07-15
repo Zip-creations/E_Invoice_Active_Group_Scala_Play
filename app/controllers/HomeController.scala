@@ -149,12 +149,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)
     val invoice = Invoice.validate(meta, involvedparties, allPositions, paymentInformation)
-    println(InputName.ItemName)
-    println(InputName.ItemName(5))
-    println(InputName2.ItemName)
-    println(InputName2.ItemName(5))
-    println(InputName3.ItemName)
-    println(InputName3.ItemName(5))
 
     invoice match {
       case Valid(a) =>
