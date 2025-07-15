@@ -26,8 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Remove Position
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("removePositionButton")) {
-          const container = event.target.closest(".inputContainer");
-            container.remove();
+            const container = event.target.closest(".inputContainer");
+            if (confirm("Soll diese Position wirklich entfernt werden? Eingaben gehen verloren.")) {
+                container.remove();
+            }
         }
     });
 
