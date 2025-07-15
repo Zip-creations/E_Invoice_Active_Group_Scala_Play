@@ -1,9 +1,10 @@
 package utility.html
 import play.twirl.api.Html
+import sharedUtility.inputNames._
 
 object FormInputHelper {
-    def GenerateInputField(name: String, displayname: String, description: String, req: Boolean=false, readOnly: Boolean=false, dontShow: Boolean=false, inputType: String="text", classes: String="", data: String="", index: String="", defaultValue: String=""): Html = {
-        val inputID = "\"" + name.replace(" ", "") + s"$index\""
+    def GenerateInputField(name: InputName, displayname: String, description: String, req: Boolean=false, readOnly: Boolean=false, dontShow: Boolean=false, inputType: String="text", classes: String="", data: String="", index: String="", defaultValue: String=""): Html = {
+        val inputID = "\"" + name.toString.replace(" ", "") + s"$index\""
         var reqString = ""
         var readStr = ""
         var classStr = ""

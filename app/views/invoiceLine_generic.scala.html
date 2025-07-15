@@ -1,8 +1,6 @@
 @import utility.html.FormInputHelper._
+@import sharedUtility.inputNames._
 @(content: Html)
 <div>
-    @GenerateInputField("InvoiceLineIdentifier", "Pos.", "lorem ipsum") <!-- BT-126 -->
-    @GenerateInputField("InvoiceCurrencyCode", "Einheit", "lorem ipsum") <!-- BT-5 -->
-    @content
-    @GenerateInputField("InvoiceLineNetAmount", "Gesamtwert", "lorem ipsum") <!-- BT-131 ? -->
+
 </div>

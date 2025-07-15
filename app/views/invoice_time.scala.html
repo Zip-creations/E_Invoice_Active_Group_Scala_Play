@@ -1,6 +1,7 @@
 @import utility.html.FormInputHelper._
-@(positionID: String)
+@import sharedUtility.inputNames._
+@(positionID: Int)
 @invoice_generic(positionID, "time") {
-    @GenerateInputField("InvoicedQuantity" + positionID, "Anz. Stunden", "lorem ipsum", classes="datatypeQuantity") <!-- BT-129 -->
-    @GenerateInputField("ItemNetPrice" + positionID, "Stundensatz", "lorem ipsum", classes="datatypeAmount") <!-- BT-146 -->
+    @GenerateInputField(InputName.InvoicedQuantity(positionID), "Anz. Stunden", "lorem ipsum", classes="datatypeQuantity") <!-- BT-129 -->
+    @GenerateInputField(InputName.ItemNetPrice(positionID), "Stundensatz", "lorem ipsum", classes="datatypeAmount") <!-- BT-146 -->
 }

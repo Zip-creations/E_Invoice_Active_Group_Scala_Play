@@ -33,11 +33,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.index(using request))
   }
 
-  def generateLeistungsabrechnungPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
+  def generateLeistungsabrechnungPosition(positionID: Int) = Action { (request: Request[AnyContent]) =>
     Ok(views.html.invoice_item(positionID))
   }
 
-  def generateStundenabrechnungPosition(positionID: String) = Action { (request: Request[AnyContent]) =>
+  def generateStundenabrechnungPosition(positionID: Int) = Action { (request: Request[AnyContent]) =>
     Ok(views.html.invoice_time(positionID))
   }
 

@@ -93,7 +93,7 @@ function toggleUserInteraction(disable) {
  * @returns 
  */
 async function CreateLeistungsabrechnungsPosition(positionID) {
-    await fetch(`/addLeistungsposition?positionID=${positionID.toString()}`)
+    await fetch(`/addLeistungsposition?positionID=${positionID}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
@@ -110,7 +110,7 @@ async function CreateLeistungsabrechnungsPosition(positionID) {
  * @returns 
  */
 async function CreateStundenabrechnungsPosition(positionID) {
-    await fetch(`/addStundenposition?positionID=${positionID.toString()}`)
+    await fetch(`/addStundenposition?positionID=${positionID}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");

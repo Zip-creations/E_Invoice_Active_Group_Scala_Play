@@ -5,8 +5,8 @@
 
 # An example controller showing a sample home page
 GET     /                               controllers.HomeController.index()
-GET     /addLeistungsposition           controllers.HomeController.generateLeistungsabrechnungPosition(positionID: String)
-GET     /addStundenposition             controllers.HomeController.generateStundenabrechnungPosition(positionID: String)
+GET     /addLeistungsposition           controllers.HomeController.generateLeistungsabrechnungPosition(positionID: Int)
+GET     /addStundenposition             controllers.HomeController.generateStundenabrechnungPosition(positionID: Int)
 POST    /generateEInvoice               controllers.HomeController.generateEInvoice()
 GET     /validationReport               controllers.HomeController.getReport(path: String)
 # Map static resources from the /public folder to the /assets URL path

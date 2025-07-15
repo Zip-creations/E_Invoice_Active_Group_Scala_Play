@@ -1,5 +1,6 @@
 @(implicit request: RequestHeader)
 @import utility.html.FormInputHelper._
+@import sharedUtility.inputNames._
 @main("E Rechnung erstellen", Seq("main.css", "invoice_input.css")){
     <div id="indexbody">
         <form id="invoicecontainer">
@@ -9,8 +10,8 @@
                     <h2>Angaben zur Rechnung</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("InvoiceNumber", "Rechnungsnummer", "Eindeutige Kennung der Rechnung", true) <!-- BT-1 -->
-                    @GenerateInputField("InvoiceIssueDate", "Erstelldatum der Rechung", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
+                    @GenerateInputField(InputName.InvoiceNumber, "Rechnungsnummer", "Eindeutige Kennung der Rechnung", true) <!-- BT-1 -->
+                    @GenerateInputField(InputName.InvoiceIssueDate, "Erstelldatum der Rechung", "Das Datum, an dem die Rechnung ausgestellt wurde", true, inputType="date") <!-- BT-2 -->
                 </div>
             </div>
             <div>
@@ -18,15 +19,15 @@
                     <h2>Angaben zum Verkäufer</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("SellerName", "Name des Verkäufers", "Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuerpflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).", true) <!-- BT-27 -->
-                    @GenerateInputField("SellerAddressLine1", "Straße", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
-                    @GenerateInputField("SellerPostCode", "PLZ", "Die Postleitzahl.", true) <!-- BT-38 -->
-                    @GenerateInputField("SellerCity", "Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.", true) <!-- BT-37 -->
-                    @GenerateInputField("SellerCountryCode", "Verkäufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-40 -->
-                    @GenerateInputField("TODO1", "Tel", "lorem ipsum")
-                    @GenerateInputField("TODO3", "Website Link", "lorem ipsum")
-                    @GenerateInputField("SellerElectronicAddress", "E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", true, inputType="email") <!-- BT-34 -->
-                    @GenerateInputField("SellerVATIdentifier", "Umsatzsteuer-ID", "Die Umsatzsteuer-Identifikationsnummer des Verkäufers.", true) <!-- BT-31 -->
+                    @GenerateInputField(InputName.SellerName, "Name des Verkäufers", "Der vollständige Name, unter dem der Verkäufer im nationalen Register für juristische Personen oder als steuerpflichtige Person eingetragen ist oder anderweitig als Person(en) handelt (Firma).", true) <!-- BT-27 -->
+                    @GenerateInputField(InputName.SellerAddressLine1, "Straße", "Die Hauptzeile in einer Anschrift. Üblicherweise ist dies entweder Strasse und Hausnummer oder der Text „Postfach“ gefolgt von der Postfachnummer.") <!-- BT-35 -->
+                    @GenerateInputField(InputName.SellerPostCode, "PLZ", "Die Postleitzahl.", true) <!-- BT-38 -->
+                    @GenerateInputField(InputName.SellerCity, "Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Verkäuferanschrift befindet.", true) <!-- BT-37 -->
+                    @GenerateInputField(InputName.SellerCountryCode, "Verkäufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-40 -->
+                    @GenerateInputField(InputName.TODO1, "Tel", "lorem ipsum")
+                    @GenerateInputField(InputName.TODO3, "Website Link", "lorem ipsum")
+                    @GenerateInputField(InputName.SellerElectronicAddress, "E-Mail", "Gibt die elektronische Adresse des Verkäufers an, an die die Antwort der Anwendungsebene auf eine Rechnung gesendet werden kann.", true, inputType="email") <!-- BT-34 -->
+                    @GenerateInputField(InputName.SellerVATIdentifier, "Umsatzsteuer-ID", "Die Umsatzsteuer-Identifikationsnummer des Verkäufers.", true) <!-- BT-31 -->
                 </div>
             </div>
             <div>
@@ -34,9 +35,9 @@
                     <h2>Kontaktdaten des Ansprechpartners</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("SellerContactPoint", "Zuständig", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).", true) <!-- BT-41 -->
-                    @GenerateInputField("SellerContactTelephoneNumber", "Telefon", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-42 -->
-                    @GenerateInputField("SellerContactEmailAddress", "E-Mail", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-43 -->
+                    @GenerateInputField(InputName.SellerContactPoint, "Zuständig", "Angaben zu Ansprechpartner oder Kontaktstelle (wie z. B. Name einer Person, Abteilungs- oder Bürobezeichnung).", true) <!-- BT-41 -->
+                    @GenerateInputField(InputName.SellerContactTelephoneNumber, "Telefon", "Telefonnummer des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-42 -->
+                    @GenerateInputField(InputName.SellerContactEmailAddress, "E-Mail", "Eine E-Mail-Adresse des Ansprechpartners oder der Kontaktstelle.", true) <!-- BT-43 -->
                 </div>
             </div>
             <div>
@@ -44,13 +45,13 @@
                     <h2>Angaben zum Käufer</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("BuyerReference", "Käufer Referenz", "Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.", true) <!-- BT-10 -->
-                    @GenerateInputField("BuyerName", "Käufer Name", "Der vollständige Name des Erwerbers.", true) <!-- BT-44 -->
-                    @GenerateInputField("BuyerElectronicAddress", "Käufer Email", "Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.", true, inputType="email") <!-- BT-49 -->
-                    @GenerateInputField("BuyerCity", "Käufer Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
-                    @GenerateInputField("BuyerPostCode", "PLZ", "Die Postleitzahl.", true) <!-- BT-53 -->
-                    @GenerateInputField("BuyerCountryCode", "Käufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-55 -->
-                    @GenerateInputField("TODO4", "IBAN", "lorem ipsum")
+                    @GenerateInputField(InputName.BuyerReference, "Käufer Referenz", "Ein vom Erwerber zugewiesener und für interne Lenkungszwecke benutzter Bezeichner.", true) <!-- BT-10 -->
+                    @GenerateInputField(InputName.BuyerName, "Käufer Name", "Der vollständige Name des Erwerbers.", true) <!-- BT-44 -->
+                    @GenerateInputField(InputName.BuyerElectronicAddress, "Käufer Email", "Gibt eine elektronische Adresse des Erwerbers an, an die eine Rechnung gesendet werden sollte.", true, inputType="email") <!-- BT-49 -->
+                    @GenerateInputField(InputName.BuyerCity, "Käufer Stadt", "Die Bezeichnung der Stadt oder Gemeinde, in der sich die Erwerberanschrift befindet.", true) <!-- BT-52 -->
+                    @GenerateInputField(InputName.BuyerPostCode, "PLZ", "Die Postleitzahl.", true) <!-- BT-53 -->
+                    @GenerateInputField(InputName.BuyerCountryCode, "Käufer Land", "Ein Code, mit dem das Land bezeichnet wird.", true, classes="awesomplete", data="countrycode") <!-- BT-55 -->
+                    @GenerateInputField(InputName.TODO4, "IBAN", "lorem ipsum")
                 </div>
             </div>
             <div>
@@ -69,8 +70,8 @@
                     <h2>Angaben zum Zahlungsweg</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("InvoiceCurrencyCode", "Währung der Rechnung", "Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.", true, classes="awesomplete", data="currencycode") <!-- BT-5 -->
-                    @GenerateInputField("PaymentMeansTypeCode", "Means Type Code", "Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461 verwiesen.", true, classes="awesomplete", data="paymentmeanstypecode") <!-- BT-81 -->
+                    @GenerateInputField(InputName.InvoiceCurrencyCode, "Währung der Rechnung", "Die Währung, in der alle Rechnungsbeträge angegeben werden, ausgenommen ist der Umsatzsteuer-Gesamtbetrag, der in der Abrechnungswährung anzugeben ist.", true, classes="awesomplete", data="currencycode") <!-- BT-5 -->
+                    @GenerateInputField(InputName.PaymentMeansTypeCode, "Means Type Code", "Das als Code ausgedrückte erwartete oder genutzte Zahlungsmittel. Hierzu wird auf die Codeliste UNTDID 4461 verwiesen.", true, classes="awesomplete", data="paymentmeanstypecode") <!-- BT-81 -->
                 </div>
             </div>
             <div>
@@ -78,8 +79,8 @@
                     <h2>Zusätzliche Angaben</h2>
                 </div>
                 <div class="inputContainer">
-                    @GenerateInputField("PaymentTerms", "Zahlungsbedingung", "lorem ipsum") <!-- BT-20 -->
-                    @GenerateInputField("VATExemptionReasonText", "Grund für Befreiung von Umsatzsteuer", "In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.") <!-- BT-120 -->
+                    @GenerateInputField(InputName.PaymentTerms, "Zahlungsbedingung", "lorem ipsum") <!-- BT-20 -->
+                    <!-- GenerateInputField(InputName.VATExemptionReasonText, "Grund für Befreiung von Umsatzsteuer", "In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.") --> <!-- BT-120 -->
                 </div>
             </div>
             <input type="submit" id="submitButton" name="submitInvoice" value="Rechnung generieren & validieren">
