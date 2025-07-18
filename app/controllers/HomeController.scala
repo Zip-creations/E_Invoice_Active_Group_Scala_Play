@@ -141,14 +141,15 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             )
           }
         )
-        println(position)
         positions = positions :+ position
         )
-      // val temp = InvoiceVATGroup.validate(
-      //   validatedVATID,
-      //   positions
-      // )
+      val temp = VATGroup.validate(
+        validatedVATID,
+        positions,
+        createInputType(InputName.VATGroupExemptionReasonText(group))
+      )
       println("validated VAT Group:")
+      println(temp)
     )
     var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
     var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty

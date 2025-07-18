@@ -9,6 +9,20 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
+case class VATGroup private (
+    vatID: VATCategoryIdentifier,
+    positions: List[InvoicePosition],
+    exemptionReason: VATExemptionReason
+)
+object VATGroup {
+    def validate(vatID: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], reason: InputType): Validated[Seq[ErrorMessage], VATGroup] =  {
+        (
+            vatID,
+            positions.sequence,
+            VATExemptionReason.validate(reason)
+        ).mapN(VATGroup.apply)
+    }
+}
 
 case class Invoice private(
     metadata: InvoiceMetaData,
