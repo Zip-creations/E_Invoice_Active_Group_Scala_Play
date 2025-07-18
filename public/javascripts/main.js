@@ -129,9 +129,6 @@ async function createStundenabrechnungsPosition(positionID) {
 }
 
 async function createVatIDPositionContainer(vatCategory, vatRate, positions) {
-    console.log(vatCategory)
-    console.log(vatRate)
-    console.log(positions)
     await fetch(`/addVatIDPositionContainer?vatCategory=${vatCategory}&vatRate=${vatRate}`)
         .then(response => response.text())
         .then(html => {
@@ -147,6 +144,15 @@ async function createVatIDPositionContainer(vatCategory, vatRate, positions) {
     return
 }
 
+function cleanPositionContainer() {
+    var positionContainer = document.getElementById("positionContainer")
+    var allVATIDconatiners = positionContainer.querySelectorAll("div.vatIDPositionContainer")
+    allVATIDconatiners.forEach(container => {
+        container.remove()
+        console.log("removed elem")
+    })
+}
+
 // positions where the user has not set a vatRate or vatCategory will not be assigned a vatIDPositonContainer
 // since both inputs are required before the form can be submitted, we can assume the user will set them at some point
 function reloadPositionContainers() {
@@ -154,7 +160,6 @@ function reloadPositionContainers() {
     var groupedPositions = new Map()
     allPositions.forEach(position => {
         var posID = position.querySelector("input[name='positionIDcontainer']")
-        console.log(posID.value)
         var vatCategory = position.querySelector("select[name='InvoicedItemVATCategoryCode(" + posID.value + ")']").value
         var vatRate = position.querySelector("input[name='InvoicedItemVATRate(" + posID.value + ")']").value
         if (vatCategory != "" && vatRate != "") {
@@ -164,10 +169,12 @@ function reloadPositionContainers() {
             }
             groupedPositions.get(vatID).push(position)
         }
-        console.log(groupedPositions)
     })
+    cleanPositionContainer()
     groupedPositions.forEach((positions, group) => {
         var vatID = group.split("|")
+        console.log("vatID: ", vatID)
+        console.log(positions)
         createVatIDPositionContainer(vatID[0], vatID[1], positions)
     })
     console.log("~~~~~~~~~~")
