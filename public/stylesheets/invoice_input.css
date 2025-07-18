@@ -28,19 +28,25 @@
     justify-content: center;
 }
 
-#invoicecontainer>div>div:not(:first-child), #positionContainer>div {
+#invoicecontainer>div>div:not(:first-child), #positionContainer>div, .vatIDPositionContainer>div{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
- #positionContainer>div {
+.vatIDPositionContainer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#positionContainer>div, .vatIDPositionContainer>div {
     border: 4px solid black;
     margin-bottom: 30px;
-     box-shadow: 0px 5px 30px black;
- }
+    box-shadow: 0px 5px 30px black;
+}
 
-#invoicecontainer>div:last-of-type {
+#invoicecontainer>div:last-of-type, .vatIDPositionContainer>div:last-of-type {
     border-bottom: rgb(40, 40, 40) solid 4px;
     margin-bottom: 4px;
 }

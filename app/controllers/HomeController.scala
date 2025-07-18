@@ -5,6 +5,7 @@ import play.api.mvc._
 import play.api.mvc.MultipartFormData
 import play.api.libs.Files.TemporaryFile
 import play.api.libs.json._
+import play.twirl.api.Html
 
 import javax.inject._
 import scala.concurrent.ExecutionContext
@@ -39,6 +40,10 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
   def generateStundenabrechnungPosition(positionID: Int) = Action { (request: Request[AnyContent]) =>
     Ok(views.html.invoicePosition_time(positionID))
+  }
+
+  def generateVatIDPositionContainer(vatCategory: String, vatRate: String) = Action { (request: Request[AnyContent]) =>
+    Ok(views.html.vatIDPositionContainer(vatCategory, vatRate))
   }
 
   // JS can't access app/views/validation_reports/ directly, that's why this function exists

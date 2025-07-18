@@ -1,0 +1,8 @@
+@import utility.html.FormInputHelper._
+@import utility.inputNames._
+@(vatCategory: String, vatRate: String)
+<div class="vatIDPositionContainer">
+    <input type="hidden" name="vatCategory" value=@vatCategory></input> <!-- Represents the vatID together with the vatRate -->
+    <input type="hidden" name="vatRate" value=@vatRate></input> <!-- Represents the vatID together with the vatCategory -->
+    @GenerateInputField(InputName.VATExemptionReasonText, "Grund für Befreiung von Umsatzsteuer", "In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.")<!-- BT-120 -->
+</div>

@@ -9,17 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add LeistungsPosition
     document.getElementById("addLeistungsabrechnungButton").addEventListener("click", function () {
-        CreateLeistungsabrechnungsPosition(positionID).then(newPosID=> {
+        createLeistungsabrechnungsPosition(positionID).then(newPosID=> {
             positionID = newPosID
-            LoadRestrictions()
+            loadRestrictions()
         })
     });
 
     // Add StundenPosition
     document.getElementById("addStundenabrechnungButton").addEventListener("click", function () {
-        CreateStundenabrechnungsPosition(positionID).then(newPosID=> {
+        createStundenabrechnungsPosition(positionID).then(newPosID=> {
             positionID = newPosID
-            LoadRestrictions()
+            loadRestrictions()
         })
     });
 
@@ -48,13 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.open(`/validationReport?path=${json.data}`, "_blank")
                 toggleUserInteraction(false)
             } else {
+                var jumpOnce = true
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
+                    console.log(key)
+                    console.log(values)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
-                    var jumpOnce = true
                     values.forEach(errorMessage => {
                         const targetDiv = erroneousInput.parentElement.parentElement.querySelector(".errorDisplay");
                         targetDiv.insertAdjacentHTML("beforeend", errorMessage);
-                        // Jump to the header of first div that contains errors
+                        // Jump to the header of first div that contains errors (not directly to the false input, better visual effect with this configuration)
                         if (jumpOnce) {
                             erroneousInput.parentElement.parentElement.parentElement.parentElement.scrollIntoView();
                             jumpOnce = false
@@ -65,13 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     });
-    LoadRestrictions()
+    loadRestrictions()
 });
 
 function clearErrorDisplays() {
     const allErrorDisplays = Array.from(document.getElementsByClassName("errorDisplay"))
-    allErrorDisplays.forEach(display => {
-        display.innerHTML = ""  // nuke everything within the div, without the div itself
+    allErrorDisplays.forEach(errorDisplayDiv => {
+        errorDisplayDiv.innerHTML = ""  // nuke everything within the div, without the div itself
     });
 }
 
@@ -85,6 +87,8 @@ function toggleUserInteraction(disable) {
         document.body.style.cursor = ""
         allElements.forEach(elem => elem.style.pointerEvents = "auto")
     }
+    // functionality of buttons is controlled by elem.style.pointerEvents like every other element,
+    // but they get disabled/enabled additioanally for a visual effect
     allButtons.forEach(elem => elem.disabled = disable)
 }
 
@@ -94,12 +98,13 @@ function toggleUserInteraction(disable) {
  * @param {*} positionID consistent, increasing ID for invoice Positions
  * @returns 
  */
-async function CreateLeistungsabrechnungsPosition(positionID) {
+async function createLeistungsabrechnungsPosition(positionID) {
     await fetch(`/addLeistungsposition?positionID=${positionID}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
+            reloadPositionContainers()
         })
     positionID++
     return positionID
@@ -111,22 +116,68 @@ async function CreateLeistungsabrechnungsPosition(positionID) {
  * @param {*} positionID consistent, increasing ID for invoice Positions
  * @returns 
  */
-async function CreateStundenabrechnungsPosition(positionID) {
+async function createStundenabrechnungsPosition(positionID) {
     await fetch(`/addStundenposition?positionID=${positionID}`)
         .then(response => response.text())
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
+            reloadPositionContainers()
         })
     positionID++
     return positionID
 }
 
-function GetAllDescendants(node){
+async function createVatIDPositionContainer(vatCategory, vatRate, positions) {
+    console.log(vatCategory)
+    console.log(vatRate)
+    console.log(positions)
+    await fetch(`/addVatIDPositionContainer?vatCategory=${vatCategory}&vatRate=${vatRate}`)
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser()
+            const parsedHtml = parser.parseFromString(html, "text/html").body.firstElementChild
+            const targetDiv = document.getElementById("positionContainer");
+            positions.forEach(position => {
+                parsedHtml.appendChild(position);
+            })
+            targetDiv.appendChild(parsedHtml);
+            console.log("inserted")
+        })
+    return
+}
+
+// positions where the user has not set a vatRate or vatCategory will not be assigned a vatIDPositonContainer
+// since both inputs are required before the form can be submitted, we can assume the user will set them at some point
+function reloadPositionContainers() {
+    var allPositions = Array.from(document.getElementsByClassName("invoicePosition"))
+    var groupedPositions = new Map()
+    allPositions.forEach(position => {
+        var posID = position.querySelector("input[name='positionIDcontainer']")
+        console.log(posID.value)
+        var vatCategory = position.querySelector("select[name='InvoicedItemVATCategoryCode(" + posID.value + ")']").value
+        var vatRate = position.querySelector("input[name='InvoicedItemVATRate(" + posID.value + ")']").value
+        if (vatCategory != "" && vatRate != "") {
+            var vatID = vatCategory + "|" + vatRate
+            if (!groupedPositions.has(vatID)) {
+                groupedPositions.set(vatID, [])
+            }
+            groupedPositions.get(vatID).push(position)
+        }
+        console.log(groupedPositions)
+    })
+    groupedPositions.forEach((positions, group) => {
+        var vatID = group.split("|")
+        createVatIDPositionContainer(vatID[0], vatID[1], positions)
+    })
+    console.log("~~~~~~~~~~")
+}
+
+function getAllDescendants(node){
     var allDescendants = []
     Array.from(node.childNodes).forEach(child => {
         allDescendants.push(child)
-        allDescendants = allDescendants.concat(GetAllDescendants(child))
+        allDescendants = allDescendants.concat(getAllDescendants(child))
     });
     return allDescendants
 }
@@ -140,7 +191,7 @@ function GetAllDescendants(node){
  * input is connected to the document!
  */
 // .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!
-function LoadRestrictions() {
+function loadRestrictions() {
     const numericClasses = ["datatypeAmount", "datatypeQuantity", "datatypePercentage"]
     var allRelevantChilds = document.querySelectorAll("input")
     allRelevantChilds.forEach(input => {
@@ -148,9 +199,9 @@ function LoadRestrictions() {
         if (input.dataset.beforeinputBound) {return}
         input.dataset.beforeinputBound = "true"
         if (numericClasses.includes(input.className)) {
-            AddNumericRestriction(input)
+            addNumericRestriction(input)
         } else if (input.className === "awesomplete") {
-            AddAwesompleteRestriction(input);
+            addAwesompleteRestriction(input);
         }
         // compute the net amount again if any of these 3 inputs is changed
         if (/(InvoicedQuantity|ItemNetPrice|InvoicedItemVATRate)\d+/.test(input.name)){
@@ -173,7 +224,7 @@ function addLineNetAmountComputation(input) {
     })
 }
 
-function GetProposedNumber(input, e) {
+function getProposedNumber(input, e) {
     const {selectionStart, selectionEnd, value} = input;
     // BACKSPACE on one digit
     if (e.inputType === "deleteContentBackward" && (selectionStart === selectionEnd)) {
@@ -193,7 +244,7 @@ function GetProposedNumber(input, e) {
     }
 }
 
-function SendProposedInput(input, e, proposed, selectionStart, selectionEnd) {
+function sendProposedInput(input, e, proposed, selectionStart, selectionEnd) {
     e.preventDefault();
     input.value = proposed
     input.setSelectionRange(selectionStart, selectionEnd)
@@ -201,9 +252,9 @@ function SendProposedInput(input, e, proposed, selectionStart, selectionEnd) {
     input.dispatchEvent(event)
 }
 
-function AddNumericRestriction(input){
+function addNumericRestriction(input){
     input.addEventListener("beforeinput", (e) => {
-        const temp = GetProposedNumber(input, e)
+        const temp = getProposedNumber(input, e)
         const proposed = temp[0]
         const mouseStart = temp[1]
         const mouseEnd = temp[2]
@@ -211,19 +262,19 @@ function AddNumericRestriction(input){
             e.preventDefault()
             return
         }
-        var [hasDot, leftOfDot, rightOfDot] = DeconstruktNumber(proposed)
+        var [hasDot, leftOfDot, rightOfDot] = deconstruktNumber(proposed)
         switch (input.className) {
             case "datatypeAmount":
                 // A valid Amount must be a number and can only have a max of 2 digits at the right of the dot
                 if (hasDot && rightOfDot.length > 2) {
                     e.preventDefault();
                 } else {
-                    SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
+                    sendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 }
                 break;
             case "datatypeQuantity":
                 // Any valid number is accepted
-                SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
+                sendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 break;
             case "datatypePercentage":
                 // // Valid range for a percenatage: 100.00 to 0
@@ -236,7 +287,7 @@ function AddNumericRestriction(input){
                     e.preventDefault();
                     return
                 } else {
-                    SendProposedInput(input, e, proposed, mouseStart, mouseEnd)
+                    sendProposedInput(input, e, proposed, mouseStart, mouseEnd)
                 }
                 break;
         }
@@ -245,12 +296,12 @@ function AddNumericRestriction(input){
     input.addEventListener("focusout", (e) => {
         const proposed = e.target.value
         if (proposed.charAt(proposed.length -1) === ".") {
-            SendProposedInput(e.target, e, proposed + "0")
+            sendProposedInput(e.target, e, proposed + "0")
         }
     })
 }
 
-function AddAwesompleteRestriction(input) {
+function addAwesompleteRestriction(input) {
     // Set awesomplete properties
     input.awesomplete = new Awesomplete(input, {
         minChars: 0,
@@ -269,7 +320,7 @@ function AddAwesompleteRestriction(input) {
     input.addEventListener("focusout", (e) => {
         const proposed = e.target.value
         if (!input.data.includes(proposed)) {
-            SendProposedInput(input, e, "")
+            sendProposedInput(input, e, "")
         }
         input.awesomplete.close()
         // else: Input is valid, do nothing
@@ -294,12 +345,12 @@ function AddAwesompleteRestriction(input) {
             e.preventDefault();
         } else {
             var inputLen = e.data.length
-            SendProposedInput(input, e, proposed, selectionStart+inputLen, selectionEnd+inputLen)
+            sendProposedInput(input, e, proposed, selectionStart+inputLen, selectionEnd+inputLen)
         }
     });
 }
 
-function DeconstruktNumber(num){
+function deconstruktNumber(num){
     var hasDot = num.includes(".")
     var leftOfDot
     var rightOfDot
