@@ -31,7 +31,6 @@ enum InputName {
     case PaymentMeansTypeCode
     case PaymentTerms
 
-    case VATExemptionReasonText
 
     // VATCategoryIdentifier
     case InvoicedItemVATCategoryCode(index: Int)
@@ -43,4 +42,9 @@ enum InputName {
     case ItemNetPrice(index: Int)
     case InvoicedQuantityUnitOfMeasureCode(index: Int)
     case InvoiceLineNetAmount(index: Int)
+
+    // VAT group (of positions)
+    case VATGroupExemptionReasonText(a: String, b: String)
+    case VATGroupCategory
+    case VARGroupRate
 }

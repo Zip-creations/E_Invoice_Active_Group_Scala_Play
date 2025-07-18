@@ -145,7 +145,7 @@ async function createVatIDPositionContainer(vatCategory, vatRate, positions) {
     return
 }
 
-function cleanPositionContainer() {
+function removeVatIDContainers() {
     var positionContainer = document.getElementById("positionContainer")
     var allVATIDconatiners = positionContainer.querySelectorAll("div.vatIDPositionContainer")
     allVATIDconatiners.forEach(container => {
@@ -154,8 +154,6 @@ function cleanPositionContainer() {
     })
 }
 
-// positions where the user has not set a vatRate or vatCategory will not be assigned a vatIDPositonContainer
-// since both inputs are required before the form can be submitted, we can assume the user will set them at some point
 function reloadPositionContainers() {
     var allPositions = Array.from(document.getElementsByClassName("invoicePosition"))
     var groupedPositions = new Map()
@@ -163,6 +161,8 @@ function reloadPositionContainers() {
         var posID = position.querySelector("input[name='positionIDcontainer']")
         var vatCategory = position.querySelector("select[name='InvoicedItemVATCategoryCode(" + posID.value + ")']").value
         var vatRate = position.querySelector("input[name='InvoicedItemVATRate(" + posID.value + ")']").value
+        // positions where the user has not set a vatRate or vatCategory will not be assigned to a vatIDPositonContainer.
+        // since both inputs are required before the form can be submitted, we can assume the user will set them at some point
         if (vatCategory != "" && vatRate != "") {
             var vatID = vatCategory + "|" + vatRate
             if (!groupedPositions.has(vatID)) {
@@ -171,7 +171,7 @@ function reloadPositionContainers() {
             groupedPositions.get(vatID).push(position)
         }
     })
-    cleanPositionContainer()
+    removeVatIDContainers()
     groupedPositions.forEach((positions, group) => {
         var vatID = group.split("|")
         console.log("vatID: ", vatID)
