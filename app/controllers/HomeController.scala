@@ -18,6 +18,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 import sharedUtility.error._
+import sharedUtility.utility._
 import sharedUtility.validation._
 
 import utility.xml._
@@ -56,7 +57,9 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     val formData = request.body
     val allPositionIDs: Seq[String] = formData.dataParts
       .getOrElse("positionIDcontainer", Seq.empty)
-
+    val allVATGroups: Seq[String] = formData.dataParts
+      .getOrElse("vatIDContainer", Seq.empty)
+    println(allVATGroups)
     def getInput(inputIdentifier: String) = {
       formData.dataParts.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
     }
@@ -101,6 +104,52 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       createInputType(InputName.BuyerElectronicAddress)
       )
 
+    allVATGroups.foreach(group =>
+      val validatedVATID = VATCategoryIdentifier.validate(
+        createInputType(InputName.VATGroupCategory(group)),
+        createInputType(InputName.VARGroupRate(group))
+        // InputType(getVatCategory(group), "InvoicedItemVATCategoryCode"+),
+        // InputType(getVatRate(group))
+      )
+      val posIDs = getInput("vatGroupPositionIDsContainer"+group)
+      var positions:  List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
+      posIDs.split(",").foreach(posID =>
+        println(posID)
+        val number = posID.toInt
+        val positionType = getInput("positionTypecontainer" + posID)
+        val vatId = VATCategoryIdentifier.validate(
+          createInputType(InputName.InvoicedItemVATCategoryCode(number)),
+          createInputType(InputName.InvoicedItemVATRate(number))
+          )
+        val quantity = createInputType(InputName.InvoicedQuantity(number))
+        val netPrice = createInputType(InputName.ItemNetPrice(number))
+        val position = InvoicePosition.validate(
+          createInputType(InputName.InvoiceLineIdentifier(number)),
+          createInputType(InputName.ItemName(number)),
+          vatId,
+          positionType match {
+          case "time" =>
+            Stundenposition.validate(
+              quantity,
+              netPrice
+            )
+          case "item" =>
+            Leistungsposition.validate(
+              quantity,
+              netPrice,
+              createInputType(InputName.InvoicedQuantityUnitOfMeasureCode(number))
+            )
+          }
+        )
+        println(position)
+        positions = positions :+ position
+        )
+      // val temp = InvoiceVATGroup.validate(
+      //   validatedVATID,
+      //   positions
+      // )
+      println("validated VAT Group:")
+    )
     var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
     var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
     for index <- allPositionIDs do

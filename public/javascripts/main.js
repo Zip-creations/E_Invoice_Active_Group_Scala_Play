@@ -134,10 +134,8 @@ async function createVatIDPositionContainer(vatID, positions) {
         return pos.querySelector("input[name='positionIDcontainer']").value
     })
     // must be a simple type, routes dont allow Arrays. Note: PositionIds are never allowed to contain a comma!
-    const allPosIdsString = allPositionIDs.join(",")
-    console.log("ids: ", allPositionIDs)
-    console.log("ids2: ", allPosIdsString)
-    await fetch(`/addVatIDPositionContainer?vatID=${vatID}&posIds=${allPosIdsString}`)
+    const allPosIDsString = allPositionIDs.join(",")
+    await fetch(`/addVatIDPositionContainer?vatID=${vatID}&posIDs=${allPosIDsString}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser()

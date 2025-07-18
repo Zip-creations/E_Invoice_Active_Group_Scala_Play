@@ -7,7 +7,7 @@
 GET     /                               controllers.HomeController.index()
 GET     /addLeistungsposition           controllers.HomeController.generateLeistungsabrechnungPosition(positionID: Int)
 GET     /addStundenposition             controllers.HomeController.generateStundenabrechnungPosition(positionID: Int)
-GET     /addVatIDPositionContainer      controllers.HomeController.generateVatIDPositionContainer(vatID: String, posIds: String)
+GET     /addVatIDPositionContainer      controllers.HomeController.generateVatIDPositionContainer(vatID: String, posIDs: String)
 POST    /generateEInvoice               controllers.HomeController.generateEInvoice()
 GET     /validationReport               controllers.HomeController.getReport(path: String)
 # Map static resources from the /public folder to the /assets URL path

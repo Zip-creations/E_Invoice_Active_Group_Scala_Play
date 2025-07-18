@@ -45,6 +45,6 @@ enum InputName {
 
     // VAT group (of positions)
     case VATGroupExemptionReasonText(vatID: String)
-    case VATGroupCategory
-    case VARGroupRate
+    case VATGroupCategory(vatID: String)
+    case VARGroupRate(vatID: String)
 }
