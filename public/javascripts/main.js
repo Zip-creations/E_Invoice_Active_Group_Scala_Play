@@ -170,6 +170,7 @@ function reloadPositionContainers() {
         // since both inputs are required before the form can be submitted, we can assume the user will set them at some point
         if (vatCategory != "" && vatRate != "") {
             var vatID = vatCategory + "," + vatRate
+            if (!vatID.includes(".")){vatID = vatID + ".0"}
             if (!groupedPositions.has(vatID)) {
                 groupedPositions.set(vatID, [])
             }
