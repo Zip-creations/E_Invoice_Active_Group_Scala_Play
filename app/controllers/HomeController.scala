@@ -42,8 +42,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     Ok(views.html.invoicePosition_time(positionID))
   }
 
-  def generateVatIDPositionContainer(vatCategory: String, vatRate: String) = Action { (request: Request[AnyContent]) =>
-    Ok(views.html.vatIDPositionContainer(vatCategory, vatRate))
+  def generateVatIDPositionContainer(vatID: String, posIDs: String) = Action { (request: Request[AnyContent]) =>
+    Ok(views.html.vatIDPositionContainer(vatID, posIDs))
   }
 
   // JS can't access app/views/validation_reports/ directly, that's why this function exists

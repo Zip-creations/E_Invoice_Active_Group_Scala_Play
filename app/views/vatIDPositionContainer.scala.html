@@ -1,8 +1,11 @@
 @import utility.html.FormInputHelper._
+@import sharedUtility.utility._
 @import utility.inputNames._
-@(vatCategory: String, vatRate: String)
+@(vatID: String, posIDs: String)
 <div class="vatIDPositionContainer">
-    @GenerateInputField(InputName.VATGroupCategory, "Steuerkategorie", "Die Steuerketegorie für alle Positionen in dieser Gruppe.", readOnly=true, defaultValue=vatCategory)
-    @GenerateInputField(InputName.VARGroupRate, "Umsatzsteuersatz", "Der Steuersatz für alle Positionen in dieser Gruppe.", readOnly=true, defaultValue=vatRate)
-    @GenerateInputField(InputName.VATGroupExemptionReasonText(vatCategory, vatRate), "Grund für Befreiung von Umsatzsteuer", "In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.")<!-- BT-120 -->
+    <input type="hidden" name="vatIDContainer" value=@vatID readonly></input> <!-- Stores the vatID of the group for easy access on the backend -->
+    <input type="hidden" name='@("vatGroupPositionIDsContainer" + vatID)' value=@posIDs readonly></input> <!-- Stores the vatID of the group for easy access on the backend -->
+    @GenerateInputField(InputName.VATGroupCategory, "Steuerkategorie", "Die Steuerkategorie für alle Positionen in dieser Gruppe.", readOnly=true, defaultValue=getVatCategory(vatID)) <!-- Only to add some clarity for the user, not used in backend -->
+    @GenerateInputField(InputName.VARGroupRate, "Umsatzsteuersatz", "Der Steuersatz für alle Positionen in dieser Gruppe.", readOnly=true, defaultValue=getVatRate(vatID)) <!-- Only to add some clarity for the user, not used in backend -->
+    @GenerateInputField(InputName.VATGroupExemptionReasonText(vatID), "Grund für Befreiung von Umsatzsteuer", "In Textform angegebener Grund für die Ausnahme des Betrages von der Umsatzsteuerpflicht.")<!-- BT-120 -->
 </div>

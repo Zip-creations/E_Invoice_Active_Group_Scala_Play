@@ -129,8 +129,15 @@ async function createStundenabrechnungsPosition(positionID) {
     return positionID
 }
 
-async function createVatIDPositionContainer(vatCategory, vatRate, positions) {
-    await fetch(`/addVatIDPositionContainer?vatCategory=${vatCategory}&vatRate=${vatRate}`)
+async function createVatIDPositionContainer(vatID, positions) {
+    var allPositionIDs = positions.map(pos => {
+        return pos.querySelector("input[name='positionIDcontainer']").value
+    })
+    // must be a simple type, routes dont allow Arrays. Note: PositionIds are never allowed to contain a comma!
+    const allPosIdsString = allPositionIDs.join(",")
+    console.log("ids: ", allPositionIDs)
+    console.log("ids2: ", allPosIdsString)
+    await fetch(`/addVatIDPositionContainer?vatID=${vatID}&posIds=${allPosIdsString}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser()
@@ -164,7 +171,7 @@ function reloadPositionContainers() {
         // positions where the user has not set a vatRate or vatCategory will not be assigned to a vatIDPositonContainer.
         // since both inputs are required before the form can be submitted, we can assume the user will set them at some point
         if (vatCategory != "" && vatRate != "") {
-            var vatID = vatCategory + "|" + vatRate
+            var vatID = vatCategory + "," + vatRate
             if (!groupedPositions.has(vatID)) {
                 groupedPositions.set(vatID, [])
             }
@@ -173,10 +180,10 @@ function reloadPositionContainers() {
     })
     removeVatIDContainers()
     groupedPositions.forEach((positions, group) => {
-        var vatID = group.split("|")
+        var vatID = group.split(",")
         console.log("vatID: ", vatID)
         console.log(positions)
-        createVatIDPositionContainer(vatID[0], vatID[1], positions)
+        createVatIDPositionContainer(vatID, positions)
     })
     console.log("~~~~~~~~~~")
 }

@@ -2,9 +2,9 @@
 @import utility.inputNames._
 @(positionID: Int, positionType: String)(content: Html)
 <div class="inputContainer, invoicePosition">
-    <input type="hidden" name="positionIDcontainer" value=@positionID></input> <!-- Stores the ID of the postion for easy access on the backend -->
-    <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType></input> <!-- Stores the type of the postion for easy access on the backend -->
-    @GenerateInputField(InputName.InvoiceLineIdentifier(positionID), "Nr", "ID der Rechnungsposition. Nicht bearbeitbar.", readOnly=true, defaultValue=positionID.toString) <!-- BT-126 -->
+    <input type="hidden" name="positionIDcontainer" value=@positionID readonly></input> <!-- Stores the ID of the postion for easy access on the backend -->
+    <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType readonly></input> <!-- Stores the type of the postion for easy access on the backend -->
+    @GenerateInputField(InputName.InvoiceLineIdentifier(positionID), "Nr", "ID der Rechnungsposition. Nicht bearbeitbar.", readOnly=true, defaultValue=positionID.toString) <!-- BT-126. Can not contain a comma! -->
     @GenerateInputField(InputName.ItemName(positionID), "Bezeichnung", "Ein Name des Postens.", true) <!-- BT-153 -->
     @content
     <div class="inputfield">
