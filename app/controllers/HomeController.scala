@@ -59,7 +59,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       .getOrElse("positionIDcontainer", Seq.empty)
     val allVATGroups: Seq[String] = formData.dataParts
       .getOrElse("vatIDContainer", Seq.empty)
-    println(allVATGroups)
     def getInput(inputIdentifier: String) = {
       formData.dataParts.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
     }
@@ -104,17 +103,20 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       createInputType(InputName.BuyerElectronicAddress)
       )
 
+    var validatedVATGroups: List[Validated[Seq[ErrorMessage], VATGroup]] = Nil
+    // allPositions is for invoice.positions
+    var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
     allVATGroups.foreach(group =>
       val validatedVATID = VATCategoryIdentifier.validate(
+        // Refers to the inputs of the vatIDPositionContainer
         createInputType(InputName.VATGroupCategory(group)),
         createInputType(InputName.VARGroupRate(group))
-        // InputType(getVatCategory(group), "InvoicedItemVATCategoryCode"+),
-        // InputType(getVatRate(group))
       )
-      val posIDs = getInput("vatGroupPositionIDsContainer"+group)
-      var positions:  List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
+      val posIDs = getInput("vatGroupPositionIDsContainer" + group)
+      // vatGroupPositions is for the tax summary
+      var vatGroupPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
+      // create a validated InvoicePostion for every positionID
       posIDs.split(",").foreach(posID =>
-        println(posID)
         val number = posID.toInt
         val positionType = getInput("positionTypecontainer" + posID)
         val vatId = VATCategoryIdentifier.validate(
@@ -141,64 +143,20 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
             )
           }
         )
-        positions = positions :+ position
+        vatGroupPositions = vatGroupPositions :+ position
+        allPositions = allPositions :+ position
         )
-      val temp = VATGroup.validate(
+      val validatedGroup = VATGroup.validate(
         validatedVATID,
-        positions,
+        vatGroupPositions,
         createInputType(InputName.VATGroupExemptionReasonText(group))
       )
-      println("validated VAT Group:")
-      println(temp)
+      validatedVATGroups = validatedVATGroups :+ validatedGroup
     )
-    var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
-    var groupedPositions: mutable.Map[Validated[Seq[ErrorMessage], VATCategoryIdentifier], List[Validated[Seq[ErrorMessage], SimplePosition]]] = mutable.Map.empty
-    for index <- allPositionIDs do
-      val number = index.toInt
-      val positionType = getInput("positionTypecontainer" + index)
-      val vatId = VATCategoryIdentifier.validate(
-        createInputType(InputName.InvoicedItemVATCategoryCode(number)),
-        createInputType(InputName.InvoicedItemVATRate(number))
-        )
-      val quantity = createInputType(InputName.InvoicedQuantity(number))
-      val netPrice = createInputType(InputName.ItemNetPrice(number))
-      val position = InvoicePosition.validate(
-        createInputType(InputName.InvoiceLineIdentifier(number)),
-        createInputType(InputName.ItemName(number)),
-        vatId,
-        positionType match {
-        case "time" =>
-          Stundenposition.validate(
-            quantity,
-            netPrice
-          )
-        case "item" =>
-          Leistungsposition.validate(
-            quantity,
-            netPrice,
-            createInputType(InputName.InvoicedQuantityUnitOfMeasureCode(number))
-          )
-        }
-      )
-      allPositions = allPositions :+ position
-      // Group positions with only the info that is relevant for the VAT groups
-      val newPos = SimplePosition.validate(vatId, quantity, netPrice)
-      val currentPos = groupedPositions.getOrElse(vatId, List.empty)
-      groupedPositions.update(vatId, currentPos :+ newPos)
-
-    var vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]] = Nil
-    for (group <- groupedPositions.keys) {
-      val vatGroup = InvoiceVATGroup.validate(
-        group,
-        groupedPositions(group)
-      )
-      vatGroups = vatGroups :+ vatGroup
-    }
-
     val paymentInformation = InvoicePaymentInformation.validate(
       createInputType(InputName.InvoiceCurrencyCode),
       createInputType(InputName.PaymentMeansTypeCode),
-      vatGroups,
+      validatedVATGroups,
       createInputType(InputName.PaymentTerms)
     )
 

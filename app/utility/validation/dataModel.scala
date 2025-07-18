@@ -9,20 +9,6 @@ import cats.data._
 import cats.data.Validated._
 import cats.syntax.all._
 
-case class VATGroup private (
-    vatID: VATCategoryIdentifier,
-    positions: List[InvoicePosition],
-    exemptionReason: VATExemptionReason
-)
-object VATGroup {
-    def validate(vatID: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], reason: InputType): Validated[Seq[ErrorMessage], VATGroup] =  {
-        (
-            vatID,
-            positions.sequence,
-            VATExemptionReason.validate(reason)
-        ).mapN(VATGroup.apply)
-    }
-}
 
 case class Invoice private(
     metadata: InvoiceMetaData,
@@ -133,49 +119,35 @@ object VATCategoryIdentifier {
         ).mapN(VATCategoryIdentifier.apply)
     }
 }
-case class InvoiceVATGroup private(
-    id: VATCategoryIdentifier,
-    positions: List[SimplePosition],
-    vatExemptionReason: VATExemptionReason)
-object InvoiceVATGroup {
-    def validate(id: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], SimplePosition]], vatExemptionReason: InputType= InputType.empty): Validated[Seq[ErrorMessage], InvoiceVATGroup] = {
+
+case class VATGroup private (
+    vatID: VATCategoryIdentifier,
+    positions: List[InvoicePosition],
+    vatExemptionReason: VATExemptionReason
+)
+object VATGroup {
+    def validate(vatID: Validated[Seq[ErrorMessage], VATCategoryIdentifier], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], reason: InputType): Validated[Seq[ErrorMessage], VATGroup] =  {
         (
-            id,
+            vatID,
             positions.sequence,
-            VATExemptionReason.validate(vatExemptionReason)
-        ).mapN(InvoiceVATGroup.apply)
+            VATExemptionReason.validate(reason)
+        ).mapN(VATGroup.apply)
     }
 }
 
 case class InvoicePaymentInformation private(
     currencycode: CurrencyCode,
     paymentMeansCode: PaymentMeansTypeCode,
-    vatGroups: List[InvoiceVATGroup],
+    vatGroups: List[VATGroup],
     paymentTerms: PaymentTerms)
 object InvoicePaymentInformation {
-        def validate(currencycode: InputType, paymentMeansCode: InputType, vatGroups: List[Validated[Seq[ErrorMessage], InvoiceVATGroup]], paymentTerms: InputType = InputType.empty): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
+        def validate(currencycode: InputType, paymentMeansCode: InputType, vatGroups: List[Validated[Seq[ErrorMessage], VATGroup]], paymentTerms: InputType = InputType.empty): Validated[Seq[ErrorMessage], InvoicePaymentInformation] = {
         (
             CurrencyCode.validate(currencycode),
             PaymentMeansTypeCode.validate(paymentMeansCode),
             vatGroups.sequence,
             PaymentTerms.validate(paymentTerms)
         ).mapN(InvoicePaymentInformation.apply)
-    }
-}
-
-case class SimplePosition private(
-    identifier: VATCategoryIdentifier,
-    quantity: Quantity,
-    netPrice: NetPrice,
-    netAmount: NetAmount) // Stores positions with only the information the tax summary needs later on
-object SimplePosition {
-    def validate(identifier: Validated[Seq[ErrorMessage], VATCategoryIdentifier], quantity: InputType, netPrice: InputType): Validated[Seq[ErrorMessage], SimplePosition] = {
-        (
-            identifier,
-            Quantity.validate(quantity),
-            NetPrice.validate(netPrice),
-            NetAmount.validate(quantity, netPrice)
-        ).mapN(SimplePosition.apply)
     }
 }
 

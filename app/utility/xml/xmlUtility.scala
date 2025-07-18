@@ -14,7 +14,7 @@ class XMLUtility(){
     // returns the value with a leading 1; e.g.
     // 19 -> 1.19
     // 2.7 -> 1.027
-    private def getVATvalue(vatRate: Double): Double = {
+    private def getVATRateFormat(vatRate: Double): Double = {
         return (vatRate / 100) +1
     }
 
@@ -140,7 +140,7 @@ class XMLUtility(){
             case InvoicePositionData.Stundenposition(hours, hourlyrate, measurementCode) =>
                 unitcode = measurementCode.get
                 chargedAmount = hourlyrate.get
-                chargedQuantity = 1
+                chargedQuantity = hours.get
                 totalAmount = hours.get * chargedAmount
             case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
                 unitcode = measurementCode.get
@@ -207,15 +207,20 @@ class XMLUtility(){
     }
 
     // This part need to be repeated for every VAT category code
-    // TODO: replace hardcoded values
-    private def CreateTaxSummaryXML(vatGroup: InvoiceVATGroup): scala.xml.Elem = {
-        val id = vatGroup.id
+    private def CreateTaxSummaryXML(vatGroup: VATGroup): scala.xml.Elem = {
+        val id = vatGroup.vatID
         var totalAmount = 0.0
         var totalAmountWithVAT = 0.0
         var totalVATAmount = 0.0
         for (pos <- vatGroup.positions) {
-            val vatValue = getVATvalue(pos.identifier.vatRate.rate)
-            val amount = pos.netAmount.amount
+            val (posQuantity, posNetPrice): (Double, Double) = pos.data match {
+                case InvoicePositionData.Stundenposition(hours, hourlyrate, _) =>
+                    (hours.get, hourlyrate.get)
+                case InvoicePositionData.Leistungsposition(quantity, pricePerPart, _) =>
+                    (quantity.get, pricePerPart.get)
+            }
+            val vatValue = getVATRateFormat(id.vatRate.get)
+            val amount = posQuantity * posNetPrice
             totalAmount = totalAmount + amount
             totalAmountWithVAT = totalAmountWithVAT + amount * vatValue
             totalVATAmount = totalVATAmount + (amount * vatValue - amount)
@@ -225,7 +230,7 @@ class XMLUtility(){
                     <ram:CalculatedAmount>{roundAmount(totalVATAmount)}</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
-                        var value = vatGroup.vatExemptionReason.reason
+                        var value = vatGroup.vatExemptionReason.get
                         if ("SZLM".contains(id.vatCode.get)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
@@ -246,7 +251,7 @@ class XMLUtility(){
         var totalAmountWithVAT = 0.0
         var amountDue = 0.0
         for (i <- storedPositions) {
-            val taxpercentage = getVATvalue(i.vatId.vatRate.get)
+            val taxpercentage = getVATRateFormat(i.vatId.vatRate.get)
             totalNetAmount += i.netAmount
             totalVATAmount += i.netAmount * taxpercentage - i.netAmount
             totalAmountWithoutVAT += i.netAmount  // Whats the differnce to totalNetAmount?
