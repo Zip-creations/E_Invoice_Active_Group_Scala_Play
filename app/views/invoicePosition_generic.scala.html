@@ -1,7 +1,7 @@
 @import utility.html.FormInputHelper._
 @import utility.inputNames._
 @(positionID: Int, positionType: String)(content: Html)
-<div class="inputContainer, invoicePosition">
+<div class="inputContainer invoicePosition">
     <input type="hidden" name="positionIDcontainer" value=@positionID readonly></input> <!-- Stores the ID of the postion for easy access on the backend -->
     <input type="hidden" name='@("positionTypecontainer" + positionID)' value=@positionType readonly></input> <!-- Stores the type of the postion for easy access on the backend -->
     @GenerateInputField(InputName.InvoiceLineIdentifier(positionID), "Nr", "ID der Rechnungsposition. Nicht bearbeitbar.", readOnly=true, defaultValue=positionID.toString) <!-- BT-126. Can not contain a comma! -->
@@ -31,7 +31,7 @@
         </div>
     </div> <!-- BT-151 -->
     @GenerateInputField(InputName.InvoicedItemVATRate(positionID), "Umsatzsteuersatz", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", true, classes="datatypePercentage") <!-- BT-152 -->
-    @GenerateInputField(InputName.InvoiceLineNetAmount(positionID), "Gesamtwert", "Berechneter Gesamtwert für diese Position. Nicht bearbeitbar.", classes="datatypeAmount", readOnly=true) <!-- BT-131 ? -->
+    @GenerateInputField(InputName.InvoiceLineNetAmount(positionID), "Gesamtwert", "Berechneter Gesamtwert für diese Position. Nicht bearbeitbar.", classes="datatypeAmount", readOnly=true) <!-- only an overview for the user, value is calculated dynamically from InvoicedQuantity, ItemNetPrice and InvoicedItemVATRate -->
     <div class="buttonContainer">
         <button type="button" class="removePositionButton">Position entfernen</button>
     </div>

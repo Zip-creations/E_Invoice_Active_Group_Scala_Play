@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (confirm("Soll diese Position wirklich entfernt werden? Eingaben gehen verloren.")) {
                 container.remove();
             }
+            loadRestrictions()
         }
     });
 
@@ -176,9 +177,12 @@ function reloadPositionContainers() {
     })
     removeVatIDContainers()
     groupedPositions.forEach((positions, group) => {
+        positions.sort((a, b) => {
+        const idA = a.querySelector("input[name='positionIDcontainer']").value;
+        const idB = b.querySelector("input[name='positionIDcontainer']").value;
+        return idA.localeCompare(idB);
+        });
         var vatID = group.split(",")
-        console.log("vatID: ", vatID)
-        console.log(positions)
         createVatIDPositionContainer(vatID, positions)
     })
     console.log("~~~~~~~~~~")
