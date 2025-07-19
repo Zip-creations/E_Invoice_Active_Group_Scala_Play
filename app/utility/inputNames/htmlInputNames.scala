@@ -10,8 +10,8 @@ enum InputName {
     case SellerPostCode
     case SellerCity
     case SellerCountryCode
-    case TODO1
-    case TODO3
+    case Placeholder1 // currently not used in xml
+    case Placeholder2 // currently not used in xml
     case SellerElectronicAddress
     case SellerVATIdentifier
     // InvoiceSellerContact
@@ -24,7 +24,7 @@ enum InputName {
     case BuyerPostCode
     case BuyerCity
     case BuyerCountryCode
-    case TODO4
+    case Placeholder3 // currently not used in xml
     case BuyerElectronicAddress
     // InvoicePaymentInformation
     case InvoiceCurrencyCode

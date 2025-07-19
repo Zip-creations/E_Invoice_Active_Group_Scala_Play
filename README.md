@@ -26,8 +26,8 @@ document.querySelector('[name="SellerAddressLine1"]').value = "beispielstraße 1
 document.querySelector('[name="SellerPostCode"]').value = "11223";\
 document.querySelector('[name="SellerCity"]').value = "Example city";\
 document.querySelector('[name="SellerCountryCode"]').value = "DE";\
-document.querySelector('[name="TODO1"]').value = "plh1";\
-document.querySelector('[name="TODO3"]').value = "https://github.com/";
+document.querySelector('[name="Placeholder1"]').value = "plh1";\
+document.querySelector('[name="Placeholder2"]').value = "https://github.com/";
 document.querySelector('[name="SellerElectronicAddress"]').value = "ex@mail.com";\
 document.querySelector('[name="SellerVATIdentifier"]').value = "DE123456789";\
 document.querySelector('[name="SellerContactPoint"]').value = "vorname nachname";\
@@ -39,7 +39,7 @@ document.querySelector('[name="BuyerElectronicAddress"]').value = "ex3@mail.com"
 document.querySelector('[name="BuyerCity"]').value = "buyer city";\
 document.querySelector('[name="BuyerPostCode"]').value = "54321";\
 document.querySelector('[name="BuyerCountryCode"]').value = "DE";\
-document.querySelector('[name="TODO4"]').value = "DE12 3456 7890";\
+document.querySelector('[name="Placeholder3"]').value = "DE12 3456 7890";\
 document.querySelector('[name="InvoiceCurrencyCode"]').value = "EUR";\
 document.querySelector('[name="PaymentMeansTypeCode"]').value = "ZZZ";\
 document.querySelector('[name="PaymentTerms"]').value = "yes";

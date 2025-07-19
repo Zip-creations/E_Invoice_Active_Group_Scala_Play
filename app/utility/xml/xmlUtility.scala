@@ -131,23 +131,12 @@ class XMLUtility(){
     }
 
     private def CreatePositionXML(position: InvoicePosition): scala.xml.Elem = {
-        var unitcode = ""
-        var chargedAmount = 0.0
-        var totalAmount = 0.0
-        var chargedQuantity = 0.0
-
-        position.data match{
-            case InvoicePositionData.Stundenposition(hours, hourlyrate, measurementCode) =>
-                unitcode = measurementCode.get
-                chargedAmount = hourlyrate.get
-                chargedQuantity = hours.get
-                totalAmount = hours.get * chargedAmount
-            case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementCode) =>
-                unitcode = measurementCode.get
-                chargedAmount = pricePerPart.get
-                chargedQuantity = quantity.get
-                totalAmount = chargedQuantity * chargedAmount
-        }
+        val (chargedAmount, chargedQuantity, unitcode, totalAmount): (Double, Double, String, Double) = position.data match{
+                case InvoicePositionData.Stundenposition(hours, hourlyrate, measurementcode) =>
+                    (hours.get, hourlyrate.get, measurementcode.get, hours.get * hourlyrate.get)
+                case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementcode) =>
+                    (quantity.get, pricePerPart.get, measurementcode.get, quantity.get * pricePerPart.get)
+            }
         storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatId)
 
         val xml =

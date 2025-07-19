@@ -10,7 +10,7 @@ import sharedUtility.validation._
 import java.net.URL
 import scala.annotation.switch
 
-object AllowedLiterals {  // Reminder: -[] need to be escaped twice!
+object AllowedLiterals {  // Reminder: - [ ] need to be escaped twice!
     val freeText = " .,#$%&?!+\\-*<>/()\\[\\]\"\'"
 }
 

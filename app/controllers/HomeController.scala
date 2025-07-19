@@ -80,8 +80,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       createInputType(InputName.SellerPostCode),
       createInputType(InputName.SellerCity),
       createInputType(InputName.SellerCountryCode)),
-      createInputType(InputName.TODO1),
-      createInputType(InputName.TODO3),
+      createInputType(InputName.Placeholder1),
+      createInputType(InputName.Placeholder2),
       createInputType(InputName.SellerElectronicAddress),
       createInputType(InputName.SellerVATIdentifier)
       )
@@ -99,7 +99,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       createInputType(InputName.BuyerPostCode),
       createInputType(InputName.BuyerCity),
       createInputType(InputName.BuyerCountryCode)),
-      createInputType(InputName.TODO4),
+      createInputType(InputName.Placeholder3),
       createInputType(InputName.BuyerElectronicAddress)
       )
 
