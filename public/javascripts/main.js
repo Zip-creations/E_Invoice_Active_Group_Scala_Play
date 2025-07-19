@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (confirm("Soll diese Position wirklich entfernt werden? Eingaben gehen verloren.")) {
                 container.remove();
             }
-            reloadPositionContainers()
         }
     });
 
@@ -105,7 +104,6 @@ async function createLeistungsabrechnungsPosition(positionID) {
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
-            reloadPositionContainers()
         })
     positionID++
     return positionID
@@ -123,7 +121,6 @@ async function createStundenabrechnungsPosition(positionID) {
         .then(html => {
             const targetDiv = document.getElementById("positionContainer");
             targetDiv.insertAdjacentHTML("beforeend", html);
-            reloadPositionContainers()
         })
     positionID++
     return positionID
@@ -207,7 +204,7 @@ function getAllDescendants(node){
 // .awesomeplete, .dataTypeAmount, .datatypeQuantity and .datatypePercentage must be used mutually exclusive!
 function loadRestrictions() {
     const numericClasses = ["datatypeAmount", "datatypeQuantity", "datatypePercentage"]
-    var allRelevantChilds = document.querySelectorAll("input")
+    var allRelevantChilds = document.querySelectorAll("input, select")
     allRelevantChilds.forEach(input => {
         // Prevents that a Listener gets assigned to the same input multiple times
         if (input.dataset.beforeinputBound) {return}
@@ -218,10 +215,19 @@ function loadRestrictions() {
             addAwesompleteRestriction(input);
         }
         // compute the net amount again if any of these 3 inputs is changed
-        if (/(InvoicedQuantity|ItemNetPrice|InvoicedItemVATRate)\d+/.test(input.name)){
+        if (/(InvoicedQuantity|ItemNetPrice|InvoicedItemVATRate)\(\d\)+/.test(input.name)){
+            console.log("there")
             addLineNetAmountComputation(input)
         }
+        if (/(InvoicedItemVATCategoryCode|InvoicedItemVATRate)\(\d+\)/.test(input.name)){
+            console.log("here")
+            input.addEventListener("blur", function(e) {
+                reloadPositionContainers()
+                console.log("input changed")
+            })
+        }
     })
+    reloadPositionContainers()
 }
 
 function addLineNetAmountComputation(input) {
@@ -229,7 +235,7 @@ function addLineNetAmountComputation(input) {
         function getValue(inputName) {
             return parseFloat(document.getElementsByName(inputName)[0].value)
         }
-        var index = input.name.match(/\d+$/)[0]
+        var index = input.name.match(/\(\d+\)$/)[0]
         var invoiceLineNetAmount = document.getElementsByName("InvoiceLineNetAmount" + index)[0]
         var invoicedQuantity = getValue("InvoicedQuantity" + index) || 1
         var itemNetPrice = getValue("ItemNetPrice" + index) || 1

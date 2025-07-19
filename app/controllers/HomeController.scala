@@ -110,7 +110,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       val validatedVATID = VATCategoryIdentifier.validate(
         // Refers to the inputs of the vatIDPositionContainer
         createInputType(InputName.VATGroupCategory(group)),
-        createInputType(InputName.VARGroupRate(group))
+        createInputType(InputName.VATGroupRate(group))
       )
       val posIDs = getInput("vatGroupPositionIDsContainer" + group)
       // vatGroupPositions is for the tax summary
