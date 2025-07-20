@@ -44,8 +44,12 @@ class XMLUtility(){
                 </rsm:ExchangedDocumentContext>
                 {CreateMetaDataXML(invoice.metadata)}
                 <rsm:SupplyChainTradeTransaction>
-                {for (i <- invoice.positions)
-                    yield CreatePositionXML(i)}
+                {
+                    for {
+                        group <- invoice.paymentInformation.vatGroups
+                        pos <- group.positions
+                    } yield CreatePositionXML(pos)
+                }
                 {CreateInvolvedPartiesXML(invoice.involvedParties)}
                 <ram:ApplicableHeaderTradeDelivery>
                 </ram:ApplicableHeaderTradeDelivery>

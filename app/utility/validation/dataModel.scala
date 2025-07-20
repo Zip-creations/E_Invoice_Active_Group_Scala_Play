@@ -13,14 +13,12 @@ import cats.syntax.all._
 case class Invoice private(
     metadata: InvoiceMetaData,
     involvedParties: InvoiceInvolvedParties,
-    positions: List[InvoicePosition],
     paymentInformation: InvoicePaymentInformation)
 object Invoice {
-    def validate(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData], involvedParties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties], positions: List[Validated[Seq[ErrorMessage], InvoicePosition]], paymentInformation: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], Invoice] = {
+    def validate(metadata: Validated[Seq[ErrorMessage], InvoiceMetaData], involvedParties: Validated[Seq[ErrorMessage], InvoiceInvolvedParties], paymentInformation: Validated[Seq[ErrorMessage], InvoicePaymentInformation]): Validated[Seq[ErrorMessage], Invoice] = {
         (
             metadata,
             involvedParties,
-            positions.sequence,
             paymentInformation
         ).mapN(Invoice.apply)
     }

@@ -2,6 +2,6 @@
 @import utility.inputNames._
 @(positionID: Int)
 @invoicePosition_generic(positionID, "time") {
-    @GenerateInputField(InputName.InvoicedQuantity(positionID), "Anz. Stunden", "Gesamte Antzahl an Stunden.", classes="datatypeQuantity") <!-- BT-129 -->
-    @GenerateInputField(InputName.ItemNetPrice(positionID), "Stundensatz", "Preis pro Stunde.", classes="datatypeAmount") <!-- BT-146 -->
+    @GenerateInputField(InputName.InvoicedQuantity(positionID), "Anz. Stunden", "Gesamte Antzahl an Stunden.", true, classes="datatypeQuantity") <!-- BT-129 -->
+    @GenerateInputField(InputName.ItemNetPrice(positionID), "Stundensatz", "Preis pro Stunde.", true, classes="datatypeAmount") <!-- BT-146 -->
 }

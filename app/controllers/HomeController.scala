@@ -104,8 +104,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       )
 
     var validatedVATGroups: List[Validated[Seq[ErrorMessage], VATGroup]] = Nil
-    // allPositions is for invoice.positions
-    var allPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
     allVATGroups.foreach(group =>
       val validatedVATID = VATCategoryIdentifier.validate(
         // Refers to the inputs of the vatIDPositionContainer
@@ -144,7 +142,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
           }
         )
         vatGroupPositions = vatGroupPositions :+ position
-        allPositions = allPositions :+ position
         )
       val validatedGroup = VATGroup.validate(
         validatedVATID,
@@ -161,7 +158,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     )
 
     val involvedparties = InvoiceInvolvedParties.validate(seller, sellerContact, buyer)
-    val invoice = Invoice.validate(meta, involvedparties, allPositions, paymentInformation)
+    val invoice = Invoice.validate(meta, involvedparties, paymentInformation)
 
     invoice match {
       case Valid(a) =>

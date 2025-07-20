@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("removePositionButton")) {
             const container = event.target.closest(".invoicePosition");
-            if (confirm("Soll diese Position wirklich entfernt werden? Eingaben gehen verloren.")) {
+            if (confirm("Soll diese Position wirklich entfernt werden? Ihre Eingaben werden veroren gehen.")) {
                 container.remove();
             }
             loadRestrictions()
@@ -51,8 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 var jumpOnce = true
                 Object.entries(json.data).forEach(([key, values]) => {  // key is "source", values are the errormessage(s)
-                    console.log(key)
-                    console.log(values)
                     const erroneousInput = document.getElementsByName(key)[0]  // Reminder, IDs can't be used when sending a form from the frontend to the backend (and back)
                     values.forEach(errorMessage => {
                         const targetDiv = erroneousInput.parentElement.parentElement.querySelector(".errorDisplay");
@@ -89,7 +87,7 @@ function toggleUserInteraction(disable) {
         allElements.forEach(elem => elem.style.pointerEvents = "auto")
     }
     // functionality of buttons is controlled by elem.style.pointerEvents like every other element,
-    // but they get disabled/enabled additioanally for a visual effect
+    // but diabeling/enabling them adds an additioanal visual effect
     allButtons.forEach(elem => elem.disabled = disable)
 }
 
@@ -143,7 +141,6 @@ async function createVatIDPositionContainer(vatID, positions) {
                 parsedHtml.appendChild(position);
             })
             targetDiv.appendChild(parsedHtml);
-            console.log("inserted")
         })
     return
 }
@@ -153,7 +150,6 @@ function removeVatIDContainers() {
     var allVATIDconatiners = positionContainer.querySelectorAll("div.vatIDPositionContainer")
     allVATIDconatiners.forEach(container => {
         container.remove()
-        console.log("removed elem")
     })
 }
 
@@ -175,8 +171,11 @@ function reloadPositionContainers() {
             groupedPositions.get(vatID).push(position)
         }
     })
+    // TODO: it would be better if containers could be moved around instead of being removed and created anew
+    // This would prevent losing the input of the exemption reason
     removeVatIDContainers()
     groupedPositions.forEach((positions, group) => {
+        // Sort the positions by their identifier in ascending order
         positions.sort((a, b) => {
         const idA = a.querySelector("input[name='positionIDcontainer']").value;
         const idB = b.querySelector("input[name='positionIDcontainer']").value;
@@ -185,7 +184,6 @@ function reloadPositionContainers() {
         var vatID = group.split(",")
         createVatIDPositionContainer(vatID, positions)
     })
-    console.log("~~~~~~~~~~")
 }
 
 function getAllDescendants(node){
@@ -213,6 +211,7 @@ function loadRestrictions() {
         // Prevents that a Listener gets assigned to the same input multiple times
         if (input.dataset.beforeinputBound) {return}
         input.dataset.beforeinputBound = "true"
+        
         if (numericClasses.includes(input.className)) {
             addNumericRestriction(input)
         } else if (input.className === "awesomplete") {
@@ -220,14 +219,11 @@ function loadRestrictions() {
         }
         // compute the net amount again if any of these 3 inputs is changed
         if (/(InvoicedQuantity|ItemNetPrice|InvoicedItemVATRate)\(\d\)+/.test(input.name)){
-            console.log("there")
             addLineNetAmountComputation(input)
         }
         if (/(InvoicedItemVATCategoryCode|InvoicedItemVATRate)\(\d+\)/.test(input.name)){
-            console.log("here")
             input.addEventListener("blur", function(e) {
                 reloadPositionContainers()
-                console.log("input changed")
             })
         }
     })

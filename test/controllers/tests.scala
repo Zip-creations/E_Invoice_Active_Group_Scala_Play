@@ -11,6 +11,7 @@ import cats.data.Validated._
 import cats.syntax.all._
 
 
+// Validation only works on the type "InputType", which has a value and a (html input-)source
 def addDefaultSource(str: String): InputType = {
     InputType(str, "")
 }
