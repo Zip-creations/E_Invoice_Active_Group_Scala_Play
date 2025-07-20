@@ -35,7 +35,7 @@
                     <ram:ApplicableTradeTax>
                         <ram:TypeCode>VAT</ram:TypeCode>
                         <ram:CategoryCode>S</ram:CategoryCode>
-                        <ram:RateApplicablePercent>10.0</ram:RateApplicablePercent>
+                        <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
                     </ram:ApplicableTradeTax>
                     <ram:SpecifiedTradeSettlementLineMonetarySummation>
                         <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
@@ -57,6 +57,7 @@
                 </ram:DefinedTradeContact>
                 <ram:PostalTradeAddress>
                 <ram:PostcodeCode>11223</ram:PostcodeCode>
+                <ram:LineOne>beispielstraße 1</ram:LineOne>
                 <ram:CityName>Example city</ram:CityName>
                 <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
@@ -71,6 +72,7 @@
                 <ram:Name>buyer name</ram:Name>
                 <ram:PostalTradeAddress>
                 <ram:PostcodeCode>54321</ram:PostcodeCode>
+                
                 <ram:CityName>buyer city</ram:CityName>
                 <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
@@ -87,12 +89,12 @@
                     <ram:TypeCode>ZZZ</ram:TypeCode>
                 </ram:SpecifiedTradeSettlementPaymentMeans>
                 <ram:ApplicableTradeTax>
-                    <ram:CalculatedAmount>11.0</ram:CalculatedAmount>
+                    <ram:CalculatedAmount>20.9</ram:CalculatedAmount>
                     <ram:TypeCode>VAT</ram:TypeCode>
                     
                     <ram:BasisAmount>110.0</ram:BasisAmount>
                     <ram:CategoryCode>S</ram:CategoryCode>
-                    <ram:RateApplicablePercent>10.0</ram:RateApplicablePercent>
+                    <ram:RateApplicablePercent>19.0</ram:RateApplicablePercent>
                 </ram:ApplicableTradeTax>
                 <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>yes</ram:Description>
@@ -100,9 +102,9 @@
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
                     <ram:LineTotalAmount>110.0</ram:LineTotalAmount>
                     <ram:TaxBasisTotalAmount>110.0</ram:TaxBasisTotalAmount>
-                    <ram:TaxTotalAmount currencyID="EUR">11.0</ram:TaxTotalAmount>
-                    <ram:GrandTotalAmount>121.0</ram:GrandTotalAmount>
-                    <ram:DuePayableAmount>121.0</ram:DuePayableAmount>
+                    <ram:TaxTotalAmount currencyID="EUR">20.9</ram:TaxTotalAmount>
+                    <ram:GrandTotalAmount>130.9</ram:GrandTotalAmount>
+                    <ram:DuePayableAmount>130.9</ram:DuePayableAmount>
                 </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             </ram:ApplicableHeaderTradeSettlement>
                 </rsm:SupplyChainTradeTransaction>

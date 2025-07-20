@@ -75,11 +75,11 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     val seller = InvoiceSeller.validate(
       createInputType(InputName.SellerName),
-      createInputType(InputName.SellerAddressLine1),
       Address.validate(
       createInputType(InputName.SellerPostCode),
       createInputType(InputName.SellerCity),
-      createInputType(InputName.SellerCountryCode)),
+      createInputType(InputName.SellerCountryCode),
+      createInputType(InputName.SellerAddressLine1)),
       createInputType(InputName.Placeholder1), // currently not used in xml
       createInputType(InputName.Placeholder2), // currently not used in xml
       createInputType(InputName.SellerElectronicAddress),

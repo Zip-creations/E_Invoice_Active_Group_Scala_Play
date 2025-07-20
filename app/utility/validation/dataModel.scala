@@ -54,17 +54,15 @@ object InvoiceInvolvedParties {
 
 case class InvoiceSeller private(
     name: Name,
-    street: Street,
     address: Address,
     telephonenumber: TelephoneNumber,
     websitelink: WebsiteLink,
     email: Email,
     vatIdentifier: SellerVATIdentifier)
 object InvoiceSeller {
-    def validate(name: InputType, street: InputType, address: Validated[Seq[ErrorMessage], Address], telephonenumber: InputType, websitelink: InputType, email: InputType, vatIdentifier: InputType): Validated[Seq[ErrorMessage], InvoiceSeller] = {
+    def validate(name: InputType, address: Validated[Seq[ErrorMessage], Address], telephonenumber: InputType, websitelink: InputType, email: InputType, vatIdentifier: InputType): Validated[Seq[ErrorMessage], InvoiceSeller] = {
         (
             Name.validate(name),
-            Street.validate(street),
             address,
             TelephoneNumber.validate(telephonenumber),
             WebsiteLink.validate(websitelink),
@@ -199,13 +197,15 @@ object Leistungsposition {
 case class Address private(
     postCode: PostCode,
     city: City,
-    countryCode: CountryCode)
+    countryCode: CountryCode,
+    street: Street)
 object Address {
-    def validate(postCode: InputType, city: InputType, countrycode: InputType): Validated[Seq[ErrorMessage], Address] = {
+    def validate(postCode: InputType, city: InputType, countrycode: InputType, street: InputType = InputType.empty): Validated[Seq[ErrorMessage], Address] = {
         (
         PostCode.validate(postCode),
         City.validate(city),
-        CountryCode.validate(countrycode)
+        CountryCode.validate(countrycode),
+        Street.validate(street)
         ).mapN(Address.apply)
     }
 }

@@ -102,6 +102,12 @@ class XMLUtility(){
         val xml = 
             <ram:PostalTradeAddress>
                 <ram:PostcodeCode>{address.postCode.get}</ram:PostcodeCode>
+                {
+                    val value = address.street.get
+                    val xml =
+                        <ram:LineOne>{value}</ram:LineOne>
+                    insertOptionalInput(value, xml)
+                }
                 <ram:CityName>{address.city.get}</ram:CityName>
                 <ram:CountryID>{address.countryCode.get}</ram:CountryID>
             </ram:PostalTradeAddress>
