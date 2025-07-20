@@ -138,7 +138,7 @@
             <dt>Referenz:</dt>
             <dd>/E:/Nicht%20syncronisiert/Code/E_Invoice_Active_Group_Scala_Play/Toolbox/../output/xml/eInvoice_lalatest123.xml</dd>
             <dt>Zeitpunkt der Prüfung:</dt>
-            <dd>21.7.2025 0:01:19</dd>
+            <dd>21.7.2025 0:21:55</dd>
             <dt>Erkannter Dokumenttyp:</dt>
             <dd>EN16931 XRechnung (CII)</dd>
          </dl>
@@ -151,80 +151,9 @@
             <dd>20250720</dd>
          </dl>
       </div>
-      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält 2 Fehler / 0 Warnungen. Es ist <b>nicht konform</b> zu den formalen Vorgaben.</p>
-      <p>Übersicht der Validierungsergebnisse:</p>
-      <table class="tbl-errors">
-         <thead>
-            <tr>
-               <th>Prüfschritt</th>
-               <th>Fehler</th>
-               <th>Warnungen</th>
-               <th>Informationen</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr>
-               <td>XML Schema for UN/CEFACT XML (SCRDM - CII uncoupled) (val-xsd)</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-            </tr>
-            <tr>
-               <td>Schematron rules for EN16931 (CII) (val-sch.1)</td>
-               <td style="width: 30mm;">2</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-            </tr>
-            <tr>
-               <td>Schematron rules for CIUS XRechnung (CII) (val-sch.2)</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-            </tr>
-            <tr>
-               <td> (val-xml)</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-               <td style="width: 30mm;">0</td>
-            </tr>
-         </tbody>
-      </table>
-      <p>Validierungsergebnisse im Detail:</p>
-      <table class="tbl-errors">
-         <thead>
-            <tr>
-               <th style="width: 30mm;">Pos</th>
-               <th style="width: 25mm;">Code</th>
-               <th style="width: 25mm;">Adj. Grad</th>
-               <th>Text</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr class="error">
-               <td rowspan="2">val-sch.1.1</td>
-               <td rowspan="2">BR-O-02</td>
-               <td rowspan="2">error</td>
-               <td>[BR-O-02]-An Invoice that contains an Invoice line (BG-25) where the Invoiced item
-                  VAT category code (BT-151) is "Not subject to VAT" shall not contain the Seller VAT
-                  identifier (BT-31), the Seller tax representative VAT identifier (BT-63) or the Buyer
-                  VAT identifier (BT-48).</td>
-            </tr>
-            <tr class="error">
-               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:IncludedSupplyChainTradeLineItem[1]/ram:SpecifiedLineTradeSettlement[1]/ram:ApplicableTradeTax[1]</td>
-            </tr>
-            <tr class="error">
-               <td rowspan="2">val-sch.1.2</td>
-               <td rowspan="2">BR-O-05</td>
-               <td rowspan="2">error</td>
-               <td>[BR-O-05]-An Invoice line (BG-25) where the VAT category code (BT-151) is "Not subject
-                  to VAT" shall not contain an Invoiced item VAT rate (BT-152).</td>
-            </tr>
-            <tr class="error">
-               <td>Pfad: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:IncludedSupplyChainTradeLineItem[1]/ram:SpecifiedLineTradeSettlement[1]/ram:ApplicableTradeTax[1]</td>
-            </tr>
-         </tbody>
-      </table>
-      <p class="important error">Bewertung: Es wird empfohlen das Dokument zurückzuweisen.</p>
+      <p class="important"><b>Konformitätsprüfung: </b>Das geprüfte Dokument enthält weder Fehler noch Warnungen. Es ist konform zu den formalen
+         Vorgaben.</p>
+      <p class="important">Bewertung: Es wird empfohlen das Dokument anzunehmen und weiter zu verarbeiten.</p>
       <p class="important">Inhalt des Rechnungsdokuments:</p>
       <table class="document">
          <tr class="row" id="0001">
@@ -457,13 +386,13 @@
          <tr class="row" id="0026">
             <td class="pos">0026</td>
             <td class="element level6" title="CategoryCode">
-               <div class="val">O</div>
+               <div class="val">S</div>
             </td>
          </tr>
          <tr class="row" id="0027">
             <td class="pos">0027</td>
             <td class="element level6" title="RateApplicablePercent">
-               <div class="val">0.0</div>
+               <div class="val">19.0</div>
             </td>
          </tr>
          <tr class="row" id="0028">
@@ -763,8 +692,7 @@
                <div class="val">
                   </div>
                <div class="val">
-                  </div>
-               <div class="val">
+                  
                   </div>
                <div class="val">
                   </div>
@@ -777,7 +705,7 @@
          <tr class="row" id="0063">
             <td class="pos">0063</td>
             <td class="element level5" title="CalculatedAmount">
-               <div class="val">0.0</div>
+               <div class="val">20.9</div>
             </td>
          </tr>
          <tr class="row" id="0064">
@@ -788,30 +716,24 @@
          </tr>
          <tr class="row" id="0065">
             <td class="pos">0065</td>
-            <td class="element level5" title="ExemptionReason">
-               <div class="val">si</div>
-            </td>
-         </tr>
-         <tr class="row" id="0066">
-            <td class="pos">0066</td>
             <td class="element level5" title="BasisAmount">
                <div class="val">110.0</div>
             </td>
          </tr>
+         <tr class="row" id="0066">
+            <td class="pos">0066</td>
+            <td class="element level5" title="CategoryCode">
+               <div class="val">S</div>
+            </td>
+         </tr>
          <tr class="row" id="0067">
             <td class="pos">0067</td>
-            <td class="element level5" title="CategoryCode">
-               <div class="val">O</div>
+            <td class="element level5" title="RateApplicablePercent">
+               <div class="val">19.0</div>
             </td>
          </tr>
          <tr class="row" id="0068">
             <td class="pos">0068</td>
-            <td class="element level5" title="RateApplicablePercent">
-               <div class="val">0.0</div>
-            </td>
-         </tr>
-         <tr class="row" id="0069">
-            <td class="pos">0069</td>
             <td class="element level4" title="SpecifiedTradePaymentTerms">
                <div class="val">
                   </div>
@@ -819,14 +741,14 @@
                   </div>
             </td>
          </tr>
-         <tr class="row" id="0070">
-            <td class="pos">0070</td>
+         <tr class="row" id="0069">
+            <td class="pos">0069</td>
             <td class="element level5" title="Description">
                <div class="val">yes</div>
             </td>
          </tr>
-         <tr class="row" id="0071">
-            <td class="pos">0071</td>
+         <tr class="row" id="0070">
+            <td class="pos">0070</td>
             <td class="element level4" title="SpecifiedTradeSettlementHeaderMonetarySummation">
                <div class="val">
                   </div>
@@ -842,35 +764,35 @@
                   </div>
             </td>
          </tr>
+         <tr class="row" id="0071">
+            <td class="pos">0071</td>
+            <td class="element level5" title="LineTotalAmount">
+               <div class="val">110.0</div>
+            </td>
+         </tr>
          <tr class="row" id="0072">
             <td class="pos">0072</td>
-            <td class="element level5" title="LineTotalAmount">
+            <td class="element level5" title="TaxBasisTotalAmount">
                <div class="val">110.0</div>
             </td>
          </tr>
          <tr class="row" id="0073">
             <td class="pos">0073</td>
-            <td class="element level5" title="TaxBasisTotalAmount">
-               <div class="val">110.0</div>
+            <td class="element level5" title="TaxTotalAmount">
+               <div class="val">20.9</div>
+               <div class="attribute" title="currencyID">EUR</div>
             </td>
          </tr>
          <tr class="row" id="0074">
             <td class="pos">0074</td>
-            <td class="element level5" title="TaxTotalAmount">
-               <div class="val">0.0</div>
-               <div class="attribute" title="currencyID">EUR</div>
+            <td class="element level5" title="GrandTotalAmount">
+               <div class="val">130.9</div>
             </td>
          </tr>
          <tr class="row" id="0075">
             <td class="pos">0075</td>
-            <td class="element level5" title="GrandTotalAmount">
-               <div class="val">110.0</div>
-            </td>
-         </tr>
-         <tr class="row" id="0076">
-            <td class="pos">0076</td>
             <td class="element level5" title="DuePayableAmount">
-               <div class="val">110.0</div>
+               <div class="val">130.9</div>
             </td>
          </tr>
       </table>

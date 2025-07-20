@@ -15,6 +15,6 @@ case class InputType(
 )
 object InputType {
     def empty: InputType = {
-        InputType("", "")
+        InputType("", "InvoiceNumber")  // InvoiceNumber is a Fallback
     }
 }

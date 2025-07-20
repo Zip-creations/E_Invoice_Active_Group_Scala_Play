@@ -129,12 +129,18 @@ object VATGroup {
             VATExemptionReason.validate(reason)
         ).mapN((_,_,_)).andThen{
             case(validVatID, validPositions, validExemptionReason) =>
-                if ("SZLM".contains(validVatID.vatCode.get) && validExemptionReason.get != "") {
+                val vCode = validVatID.vatCode.get
+                val vRate = validVatID.vatRate.get
+                if ("SZLM".contains(vCode) && validExemptionReason.get != "") {
                     Invalid(Seq(ArgumentError(makeError("Eine Gruppe an Positionen, für die die Steuerkategorie \"S\", \"Z\", \"L\" oder \"M\" gewählt wurde, darf keinen Befreiungsgrund von der Umsatzsteuer enthalten.", reason))))
-                } else if (!"SZLM".contains(validVatID.vatCode.get) && validExemptionReason.get == "") {
+                } else if (!"SZLM".contains(vCode) && validExemptionReason.get == "") {
                     Invalid(Seq(ArgumentError(makeError("Eine Gruppe an Positionen, für die die Steuerkategorie \"E\", \"AE\", \"K\", \"G\" oder \"O\" gewählt wurde, muss einen Befreiungsgrund von der Umsatzsteuer enthalten.", reason))))
                 } else {
-                    Valid(VATGroup(validVatID, validPositions, validExemptionReason))
+                    if (vCode == "E" && vRate != 0) {
+                    Invalid(Seq(ArgumentError(makeError("Eine Gruppe an Positionen, für die die Steuerkategorie \"E\" gewählt wurde, muss den Umsatzsteuersatz = 0 enthalten.", InputType.empty))))  // Actual source should be vatRate, but that input is not InputType, but Validated at this point (so InputType.source is lost)
+                    } else {
+                        Valid(VATGroup(validVatID, validPositions, validExemptionReason))
+                    }
                 }
         }
     }
