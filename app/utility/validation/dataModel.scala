@@ -127,7 +127,16 @@ object VATGroup {
             vatID,
             positions.sequence,
             VATExemptionReason.validate(reason)
-        ).mapN(VATGroup.apply)
+        ).mapN((_,_,_)).andThen{
+            case(validVatID, validPositions, validExemptionReason) =>
+                if ("SZLM".contains(validVatID.vatCode.get) && validExemptionReason.get != "") {
+                    Invalid(Seq(ArgumentError(makeError("Eine Gruppe an Positionen, für die die Steuerkategorie \"S\", \"Z\", \"L\" oder \"M\" gewählt wurde, darf keinen Befreiungsgrund von der Umsatzsteuer enthalten.", reason))))
+                } else if (!"SZLM".contains(validVatID.vatCode.get) && validExemptionReason.get == "") {
+                    Invalid(Seq(ArgumentError(makeError("Eine Gruppe an Positionen, für die die Steuerkategorie \"E\", \"AE\", \"K\", \"G\" oder \"O\" gewählt wurde, muss einen Befreiungsgrund von der Umsatzsteuer enthalten.", reason))))
+                } else {
+                    Valid(VATGroup(validVatID, validPositions, validExemptionReason))
+                }
+        }
     }
 }
 

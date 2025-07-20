@@ -226,7 +226,6 @@ class XMLUtility(){
                     <ram:TypeCode>VAT</ram:TypeCode>
                     {
                         var value = vatGroup.vatExemptionReason.get
-                        if ("SZLM".contains(id.vatCode.get)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
                         insertOptionalXML(value, xml)
