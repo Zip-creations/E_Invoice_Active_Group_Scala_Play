@@ -30,7 +30,7 @@
         <div class="errorDisplay">
         </div>
     </div> <!-- BT-151 -->
-    @GenerateInputField(InputName.InvoicedItemVATRate(positionID), "Umsatzsteuersatz", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.", true, classes="datatypePercentage") <!-- BT-152 -->
+    @GenerateInputField(InputName.InvoicedItemVATRate(positionID), "Umsatzsteuersatz", "Der für den in Rechnung gestellten Posten geltende und als Prozentsatz angegebene Umsatzsteuersatz.<br> Bsp. für Format: 19,5 % werden als 19.5 angegeben.", true, classes="datatypePercentage") <!-- BT-152 -->
     @GenerateInputField(InputName.InvoiceLineNetAmount(positionID), "Gesamtwert", "Berechneter Gesamtwert für diese Position. Nicht bearbeitbar.", classes="datatypeAmount", readOnly=true) <!-- only an overview for the user, value is calculated dynamically from InvoicedQuantity, ItemNetPrice and InvoicedItemVATRate -->
     <div class="buttonContainer">
         <button type="button" class="removePositionButton">Position entfernen</button>

@@ -55,8 +55,8 @@ object InvoiceInvolvedParties {
 case class InvoiceSeller private(
     name: Name,
     address: Address,
-    telephonenumber: TelephoneNumber,
-    websitelink: WebsiteLink,
+    telephonenumber: TelephoneNumber, // currently not used in xml, but was used in the old base invoice
+    websitelink: WebsiteLink, // currently not used in xml, but was used in the old base invoice
     email: Email,
     vatIdentifier: SellerVATIdentifier)
 object InvoiceSeller {
@@ -90,7 +90,7 @@ case class InvoiceBuyer private(
     reference: BuyerReference,
     name: Name,
     address: Address,
-    iban: Iban,
+    iban: Iban, // currently not used in xml, but was used in the old base invoice
     email: Email)
 object InvoiceBuyer {
     def validate(reference: InputType, name: InputType, address: Validated[Seq[ErrorMessage], Address], iban: InputType, email: InputType): Validated[Seq[ErrorMessage], InvoiceBuyer] = {

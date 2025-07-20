@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("removePositionButton")) {
             const container = event.target.closest(".invoicePosition");
-            if (confirm("Soll diese Position wirklich entfernt werden? Ihre Eingaben werden veroren gehen.")) {
+            if (confirm("Soll diese Position wirklich entfernt werden? Eingaben werden veroren gehen.")) {
                 container.remove();
             }
             loadRestrictions()

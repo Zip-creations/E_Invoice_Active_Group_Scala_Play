@@ -31,7 +31,6 @@ enum InputName {
     case PaymentMeansTypeCode
     case PaymentTerms
 
-
     // VATCategoryIdentifier
     case InvoicedItemVATCategoryCode(index: Int)
     case InvoicedItemVATRate(index: Int)

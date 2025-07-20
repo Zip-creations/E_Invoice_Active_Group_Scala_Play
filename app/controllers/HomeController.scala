@@ -53,23 +53,24 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def generateEInvoice = Action(parse.multipartFormData) { implicit request: Request[MultipartFormData[TemporaryFile]] =>
-    var xmlUtil = XMLUtility()
-    val formData = request.body
-    val allPositionIDs: Seq[String] = formData.dataParts
-      .getOrElse("positionIDcontainer", Seq.empty)
-    val allVATGroups: Seq[String] = formData.dataParts
-      .getOrElse("vatIDContainer", Seq.empty)
+    var xmlUtilily = XMLUtility()
+    val formData = request.body.dataParts
+    val allPositionIDs: Seq[String] = 
+      formData.getOrElse("positionIDcontainer", Seq.empty)
+    val allVATGroups: Seq[String] = 
+      formData.getOrElse("vatIDContainer", Seq.empty)
+
     def getInput(inputIdentifier: String) = {
-      formData.dataParts.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
+      formData.get(inputIdentifier).flatMap(_.headOption).getOrElse("")
     }
-    def createInputType(source: InputName): InputType = {
-      val name = source.toString
-      InputType(getInput(name), name)
+    def createInputType(input: InputName): InputType = {
+      val source = input.toString
+      InputType(getInput(source), source)
     }
 
     val meta = InvoiceMetaData.validate(
       createInputType(InputName.InvoiceNumber),
-      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),  // Xrechnung requires the format YYYYMMDD without '-'
+      InputType(getInput("InvoiceIssueDate").replace("-", ""), "InvoiceIssueDate"),  // Xrechnung requires the format YYYYMMDD, without '-'
       InputType("380", "") // hardcoded default value, from InvoiceTypeCodes
       )
 
@@ -111,7 +112,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         createInputType(InputName.VATGroupRate(group))
       )
       val posIDs = getInput("vatGroupPositionIDsContainer" + group)
-      // vatGroupPositions is for the tax summary
       var vatGroupPositions: List[Validated[Seq[ErrorMessage], InvoicePosition]] = Nil
       // create a validated InvoicePostion for every positionID
       posIDs.split(",").foreach(posID =>
@@ -162,7 +162,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
 
     invoice match {
       case Valid(a) =>
-        val xmlData = xmlUtil.CreateInvoiceXML(a)
+        val xmlData = xmlUtilily.CreateInvoiceXML(a)
         // Paths
         val inputInvoiceNumber = getInput("InvoiceNumber")
         val invoiceName = new File(s"eInvoice_$inputInvoiceNumber").getPath 
@@ -191,6 +191,7 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
         // Open the .html report
         Ok(Json.obj("status"-> "ok", "data" -> reportPath))
       case Invalid(e) =>
+        // converts errors to JSON, so they can be handled by Ok()
         val errors: mutable.Map[String, Seq[String]] = mutable.Map.empty
         e.foreach(error =>
           val currentPos = errors.getOrElse(error.value.source, List.empty)

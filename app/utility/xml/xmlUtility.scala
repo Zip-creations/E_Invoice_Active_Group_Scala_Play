@@ -6,10 +6,7 @@ import scala.xml.NodeSeq
 
 
 class XMLUtility(){
-
-    private case class StoredPosition(netAmount: Double, vatId: VATCategoryIdentifier)
-    private var storedPositions: List[StoredPosition] = Nil
-
+    
     // Assumes the vatRate in this format: A tax of 19.7% is given as 19.7
     // returns the value with a leading 1; e.g.
     // 19 -> 1.19
@@ -18,12 +15,12 @@ class XMLUtility(){
         return (vatRate / 100) +1
     }
 
-    // Round to nearest two digits after deciaml point
+    // Round to nearest two digits after deciaml point. Necessary because of floating point arithmetic.
     private def roundAmount(num: Double): Double = {
-        return (math.rint(num * 100) / 100)  // rint := round to nearest Int
+        return (math.rint(num * 100) / 100)  // rint = round to nearest Int
     }
 
-    private def insertOptionalInput(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
+    private def insertOptionalXML(value: String, xml: scala.xml.Elem): scala.xml.NodeSeq = {
       if (value != "") {
         return xml
       } else {
@@ -65,7 +62,7 @@ class XMLUtility(){
                 <ram:ID>{meta.identifier.get}</ram:ID>
                 <ram:TypeCode>{meta.invoiceType.get}</ram:TypeCode>
                 <ram:IssueDateTime>
-                    <udt:DateTimeString format="102">{Date.get(meta.date)}</udt:DateTimeString>{// format="102" is determined in the EN 16931 - CII Mapping scheme
+                    <udt:DateTimeString format="102">{Date.get(meta.date)}</udt:DateTimeString>{// format="102" is determined by the EN 16931 - CII Mapping scheme
                     }
                 </ram:IssueDateTime>
             </rsm:ExchangedDocument>
@@ -106,7 +103,7 @@ class XMLUtility(){
                     val value = address.street.get
                     val xml =
                         <ram:LineOne>{value}</ram:LineOne>
-                    insertOptionalInput(value, xml)
+                    insertOptionalXML(value, xml)
                 }
                 <ram:CityName>{address.city.get}</ram:CityName>
                 <ram:CountryID>{address.countryCode.get}</ram:CountryID>
@@ -147,7 +144,6 @@ class XMLUtility(){
                 case InvoicePositionData.Leistungsposition(quantity, pricePerPart, measurementcode) =>
                     (quantity.get, pricePerPart.get, measurementcode.get, quantity.get * pricePerPart.get)
             }
-        storedPositions = storedPositions :+ StoredPosition(totalAmount, position.vatId)
 
         val xml =
             <ram:IncludedSupplyChainTradeLineItem>
@@ -198,9 +194,9 @@ class XMLUtility(){
                         <ram:SpecifiedTradePaymentTerms>
                             <ram:Description>{value}</ram:Description>
                         </ram:SpecifiedTradePaymentTerms>
-                    insertOptionalInput(value, xml)
+                    insertOptionalXML(value, xml)
                 }
-                {CreateDocumentSummaryXML(storedPositions, currencycode)}
+                {CreateDocumentSummaryXML(paymentInfo.vatGroups, currencycode)}
             </ram:ApplicableHeaderTradeSettlement>
         return xml
     }
@@ -233,7 +229,7 @@ class XMLUtility(){
                         if ("SZLM".contains(id.vatCode.get)){value = ""} // S/Z/L/M are the codes that can not contain an exemption reason. All other codes require one.
                         val xml= 
                             <ram:ExemptionReason>{value}</ram:ExemptionReason>
-                        insertOptionalInput(value, xml)
+                        insertOptionalXML(value, xml)
                     }
                     <ram:BasisAmount>{roundAmount(totalAmount)}</ram:BasisAmount>
                     <ram:CategoryCode>{id.vatCode.get}</ram:CategoryCode>
@@ -243,18 +239,26 @@ class XMLUtility(){
         return xml
     }
 
-    private def CreateDocumentSummaryXML(allPositions: List[StoredPosition], currencycode: String): scala.xml.Elem = {
+    private def CreateDocumentSummaryXML(allPositions: List[VATGroup], currencycode: String): scala.xml.Elem = {
         var totalNetAmount = 0.0
         var totalVATAmount = 0.0
         var totalAmountWithoutVAT = 0.0
         var totalAmountWithVAT = 0.0
-        var amountDue = 0.0
-        for (i <- storedPositions) {
-            val taxpercentage = getVATRateFormat(i.vatId.vatRate.get)
-            totalNetAmount += i.netAmount
-            totalVATAmount += i.netAmount * taxpercentage - i.netAmount
-            totalAmountWithoutVAT += i.netAmount  // Whats the differnce to totalNetAmount?
-            totalAmountWithVAT += i.netAmount * taxpercentage
+        for {
+            group <- allPositions
+            pos <- group.positions
+        }{
+            val (totalAmount): (Double) = pos.data match{
+                case InvoicePositionData.Stundenposition(hours, hourlyrate, _) =>
+                    (hours.get * hourlyrate.get)
+                case InvoicePositionData.Leistungsposition(quantity, pricePerPart, _) =>
+                    (quantity.get * pricePerPart.get)
+            }
+            val taxpercentage = getVATRateFormat(pos.vatId.vatRate.get)
+            totalNetAmount += totalAmount
+            totalVATAmount += totalAmount * taxpercentage - totalAmount
+            totalAmountWithoutVAT += totalAmount  // Whats the difference to totalNetAmount?
+            totalAmountWithVAT += totalAmount * taxpercentage
         }
         val xml =
                 <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
