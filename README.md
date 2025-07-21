@@ -22,6 +22,8 @@ im Hauptverzeichnis ausführen,
 
 Tool ist dann unter `localhost:9000` ansprechbar.
 
+Die Tets für die Datentypen können mit `sbt test` ausgeführt werden.
+
 Die E-Rechnung im XML-Format sowie der dazugehörige Validierungs-report im HTML werden mit der "InvoiceNumber" (also der ID der Rechung) im Namen abgespeichert.\
 Speicherorte:\
 XML (Rechnung): `output/xml/eInvoice_"InvoiceNumber".xml` [Directory](output/xml/)\
