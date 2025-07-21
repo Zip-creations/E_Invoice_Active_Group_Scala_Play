@@ -260,7 +260,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "C:\\Program Files\\Java\\jdk-23.0.2",
+                "home": "C:\\Program Files\\Java\\jdk-21",
                 "options": [
                     "-Duser.dir=E:\\Nicht syncronisiert\\Code\\E_Invoice_Active_Group_Scala_Play\\project"
                 ]
@@ -269,7 +269,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "C:\\Program Files\\Java\\jdk-23.0.2",
+                "home": "C:\\Program Files\\Java\\jdk-21",
                 "options": [
                     "-Duser.dir=E:\\Nicht syncronisiert\\Code\\E_Invoice_Active_Group_Scala_Play\\project"
                 ]

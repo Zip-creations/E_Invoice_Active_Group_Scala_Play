@@ -1,12 +1,14 @@
-# E_Invoice_Active_Group_Scala_Play
+# Tool zur Erstellung von E-Rechnungen (X-Rechung)
 
-Dieses Projekt entsteht im Rahmen eines Bachelorprojektes in Kooperation mit [Active Group](https://www.active-group.de/)
+Dieses Projekt entstand im Rahmen eines Bachelorprojektes an der [Universität Freiburg](https://uni-freiburg.de/) in Kooperation mit [Active Group](https://www.active-group.de/)
 
 Anforderungen: 
+- Java ver. 21.0.7
 - Scala ver. 3.7.1
-- Play ver. 3.0.7
-- Scala.js ver. 1.19.0
 - sbt ver. 1.10.9
+- Play Framework ver. 3.0.7
+- Scala.js ver. 1.19.0
+- MUnit ver. 1.1.1
 
 Dieses Projekt verwendet den Validator den [OpenXRechnungToolbox](https://github.com/jcthiele/OpenXRechnungToolbox) "as is". Lizenz der Toolbox: [GPLv3](Toolbox/license.txt)
 
