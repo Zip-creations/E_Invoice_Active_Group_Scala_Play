@@ -25,7 +25,7 @@ object MeasurementCode {
         Validated.cond(
             MeasurementCode.strInList(code),
             MeasurementCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für einen Maßeinheitencode wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }

@@ -25,7 +25,7 @@ object CountryCode {
         Validated.cond(
             CountryCode.strInList(code),
             CountryCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für einen Ländercode wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }

@@ -25,7 +25,7 @@ object PaymentMeansTypeCode {
         Validated.cond(
             PaymentMeansTypeCode.strInList(code),
             PaymentMeansTypeCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für einen Zahlungsmittelcode wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }

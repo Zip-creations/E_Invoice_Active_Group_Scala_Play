@@ -25,7 +25,7 @@ object VATCategoryCode {
         Validated.cond(
             VATCategoryCode.strInList(code),
             VATCategoryCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für eine Steuerkategorie wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }

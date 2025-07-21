@@ -25,7 +25,7 @@ object CurrencyCode {
         Validated.cond(
             CurrencyCode.strInList(code),
             CurrencyCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für einen Währungscode wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }

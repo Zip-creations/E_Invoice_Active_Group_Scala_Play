@@ -25,7 +25,7 @@ object InvoiceTypeCode {
         Validated.cond(
             InvoiceTypeCode.strInList(code),
             InvoiceTypeCode.matchStr(code).get,
-            Seq(ValueNotInCodelistError(input))
+            Seq(ValueNotInCodelistError(makeError("Für einen Rechnungstypcode wurde ein inkorrekter Code angegeben.", input)))
         )
     }
 }
