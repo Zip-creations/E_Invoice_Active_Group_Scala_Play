@@ -10,6 +10,8 @@ Anforderungen:
 - Scala.js ver. 1.19.0
 - MUnit ver. 1.1.1
 
+Dieses Tool ist unter [BSD 3-Clause](LICENSE.txt) lizensiert.
+
 Dieses Projekt verwendet den Validator den [OpenXRechnungToolbox](https://github.com/jcthiele/OpenXRechnungToolbox) "as is". Lizenz der Toolbox: [GPLv3](Toolbox/license.txt)
 
 Benutzung des E-Rechung Tools:
