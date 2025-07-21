@@ -21,7 +21,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\ch\\epfl\\scala\\sbt-bloop_2.12_1.0\\2.0.10\\sbt-bloop_2.12_1.0-2.0.10.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\sbt-plugin_2.12_1.0\\3.0.7\\sbt-plugin_2.12_1.0-3.0.7.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\sbt-scalajs_2.12_1.0\\1.19.0\\sbt-scalajs_2.12_1.0-1.19.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\sbt-giter8-scaffold_2.12_1.0\\0.17.0\\sbt-giter8-scaffold_2.12_1.0-0.17.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\main_2.12\\1.10.9\\main_2.12-1.10.9.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\io_2.12\\1.10.4\\io_2.12-1.10.4.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\ch\\epfl\\scala\\bloop-config_2.12\\2.3.2\\bloop-config_2.12-2.3.2.jar",
@@ -39,7 +38,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\portable-scala\\sbt-platform-deps_2.12_1.0\\1.0.2\\sbt-platform-deps_2.12_1.0-1.0.2.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-js-envs_2.12\\1.4.0\\scalajs-js-envs_2.12-1.4.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-env-nodejs_2.12\\1.4.0\\scalajs-env-nodejs_2.12-1.4.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-lib_2.12\\0.17.0\\giter8-lib_2.12-0.17.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\logic_2.12\\1.10.9\\logic_2.12-1.10.9.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\actions_2.12\\1.10.9\\actions_2.12-1.10.9.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\main-settings_2.12\\1.10.9\\main-settings_2.12-1.10.9.jar",
@@ -82,11 +80,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-logging_2.12\\1.1.1\\scalajs-logging_2.12-1.1.1.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\test-interface\\1.0\\test-interface-1.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\google\\jimfs\\jimfs\\1.1\\jimfs-1.1.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-cli-git_2.12\\0.17.0\\giter8-cli-git_2.12-0.17.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\ST4\\4.3.4\\ST4-4.3.4.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit\\5.13.3.202401111512-r\\org.eclipse.jgit-5.13.3.202401111512-r.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.18.0\\commons-io-2.18.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-archiver\\4.10.0\\plexus-archiver-4.10.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\util-relation_2.12\\1.10.9\\util-relation_2.12-1.10.9.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\completion_2.12\\1.10.9\\completion_2.12-1.10.9.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\task-system_2.12\\1.10.9\\task-system_2.12-1.10.9.jar",
@@ -124,6 +117,7 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\twirl\\twirl-parser_2.12\\2.0.8\\twirl-parser_2.12-2.0.8.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\parsers_2.12\\4.13.2\\parsers_2.12-4.13.2.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-codec\\commons-codec\\1.17.1\\commons-codec-1.17.1.jar",
+            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.16.1\\commons-io-2.16.1.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\commons\\commons-lang3\\3.16.0\\commons-lang3-3.16.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\ant\\ant-launcher\\1.10.15\\ant-launcher-1.10.15.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\github\\classgraph\\classgraph\\4.8.173\\classgraph-4.8.173.jar",
@@ -131,15 +125,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\apigee\\trireme\\trireme-kernel\\0.9.4\\trireme-kernel-0.9.4.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\mozilla\\rhino\\1.7.10\\rhino-1.7.10.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\google\\guava\\guava\\18.0\\guava-18.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\scopt\\scopt_2.12\\4.1.0\\scopt_2.12-4.1.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit.ssh.apache\\5.13.3.202401111512-r\\org.eclipse.jgit.ssh.apache-5.13.3.202401111512-r.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\antlr-runtime\\3.5.3\\antlr-runtime-3.5.3.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\googlecode\\javaewah\\JavaEWAH\\1.1.13\\JavaEWAH-1.1.13.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\javax\\inject\\javax.inject\\1\\javax.inject-1.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-utils\\4.0.1\\plexus-utils-4.0.1.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-io\\3.5.0\\plexus-io-3.5.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\airlift\\aircompressor\\0.27\\aircompressor-0.27.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\luben\\zstd-jni\\1.5.6-3\\zstd-jni-1.5.6-3.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\jline\\jline-reader\\3.27.1\\jline-reader-3.27.1.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\jline\\jline-builtins\\3.27.1\\jline-builtins-3.27.1.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\test-agent\\1.10.9\\test-agent-1.10.9.jar",
@@ -156,8 +141,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\eed3si9n\\gigahorse-core_2.12\\0.7.0\\gigahorse-core_2.12-0.7.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\eed3si9n\\shaded-apache-httpasyncclient\\0.7.0\\shaded-apache-httpasyncclient-0.7.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\trees_2.12\\4.13.2\\trees_2.12-4.13.2.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\sshd\\sshd-osgi\\2.7.0\\sshd-osgi-2.7.0.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\net\\i2p\\crypto\\eddsa\\0.3.0\\eddsa-0.3.0.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\jline\\jline-style\\3.27.1\\jline-style-3.27.1.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\zinc-persist-core-assembly\\1.10.8\\zinc-persist-core-assembly-1.10.8.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\sbinary_2.12\\0.5.1\\sbinary_2.12-0.5.1.jar",
@@ -166,7 +149,6 @@
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\reactivestreams\\reactive-streams\\1.0.3\\reactive-streams-1.0.3.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\common_2.12\\4.13.2\\common_2.12-4.13.2.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\io_2.12\\4.13.2\\io_2.12-4.13.2.jar",
-            "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\slf4j\\jcl-over-slf4j\\1.7.30\\jcl-over-slf4j-1.7.30.jar",
             "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\lihaoyi\\sourcecode_2.12\\0.4.2\\sourcecode_2.12-0.4.2.jar"
         ],
         "out": "E:\\Nicht syncronisiert\\Code\\E_Invoice_Active_Group_Scala_Play\\project\\.bloop\\e_invoice_active_group_scala_play-build",
@@ -212,8 +194,8 @@
                 "import _root_.sbt._",
                 "import _root_.sbt.Keys._",
                 "import _root_.sbt.nio.Keys._",
-                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt.plugins.JUnitXmlReportPlugin.autoImport._, _root_.sbt.plugins.MiniDependencyTreePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.play.sbt.Play.autoImport._, _root_.play.sbt.PlayService.autoImport._, _root_.play.sbt.routes.RoutesCompiler.autoImport._, _root_.org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._, _root_.giter8.ScaffoldPlugin.autoImport._, _root_.play.twirl.sbt.SbtTwirl.autoImport._, _root_.com.typesafe.sbt.SbtNativePackager.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.JavaAppPackaging.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jar.ClasspathJarPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jar.LauncherJarPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jlink.JlinkPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.scripts.BatStartScriptPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemdPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemloaderPlugin.autoImport._, _root_.com.typesafe.sbt.packager.debian.DebianPlugin.autoImport._, _root_.com.typesafe.sbt.packager.docker.DockerPlugin.autoImport._, _root_.com.typesafe.sbt.packager.graalvmnativeimage.GraalVMNativeImagePlugin.autoImport._, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerPlugin.autoImport._, _root_.com.typesafe.sbt.packager.linux.LinuxPlugin.autoImport._, _root_.com.typesafe.sbt.packager.rpm.RpmPlugin.autoImport._, _root_.com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._, _root_.com.typesafe.sbt.packager.windows.WindowsPlugin.autoImport._, _root_.com.typesafe.sbt.web.SbtWeb.autoImport._, _root_.com.typesafe.sbt.jse.SbtJsEngine.autoImport._, _root_.com.typesafe.sbt.jse.SbtJsTask.autoImport._, _root_.org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._",
-                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.SemanticdbPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.sbt.plugins.MiniDependencyTreePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.play.sbt.Play, _root_.play.sbt.PlayFilters, _root_.play.sbt.PlayJava, _root_.play.sbt.PlayLayoutPlugin, _root_.play.sbt.PlayLogback, _root_.play.sbt.PlayMinimalJava, _root_.play.sbt.PlayNettyServer, _root_.play.sbt.PlayPekkoHttp2Support, _root_.play.sbt.PlayPekkoHttpServer, _root_.play.sbt.PlayScala, _root_.play.sbt.PlayService, _root_.play.sbt.PlayWeb, _root_.play.sbt.routes.RoutesCompiler, _root_.org.scalajs.sbtplugin.ScalaJSJUnitPlugin, _root_.org.scalajs.sbtplugin.ScalaJSPlugin, _root_.giter8.ScaffoldPlugin, _root_.play.twirl.sbt.SbtTwirl, _root_.com.typesafe.sbt.SbtNativePackager, _root_.com.typesafe.sbt.packager.archetypes.JavaAppPackaging, _root_.com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging, _root_.com.typesafe.sbt.packager.archetypes.jar.ClasspathJarPlugin, _root_.com.typesafe.sbt.packager.archetypes.jar.LauncherJarPlugin, _root_.com.typesafe.sbt.packager.archetypes.jlink.JlinkPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.AshScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.BatStartScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemVPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemdPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemloaderPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.UpstartPlugin, _root_.com.typesafe.sbt.packager.debian.DebianDeployPlugin, _root_.com.typesafe.sbt.packager.debian.DebianPlugin, _root_.com.typesafe.sbt.packager.debian.JDebPackaging, _root_.com.typesafe.sbt.packager.docker.DockerPlugin, _root_.com.typesafe.sbt.packager.docker.DockerSpotifyClientPlugin, _root_.com.typesafe.sbt.packager.graalvmnativeimage.GraalVMNativeImagePlugin, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerDeployPlugin, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerPlugin, _root_.com.typesafe.sbt.packager.linux.LinuxPlugin, _root_.com.typesafe.sbt.packager.rpm.RpmDeployPlugin, _root_.com.typesafe.sbt.packager.rpm.RpmPlugin, _root_.com.typesafe.sbt.packager.universal.UniversalDeployPlugin, _root_.com.typesafe.sbt.packager.universal.UniversalPlugin, _root_.com.typesafe.sbt.packager.windows.WindowsDeployPlugin, _root_.com.typesafe.sbt.packager.windows.WindowsPlugin, _root_.com.typesafe.sbt.web.SbtWeb, _root_.com.typesafe.sbt.jse.SbtJsEngine, _root_.com.typesafe.sbt.jse.SbtJsTask, _root_.org.portablescala.sbtplatformdeps.PlatformDepsPlugin"
+                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt.plugins.JUnitXmlReportPlugin.autoImport._, _root_.sbt.plugins.MiniDependencyTreePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.play.sbt.Play.autoImport._, _root_.play.sbt.PlayService.autoImport._, _root_.play.sbt.routes.RoutesCompiler.autoImport._, _root_.org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._, _root_.play.twirl.sbt.SbtTwirl.autoImport._, _root_.com.typesafe.sbt.SbtNativePackager.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.JavaAppPackaging.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jar.ClasspathJarPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jar.LauncherJarPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.jlink.JlinkPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.scripts.BatStartScriptPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemdPlugin.autoImport._, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemloaderPlugin.autoImport._, _root_.com.typesafe.sbt.packager.debian.DebianPlugin.autoImport._, _root_.com.typesafe.sbt.packager.docker.DockerPlugin.autoImport._, _root_.com.typesafe.sbt.packager.graalvmnativeimage.GraalVMNativeImagePlugin.autoImport._, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerPlugin.autoImport._, _root_.com.typesafe.sbt.packager.linux.LinuxPlugin.autoImport._, _root_.com.typesafe.sbt.packager.rpm.RpmPlugin.autoImport._, _root_.com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._, _root_.com.typesafe.sbt.packager.windows.WindowsPlugin.autoImport._, _root_.com.typesafe.sbt.web.SbtWeb.autoImport._, _root_.com.typesafe.sbt.jse.SbtJsEngine.autoImport._, _root_.com.typesafe.sbt.jse.SbtJsTask.autoImport._, _root_.org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._",
+                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.SemanticdbPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.sbt.plugins.MiniDependencyTreePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.play.sbt.Play, _root_.play.sbt.PlayFilters, _root_.play.sbt.PlayJava, _root_.play.sbt.PlayLayoutPlugin, _root_.play.sbt.PlayLogback, _root_.play.sbt.PlayMinimalJava, _root_.play.sbt.PlayNettyServer, _root_.play.sbt.PlayPekkoHttp2Support, _root_.play.sbt.PlayPekkoHttpServer, _root_.play.sbt.PlayScala, _root_.play.sbt.PlayService, _root_.play.sbt.PlayWeb, _root_.play.sbt.routes.RoutesCompiler, _root_.org.scalajs.sbtplugin.ScalaJSJUnitPlugin, _root_.org.scalajs.sbtplugin.ScalaJSPlugin, _root_.play.twirl.sbt.SbtTwirl, _root_.com.typesafe.sbt.SbtNativePackager, _root_.com.typesafe.sbt.packager.archetypes.JavaAppPackaging, _root_.com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging, _root_.com.typesafe.sbt.packager.archetypes.jar.ClasspathJarPlugin, _root_.com.typesafe.sbt.packager.archetypes.jar.LauncherJarPlugin, _root_.com.typesafe.sbt.packager.archetypes.jlink.JlinkPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.AshScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.scripts.BatStartScriptPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemVPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemdPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.SystemloaderPlugin, _root_.com.typesafe.sbt.packager.archetypes.systemloader.UpstartPlugin, _root_.com.typesafe.sbt.packager.debian.DebianDeployPlugin, _root_.com.typesafe.sbt.packager.debian.DebianPlugin, _root_.com.typesafe.sbt.packager.debian.JDebPackaging, _root_.com.typesafe.sbt.packager.docker.DockerPlugin, _root_.com.typesafe.sbt.packager.docker.DockerSpotifyClientPlugin, _root_.com.typesafe.sbt.packager.graalvmnativeimage.GraalVMNativeImagePlugin, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerDeployPlugin, _root_.com.typesafe.sbt.packager.jdkpackager.JDKPackagerPlugin, _root_.com.typesafe.sbt.packager.linux.LinuxPlugin, _root_.com.typesafe.sbt.packager.rpm.RpmDeployPlugin, _root_.com.typesafe.sbt.packager.rpm.RpmPlugin, _root_.com.typesafe.sbt.packager.universal.UniversalDeployPlugin, _root_.com.typesafe.sbt.packager.universal.UniversalPlugin, _root_.com.typesafe.sbt.packager.windows.WindowsDeployPlugin, _root_.com.typesafe.sbt.packager.windows.WindowsPlugin, _root_.com.typesafe.sbt.web.SbtWeb, _root_.com.typesafe.sbt.jse.SbtJsEngine, _root_.com.typesafe.sbt.jse.SbtJsTask, _root_.org.portablescala.sbtplatformdeps.PlatformDepsPlugin"
             ]
         },
         "test": {
@@ -297,7 +279,6 @@
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\ch\\epfl\\scala\\sbt-bloop_2.12_1.0\\2.0.10\\sbt-bloop_2.12_1.0-2.0.10.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\sbt-plugin_2.12_1.0\\3.0.7\\sbt-plugin_2.12_1.0-3.0.7.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\sbt-scalajs_2.12_1.0\\1.19.0\\sbt-scalajs_2.12_1.0-1.19.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\sbt-giter8-scaffold_2.12_1.0\\0.17.0\\sbt-giter8-scaffold_2.12_1.0-0.17.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\ch\\epfl\\scala\\bloop-config_2.12\\2.3.2\\bloop-config_2.12-2.3.2.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\sbt-routes-compiler_2.12\\3.0.7\\sbt-routes-compiler_2.12-3.0.7.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\play-run-support_2.12\\3.0.7\\play-run-support_2.12-3.0.7.jar",
@@ -313,7 +294,6 @@
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\portable-scala\\sbt-platform-deps_2.12_1.0\\1.0.2\\sbt-platform-deps_2.12_1.0-1.0.2.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-js-envs_2.12\\1.4.0\\scalajs-js-envs_2.12-1.4.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-env-nodejs_2.12\\1.4.0\\scalajs-env-nodejs_2.12-1.4.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-lib_2.12\\0.17.0\\giter8-lib_2.12-0.17.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\plokhotnyuk\\jsoniter-scala\\jsoniter-scala-core_2.12\\2.13.5.2\\jsoniter-scala-core_2.12-2.13.5.2.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\lihaoyi\\unroll-annotation_2.12\\0.1.12\\unroll-annotation_2.12-0.1.12.jar",
                 "C:\\Users\\Chef\\.sbt\\boot\\scala-2.12.20\\lib\\scala-library.jar",
@@ -338,16 +318,12 @@
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-logging_2.12\\1.1.1\\scalajs-logging_2.12-1.1.1.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-sbt\\test-interface\\1.0\\test-interface-1.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\google\\jimfs\\jimfs\\1.1\\jimfs-1.1.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-cli-git_2.12\\0.17.0\\giter8-cli-git_2.12-0.17.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\ST4\\4.3.4\\ST4-4.3.4.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit\\5.13.3.202401111512-r\\org.eclipse.jgit-5.13.3.202401111512-r.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.18.0\\commons-io-2.18.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-archiver\\4.10.0\\plexus-archiver-4.10.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\play-exceptions\\3.0.7\\play-exceptions-3.0.7.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\net\\java\\dev\\jna\\jna\\5.12.1\\jna-5.12.1.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\playframework\\twirl\\twirl-parser_2.12\\2.0.8\\twirl-parser_2.12-2.0.8.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\parsers_2.12\\4.13.2\\parsers_2.12-4.13.2.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-codec\\commons-codec\\1.17.1\\commons-codec-1.17.1.jar",
+                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.16.1\\commons-io-2.16.1.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\commons\\commons-lang3\\3.16.0\\commons-lang3-3.16.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\ant\\ant-launcher\\1.10.15\\ant-launcher-1.10.15.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\swoval\\file-tree-views\\2.1.12\\file-tree-views-2.1.12.jar",
@@ -356,21 +332,9 @@
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\apigee\\trireme\\trireme-kernel\\0.9.4\\trireme-kernel-0.9.4.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\mozilla\\rhino\\1.7.10\\rhino-1.7.10.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\google\\guava\\guava\\18.0\\guava-18.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\scopt\\scopt_2.12\\4.1.0\\scopt_2.12-4.1.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit.ssh.apache\\5.13.3.202401111512-r\\org.eclipse.jgit.ssh.apache-5.13.3.202401111512-r.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\antlr-runtime\\3.5.3\\antlr-runtime-3.5.3.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\googlecode\\javaewah\\JavaEWAH\\1.1.13\\JavaEWAH-1.1.13.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\javax\\inject\\javax.inject\\1\\javax.inject-1.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-utils\\4.0.1\\plexus-utils-4.0.1.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-io\\3.5.0\\plexus-io-3.5.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\airlift\\aircompressor\\0.27\\aircompressor-0.27.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\luben\\zstd-jni\\1.5.6-3\\zstd-jni-1.5.6-3.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\trees_2.12\\4.13.2\\trees_2.12-4.13.2.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\sshd\\sshd-osgi\\2.7.0\\sshd-osgi-2.7.0.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\net\\i2p\\crypto\\eddsa\\0.3.0\\eddsa-0.3.0.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\common_2.12\\4.13.2\\common_2.12-4.13.2.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\io_2.12\\4.13.2\\io_2.12-4.13.2.jar",
-                "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\slf4j\\jcl-over-slf4j\\1.7.30\\jcl-over-slf4j-1.7.30.jar",
                 "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\lihaoyi\\sourcecode_2.12\\0.4.2\\sourcecode_2.12-0.4.2.jar"
             ]
         },
@@ -424,23 +388,6 @@
                             "name": "sbt-scalajs",
                             "classifier": "sources",
                             "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\sbt-scalajs_2.12_1.0\\1.19.0\\sbt-scalajs_2.12_1.0-1.19.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.foundweekends.giter8",
-                    "name": "sbt-giter8-scaffold",
-                    "version": "0.17.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "sbt-giter8-scaffold",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\sbt-giter8-scaffold_2.12_1.0\\0.17.0\\sbt-giter8-scaffold_2.12_1.0-0.17.0.jar"
-                        },
-                        {
-                            "name": "sbt-giter8-scaffold",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\sbt-giter8-scaffold_2.12_1.0\\0.17.0\\sbt-giter8-scaffold_2.12_1.0-0.17.0-sources.jar"
                         }
                     ]
                 },
@@ -696,23 +643,6 @@
                             "name": "scalajs-env-nodejs_2.12",
                             "classifier": "sources",
                             "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scala-js\\scalajs-env-nodejs_2.12\\1.4.0\\scalajs-env-nodejs_2.12-1.4.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.foundweekends.giter8",
-                    "name": "giter8-lib_2.12",
-                    "version": "0.17.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "giter8-lib_2.12",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-lib_2.12\\0.17.0\\giter8-lib_2.12-0.17.0.jar"
-                        },
-                        {
-                            "name": "giter8-lib_2.12",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-lib_2.12\\0.17.0\\giter8-lib_2.12-0.17.0-sources.jar"
                         }
                     ]
                 },
@@ -1103,91 +1033,6 @@
                     ]
                 },
                 {
-                    "organization": "org.foundweekends.giter8",
-                    "name": "giter8-cli-git_2.12",
-                    "version": "0.17.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "giter8-cli-git_2.12",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-cli-git_2.12\\0.17.0\\giter8-cli-git_2.12-0.17.0.jar"
-                        },
-                        {
-                            "name": "giter8-cli-git_2.12",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\foundweekends\\giter8\\giter8-cli-git_2.12\\0.17.0\\giter8-cli-git_2.12-0.17.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.antlr",
-                    "name": "ST4",
-                    "version": "4.3.4",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "ST4",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\ST4\\4.3.4\\ST4-4.3.4.jar"
-                        },
-                        {
-                            "name": "ST4",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\ST4\\4.3.4\\ST4-4.3.4-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.eclipse.jgit",
-                    "name": "org.eclipse.jgit",
-                    "version": "5.13.3.202401111512-r",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "org.eclipse.jgit",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit\\5.13.3.202401111512-r\\org.eclipse.jgit-5.13.3.202401111512-r.jar"
-                        },
-                        {
-                            "name": "org.eclipse.jgit",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit\\5.13.3.202401111512-r\\org.eclipse.jgit-5.13.3.202401111512-r-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "commons-io",
-                    "name": "commons-io",
-                    "version": "2.18.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "commons-io",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.18.0\\commons-io-2.18.0.jar"
-                        },
-                        {
-                            "name": "commons-io",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.18.0\\commons-io-2.18.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.codehaus.plexus",
-                    "name": "plexus-archiver",
-                    "version": "4.10.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "plexus-archiver",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-archiver\\4.10.0\\plexus-archiver-4.10.0.jar"
-                        },
-                        {
-                            "name": "plexus-archiver",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-archiver\\4.10.0\\plexus-archiver-4.10.0-sources.jar"
-                        }
-                    ]
-                },
-                {
                     "organization": "org.playframework",
                     "name": "play-exceptions",
                     "version": "3.0.7",
@@ -1269,6 +1114,23 @@
                             "name": "commons-codec",
                             "classifier": "sources",
                             "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-codec\\commons-codec\\1.17.1\\commons-codec-1.17.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "commons-io",
+                    "name": "commons-io",
+                    "version": "2.16.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "commons-io",
+                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.16.1\\commons-io-2.16.1.jar"
+                        },
+                        {
+                            "name": "commons-io",
+                            "classifier": "sources",
+                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\commons-io\\commons-io\\2.16.1\\commons-io-2.16.1-sources.jar"
                         }
                     ]
                 },
@@ -1409,159 +1271,6 @@
                     ]
                 },
                 {
-                    "organization": "com.github.scopt",
-                    "name": "scopt_2.12",
-                    "version": "4.1.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "scopt_2.12",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\scopt\\scopt_2.12\\4.1.0\\scopt_2.12-4.1.0.jar"
-                        },
-                        {
-                            "name": "scopt_2.12",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\scopt\\scopt_2.12\\4.1.0\\scopt_2.12-4.1.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.eclipse.jgit",
-                    "name": "org.eclipse.jgit.ssh.apache",
-                    "version": "5.13.3.202401111512-r",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "org.eclipse.jgit.ssh.apache",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit.ssh.apache\\5.13.3.202401111512-r\\org.eclipse.jgit.ssh.apache-5.13.3.202401111512-r.jar"
-                        },
-                        {
-                            "name": "org.eclipse.jgit.ssh.apache",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\eclipse\\jgit\\org.eclipse.jgit.ssh.apache\\5.13.3.202401111512-r\\org.eclipse.jgit.ssh.apache-5.13.3.202401111512-r-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.antlr",
-                    "name": "antlr-runtime",
-                    "version": "3.5.3",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "antlr-runtime",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\antlr-runtime\\3.5.3\\antlr-runtime-3.5.3.jar"
-                        },
-                        {
-                            "name": "antlr-runtime",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\antlr\\antlr-runtime\\3.5.3\\antlr-runtime-3.5.3-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "com.googlecode.javaewah",
-                    "name": "JavaEWAH",
-                    "version": "1.1.13",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "JavaEWAH",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\googlecode\\javaewah\\JavaEWAH\\1.1.13\\JavaEWAH-1.1.13.jar"
-                        },
-                        {
-                            "name": "JavaEWAH",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\googlecode\\javaewah\\JavaEWAH\\1.1.13\\JavaEWAH-1.1.13-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "javax.inject",
-                    "name": "javax.inject",
-                    "version": "1",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "javax.inject",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\javax\\inject\\javax.inject\\1\\javax.inject-1.jar"
-                        },
-                        {
-                            "name": "javax.inject",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\javax\\inject\\javax.inject\\1\\javax.inject-1-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.codehaus.plexus",
-                    "name": "plexus-utils",
-                    "version": "4.0.1",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "plexus-utils",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-utils\\4.0.1\\plexus-utils-4.0.1.jar"
-                        },
-                        {
-                            "name": "plexus-utils",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-utils\\4.0.1\\plexus-utils-4.0.1-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.codehaus.plexus",
-                    "name": "plexus-io",
-                    "version": "3.5.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "plexus-io",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-io\\3.5.0\\plexus-io-3.5.0.jar"
-                        },
-                        {
-                            "name": "plexus-io",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\codehaus\\plexus\\plexus-io\\3.5.0\\plexus-io-3.5.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "io.airlift",
-                    "name": "aircompressor",
-                    "version": "0.27",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "aircompressor",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\airlift\\aircompressor\\0.27\\aircompressor-0.27.jar"
-                        },
-                        {
-                            "name": "aircompressor",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\io\\airlift\\aircompressor\\0.27\\aircompressor-0.27-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "com.github.luben",
-                    "name": "zstd-jni",
-                    "version": "1.5.6-3",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "zstd-jni",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\luben\\zstd-jni\\1.5.6-3\\zstd-jni-1.5.6-3.jar"
-                        },
-                        {
-                            "name": "zstd-jni",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\com\\github\\luben\\zstd-jni\\1.5.6-3\\zstd-jni-1.5.6-3-sources.jar"
-                        }
-                    ]
-                },
-                {
                     "organization": "org.scalameta",
                     "name": "trees_2.12",
                     "version": "4.13.2",
@@ -1575,40 +1284,6 @@
                             "name": "trees_2.12",
                             "classifier": "sources",
                             "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\trees_2.12\\4.13.2\\trees_2.12-4.13.2-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.apache.sshd",
-                    "name": "sshd-osgi",
-                    "version": "2.7.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "sshd-osgi",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\sshd\\sshd-osgi\\2.7.0\\sshd-osgi-2.7.0.jar"
-                        },
-                        {
-                            "name": "sshd-osgi",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\apache\\sshd\\sshd-osgi\\2.7.0\\sshd-osgi-2.7.0-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "net.i2p.crypto",
-                    "name": "eddsa",
-                    "version": "0.3.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "eddsa",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\net\\i2p\\crypto\\eddsa\\0.3.0\\eddsa-0.3.0.jar"
-                        },
-                        {
-                            "name": "eddsa",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\net\\i2p\\crypto\\eddsa\\0.3.0\\eddsa-0.3.0-sources.jar"
                         }
                     ]
                 },
@@ -1643,23 +1318,6 @@
                             "name": "io_2.12",
                             "classifier": "sources",
                             "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\scalameta\\io_2.12\\4.13.2\\io_2.12-4.13.2-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.slf4j",
-                    "name": "jcl-over-slf4j",
-                    "version": "1.7.30",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "jcl-over-slf4j",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\slf4j\\jcl-over-slf4j\\1.7.30\\jcl-over-slf4j-1.7.30.jar"
-                        },
-                        {
-                            "name": "jcl-over-slf4j",
-                            "classifier": "sources",
-                            "path": "C:\\Users\\Chef\\AppData\\Local\\Coursier\\Cache\\v1\\https\\repo1.maven.org\\maven2\\org\\slf4j\\jcl-over-slf4j\\1.7.30\\jcl-over-slf4j-1.7.30-sources.jar"
                         }
                     ]
                 },

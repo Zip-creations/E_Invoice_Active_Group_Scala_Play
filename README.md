@@ -2,6 +2,12 @@
 
 Dieses Projekt entsteht im Rahmen eines Bachelorprojektes in Kooperation mit [Active Group](https://www.active-group.de/)
 
+Anforderungen: 
+- Scala ver. 3.7.1
+- Play ver. 3.0.7
+- Scala.js ver. 1.19.0
+- sbt ver. 1.10.9
+
 Dieses Projekt verwendet den Validator den [OpenXRechnungToolbox](https://github.com/jcthiele/OpenXRechnungToolbox) "as is". Lizenz der Toolbox: [GPLv3](Toolbox/license.txt)
 
 Benutzung des E-Rechung Tools:
@@ -18,7 +24,7 @@ XML (Rechnung): `output/xml/eInvoice_"InvoiceNumber".xml` [Directory](output/xml
 PDF (Rechnung): `output/pdf/eInvoice_"InvoiceNumber".pdf`[Directory](output/pdf/)\
 HTML (Report): `app/views/validation_reports/eInvoice_"InvoiceNumber"_validation.html` [Directory](app/views/validation_reports/)
 
-Eine Demonstration des Tools kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden:
+Eine Demonstration des Tools kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden, nachdem eine Stundenabrechnung hinzugefügt wurde:
 
 document.querySelector('[name="InvoiceNumber"]').value = "lalatest123";\
 document.querySelector('[name="SellerName"]').value = "seller name";\
