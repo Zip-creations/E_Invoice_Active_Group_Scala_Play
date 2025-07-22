@@ -7,12 +7,17 @@ Anforderungen:
 - Scala ver. 3.7.1
 - sbt ver. 1.10.9
 - Play Framework ver. 3.0.7
+
+Genutzte Bibliotheken:
 - Scala.js ver. 1.19.0
+- Cats ver. 2.13.0
 - MUnit ver. 1.1.1
 
-Dieses Tool ist unter [BSD 3-Clause](LICENSE.txt) lizensiert.
+Dieses Projekt ist unter [BSD 3-Clause](LICENSE.txt) lizensiert.
 
 Dieses Projekt verwendet den Validator den [OpenXRechnungToolbox](https://github.com/jcthiele/OpenXRechnungToolbox) "as is". Lizenz der Toolbox: [GPLv3](Toolbox/license.txt)
+
+Das Tool wurde unter Windows 11 und Unbuntu 24.04.2 getestet.
 
 Benutzung des E-Rechung Tools:
 
@@ -30,7 +35,8 @@ XML (Rechnung): `output/xml/eInvoice_"InvoiceNumber".xml` [Directory](output/xml
 PDF (Rechnung): `output/pdf/eInvoice_"InvoiceNumber".pdf`[Directory](output/pdf/)\
 HTML (Report): `app/views/validation_reports/eInvoice_"InvoiceNumber"_validation.html` [Directory](app/views/validation_reports/)
 
-Eine Demonstration des Tools kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden, nachdem eine Stundenabrechnung hinzugefügt wurde:
+Eine Demonstration des Tools kann mit diesen Eingaben erzeugt werden, wenn sie über die Konsole des Browsers eingefügt werden, nachdem eine Stundenabrechnung hinzugefügt wurde:\
+(Hinweis: Aktuell muss noch einmal in den Umsatzsteuersatz oder die Steuerkategorie einer Position hinein- und wieder hinausgeklickt werden ("unfocus" ist entscheidend), um die Gruppierung der Positionen zu aktualisieren)
 
 document.querySelector('[name="InvoiceNumber"]').value = "lalatest123";\
 document.querySelector('[name="SellerName"]').value = "seller name";\
